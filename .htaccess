@@ -56,6 +56,12 @@ Options -Indexes
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
+	# Redirect static .html requests under /member/ or /admin/ to /preview/
+	RewriteRule ^member/(.*\.html)$ /preview/$1 [L,NC,R=301]
+	RewriteRule ^admin/(.*\.html)$ /preview/admin/$1 [L,NC,R=301]
+	RewriteRule ^member_login\.html$ /preview/member_login.html [L,NC,R=301]
+	RewriteRule ^admin_login\.html$ /preview/admin_login.html [L,NC,R=301]
+
 	# Checks to see if the user is attempting to access a valid file,
 	# such as an image or css document, if this isn't true it sends the
 	# request to the front controller, index.php
