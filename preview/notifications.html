@@ -5,432 +5,486 @@
 <head>
 
 
+
     <meta charset="utf-8" />
-    <title>EAF Connect | Member Dashboard</title>
+    <title>Notifications</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="shortcut icon" href="../images/logo5.png">
-    
-    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Core Styles -->
     <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
     <script src="../assets2/js/layout.js"></script>
     <link href="../assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <link href="../assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="../assets2/css/eaf-revamp.css?v=3.7" rel="stylesheet" type="text/css" />
-
     <style>
-        /* Legacy backward compatibility helpers */
-        .chapter-performance {
-            background: #fff;
-            border-radius: var(--eaf-radius-xl, 20px);
-            padding: 22px;
-            border: 1px solid var(--eaf-border-subtle, #edf2f7);
-            box-shadow: var(--eaf-shadow-sm, 0 2px 6px rgba(15, 23, 42, 0.04));
-            margin-bottom: 24px;
+        /* ========================================================= MAIN ROW SPACING ========================================================= */
+        .notification-row {
+            --bs-gutter-x: 14px;
+            --bs-gutter-y: 14px;
         }
 
-        .chapter-performance-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 18px;
-        }
-
-        .chapter-performance-header .btn {
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .chapter-heading {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .chapter-heading-icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(15, 59, 104, 0.08);
-            color: #0F3B68;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .chapter-heading h4 {
-            margin: 0;
-            font-size: 17px;
-            font-weight: 700;
-            color: #0F3B68;
-        }
-
-        .chapter-heading span {
-            font-size: 12px;
-            color: #64748B;
-        }
-
-        .chapter-kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 14px;
-        }
-
-        .chapter-kpi-card {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 14px;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.25s ease;
-        }
-
-        .chapter-kpi-card:hover {
+        /* ========================================================= NOTIFICATION SECTION ========================================================= */
+        .notification-section {
+            height: 100%;
+            padding: 12px;
             background: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(15, 59, 104, 0.08);
-            border-color: #CBD5E1;
-        }
-
-        .chapter-kpi-icon {
-            width: 42px;
-            height: 42px;
+            border: 1px solid #e8edf0;
             border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .04);
+        }
+
+        /* ========================================================= SECTION TITLE ========================================================= */
+        .section-title {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .members-kpi .chapter-kpi-icon { background: rgba(37, 99, 235, 0.1); color: #2563EB; }
-        .connects-kpi .chapter-kpi-icon { background: rgba(217, 119, 6, 0.1); color: #D97706; }
-        .referral-kpi .chapter-kpi-icon { background: rgba(5, 150, 105, 0.1); color: #059669; }
-        .meeting-kpi .chapter-kpi-icon { background: rgba(124, 58, 237, 0.1); color: #7C3AED; }
-        .visitor-kpi .chapter-kpi-icon { background: rgba(13, 148, 136, 0.1); color: #0D9488; }
-
-        .chapter-kpi-content span {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            color: #64748B;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .chapter-kpi-content strong {
-            display: block;
-            font-size: 18px;
-            font-weight: 800;
-            color: #0F172A;
-        }
-
-        /* Reports Quick Cards */
-        .eaf-report-tile {
-            background: #ffffff;
-            border: 1px solid #E2E8F0;
-            border-radius: 14px;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none !important;
-            transition: all 0.25s ease;
-            margin-bottom: 12px;
-        }
-
-        .eaf-report-tile:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(15, 59, 104, 0.08);
-            border-color: #0F3B68;
-        }
-
-        .eaf-report-tile-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .eaf-report-tile-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .eaf-report-tile h6 {
-            margin: 0;
-            font-size: 13px;
-            font-weight: 700;
-            color: #0F172A;
-        }
-
-        .eaf-report-tile span {
-            font-size: 11px;
-            color: #64748B;
-        }
-
-        /* Ads Campaign Slider */
-        .ads-campaign-wrapper {
-            background: #ffffff;
-            border-radius: 20px;
-            border: 1px solid #E2E8F0;
-            padding: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
-        }
-
-        .ads-campaign-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            padding: 0 4px;
-        }
-
-        .ads-campaign-header h5 {
-            margin: 0;
+            gap: 7px;
+            margin: 0 0 10px;
+            padding: 0 2px 8px;
+            border-bottom: 1px solid #edf0f2;
+            color: #34414b;
             font-size: 15px;
             font-weight: 700;
-            color: #0F3B68;
+            line-height: 1.2;
+        }
+
+        .section-title i {
+            font-size: 14px;
+        }
+
+        /* UNREAD TITLE */
+        .unread-title {
+            color: #c2291c;
+        }
+
+        /* READ TITLE */
+        .read-title {
+            color: #5f6b74;
+        }
+
+        /* ========================================================= NOTIFICATION CONTAINER ========================================================= */
+        .notification-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* ========================================================= NOTIFICATION CARD ========================================================= */
+        .notification-card {
             display: flex;
             align-items: center;
-            gap: 8px;
+            width: 100%;
+            min-height: 64px;
+            padding: 7px 8px;
+            background: #ffffff;
+            border: 1px solid #e9eef1;
+            border-left: 3px solid transparent;
+            border-radius: 8px;
+            box-shadow: none;
+            transition: transform .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
         }
 
-        .ads-live-badge {
+        /* CARD HOVER */
+        .notification-card:hover {
+            transform: translateX(2px);
+            background: #fafcfd;
+            border-color: #dfe6ea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
+        }
+
+        /* ========================================================= UNREAD CARD ========================================================= */
+        .notification-card.unread {
+            background: #fffafa;
+            border-left: 3px solid #fac532;
+        }
+
+        .notification-card.unread:hover {
+            background: #fff7f7;
+            border-left-color: #fac532;
+        }
+
+        /* ========================================================= DATE SECTION ========================================================= */
+        .notif-date {
+            width: 58px;
+            min-width: 58px;
+            margin-right: 10px;
+            padding-right: 9px;
+            text-align: center;
+            border-right: 1px solid #e8edef;
+        }
+
+        /* DAY */
+        .notif-date .day {
+            display: block;
+            color: #29343d;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* MONTH */
+        .notif-date .month {
+            display: block;
+            margin-top: 4px;
+            color: #7f8b94;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        /* YEAR / SMALL TEXT */
+        .notif-date small {
+            display: block;
+            margin-top: 3px;
+            color: #a8b0b6;
+            font-size: 9px;
+            line-height: 1;
+        }
+
+        /* ========================================================= NOTIFICATION CONTENT ========================================================= */
+        .notif-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* ========================================================= NOTIFICATION MESSAGE ========================================================= */
+        .notif-message {
+            margin: 0;
+            color: #3c474f;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ========================================================= STATUS BADGE ========================================================= */
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: #FEE2E2;
-            color: #DC2626;
-            font-size: 10px;
-            font-weight: 800;
+            gap: 4px;
+            margin-top: 4px;
             padding: 3px 8px;
-            border-radius: 50px;
-            letter-spacing: 0.5px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.3;
         }
 
-        .ads-live-badge span {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #DC2626;
-            animation: pulse-dot 1.5s infinite;
+        /* UNREAD BADGE */
+        .status-badge.unread {
+            background: rgba(194, 41, 28, .09);
+            color: #c2291c;
         }
 
-        @keyframes pulse-dot {
-            0% { transform: scale(0.95); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.5; }
-            100% { transform: scale(0.95); opacity: 1; }
+        /* READ BADGE */
+        .status-badge.read {
+            background: #f0f2f4;
+            color: #68737c;
         }
 
-        .ads-banner {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            width: 100%;
-            background: #0B192C;
+        /* ========================================================= ACTION AREA ========================================================= */
+        .notif-action {
+            flex: 0 0 auto;
+            margin-left: 8px;
+        }
+
+        /* ========================================================= DELETE BUTTON ========================================================= */
+        .btn-delete {
+            width: 29px;
+            height: 29px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
-            border: 1px solid rgba(226, 232, 240, 0.9);
+            padding: 0;
+            border: 0;
+            border-radius: 7px;
+            background: #fff1f1;
+            color: #e74c3c;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
         }
 
-        .ads-banner img {
-            width: 100%;
-            height: auto;
-            max-height: 480px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-            border-radius: 14px;
-            transition: transform 0.4s ease;
-        }
-
-        .ads-carousel:hover .ads-banner img {
-            transform: scale(1.006);
-        }
-
-        .ads-banner-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(11, 25, 44, 0.88) 100%);
-            display: flex;
-            align-items: flex-end;
-            padding: 16px 22px;
+        /* DELETE HOVER */
+        .btn-delete:hover {
+            background: #e74c3c;
             color: #ffffff;
-            pointer-events: none;
-            border-bottom-left-radius: 14px;
-            border-bottom-right-radius: 14px;
+            transform: scale(1.04);
         }
 
-        .ads-banner-overlay h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        /* ========================================================= READ SECTION ========================================================= */
+        .read-section .notification-card {
+            opacity: .92;
+            border-left-color: #dfe4e7;
         }
 
-        .ads-banner-overlay p {
-            margin: 4px 0 0;
-            font-size: 12px;
-            color: #E2E8F0;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-        }
-
-        .ads-carousel .carousel-control-prev,
-        .ads-carousel .carousel-control-next {
-            width: 40px;
-            height: 40px;
-            background: rgba(15, 59, 104, 0.75);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            opacity: 0.85;
-            transition: all 0.2s ease;
-        }
-
-        .ads-carousel .carousel-control-prev { left: 14px; }
-        .ads-carousel .carousel-control-next { right: 14px; }
-
-        .ads-carousel .carousel-control-prev:hover,
-        .ads-carousel .carousel-control-next:hover {
-            background: #0F3B68;
+        .read-section .notification-card:hover {
             opacity: 1;
-            transform: translateY(-50%) scale(1.08);
+            border-left-color: #9ca8b0;
         }
 
+        /* ========================================================= SMALL EMPTY MESSAGE ========================================================= */
+        .empty-mini {
+            padding: 20px 10px;
+            border: 1px dashed #dfe5e8;
+            border-radius: 7px;
+            color: #98a2a9;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* ========================================================= PAGINATION ========================================================= */
+        .notification-section nav {
+            margin-top: 8px !important;
+        }
+
+        .notification-section .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            margin: 0;
+        }
+
+        /* PAGINATION ITEM */
+        .notification-section .page-item {
+            margin: 0;
+        }
+
+        /* PAGINATION LINK */
+        .notification-section .page-link {
+            min-width: 27px;
+            height: 27px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 7px;
+            border: 1px solid #e1e6e9;
+            border-radius: 5px !important;
+            background: #ffffff;
+            color: #68737c;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            box-shadow: none;
+            transition: background .2s ease, color .2s ease, border-color .2s ease;
+        }
+
+        /* PAGE HOVER */
+        .notification-section .page-link:hover {
+            background: #f2f6f8;
+            border-color: #cfd8de;
+            color: #0a3d61;
+        }
+
+        /* ACTIVE */
+        .notification-section .page-item.active .page-link {
+            background: #0a3d61;
+            border-color: #0a3d61;
+            color: #ffffff;
+        }
+
+        /* DISABLED */
+        .notification-section .page-item.disabled .page-link {
+            background: #f7f8f9;
+            border-color: #e8ecee;
+            color: #b3bbc0;
+            pointer-events: none;
+        }
+
+        /* ========================================================= GLOBAL EMPTY STATE ========================================================= */
+        .empty-state {
+            padding: 35px 15px;
+            color: #9aa4ab;
+            text-align: center;
+        }
+
+        .empty-state i {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 32px;
+        }
+
+        .empty-state p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        /* ========================================================= BOOTSTRAP ROW GAP OVERRIDE ========================================================= */
+        .row.g-4.align-items-stretch {
+            --bs-gutter-x: 14px;
+            --bs-gutter-y: 14px;
+        }
+
+        /* ========================================================= TABLET ========================================================= */
         @media (max-width: 991px) {
-            .chapter-kpi-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .notification-section {
+                padding: 10px;
+            }
+
+            .notification-container {
+                gap: 5px;
+            }
+
+            .section-title {
+                margin-bottom: 8px;
+            }
+
+            .notification-card {
+                min-height: 61px;
             }
         }
 
-        @media (max-width: 576px) {
-            .chapter-kpi-grid {
-                grid-template-columns: 1fr;
+        /* ========================================================= MOBILE ========================================================= */
+        @media (max-width: 575px) {
+            .notification-section {
+                padding: 9px;
+                border-radius: 8px;
             }
 
-            .chapter-performance {
-                padding: 16px 14px;
-                border-radius: 16px;
+            /* TITLE */
+            .section-title {
+                gap: 6px;
+                margin-bottom: 8px;
+                padding-bottom: 7px;
+                font-size: 14px;
             }
 
-            .chapter-performance-header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-                margin-bottom: 14px;
+            .section-title i {
+                font-size: 13px;
             }
 
-            .chapter-heading {
-                gap: 10px;
+            /* CARD */
+            .notification-card {
+                min-height: 57px;
+                padding: 6px;
+                border-radius: 7px;
             }
 
-            .chapter-heading-icon {
-                width: 38px;
-                height: 38px;
+            /* DATE */
+            .notif-date {
+                width: 48px;
+                min-width: 48px;
+                margin-right: 8px;
+                padding-right: 7px;
+            }
+
+            .notif-date .day {
                 font-size: 18px;
-                border-radius: 10px;
-                flex-shrink: 0;
             }
 
-            .chapter-heading h4 {
-                font-size: 15px;
-                line-height: 1.3;
+            .notif-date .month {
+                font-size: 9px;
             }
 
-            .chapter-heading span {
+            .notif-date small {
+                font-size: 8px;
+            }
+
+            /* MESSAGE */
+            .notif-message {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            /* BADGE */
+            .status-badge {
+                margin-top: 3px;
+                padding: 3px 7px;
+                font-size: 9px;
+            }
+
+            /* ACTION */
+            .notif-action {
+                margin-left: 6px;
+            }
+
+            /* DELETE */
+            .btn-delete {
+                width: 26px;
+                height: 26px;
+                font-size: 10px;
+            }
+
+            /* EMPTY */
+            .empty-mini {
+                padding: 16px 8px;
                 font-size: 11px;
             }
 
-            .chapter-performance-header .btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                display: inline-flex;
-                align-items: center;
-                padding: 8px 14px;
-                font-size: 12px;
-                font-weight: 600;
-                white-space: nowrap;
+            /* PAGINATION */
+            .notification-section .page-link {
+                min-width: 25px;
+                height: 25px;
+                padding: 2px 6px;
+                font-size: 9px;
             }
 
-            .eaf-growth-card {
-                padding: 16px 12px;
+            /* GLOBAL EMPTY */
+            .empty-state {
+                padding: 30px 10px;
             }
 
-            .eaf-growth-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .empty-state i {
+                font-size: 28px;
             }
 
-            .eaf-growth-header h5 {
-                font-size: 14px;
-                line-height: 1.35;
+            .empty-state p {
+                font-size: 11px;
+            }
+        }
+
+        /* ========================================================= SMALL MOBILE ========================================================= */
+        @media (max-width: 380px) {
+            .notification-section {
+                padding: 8px;
             }
 
-            .eaf-chart-metric-tile {
-                padding: 10px 10px;
-                border-radius: 12px;
+            .section-title {
+                font-size: 13px;
             }
 
-            .eaf-chart-metric-header {
-                gap: 4px;
-                margin-bottom: 6px;
-                min-height: 28px;
+            .notification-card {
+                min-height: 54px;
+                padding: 5px;
             }
 
-            .eaf-chart-metric-title {
-                font-size: 9.5px;
-                letter-spacing: 0.2px;
-                line-height: 1.25;
-                flex: 1;
+            .notif-date {
+                width: 43px;
+                min-width: 43px;
+                margin-right: 7px;
+                padding-right: 6px;
             }
 
-            .eaf-chart-metric-badge {
-                font-size: 8.5px !important;
-                padding: 2px 5px !important;
+            .notif-date .day {
+                font-size: 17px;
             }
 
-            .eaf-chart-metric-value {
-                font-size: 14.5px;
-                font-weight: 800;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+            .notif-date .month {
+                font-size: 8px;
+            }
+
+            .notif-message {
+                font-size: 11px;
+            }
+
+            .status-badge {
+                font-size: 8px;
+            }
+
+            .btn-delete {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
 </head>
 
 <body data-sidebar="colored">
+
     <!-- Begin page -->
     <div id="layout-wrapper">
         
@@ -454,7 +508,7 @@
             <!-- KVV Member Profile Header Widget -->
             <div class="kvv-header-user-block">
                 <a href="profile.html">
-                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                    <img src="../writable/stage_preview/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                          alt="Harri Kumar" 
                          class="kvv-header-avatar"
                          onerror="this.onerror=null; this.src='../images/empty.png';">
@@ -488,7 +542,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
                     <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
-                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                        <img src="../writable/stage_preview/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
                              class="rounded-circle shadow-sm"
                              alt="Profile Image"
                              width="64" height="64"
@@ -508,7 +562,7 @@
                             <span>Account Settings</span>
                         </a>
                         <hr class="my-2">
-                        <a href="member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                        <a href="../member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
                             <i class="ri-logout-box-r-line fs-5 me-2"></i>
                             <span>Logout</span>
                         </a>
@@ -566,8 +620,8 @@
         <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
             <ul class="metismenu list-unstyled" id="side-menu">
                 <!-- 1. Dashboard -->
-                <li class="mm-active">
-                    <a href="dashboard.html" class="waves-effect active">
+                <li class="">
+                    <a href="dashboard.html" class="waves-effect ">
                         <i class="ri-dashboard-3-line"></i>
                         <span>Dashboard</span>
                     </a>
@@ -662,8 +716,8 @@
                 </li>
 
                 <!-- 13. Notifications -->
-                <li class="">
-                    <a href="notifications.html" class="waves-effect ">
+                <li class="mm-active">
+                    <a href="notifications.html" class="waves-effect active">
                         <i class="ri-notification-3-line"></i>
                         <span>Notifications</span>
                     </a>
@@ -690,7 +744,7 @@
 
                 <!-- 16. Logout (Red Accent at bottom) -->
                 <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
-                    <a href="member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                    <a href="../member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
                         <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
                         <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
                     </a>
@@ -701,341 +755,135 @@
 </div>
 <!-- Left Sidebar End -->
 
-        
         <div class="main-content">
             <div class="page-content">
-                <div class="container-fluid py-2">
 
-                    <!-- Flash Message -->
-                                            <div class="alert alert-info alert-dismissible fade show rounded-3 mb-3 border-0 shadow-sm" role="alert">
-                            <i class="ri-information-line me-2"></i>
-                            <strong>No Meeting Created</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    
-                    
-                    <!-- ==========================================================================
-                         1. TOP PROMOTIONAL AD BANNER CAROUSEL (KVV BENCHMARK)
-                         ========================================================================== -->
-                    
-                    <div class="kvv-banner-wrapper">
-                        <button class="kvv-carousel-arrow" type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide="prev" aria-label="Previous">
-                            ‹
-                        </button>
+                <h4 class="title pt-2 mb-4">Notifications</h4>
 
-                        <div id="kvvAdsCarousel" class="carousel slide kvv-carousel-container" data-bs-ride="carousel" data-bs-interval="5000">
-                            <div class="carousel-inner">
-                                                                                                            <div class="carousel-item active">
-                                            <div class="kvv-banner-card">
-                                                <img src="../uploads/ads/1791302684_b76138bd7c5b0bf831c4.png" 
-                                                     alt="Member Spotlight" 
-                                                     onerror="this.onerror=null; this.src='../images/sample-banner.png';">
-                                            </div>
-                                        </div>
-                                                                                                </div>
-                        </div>
+                <div class="notification-wrapper">
 
-                        <button class="kvv-carousel-arrow" type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide="next" aria-label="Next">
-                            ›
-                        </button>
-                    </div>
+                    <div class="row g-4 align-items-stretch">
 
-                    <!-- ==========================================================================
-                         2. HERO QUICK ACTION SLIPS (EAF BENCHMARK: 4 CLEAN ACTION CARDS)
-                         ========================================================================== -->
-                    <div class="kvv-quick-actions-grid">
-                        <!-- Action 1: Give Connect -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_new_connects==='function'){add_new_connects();}else{window.location.href='connect.html';}">
-                            <span class="kvv-action-slip-title">Give Connect</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
-                        </div>
-
-                        <!-- Action 2: Received Connects -->
-                        <a href="connect.html" class="kvv-action-slip-card">
-                            <span class="kvv-action-slip-title">Received Connects</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
-                        </a>
-
-                        <!-- Action 3: F2F Meeting -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_f2f==='function'){add_f2f();}else{window.location.href='f2f.html';}">
-                            <span class="kvv-action-slip-title">F2F Meeting</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
-                        </div>
-
-                        <!-- Action 4: MITB (Closed Business) -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_mitb==='function'){add_mitb();}else{window.location.href='mitb.html';}">
-                            <span class="kvv-action-slip-title">MITB (Closed Business)</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
-                        </div>
-                    </div>
-
-                    <!-- ==========================================================================
-                         3. CORE PERFORMANCE ROW: PROGRESS THIS WEEK + NEXT MEETING (EAF BENCHMARK)
-                         ========================================================================== -->
-                    <div class="row g-3 mb-4">
-                        <!-- Column 1: Your Business Progress This Week (2x2 Grid) -->
+                        <!-- ================= UNREAD ================= -->
                         <div class="col-lg-6 col-md-12">
-                            <div class="kvv-widget-box">
-                                <h5 class="kvv-widget-title">Your Business Progress This Week</h5>
-                                <div class="kvv-progress-2x2-grid">
-                                    <!-- Connects Received -->
-                                    <div class="kvv-progress-cell">
-                                        <div class="kvv-progress-cell-top">
-                                            <span class="kvv-progress-number">0</span>
-                                            <span class="kvv-arrow-box arrow-inbound">↙</span>
-                                        </div>
-                                        <span class="kvv-progress-caption">Connects Received</span>
-                                    </div>
 
-                                    <!-- Connects Given -->
-                                    <div class="kvv-progress-cell">
-                                        <div class="kvv-progress-cell-top">
-                                            <span class="kvv-progress-number">0</span>
-                                            <span class="kvv-arrow-box arrow-outbound">↗</span>
-                                        </div>
-                                        <span class="kvv-progress-caption">Connects Given</span>
-                                    </div>
+                            <div class="notification-section">
 
-                                    <!-- Business Received -->
-                                    <div class="kvv-progress-cell">
-                                        <div class="kvv-progress-cell-top">
-                                            <span class="kvv-progress-number"><span style="color:#0F3B68;font-size:18px;margin-right:2px;font-weight:700;">₹</span>0</span>
-                                            <span class="kvv-arrow-box arrow-inbound">↙</span>
-                                        </div>
-                                        <span class="kvv-progress-caption">Business Received</span>
-                                    </div>
+                                <h5 class="section-title unread-title">
+                                    <i class="fa fa-bell"></i> Unread Notifications
+                                </h5>
 
-                                    <!-- Business Given -->
-                                    <div class="kvv-progress-cell">
-                                        <div class="kvv-progress-cell-top">
-                                            <span class="kvv-progress-number"><span style="color:#0F3B68;font-size:18px;margin-right:2px;font-weight:700;">₹</span>0</span>
-                                            <span class="kvv-arrow-box arrow-outbound">↗</span>
-                                        </div>
-                                        <span class="kvv-progress-caption">Business Given</span>
-                                    </div>
-                                </div>
+                                <div class="notification-container">
+                                                                            <div class="empty-mini">No unread notifications</div>
+                                                                                                        </div>
+
                             </div>
+
                         </div>
 
-                        <!-- Column 2: Next Meeting (KVV Benchmark) -->
+
+                        <!-- ================= READ ================= -->
                         <div class="col-lg-6 col-md-12">
-                            <div class="kvv-widget-box d-flex flex-column justify-content-between">
-                                <div>
-                                    <div class="kvv-next-meeting-badge">Next Meeting</div>
-                                                                        <div class="kvv-meeting-rows">
-                                        <div class="kvv-meeting-row-inline">
-                                            <div class="kvv-meeting-point">
-                                                <i class="ri-calendar-2-fill"></i>
-                                                <span>Thursday, 22 October</span>
-                                            </div>
-                                            <div class="kvv-meeting-point">
-                                                <i class="ri-map-pin-2-fill"></i>
-                                                <span>Kings Club, Nagarbhavi</span>
-                                            </div>
-                                        </div>
-                                        <div class="kvv-meeting-row-inline">
-                                            <div class="kvv-meeting-point">
-                                                <i class="ri-time-fill"></i>
-                                                <span>07:30 AM to 9:30 AM</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="notification-section">
+                                <h5 class="section-title read-title">
+                                    <i class="fa fa-check-circle"></i> Read Notifications
+                                </h5>
+                                <div class="notification-container read-section">
+                                                                                                                        
+<div class="notification-card ">
+
+    <div class="notif-date">
+        <div class="day">02</div>
+        <div class="month">Oct 2026</div>
+        <small>02:28 PM</small>
+    </div>
+
+    <div class="notif-content">
+        <div class="notif-message">
+            <h6> New 121 Received</h6>
+            Ajay R sent you a new 121 .        </div>
+
+        <div class="notif-footer">
+                            <span   onclick="readNotification('NOTI0034', this)" class="status-badge read">Read</span>
+                    </div>
+    </div>
+
+    <div class="notif-action">
+        <button class="btn-delete"
+            onclick="readNotification('NOTI0034')">
+            <i class="fa fa-pen"></i>
+        </button>
+    </div>
+
+</div>
+
+                                                                                    
+<div class="notification-card ">
+
+    <div class="notif-date">
+        <div class="day">01</div>
+        <div class="month">Oct 2026</div>
+        <small>09:38 AM</small>
+    </div>
+
+    <div class="notif-content">
+        <div class="notif-message">
+            <h6> New Referral Received</h6>
+            Keerthi Shree K sent you a new referral.        </div>
+
+        <div class="notif-footer">
+                            <span   onclick="readNotification('NOTI0033', this)" class="status-badge read">Read</span>
+                    </div>
+    </div>
+
+    <div class="notif-action">
+        <button class="btn-delete"
+            onclick="readNotification('NOTI0033')">
+            <i class="fa fa-pen"></i>
+        </button>
+    </div>
+
+</div>
+
+                                                                                    
+<div class="notification-card ">
+
+    <div class="notif-date">
+        <div class="day">01</div>
+        <div class="month">Oct 2026</div>
+        <small>09:13 AM</small>
+    </div>
+
+    <div class="notif-content">
+        <div class="notif-message">
+            <h6> New Referral Received</h6>
+            Harri Kumar sent you a new referral.        </div>
+
+        <div class="notif-footer">
+                            <span   onclick="readNotification('NOTI0031', this)" class="status-badge read">Read</span>
+                    </div>
+    </div>
+
+    <div class="notif-action">
+        <button class="btn-delete"
+            onclick="readNotification('NOTI0031')">
+            <i class="fa fa-pen"></i>
+        </button>
+    </div>
+
+</div>
+
+                                                                                                            </div>
                                                             </div>
                         </div>
                     </div>
 
-                    <!-- ==========================================================================
-                         4. BNI CONNECT BENCHMARK: INTERACTIVE SPLINE GROWTH CHART & METRICS
-                         ========================================================================== -->
-                    <div class="eaf-growth-card">
-                        <div class="eaf-growth-header">
-                            <h5>
-                                <i class="ri-line-chart-line text-warning"></i>
-                                Networking Revenue Growth & Business Exchanged
-                            </h5>
-                            <div class="eaf-time-filter-wrap">
-                                <a href="dashboard.html" class="eaf-time-chip ">15D</a>
-                                <a href="dashboard.html" class="eaf-time-chip ">1M</a>
-                                <a href="dashboard.html" class="eaf-time-chip active">6M</a>
-                                <a href="dashboard.html" class="eaf-time-chip ">All</a>
-                            </div>
-                        </div>
-
-                        <!-- Canvas for Spline Curve -->
-                        <div class="eaf-chart-container mb-3">
-                            <canvas id="eafSplineGrowthChart" height="95"></canvas>
-                        </div>
-
-                        <!-- BNI Linked Metric Selector Cards -->
-                        <div class="row g-2 pt-2 border-top border-light eaf-growth-metrics-row">
-                            <!-- Revenue Received -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">Business Received</span>
-                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill eaf-chart-metric-badge">↙ Inbound</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value text-success">
-                                        ₹ 206,000.00                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Revenue Given -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">Business Given</span>
-                                        <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill eaf-chart-metric-badge">↗ Outbound</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value" style="color:#0F3B68;">
-                                        ₹ 236,000.00                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Referrals Given -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">Referrals Given</span>
-                                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill eaf-chart-metric-badge">↗ Connects</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value text-primary">
-                                        11                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 1-to-1 Meetings -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">1-to-1 Conducted</span>
-                                        <span class="badge bg-purple bg-opacity-10 text-purple rounded-pill eaf-chart-metric-badge" style="background:rgba(124,58,237,.1);color:#7C3AED;">🤝 F2F</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value" style="color:#7C3AED;">
-                                        1                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ==========================================================================
-                         5. CHAPTER OVERVIEW & QUICK REPORTS
-                         ========================================================================== -->
-                    <div class="chapter-performance">
-                        <div class="chapter-performance-header">
-                            <div class="chapter-heading">
-                                <div class="chapter-heading-icon">
-                                    <i class="ri-community-line"></i>
-                                </div>
-                                <div>
-                                    <h4>My Chapter Performance: Chapter 2</h4>
-                                    <span>Live activity overview across chapter members</span>
-                                </div>
-                            </div>
-                            <a href="mychapter.html" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                                View Chapter Directory <i class="ri-arrow-right-s-line"></i>
-                            </a>
-                        </div>
-
-                        <!-- KPI Grid -->
-                        <div class="chapter-kpi-grid mb-3">
-                            <div class="chapter-kpi-card members-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-group-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Total Members</span>
-                                    <strong>24</strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card connects-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-money-rupee-circle-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Chapter MITB</span>
-                                    <strong>₹442,000.00</strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card referral-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-shake-hands-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Total Connects</span>
-                                    <strong>129</strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card meeting-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-user-voice-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>F2F Initiated</span>
-                                    <strong>11</strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card visitor-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-user-add-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Total Visitors</span>
-                                    <strong>36</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Reports Shortcuts -->
-                        <div class="row g-2 pt-2 border-top border-light">
-                            <div class="col-md-4">
-                                <a href="reports/weekly_slips.html" class="eaf-report-tile">
-                                    <div class="eaf-report-tile-left">
-                                        <div class="eaf-report-tile-icon bg-primary bg-opacity-10 text-primary">
-                                            <i class="ri-printer-line"></i>
-                                        </div>
-                                        <div>
-                                            <h6>Print Weekly Slips</h6>
-                                            <span>Export physical slip summary</span>
-                                        </div>
-                                    </div>
-                                    <i class="ri-arrow-right-s-line text-muted"></i>
-                                </a>
-                            </div>
-
-                            <div class="col-md-4">
-                                <a href="received_connects_report.html" class="eaf-report-tile">
-                                    <div class="eaf-report-tile-left">
-                                        <div class="eaf-report-tile-icon bg-success bg-opacity-10 text-success">
-                                            <i class="ri-file-list-3-line"></i>
-                                        </div>
-                                        <div>
-                                            <h6>Received Connects Report</h6>
-                                            <span>Conversion tracking & history</span>
-                                        </div>
-                                    </div>
-                                    <i class="ri-arrow-right-s-line text-muted"></i>
-                                </a>
-                            </div>
-
-                            <div class="col-md-4">
-                                <a href="my_participation_report.html" class="eaf-report-tile">
-                                    <div class="eaf-report-tile-left">
-                                        <div class="eaf-report-tile-icon bg-warning bg-opacity-10 text-warning">
-                                            <i class="ri-pie-chart-2-line"></i>
-                                        </div>
-                                        <div>
-                                            <h6>Participation Report</h6>
-                                            <span>Attendance & slip compliance</span>
-                                        </div>
-                                    </div>
-                                    <i class="ri-arrow-right-s-line text-muted"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
+                    <!-- GLOBAL EMPTY -->
+                    
                 </div>
-            </div>
 
-            <!-- Footer (Includes Mobile Bottom Navigation Bar) -->
+            </div>
+            <!-- End Page-content -->
             
         <footer class="footer">
             <div class="container-fluid">
@@ -1056,7 +904,7 @@
      ========================================================================== -->
 <nav class="eaf-bottom-nav-bar d-lg-none" id="eafBottomNav" aria-label="Mobile Navigation">
     <!-- 1. Home / Dashboard -->
-    <a href="dashboard.html" class="eaf-nav-tab active" id="bottomNavHome">
+    <a href="dashboard.html" class="eaf-nav-tab " id="bottomNavHome">
         <i class="ri-dashboard-3-line"></i>
         <span>Home</span>
     </a>
@@ -1169,25 +1017,25 @@ function handleQuickSlip(type) {
             if (typeof add_new_connects === 'function') {
                 add_new_connects();
             } else {
-                window.location.href = "connect.html";
+                window.location.href = "../member/connect.html";
             }
         } else if (type === 'mitb') {
             if (typeof add_mitb === 'function') {
                 add_mitb();
             } else {
-                window.location.href = "mitb.html";
+                window.location.href = "../member/mitb.html";
             }
         } else if (type === 'f2f') {
             if (typeof add_f2f === 'function') {
                 add_f2f();
             } else {
-                window.location.href = "f2f.html";
+                window.location.href = "../member/f2f.html";
             }
         } else if (type === 'visitor') {
             if (typeof add_vt === 'function') {
                 add_vt();
             } else {
-                window.location.href = "visitor.html";
+                window.location.href = "../member/visitor.html";
             }
         }
     }, 300);
@@ -1198,1241 +1046,49 @@ function handleQuickSlip(type) {
         
 
         </div>
+        <!-- end main content-->
     </div>
-
-    <!-- Modals for Native Quick Slips -->
+    <div class="rightbar-overlay"></div>
+    <!-- JAVASCRIPT -->
+    <script src="../assets2/libs/jquery/jquery.min.js"></script>
+    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="../assets2/libs/node-waves/waves.min.js"></script>
+    <script src="../assets2/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="../assets2/js/pages/dashboard.init.js"></script>
+    <script src="../assets2/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 <!-- edit start-->
 <!-- edit start-->
-<div class="modal fade" id="connect_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" id="connect_edit_data" style="max-width:600px;">
+<div class="modal fade" id="meeting_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="meeting_edit_data" style="max-width:600px;">
         <!-- Content will be loaded here via AJAX -->
     </div>
 </div>
+
+
 <script>
-    function add_new_connects() {
-        $('#add_new_connects').modal('show');
-    }
-</script>
-<!-- ADD MEMBER MODAL -->
-<div class="modal fade" id="add_new_connects" tabindex="-1" aria-hidden="true">
-
-    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
-
-        <div class="modal-content"
-            style="border-radius:12px;
-                    border:none;
-                    box-shadow:0 4px 12px rgba(0,0,0,.1);
-                    font-size:13px;">
-
-            <form id="AddNewReferralData" enctype="multipart/form-data">
-
-                <!-- HEADER -->
-                <div class="modal-header"
-                    style="background:#1b4e8f;color:#fff;">
-
-                    <h6 class="mb-0" style="color:#ffffff;">
-                        New Connects Opportunity
-                    </h6>
-
-                    <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal">
-                    </button>
-
-                </div>
-
-
-                <!-- BODY -->
-                <div class="modal-body connect-modal">
-
-                    <!-- MEMBER SOURCE -->
-                    <div class="mb-3">
-
-                        <label class="form-label fw-semibold">
-                            Select Member From
-                        </label>
-
-                        <div class="member-source">
-
-                            <label class="radio-card active">
-
-                                <input type="radio"
-                                    name="member_form"
-                                    value="chapter"
-                                    checked>
-
-                                <span>My Chapter</span>
-
-                            </label>
-
-
-                            <label class="radio-card">
-
-                                <input type="radio"
-                                    name="member_form"
-                                    value="all">
-
-                                <span>Across All Chapters</span>
-
-                            </label>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- MEMBER SELECT -->
-                    <div class="mb-3">
-
-                        <label class="form-label fw-semibold">
-                            Send Connect To
-                        </label>
-
-                        <select name="to_user"
-                            id="member_list"
-                            class="form-select"
-                            required>
-
-                            <option value="">
-                                Loading members...
-                            </option>
-
-                        </select>
-
-                        <small class="text-muted">
-                            Search member name and select a member.
-                        </small>
-
-                    </div>
-
-
-                    <!-- CONNECT NAME -->
-                    <!-- CONNECT NAME -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">
-                            Connects Name
-                        </label>
-
-                        <input type="text"
-                            name="business"
-                            id="connects_name"
-                            class="form-control"
-                            required>
-                    </div>
-
-
-                    <!-- CONNECT CONTACT -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">
-                            Connects Contact
-                        </label>
-
-                        <input type="text"
-                            name="contact_number"
-                            id="connects_contact"
-                            class="form-control"
-                            required>
-                    </div>
-
-
-                    <!-- DETAILS -->
-                    <div class="mb-3">
-
-                        <label class="form-label fw-semibold">
-                            Details
-                        </label>
-
-                        <textarea name="description"
-                            rows="3"
-                            class="form-control"></textarea>
-
-                    </div>
-
-
-                    <!-- TEMPERATURE + STATUS -->
-                    <div class="row">
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label fw-semibold">
-                                Temperature
-                            </label>
-
-                            <select class="form-select"
-                                name="temperature">
-
-                                <option value="Hot">
-                                    🔥 Hot
-                                </option>
-
-                                <option value="Warm">
-                                    🌤 Warm
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label fw-semibold">
-                                Status
-                            </label>
-
-                            <select class="form-select"
-                                name="status">
-
-                                <option value="Open for Discussion">
-                                    Open for Discussion
-                                </option>
-
-                                <option value="Bussiness Done">
-                                    MITB
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- FOOTER -->
-                <div class="modal-footer border-0">
-
-                    <button type="button"
-                        class="btn btn-outline-secondary btn-sm"
-                        data-bs-dismiss="modal">
-
-                        Cancel
-
-                    </button>
-
-
-                    <button type="submit"
-                        class="btn btn-sm text-white"
-                        style="background:#1b4e8f;">
-
-                        Send Connects
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-(function ($) {
-
-    /*
-    |--------------------------------------------------------------------------
-    | INITIALIZE SELECT2
-    |--------------------------------------------------------------------------
-    */
-    function initMemberSelect() {
-
-        if ($('#member_list').hasClass('select2-hidden-accessible')) {
-            $('#member_list').select2('destroy');
-        }
-
-        $('#member_list').select2({
-            placeholder: '-- Search & Select Member --',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('#add_new_connects'),
-            minimumResultsForSearch: 0,
-
-            language: {
-                noResults: function () {
-                    return 'No member found';
-                },
-
-                searching: function () {
-                    return 'Searching...';
-                }
-            }
-        });
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | HTML ESCAPE
-    |--------------------------------------------------------------------------
-    */
-    function escapeHtml(text) {
-
-        if (text === null || text === undefined) {
-            return '';
-        }
-
-        return $('<div>')
-            .text(String(text))
-            .html();
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | FILL CONNECT DETAILS
-    |--------------------------------------------------------------------------
-    */
-    function fillConnectDetails() {
-
-        let $selected = $('#member_list option:selected');
-
-        if (!$selected.length) {
-            $('#connects_name').val('');
-            $('#connects_contact').val('');
-            return;
-        }
-
-        let isMySelf = $selected.attr('data-myself');
-
-        /*
-        |--------------------------------------------------------------------------
-        | MY SELF
-        |--------------------------------------------------------------------------
-        */
-        if (isMySelf === '1') {
-
-            let name = $selected.attr('data-name') || '';
-            let phone = $selected.attr('data-phone') || '';
-
-            console.log('--------------------------------');
-            console.log('MY SELF SELECTED');
-            console.log('Name:', name);
-            console.log('Phone:', phone);
-            console.log('--------------------------------');
-
-            $('#connects_name').val(name);
-            $('#connects_contact').val(phone);
-
-        } else {
-
-            /*
-            |--------------------------------------------------------------------------
-            | OTHER MEMBER
-            |--------------------------------------------------------------------------
-            */
-            $('#connects_name').val('');
-            $('#connects_contact').val('');
-        }
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOAD MEMBERS
-    |--------------------------------------------------------------------------
-    */
-    function loadMembers(type = 'chapter') {
-
-        let $memberList = $('#member_list');
-
-        /*
-        |--------------------------------------------------------------------------
-        | Clear Name & Contact
-        |--------------------------------------------------------------------------
-        */
-        $('#connects_name').val('');
-        $('#connects_contact').val('');
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Destroy Select2 before changing options
-        |--------------------------------------------------------------------------
-        */
-        if ($memberList.hasClass('select2-hidden-accessible')) {
-            $memberList.select2('destroy');
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Loading
-        |--------------------------------------------------------------------------
-        */
-        $memberList.html(`
-            <option value="">
-                Loading members...
-            </option>
-        `);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | AJAX
-        |--------------------------------------------------------------------------
-        */
+    function edi_notf(chapter_code) {
+        $('#meeting_edit').modal('show');
         $.ajax({
-
-            url: "connect.html",
-
-            type: "POST",
-
-            dataType: "json",
-
-            data: {
-                type: type
-            },
-
-
-            beforeSend: function () {
-
-                $memberList.html(`
-                    <option value="">
-                        Loading members...
-                    </option>
-                `);
-            },
-
-
-            success: function (res) {
-
-                console.log('Members Response:', res);
-
-                let html = '';
-
-                /*
-                |--------------------------------------------------------------------------
-                | Default Option
-                |--------------------------------------------------------------------------
-                */
-                html += `
-                    <option value="">
-                        -- Search & Select Member --
-                    </option>
-                `;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Separate My Self
-                |--------------------------------------------------------------------------
-                */
-                let mySelf = null;
-                let otherMembers = [];
-
-
-                if (Array.isArray(res)) {
-
-                    res.forEach(function (m) {
-
-                        if (
-                            m.is_self == 1 ||
-                            m.is_self === true ||
-                            m.is_self === "1"
-                        ) {
-
-                            mySelf = m;
-
-                        } else {
-
-                            otherMembers.push(m);
-                        }
-
-                    });
-                }
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | MY SELF FIRST
-                |--------------------------------------------------------------------------
-                */
-                if (mySelf) {
-
-                    /*
-                    |--------------------------------------------------------------------------
-                    | IMPORTANT:
-                    | Your database field is "phone"
-                    |--------------------------------------------------------------------------
-                    */
-                    let selfName = mySelf.name || '';
-                    let selfPhone = mySelf.phone || '';
-
-                    console.log('My Self Object:', mySelf);
-                    console.log('My Self Name:', selfName);
-                    console.log('My Self Phone:', selfPhone);
-
-
-                    html += `
-                        <option
-                            value="${escapeHtml(mySelf.user_code)}"
-                            data-myself="1"
-                            data-name="${escapeHtml(selfName)}"
-                            data-phone="${escapeHtml(selfPhone)}">
-
-                            ⭐ Self - ${escapeHtml(selfName)}
-
-                        </option>
-                    `;
-                }
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | OTHER MEMBERS
-                |--------------------------------------------------------------------------
-                */
-                otherMembers.forEach(function (m) {
-
-                    html += `
-                        <option
-                            value="${escapeHtml(m.user_code)}">
-
-                            ${escapeHtml(m.name || '')}
-
-                        </option>
-                    `;
-                });
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Update Select
-                |--------------------------------------------------------------------------
-                */
-                $memberList.html(html);
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Initialize Select2
-                |--------------------------------------------------------------------------
-                */
-                initMemberSelect();
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | AUTOMATICALLY SELECT MY SELF
-                |--------------------------------------------------------------------------
-                */
-                if (mySelf) {
-
-                    $memberList.val(mySelf.user_code);
-
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Tell Select2 about the selected value
-                    |--------------------------------------------------------------------------
-                    */
-                    $memberList.trigger('change.select2');
-
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Fill Name + Phone
-                    |--------------------------------------------------------------------------
-                    */
-                    fillConnectDetails();
-                }
-
-            },
-
-
-            error: function (xhr, status, error) {
-
-                console.log('Member AJAX Error:', xhr.responseText);
-
-                $memberList.html(`
-                    <option value="">
-                        Unable to load members
-                    </option>
-                `);
-
-                initMemberSelect();
-
-                $('#connects_name').val('');
-                $('#connects_contact').val('');
-            }
-
-        });
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | MEMBER SELECT CHANGE
-    |--------------------------------------------------------------------------
-    */
-    $(document).on('change', '#member_list', function () {
-
-        fillConnectDetails();
-
-    });
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | RADIO SWITCH
-    |--------------------------------------------------------------------------
-    */
-    $(document).on(
-        'change',
-        'input[name="member_form"]',
-        function () {
-
-            /*
-            |--------------------------------------------------------------------------
-            | Active Radio Card
-            |--------------------------------------------------------------------------
-            */
-            $('.radio-card').removeClass('active');
-
-            $(this)
-                .closest('.radio-card')
-                .addClass('active');
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Get Type
-            |--------------------------------------------------------------------------
-            */
-            let type = $(this).val();
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Load Members
-            |--------------------------------------------------------------------------
-            */
-            loadMembers(type);
-        }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | MODAL OPEN
-    |--------------------------------------------------------------------------
-    */
-    $('#add_new_connects').on(
-        'shown.bs.modal',
-        function () {
-
-            let selectedType =
-                $('input[name="member_form"]:checked').val() ||
-                'chapter';
-
-            loadMembers(selectedType);
-        }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | MODAL CLOSE
-    |--------------------------------------------------------------------------
-    */
-    $('#add_new_connects').on(
-        'hidden.bs.modal',
-        function () {
-
-            /*
-            | Clear fields when modal closes
-            */
-            $('#connects_name').val('');
-            $('#connects_contact').val('');
-
-            /*
-            | Reset member select
-            */
-            if ($('#member_list').hasClass('select2-hidden-accessible')) {
-                $('#member_list').val(null).trigger('change');
-            } else {
-                $('#member_list').val('');
-            }
-        }
-    );
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | DOCUMENT READY
-    |--------------------------------------------------------------------------
-    */
-    $(document).ready(function () {
-
-        /*
-        | Nothing to load here.
-        | Members are loaded when modal opens.
-        */
-
-    });
-
-
-})(jQuery);
-</script>
-<script>
-    $(document).on("submit", "#AddNewReferralData", function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        $.ajax({
-            url: "connect.html",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Saving...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                Swal.fire({
-                    icon: res.status === 'success' ? 'success' : 'error',
-                    title: res.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    $("#add_new_connects").modal("hide");
-                    location.reload();
-                });
-            },
-            error: function(xhr) {
-                Swal.fire("Server Error", xhr.responseText, "error");
-            }
-        });
-    });
-</script>
-
-
-<script>
-    function edit_refferral_status(referral_code) {
-        $('#connect_edit').modal('show');
-
-        $.ajax({
-            url: "connect.html" + referral_code,
+            url: "../member/notifications.html" + chapter_code,
             success: function(response) {
-                $("#connect_edit_data").html(response);
+                $("#meeting_edit_data").html(response);
             }
         });
     }
 
-
-    $(document).on("submit", "#edit_refferral_status_action", function(e) {
+    $(document).on("submit", "#edit_not_status_action", function(e) {
         e.preventDefault();
 
         $.ajax({
-            url: "connect.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Updating...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-
-            success: function(res) {
-
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Updated",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#chapter_edit").modal("hide"); // ✅ FIXED
-                        location.reload();
-                    });
-
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-
-            error: function(xhr) {
-                console.error(xhr.responseText);
-
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong"
-                });
-            }
-        });
-    });
-</script>
-
-
-<script>
-    function edit_refferral(referral_code) {
-        $('#connect_edit').modal('show');
-
-        $.ajax({
-            url: "connect.html" + referral_code,
-            success: function(response) {
-                $("#connect_edit_data").html(response);
-            }
-        });
-    }
-
-
-    $(document).on("submit", "#edit_refferral_action", function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: "connect.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Updating...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-
-            success: function(res) {
-
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Updated",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#chapter_edit").modal("hide"); // ✅ FIXED
-                        location.reload();
-                    });
-
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-
-            error: function(xhr) {
-                console.error(xhr.responseText);
-
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong"
-                });
-            }
-        });
-    });
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
-<style>
-    #add_new_connects .select2-container {
-        width: 100% !important;
-    }
-
-
-    #add_new_connects .select2-container .select2-selection--single {
-
-        height: 38px !important;
-
-        border: 1px solid #dee2e6 !important;
-
-        border-radius: 6px !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        padding-left: 8px !important;
-
-        font-size: 13px !important;
-
-        background: #fff !important;
-
-    }
-
-
-    /*
-     * SELECT2 TEXT
-     */
-    #add_new_connects .select2-selection__rendered {
-
-        line-height: 36px !important;
-
-        color: #333 !important;
-
-        padding-left: 4px !important;
-
-        font-size: 13px !important;
-
-    }
-
-
-    /*
-     * ARROW
-     */
-    #add_new_connects .select2-selection__arrow {
-
-        height: 36px !important;
-
-        right: 7px !important;
-
-    }
-
-
-    /*
-     * SEARCH BOX
-     */
-    #add_new_connects .select2-search--dropdown {
-
-        padding: 8px !important;
-
-        background: #fff;
-
-    }
-
-
-    #add_new_connects .select2-search__field {
-
-        height: 36px !important;
-
-        border: 1px solid #ced4da !important;
-
-        border-radius: 6px !important;
-
-        padding: 6px 10px !important;
-
-        font-size: 13px !important;
-
-        outline: none !important;
-
-    }
-
-
-    /*
-     * DROPDOWN
-     */
-    #add_new_connects .select2-dropdown {
-
-        border: 1px solid #dee2e6 !important;
-
-        border-radius: 7px !important;
-
-        box-shadow: 0 5px 18px rgba(0, 0, 0, .12) !important;
-
-        overflow: hidden;
-
-    }
-
-
-    /*
-     * OPTIONS
-     */
-    #add_new_connects .select2-results__option {
-
-        padding: 9px 12px !important;
-
-        font-size: 13px !important;
-
-    }
-
-
-    /*
-     * HOVER
-     */
-    #add_new_connects .select2-results__option--highlighted {
-
-        background: #1b4e8f !important;
-
-        color: #fff !important;
-
-    }
-
-
-    /*
-     * MY SELF OPTION
-     */
-    #add_new_connects .my-self-option {
-
-        font-weight: 600;
-
-        color: #1b4e8f;
-
-    }
-
-
-    /*
-     * RADIO CARDS
-     */
-    .member-source {
-
-        display: flex;
-
-        gap: 10px;
-
-    }
-
-
-    .radio-card {
-
-        flex: 1;
-
-        border: 1px solid #dee2e6;
-
-        border-radius: 8px;
-
-        padding: 10px 12px;
-
-        cursor: pointer;
-
-        background: #fff;
-
-        transition: all .2s ease;
-
-        text-align: center;
-
-    }
-
-
-    .radio-card input {
-
-        display: none;
-
-    }
-
-
-    .radio-card span {
-
-        font-weight: 600;
-
-        font-size: 13px;
-
-    }
-
-
-    .radio-card.active {
-
-        background: #1b4e8f;
-
-        border-color: #1b4e8f;
-
-        color: #fff;
-
-    }
-
-
-    .radio-card:hover {
-
-        border-color: #1b4e8f;
-
-    }
-</style>
-
-    
-<div class="modal fade" id="mitb_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" id="mitb_edit_data" style="max-width:600px;">
-        <!-- Content will be loaded here via AJAX -->
-    </div>
-</div>
-<script>
-    function add_mitb() {
-        $('#add_new_mitb').modal('show');
-    }
-</script>
-<!-- edit end -->
-<!-- ADD MEMBER MODAL -->
-<div class="modal fade" id="add_new_mitb" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
-        <div class="modal-content" style="border-radius:12px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.1);font-size:13px;">
-            <form id="addNewmitbData" enctype="multipart/form-data">
-                <!-- HEADER -->
-                <div class="modal-header" style="background:#1b4e8f;color:#fff;">
-                    <h6 class="mb-0" style="color:#ffffff;">Reported Closed MITB 💸 </h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <!-- BODY -->
-                <div class="modal-body p-3">
-                    <div class="row g-2">
-                        <div class="col-md-6">
-                            <label class="fw-bold">Who gave you this business? 🤝</label>
-                            <select class="form-control" name="category" id="business_source">
-                                <option value="">-- Select Source --</option>
-                                <option value="My Chapter Member">My Chapter Member</option>
-                                <option value="Across Chapter Member">Across Chapter Member</option>
-                                <option value="Visitor">Visitor</option>
-                                <option value="New">New</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="fw-bold">Select Member Who Gave Business 👤</label>
-                            <select name="to_user" id="member_list" class="form-select">
-                                <option value="">-- Select Member --</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="fw-bold">Business Closed Amount (INR) 💰</label>
-                            <input type="text" name="amount" class="form-control">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="fw-bold">Business Type 📈</label>
-                            <select class="form-control" name="business_type" id="">
-                                <option value="New">New Business</option>
-                                <option value="Repeat">Repeat Business</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Date of Business </label>
-                            <input type="date" name="created_at" class="form-control">
-                        </div>
-                        <div class="col-md-12">
-                            <label class="fw-bold">Description of Business ✨</label>
-                            <textarea name="description" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <!-- FOOTER -->
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sm text-white" style="background:#1b4e8f;">Add</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-
-        $('#business_source').change(function() {
-
-            let source = $(this).val();
-
-            if (source == 'My Chapter Member') {
-                loadMembers('chapter');
-            } else if (source == 'Across Chapter Member') {
-                loadMembers('all');
-            } else {
-                $('#member_list').html('<option value="">-- Not Required --</option>');
-            }
-
-        });
-
-    });
-
-    function loadMembers(type) {
-        $.ajax({
-            url: "connect.html",
-            type: "POST",
-            data: {
-                type: type
-            },
-            dataType: "json",
-            success: function(res) {
-                let html = '<option value="">-- Select Member --</option>';
-
-                $.each(res, function(i, m) {
-                    html += `<option value="${m.user_code}">
-                            ${m.name}
-                        </option>`;
-                });
-
-                $('#member_list').html(html);
-            }
-        });
-    }
-</script>
-<script>
-    $(document).on("submit", "#addNewmitbData", function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        $.ajax({
-            url: "mitb.html",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Saving...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-
-            success: function(res) {
-                Swal.fire({
-                    icon: res.status,
-                    title: res.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    $("#add_new_mitb").modal("hide");
-                    location.reload();
-                });
-            },
-
-            error: function(xhr) {
-                Swal.fire("Server Error", xhr.responseText, "error");
-            }
-        });
-    });
-</script>
-
-
-<script>
-    function delete_mitb(mitb_code) {
-        $('#mitb_edit').modal('show');
-        $.ajax({
-            url: "mitb.html" + mitb_code,
-            success: function(response) {
-                $("#mitb_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#delete_mitb_action", function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: "mitb.html",
+            url: "../member/notifications.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2449,799 +1105,6 @@ function handleQuickSlip(type) {
                     Swal.fire({
                         icon: "success",
                         title: "Deleted",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#mitb_edit").modal("hide");
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong. Check console."
-                });
-                console.error(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-<script>
-    function edit_mitb(mitb_code) {
-        $('#mitb_edit').modal('show');
-        $.ajax({
-            url: "mitb.html" + mitb_code,
-            success: function(response) {
-                $("#mitb_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#edit_mitb_action", function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: "mitb.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Deleting...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Deleted",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#mitb_edit").modal("hide");
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong. Check console."
-                });
-                console.error(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-    
-<div class="modal fade" id="f2f_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" id="f2f_edit_data" style="max-width:600px;">
-        <!-- Content will be loaded here via AJAX -->
-    </div>
-</div>
-<script>
-    function add_f2f() {
-        $('#add_new_f2f').modal('show');
-    }
-</script>
-<!-- edit end -->
-<!-- ADD MEMBER MODAL -->
-<div class="modal fade" id="add_new_f2f" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
-        <div class="modal-content" style="border-radius:12px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.1);font-size:13px;">
-            <form id="addNewf2fData" enctype="multipart/form-data">
-                <!-- HEADER -->
-                <div class="modal-header" style="background:#1b4e8f;color:#fff;">
-                    <h6 class="mb-0" style="color:#ffffff;"> Record a F2F Meeting </h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <!-- BODY -->
-                <div class="modal-body p-3">
-                    <div class="row g-2">
-                        <div class="col-md-12">
-                            <label class="fw-bold">Met With👤</label>
-                            <select name="to_user" class="form-select">
-                                <option value="">-- Select Member --</option>
-                                                                    <option value="10">
-                                        Arpitha B (Chapter 2)
-                                    </option>
-                                                                    <option value="12">
-                                        Praveen Kumar C H  (Chapter 2)
-                                    </option>
-                                                                    <option value="17">
-                                        VENKATESH G P (Chapter 2)
-                                    </option>
-                                                                    <option value="18">
-                                        Ravi Shankar  (Chapter 2)
-                                    </option>
-                                                                    <option value="19">
-                                        Kashi Lohar (Chapter 2)
-                                    </option>
-                                                                    <option value="22">
-                                        THEJA MURTHY. M. S. (Chapter 2)
-                                    </option>
-                                                                    <option value="23">
-                                        AMAR V MEHARWADE (Chapter 1)
-                                    </option>
-                                                                    <option value="24">
-                                        ARUN SAINATH (Chapter 1)
-                                    </option>
-                                                                    <option value="25">
-                                        ARPITA (Chapter 1)
-                                    </option>
-                                                                    <option value="26">
-                                        ASHA A N (Chapter 1)
-                                    </option>
-                                                                    <option value="27">
-                                        BALESH SHIRAGAONKAR (Chapter 1)
-                                    </option>
-                                                                    <option value="28">
-                                        Dr. BALASUBRAHMANYA H.V. (Chapter 1)
-                                    </option>
-                                                                    <option value="29">
-                                        CHIDAMBAR JOSHI (Chapter 1)
-                                    </option>
-                                                                    <option value="30">
-                                        DAKSHA KUMAR TL (Chapter 1)
-                                    </option>
-                                                                    <option value="31">
-                                        DILEEP KUMAR D (Chapter 1)
-                                    </option>
-                                                                    <option value="32">
-                                        DEEPAK AGARWAL (Chapter 1)
-                                    </option>
-                                                                    <option value="34">
-                                        JAY MENON (Chapter 1)
-                                    </option>
-                                                                    <option value="35">
-                                        KARUNAKAR RAO L. (Chapter 1)
-                                    </option>
-                                                                    <option value="36">
-                                        KESHAVA K C (Chapter 1)
-                                    </option>
-                                                                    <option value="37">
-                                        KRISHNA CHOUDHARY (Chapter 1)
-                                    </option>
-                                                                    <option value="38">
-                                        KUMARA (Chapter 1)
-                                    </option>
-                                                                    <option value="39">
-                                        MOUNESH (Chapter 1)
-                                    </option>
-                                                                    <option value="40">
-                                        MIR FAHEEM (Chapter 1)
-                                    </option>
-                                                                    <option value="41">
-                                        NAGESH B C (Chapter 1)
-                                    </option>
-                                                                    <option value="42">
-                                        NANDA KUMAR (Chapter 1)
-                                    </option>
-                                                                    <option value="43">
-                                        NIHAS R PRASAD (Chapter 1)
-                                    </option>
-                                                                    <option value="44">
-                                        NAGRAJ K E (Chapter 1)
-                                    </option>
-                                                                    <option value="45">
-                                        NEELAKANTAPPA (Chapter 1)
-                                    </option>
-                                                                    <option value="46">
-                                        PRAKASH REDDY N P (Chapter 1)
-                                    </option>
-                                                                    <option value="47">
-                                        PRASANNA KUMAR M (Chapter 1)
-                                    </option>
-                                                                    <option value="48">
-                                        PRADEEP RAO M S (Chapter 1)
-                                    </option>
-                                                                    <option value="5">
-                                        Harri Kumar (Chapter 2)
-                                    </option>
-                                                                    <option value="50">
-                                        RAMDAS M (Nirmal) (Chapter 1)
-                                    </option>
-                                                                    <option value="51">
-                                        RITANJALI SHIVASHANKAR (Chapter 1)
-                                    </option>
-                                                                    <option value="52">
-                                        SASI K NAMBIAR (Chapter 1)
-                                    </option>
-                                                                    <option value="53">
-                                        SATISH S (Chapter 1)
-                                    </option>
-                                                                    <option value="54">
-                                        SANJAY GU (Chapter 1)
-                                    </option>
-                                                                    <option value="55">
-                                        SANJANA ANAND (Chapter 1)
-                                    </option>
-                                                                    <option value="56">
-                                        SHASHI BUSHAN (Chapter 1)
-                                    </option>
-                                                                    <option value="57">
-                                        SETHURAM N (Chapter 1)
-                                    </option>
-                                                                    <option value="58">
-                                        SINGAM AMRUTHAM (Chapter 1)
-                                    </option>
-                                                                    <option value="59">
-                                        SRINIVASA N (Chapter 1)
-                                    </option>
-                                                                    <option value="6">
-                                        Sagar Dhongady (Chapter 1)
-                                    </option>
-                                                                    <option value="60">
-                                        SRINVASA V P (Chapter 1)
-                                    </option>
-                                                                    <option value="62">
-                                        SUCHARITHA N (Chapter 1)
-                                    </option>
-                                                                    <option value="63">
-                                        TEJASS G (Chapter 1)
-                                    </option>
-                                                                    <option value="64">
-                                        VEERU ACHAR KM (Chapter 1)
-                                    </option>
-                                                                    <option value="65">
-                                        VINAY K N (Chapter 1)
-                                    </option>
-                                                                    <option value="66">
-                                        Dr. G VIJAY KUMAR YADHAV (B.V.A , M.V.A) (Chapter 1)
-                                    </option>
-                                                                    <option value="67">
-                                        YOGESH MEHTA (Chapter 1)
-                                    </option>
-                                                                    <option value="68">
-                                        G. L.YEDUKISHORE (Chapter 1)
-                                    </option>
-                                                                    <option value="69">
-                                        Bruno Vincent (Chapter 1)
-                                    </option>
-                                                                    <option value="70">
-                                        RAHUL KULLOLLI (Chapter 1)
-                                    </option>
-                                                                    <option value="72">
-                                        Keerthi Shree K (Chapter 2)
-                                    </option>
-                                                                    <option value="75">
-                                        Anand B C (Chapter 2)
-                                    </option>
-                                                                    <option value="76">
-                                        Umashankar P (Chapter 1)
-                                    </option>
-                                                                    <option value="78">
-                                        Mr Prashant Katigar (Chapter 2)
-                                    </option>
-                                                                    <option value="79">
-                                        Dhakkshinya (Chapter 2)
-                                    </option>
-                                                                    <option value="8">
-                                        Vinod K (Chapter 2)
-                                    </option>
-                                                                    <option value="80">
-                                        D Revanna (Chapter 2)
-                                    </option>
-                                                                    <option value="81">
-                                        Sandeep G (Chapter 2)
-                                    </option>
-                                                                    <option value="82">
-                                        Gokul Raj (Chapter 2)
-                                    </option>
-                                                                    <option value="83">
-                                        Guruprasanna S (Chapter 2)
-                                    </option>
-                                                                    <option value="84">
-                                        SRINIVAS THATIKONDA  (Chapter 2)
-                                    </option>
-                                                                    <option value="85">
-                                        Kumar B (Chapter 2)
-                                    </option>
-                                                                    <option value="87">
-                                        shylaja s. J. (Chapter 2)
-                                    </option>
-                                                                    <option value="9">
-                                        Sayed Asif  (Chapter 2)
-                                    </option>
-                                                                    <option value="USR00001">
-                                        Yoginath (Chapter 1)
-                                    </option>
-                                                                    <option value="USR00003">
-                                         Sandeep Srikande (Chapter 2)
-                                    </option>
-                                                                    <option value="USR00004">
-                                        Ajay R (Chapter 2)
-                                    </option>
-                                                                    <option value="USR00007">
-                                        Shwetha  (Chapter 2)
-                                    </option>
-                                                                    <option value="USR00008">
-                                        Rathi H R  (Chapter 2)
-                                    </option>
-                                                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Date </label>
-                            <input type="date" name="date" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Location</label>
-                            <input type="text" name="location" class="form-control">
-                        </div>
-                        <div class="col-md-12">
-                            <label class="fw-bold">Topics Discussed</label>
-                            <textarea name="summary" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <!-- FOOTER -->
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sm text-white" style="background:#1b4e8f;">Add F2F</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script>
-    $(document).on("submit", "#addNewf2fData", function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        $.ajax({
-            url: "f2f.html",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Saving...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-
-            success: function(res) {
-                Swal.fire({
-                    icon: res.status,
-                    title: res.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    $("#add_new_mitb").modal("hide");
-                    location.reload();
-                });
-            },
-
-            error: function(xhr) {
-                Swal.fire("Server Error", xhr.responseText, "error");
-            }
-        });
-    });
-</script>
-<script>
-    function delete_f2f(mitb_code) {
-        $('#f2f_edit').modal('show');
-        $.ajax({
-            url: "f2f.html" + mitb_code,
-            success: function(response) {
-                $("#f2f_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#delete_f2f_action", function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: "f2f.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Deleting...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Deleted",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#f2f_edit").modal("hide");
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong. Check console."
-                });
-                console.error(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-<script>
-    function edit_f2f(mitb_code) {
-        $('#f2f_edit').modal('show');
-        $.ajax({
-            url: "f2f.html" + mitb_code,
-            success: function(response) {
-                $("#f2f_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#edit_f2f_action", function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: "f2f.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Edit...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Deleted",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#f2f_edit").modal("hide");
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong. Check console."
-                });
-                console.error(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-    
-<div class="modal fade" id="f2f_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" id="f2f_edit_data" style="max-width:600px;">
-        <!-- Content will be loaded here via AJAX -->
-    </div>
-</div>
-<script>
-    function add_vt() {
-        $('#add_new_vt').modal('show');
-    }
-</script>
-<!-- edit end -->
-<!-- ADD MEMBER MODAL -->
-<div class="modal fade" id="add_new_vt" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
-        <div class="modal-content" style="border-radius:12px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.1);font-size:13px;">
-            <form id="AddNewvisitorData" enctype="multipart/form-data">
-                <!-- HEADER -->
-                <div class="modal-header" style="background:#1b4e8f;color:#fff;">
-                    <h6 class="mb-0" style="color:#ffffff;"> Send Meeting Invitation </h6>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <!-- BODY -->
-                <div class="modal-body p-3">
-                    <div class="row g-1">
-                        <div class="col-md-12">
-                            <p>Fill out the details below to invite a visitor to an upcoming chapter meeting.</p>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="fw-bold">Visitor Name </label>
-                            <input type="text" name="visitor_name" class="form-control">
-                        </div>
-                        <div class="col-md-12">
-                            <label class="fw-bold">Visitor Company </label>
-                            <input type="text" name="company" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Visitor Email </label>
-                            <input type="text" name="email" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="fw-bold">Visitor Phone </label>
-                            <input type="text" name="phone" class="form-control">
-                        </div>
-                        <div class="col-md-12">
-                            <label class="fw-bold">Met With👤</label>
-                            <select name="date_visited" class="form-select">
-                                <option value="">-- Select Member --</option>
-                                                                    <option value="2026-10-22 07:30:00">
-                                        Weekly Meeting (2026-10-22 07:30:00)
-                                    </option>
-                                                                    <option value="2026-10-15 07:30:00">
-                                        Weekly Meeting (2026-10-15 07:30:00)
-                                    </option>
-                                                                    <option value="2026-09-17 07:30:00">
-                                        Weekly Meeting (2026-09-17 07:30:00)
-                                    </option>
-                                                            </select>
-                        </div>
-                        <div class="col-md-12">
-                            <p> You can only invite visitors to upcoming chapter meetings.</p>
-                        </div>
-
-                    </div>
-                    <!-- FOOTER -->
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm text-white" style="background:#1b4e8f;">Send Invitation</button>
-                    </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script>
-    $(document).on("submit", "#AddNewvisitorData", function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        $.ajax({
-            url: "visitor.html",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Saving...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-
-            success: function(res) {
-                Swal.fire({
-                    icon: res.status,
-                    title: res.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    $("#add_new_mitb").modal("hide");
-                    location.reload();
-                });
-            },
-
-            error: function(xhr) {
-                Swal.fire("Server Error", xhr.responseText, "error");
-            }
-        });
-    });
-</script>
-<script>
-    function delete_v(visitors_code) {
-        $('#f2f_edit').modal('show');
-        $.ajax({
-            url: "visitor.html" + visitors_code,
-            success: function(response) {
-                $("#f2f_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#delete_v_action", function(e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: "visitor.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Deleting...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Deleted",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#f2f_edit").modal("hide");
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong. Check console."
-                });
-                console.error(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-<script>
-    function edit_v(visitors_code) {
-        $('#f2f_edit').modal('show');
-        $.ajax({
-            url: "visitor.html" + visitors_code,
-            success: function(response) {
-                $("#f2f_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#edit_v_action", function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: "visitor.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Edit...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Edit",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#f2f_edit").modal("hide");
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Server Error",
-                    text: "Something went wrong. Check console."
-                });
-                console.error(xhr.responseText);
-            }
-        });
-    });
-</script>
-
-
-
-<script>
-    function send_mail(visitors_code) {
-        $('#f2f_edit').modal('show');
-
-        $.ajax({
-            url: "visitor.html" + visitors_code,
-            type: "GET",
-            success: function(response) {
-                $("#f2f_edit_data").html(response);
-            },
-            error: function() {
-                alert("Failed to load meeting.");
-            }
-        });
-    }
-
-
-    /* ===============================
-       UPDATE FORM SUBMIT
-    ================================*/
-    $(document).on("submit", "#send_mail_action", function(e) {
-
-        e.preventDefault();
-
-        $.ajax({
-            url: "visitor.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Updating...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-
-            success: function(res) {
-
-                if (res.status === "success") {
-
-                    Swal.fire({
-                        icon: "success",
-                        title: "Success",
                         text: res.message,
                         timer: 1200,
                         showConfirmButton: false
@@ -3249,64 +1112,6 @@ function handleQuickSlip(type) {
                         $("#meeting_edit").modal("hide");
                         location.reload();
                     });
-
-                } else {
-
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: res.message
-                    });
-                }
-            },
-
-            error: function(xhr) {
-                console.log(xhr.responseText);
-                Swal.fire("Server Error", "Something went wrong", "error");
-            }
-        });
-
-    });
-</script>
-
-<script>
-    function status_v_a(visitors_code) {
-        $('#f2f_edit').modal('show');
-        $.ajax({
-            url: "visitor.html" + visitors_code,
-            success: function(response) {
-                $("#f2f_edit_data").html(response);
-            }
-        });
-    }
-
-    $(document).on("submit", "#status_v_a_action", function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: "visitor.html",
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: "json",
-            beforeSend: function() {
-                Swal.fire({
-                    title: "Edit...",
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    didOpen: () => Swal.showLoading()
-                });
-            },
-            success: function(res) {
-                if (res.status === "success") {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Edit",
-                        text: res.message,
-                        timer: 1200,
-                        showConfirmButton: false
-                    }).then(() => {
-                        $("#f2f_edit").modal("hide");
-                        location.reload();
-                    });
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -3326,145 +1131,66 @@ function handleQuickSlip(type) {
         });
     });
 </script>
+<script>
+    function readNotification(n_code, btn) {
 
+        $.ajax({
+            url: "../member/notifications.html",
+            type: "POST",
+            data: {
+                n_code: n_code,
+                status: 'read'
+            },
+            dataType: "json",
 
-    <!-- JAVASCRIPT LIBRARIES -->
-    <script src="../assets2/libs/jquery/jquery.min.js"></script>
-    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
-    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
-    <script src="../assets2/libs/node-waves/waves.min.js"></script>
-    <script src="../assets2/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            success: function(response) {
 
-    <!-- Interactive Spline Growth Chart (BNI Connect Standard) -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Toggle Current / Previous Progress
-        window.switchProgressTab = function(type) {
-            const curBtn = document.getElementById('tabBtnCurrent');
-            const prevBtn = document.getElementById('tabBtnPrevious');
-            const curContent = document.getElementById('progressCurrentContent');
-            const prevContent = document.getElementById('progressPreviousContent');
+                if (response.status == 'success') {
 
-            if (type === 'current') {
-                curBtn.classList.add('active');
-                prevBtn.classList.remove('active');
-                curContent.style.display = 'block';
-                prevContent.style.display = 'none';
-            } else {
-                prevBtn.classList.add('active');
-                curBtn.classList.remove('active');
-                curContent.style.display = 'none';
-                prevContent.style.display = 'block';
-            }
-        };
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Marked as read',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
 
-        // BNI Connect Spline Chart Init
-        const chartCanvas = document.getElementById('eafSplineGrowthChart');
-        if (chartCanvas) {
-            const ctx = chartCanvas.getContext('2d');
-            const labels = ["29 Apr","29 Jun","02 Jul","08 Jul","02 Aug","06 Aug","03 Sep","19 Sep","01 Oct","02 Oct","08 Oct"];
-            const givenData = [0,0,0,0,216000,20000,0,0,0,0,0];
-            const receivedData = [20000,15000,60000,10000,0,0,15000,5000,15000,21000,45000];
+                    // Reload Page
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
 
-            // Gradient fills
-            const gradientReceived = ctx.createLinearGradient(0, 0, 0, 200);
-            gradientReceived.addColorStop(0, 'rgba(5, 150, 105, 0.22)');
-            gradientReceived.addColorStop(1, 'rgba(5, 150, 105, 0.00)');
+                } else {
 
-            const gradientGiven = ctx.createLinearGradient(0, 0, 0, 200);
-            gradientGiven.addColorStop(0, 'rgba(15, 59, 104, 0.22)');
-            gradientGiven.addColorStop(1, 'rgba(15, 59, 104, 0.00)');
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels.length ? labels : ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [
-                        {
-                            label: 'Business Received (₹)',
-                            data: receivedData.length ? receivedData : [0, 0, 0, 0],
-                            borderColor: '#059669',
-                            backgroundColor: gradientReceived,
-                            fill: true,
-                            tension: 0.45,
-                            borderWidth: 2.5,
-                            pointRadius: 3,
-                            pointHoverRadius: 6,
-                            pointBackgroundColor: '#059669'
-                        },
-                        {
-                            label: 'Business Given (₹)',
-                            data: givenData.length ? givenData : [0, 0, 0, 0],
-                            borderColor: '#0F3B68',
-                            backgroundColor: gradientGiven,
-                            fill: true,
-                            tension: 0.45,
-                            borderWidth: 2.5,
-                            pointRadius: 3,
-                            pointHoverRadius: 6,
-                            pointBackgroundColor: '#0F3B68'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
-                    layout: {
-                        padding: {
-                            top: 14,
-                            right: 8,
-                            bottom: 4,
-                            left: 0
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                usePointStyle: true,
-                                font: { family: 'Outfit', size: 12, weight: '600' }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) label += ': ';
-                                    if (context.parsed.y !== null) {
-                                        label += '₹' + new Intl.NumberFormat('en-IN').format(context.parsed.y);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: 'rgba(226, 232, 240, 0.6)' },
-                            ticks: {
-                                font: { family: 'Outfit', size: 11 },
-                                callback: function(value) {
-                                    return '₹' + (value >= 1000 ? (value / 1000) + 'k' : value);
-                                }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { family: 'Outfit', size: 11 } }
-                        }
-                    }
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Failed to update',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
-            });
-        }
-    });
-    </script>
+            },
+
+            error: function() {
+
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Server error',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        });
+
+    }
+</script>
+
 </body>
+
 </html>
 

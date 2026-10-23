@@ -454,7 +454,7 @@
             <!-- KVV Member Profile Header Widget -->
             <div class="kvv-header-user-block">
                 <a href="profile.html">
-                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                    <img src="../writable/stage_preview/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                          alt="Harri Kumar" 
                          class="kvv-header-avatar"
                          onerror="this.onerror=null; this.src='../images/empty.png';">
@@ -488,7 +488,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
                     <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
-                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                        <img src="../writable/stage_preview/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
                              class="rounded-circle shadow-sm"
                              alt="Profile Image"
                              width="64" height="64"
@@ -508,7 +508,7 @@
                             <span>Account Settings</span>
                         </a>
                         <hr class="my-2">
-                        <a href="member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                        <a href="../member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
                             <i class="ri-logout-box-r-line fs-5 me-2"></i>
                             <span>Logout</span>
                         </a>
@@ -690,7 +690,7 @@
 
                 <!-- 16. Logout (Red Accent at bottom) -->
                 <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
-                    <a href="member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                    <a href="../member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
                         <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
                         <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
                     </a>
@@ -727,7 +727,7 @@
                             <div class="carousel-inner">
                                                                                                             <div class="carousel-item active">
                                             <div class="kvv-banner-card">
-                                                <img src="../uploads/ads/1791302684_b76138bd7c5b0bf831c4.png" 
+                                                <img src="../writable/stage_preview/uploads/ads/1791302684_b76138bd7c5b0bf831c4.png" 
                                                      alt="Member Spotlight" 
                                                      onerror="this.onerror=null; this.src='../images/sample-banner.png';">
                                             </div>
@@ -745,7 +745,7 @@
                          ========================================================================== -->
                     <div class="kvv-quick-actions-grid">
                         <!-- Action 1: Give Connect -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_new_connects==='function'){add_new_connects();}else{window.location.href='connect.html';}">
+                        <div class="kvv-action-slip-card" onclick="if(typeof add_new_connects==='function'){add_new_connects();}else{window.location.href="connect.html";}">
                             <span class="kvv-action-slip-title">Give Connect</span>
                             <span class="kvv-action-slip-arrow">&rarr;</span>
                         </div>
@@ -757,13 +757,13 @@
                         </a>
 
                         <!-- Action 3: F2F Meeting -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_f2f==='function'){add_f2f();}else{window.location.href='f2f.html';}">
+                        <div class="kvv-action-slip-card" onclick="if(typeof add_f2f==='function'){add_f2f();}else{window.location.href="f2f.html";}">
                             <span class="kvv-action-slip-title">F2F Meeting</span>
                             <span class="kvv-action-slip-arrow">&rarr;</span>
                         </div>
 
                         <!-- Action 4: MITB (Closed Business) -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_mitb==='function'){add_mitb();}else{window.location.href='mitb.html';}">
+                        <div class="kvv-action-slip-card" onclick="if(typeof add_mitb==='function'){add_mitb();}else{window.location.href="mitb.html";}">
                             <span class="kvv-action-slip-title">MITB (Closed Business)</span>
                             <span class="kvv-action-slip-arrow">&rarr;</span>
                         </div>
@@ -984,7 +984,7 @@
                         <!-- Quick Reports Shortcuts -->
                         <div class="row g-2 pt-2 border-top border-light">
                             <div class="col-md-4">
-                                <a href="reports/weekly_slips.html" class="eaf-report-tile">
+                                <a href="../member/reports/weekly_slips.html" class="eaf-report-tile">
                                     <div class="eaf-report-tile-left">
                                         <div class="eaf-report-tile-icon bg-primary bg-opacity-10 text-primary">
                                             <i class="ri-printer-line"></i>
@@ -1169,25 +1169,25 @@ function handleQuickSlip(type) {
             if (typeof add_new_connects === 'function') {
                 add_new_connects();
             } else {
-                window.location.href = "connect.html";
+                window.location.href = "../member/connect.html";
             }
         } else if (type === 'mitb') {
             if (typeof add_mitb === 'function') {
                 add_mitb();
             } else {
-                window.location.href = "mitb.html";
+                window.location.href = "../member/mitb.html";
             }
         } else if (type === 'f2f') {
             if (typeof add_f2f === 'function') {
                 add_f2f();
             } else {
-                window.location.href = "f2f.html";
+                window.location.href = "../member/f2f.html";
             }
         } else if (type === 'visitor') {
             if (typeof add_vt === 'function') {
                 add_vt();
             } else {
-                window.location.href = "visitor.html";
+                window.location.href = "../member/visitor.html";
             }
         }
     }, 300);
@@ -1581,7 +1581,7 @@ function handleQuickSlip(type) {
         */
         $.ajax({
 
-            url: "connect.html",
+            url: "../member/connect.html",
 
             type: "POST",
 
@@ -1887,7 +1887,7 @@ function handleQuickSlip(type) {
         let formData = new FormData(this);
 
         $.ajax({
-            url: "connect.html",
+            url: "../member/connect.html",
             type: "POST",
             data: formData,
             processData: false,
@@ -1926,7 +1926,7 @@ function handleQuickSlip(type) {
         $('#connect_edit').modal('show');
 
         $.ajax({
-            url: "connect.html" + referral_code,
+            url: "../member/connect.html" + referral_code,
             success: function(response) {
                 $("#connect_edit_data").html(response);
             }
@@ -1938,7 +1938,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "connect.html",
+            url: "../member/connect.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -1994,7 +1994,7 @@ function handleQuickSlip(type) {
         $('#connect_edit').modal('show');
 
         $.ajax({
-            url: "connect.html" + referral_code,
+            url: "../member/connect.html" + referral_code,
             success: function(response) {
                 $("#connect_edit_data").html(response);
             }
@@ -2006,7 +2006,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "connect.html",
+            url: "../member/connect.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2354,7 +2354,7 @@ function handleQuickSlip(type) {
 
     function loadMembers(type) {
         $.ajax({
-            url: "connect.html",
+            url: "../member/connect.html",
             type: "POST",
             data: {
                 type: type
@@ -2381,7 +2381,7 @@ function handleQuickSlip(type) {
         let formData = new FormData(this);
 
         $.ajax({
-            url: "mitb.html",
+            url: "../member/mitb.html",
             type: "POST",
             data: formData,
             processData: false,
@@ -2421,7 +2421,7 @@ function handleQuickSlip(type) {
     function delete_mitb(mitb_code) {
         $('#mitb_edit').modal('show');
         $.ajax({
-            url: "mitb.html" + mitb_code,
+            url: "../member/mitb.html" + mitb_code,
             success: function(response) {
                 $("#mitb_edit_data").html(response);
             }
@@ -2432,7 +2432,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "mitb.html",
+            url: "../member/mitb.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2480,7 +2480,7 @@ function handleQuickSlip(type) {
     function edit_mitb(mitb_code) {
         $('#mitb_edit').modal('show');
         $.ajax({
-            url: "mitb.html" + mitb_code,
+            url: "../member/mitb.html" + mitb_code,
             success: function(response) {
                 $("#mitb_edit_data").html(response);
             }
@@ -2491,7 +2491,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "mitb.html",
+            url: "../member/mitb.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2812,7 +2812,7 @@ function handleQuickSlip(type) {
         let formData = new FormData(this);
 
         $.ajax({
-            url: "f2f.html",
+            url: "../member/f2f.html",
             type: "POST",
             data: formData,
             processData: false,
@@ -2850,7 +2850,7 @@ function handleQuickSlip(type) {
     function delete_f2f(mitb_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "f2f.html" + mitb_code,
+            url: "../member/f2f.html" + mitb_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -2861,7 +2861,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "f2f.html",
+            url: "../member/f2f.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2909,7 +2909,7 @@ function handleQuickSlip(type) {
     function edit_f2f(mitb_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "f2f.html" + mitb_code,
+            url: "../member/f2f.html" + mitb_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -2919,7 +2919,7 @@ function handleQuickSlip(type) {
     $(document).on("submit", "#edit_f2f_action", function(e) {
         e.preventDefault();
         $.ajax({
-            url: "f2f.html",
+            url: "../member/f2f.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -3043,7 +3043,7 @@ function handleQuickSlip(type) {
         let formData = new FormData(this);
 
         $.ajax({
-            url: "visitor.html",
+            url: "../member/visitor.html",
             type: "POST",
             data: formData,
             processData: false,
@@ -3081,7 +3081,7 @@ function handleQuickSlip(type) {
     function delete_v(visitors_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "visitor.html" + visitors_code,
+            url: "../member/visitor.html" + visitors_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -3092,7 +3092,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "visitor.html",
+            url: "../member/visitor.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -3140,7 +3140,7 @@ function handleQuickSlip(type) {
     function edit_v(visitors_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "visitor.html" + visitors_code,
+            url: "../member/visitor.html" + visitors_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -3150,7 +3150,7 @@ function handleQuickSlip(type) {
     $(document).on("submit", "#edit_v_action", function(e) {
         e.preventDefault();
         $.ajax({
-            url: "visitor.html",
+            url: "../member/visitor.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -3201,7 +3201,7 @@ function handleQuickSlip(type) {
         $('#f2f_edit').modal('show');
 
         $.ajax({
-            url: "visitor.html" + visitors_code,
+            url: "../member/visitor.html" + visitors_code,
             type: "GET",
             success: function(response) {
                 $("#f2f_edit_data").html(response);
@@ -3221,7 +3221,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "visitor.html",
+            url: "../member/visitor.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -3273,7 +3273,7 @@ function handleQuickSlip(type) {
     function status_v_a(visitors_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "visitor.html" + visitors_code,
+            url: "../member/visitor.html" + visitors_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -3283,7 +3283,7 @@ function handleQuickSlip(type) {
     $(document).on("submit", "#status_v_a_action", function(e) {
         e.preventDefault();
         $.ajax({
-            url: "visitor.html",
+            url: "../member/visitor.html",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",

@@ -28,3 +28,8 @@ writable/debugbar/*
 Thumbs.db
 .vscode/
 .idea/
+
+# Local Windows directory junctions
+preview/assets2
+preview/images
+
