@@ -29,32 +29,10 @@ if (!function_exists('get_member_avatar')) {
         $photo = trim((string)$photo);
         $cleanGender = ucfirst(strtolower(trim((string)$gender)));
 
-        // If gender not provided but userCode is, check database
-        if (empty($cleanGender) && !empty($userCode)) {
-            static $genderCache = [];
-            if (!isset($genderCache[$userCode])) {
-                if (class_exists('\Config\Database')) {
-                    try {
-                        $db = \Config\Database::connect();
-                        $u = $db->table('users')->select('gender')->where('user_code', $userCode)->get()->getRow();
-                        $genderCache[$userCode] = $u ? ucfirst(strtolower(trim($u->gender ?? ''))) : '';
-                    } catch (\Throwable $e) {
-                        $genderCache[$userCode] = '';
-                    }
-                } else {
-                    $genderCache[$userCode] = '';
-                }
-            }
-            $cleanGender = $genderCache[$userCode];
-        }
-
-        $uploadDir = rtrim(FCPATH, '/\\') . '/uploads/profile/';
+        // 1. FAST PATH: Check for real photo first without any DB hit
         $hasRealPhoto = false;
-
         if (!empty($photo) && $photo !== 'empty.png' && $photo !== 'empty2.png') {
-            if (file_exists($uploadDir . $photo) || file_exists(FCPATH . 'uploads/profile/' . $photo)) {
-                $hasRealPhoto = true;
-            } elseif (preg_match('/\.(jpg|jpeg|png|webp)$/i', $photo)) {
+            if (preg_match('/\.(jpg|jpeg|png|webp)$/i', $photo)) {
                 $hasRealPhoto = true;
             }
         }
@@ -67,13 +45,13 @@ if (!function_exists('get_member_avatar')) {
             return $avatarUrl;
         }
 
-        // Default clean, simple profile avatars
-        if ($cleanGender === 'Male') {
-            $avatarUrl = base_url('images/male.png');
-            $type = 'default_male';
-        } elseif ($cleanGender === 'Female') {
+        // 2. Default clean profile avatar fallback based on provided gender
+        if ($cleanGender === 'Female') {
             $avatarUrl = base_url('images/female.png');
             $type = 'default_female';
+        } elseif ($cleanGender === 'Male') {
+            $avatarUrl = base_url('images/male.png');
+            $type = 'default_male';
         } else {
             $avatarUrl = base_url('images/empty.png');
             $type = 'default_neutral';

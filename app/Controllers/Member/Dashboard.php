@@ -718,19 +718,24 @@ class Dashboard extends BaseController
 
 
 
-        $meetingsCount_c_a = $db->query("SELECT COUNT(*) total FROM events")->getRow()->total ?? 0;
-        $member_c_a      = $db->query("SELECT COUNT(*) total FROM users")->getRow()->total ?? 0;
-        $r_g_c_a        = $db->query("SELECT COUNT(*) total FROM referrals")->getRow()->total ?? 0;
-        $visitors_c_a    = $db->query("SELECT COUNT(*) total FROM visitors")->getRow()->total ?? 0;
-        $f2f__sc_a       = $db->query("SELECT COUNT(*) total FROM one_to_ones")->getRow()->total ?? 0;
-        $chapters_c_a    = $db->query("SELECT COUNT(*) total FROM chapters")->getRow()->total ?? 0;
+        $globalCounts = $db->query("
+            SELECT 
+                (SELECT COUNT(*) FROM events) AS meetingsCount_c_a,
+                (SELECT COUNT(*) FROM users) AS member_c_a,
+                (SELECT COUNT(*) FROM referrals) AS r_g_c_a,
+                (SELECT COUNT(*) FROM visitors) AS visitors_c_a,
+                (SELECT COUNT(*) FROM one_to_ones) AS f2f__sc_a,
+                (SELECT COUNT(*) FROM chapters) AS chapters_c_a,
+                (SELECT COALESCE(SUM(amount),0) FROM tyfcb) AS totalMITB_a
+        ")->getRow();
 
-        /* ======================================================
-       MITB TOTAL
-    ====================================================== */
-        $totalMITB_a = $db->query("
-        SELECT COALESCE(SUM(amount),0) total 
-        FROM tyfcb ")->getRow()->total ?? 0;
+        $meetingsCount_c_a = $globalCounts->meetingsCount_c_a ?? 0;
+        $member_c_a        = $globalCounts->member_c_a ?? 0;
+        $r_g_c_a          = $globalCounts->r_g_c_a ?? 0;
+        $visitors_c_a      = $globalCounts->visitors_c_a ?? 0;
+        $f2f__sc_a         = $globalCounts->f2f__sc_a ?? 0;
+        $chapters_c_a      = $globalCounts->chapters_c_a ?? 0;
+        $totalMITB_a       = $globalCounts->totalMITB_a ?? 0;
 
 
         $inducation = $commonModel->exe_query("

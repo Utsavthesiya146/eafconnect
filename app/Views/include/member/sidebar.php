@@ -175,3 +175,23 @@
     </div>
 </div>
 <!-- Left Sidebar End -->
+
+<!-- Mobile Drawer Backdrop Overlay -->
+<div class="sidebar-backdrop" onclick="document.body.classList.remove('sidebar-enable');"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Ensure all mobile drawer links navigate smoothly on touch/tap
+    var menuLinks = document.querySelectorAll('#sidebar-menu a');
+    menuLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            var href = this.getAttribute('href');
+            if (href && href !== '#' && href.indexOf('javascript:void') === -1) {
+                // If drawer is open on mobile, close it and navigate
+                document.body.classList.remove('sidebar-enable');
+                window.location.href = href;
+            }
+        });
+    });
+});
+</script>

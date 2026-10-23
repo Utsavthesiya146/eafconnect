@@ -418,41 +418,64 @@
             .referral-wrapper {
                 overflow-x: auto !important;
                 width: 100% !important;
-                padding-bottom: 12px !important;
+                padding-bottom: 8px !important;
                 -webkit-overflow-scrolling: touch !important;
+            }
+
+            .ref-header-row {
+                display: grid !important;
+                grid-template-columns: 220px 36px 200px 1fr 120px 160px 110px !important;
+                align-items: center !important;
+                gap: 12px !important;
+                background: #F8FAFC !important;
+                border: 1px solid #E2E8F0 !important;
+                border-radius: 10px !important;
+                padding: 10px 16px !important;
+                width: 100% !important;
+                min-width: 1050px !important;
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                color: #64748B !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.5px !important;
+                box-sizing: border-box !important;
+                margin-bottom: 10px !important;
+                white-space: nowrap !important;
             }
 
             .referral-card-row {
                 width: 100%;
             }
 
-            .referral-card {
+            .referral-card,
+            .ref-card-row,
+            .ref-grid-row {
                 display: grid !important;
-            grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important;
-            align-items: center !important;
-            gap: 12px !important;
-            background: #FFFFFF !important;
-            border: 1px solid #E2E8F0 !important;
-            border-radius: 12px !important;
-            padding: 0 16px !important;
-            box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            width: 1200px !important;
-            min-width: 1200px !important;
-            height: 64px !important;
-            min-height: 64px !important;
-            max-height: 64px !important;
-            white-space: nowrap !important;
-            box-sizing: border-box !important;
-            overflow: visible !important;
-        }
+                grid-template-columns: 220px 36px 200px 1fr 120px 160px 110px !important;
+                align-items: center !important;
+                gap: 12px !important;
+                background: #FFFFFF !important;
+                border: 1px solid #E2E8F0 !important;
+                border-radius: 12px !important;
+                padding: 0 16px !important;
+                box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important;
+                transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+                width: 100% !important;
+                min-width: 1050px !important;
+                height: 64px !important;
+                min-height: 64px !important;
+                max-height: 64px !important;
+                white-space: nowrap !important;
+                box-sizing: border-box !important;
+                overflow: visible !important;
+            }
 
-        .referral-card:hover {
-            transform: translateY(-2px) !important;
-            border-color: #CBD5E1 !important;
-            box-shadow: 0 8px 24px rgba(15, 59, 104, 0.08) !important;
-            background: #FAFBFD !important;
-        }
+            .referral-card:hover {
+                transform: translateY(-2px) !important;
+                border-color: #CBD5E1 !important;
+                box-shadow: 0 8px 24px rgba(15, 59, 104, 0.08) !important;
+                background: #FAFBFD !important;
+            }
 
         /* Col 1: From Member */
         .ref-col.ref-from {
@@ -742,11 +765,11 @@
             transform: translateY(-2px) !important;
         }
 
-        /* Desktop & Tablet standard grid */
+        /* Desktop standard grid */
         .ref-card-row,
         .ref-grid-row {
             display: grid !important;
-            grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important;
+            grid-template-columns: 220px 36px 200px 1fr 120px 160px 110px !important;
             align-items: center !important;
             gap: 12px !important;
             background: #FFFFFF !important;
@@ -756,6 +779,8 @@
             height: 64px !important;
             min-height: 64px !important;
             max-height: 64px !important;
+            width: 100% !important;
+            min-width: 1050px !important;
             white-space: nowrap !important;
             box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important;
             box-sizing: border-box !important;

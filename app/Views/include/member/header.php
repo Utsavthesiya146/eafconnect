@@ -1,13 +1,26 @@
 <?php
-$db = \Config\Database::connect();
 $headerUserCode = session()->get('user_code');
-$headerMember = $db->table('users')->where('user_code', $headerUserCode)->get()->getRowArray();
-$headerChapter = $db->table('chapter_members cm')
-    ->select('c.chapter_name')
-    ->join('chapters c', 'c.chapter_code = cm.chapter_code', 'left')
-    ->where('cm.user_code', $headerUserCode)
-    ->where('cm.members_status', '1')
-    ->get()->getRowArray();
+$headerMember = session()->get('cached_header_member');
+$headerChapter = session()->get('cached_header_chapter');
+
+if (empty($headerMember) || empty($headerChapter)) {
+    try {
+        $db = \Config\Database::connect();
+        if (empty($headerMember) && $headerUserCode) {
+            $headerMember = $db->table('users')->where('user_code', $headerUserCode)->get()->getRowArray() ?: [];
+            session()->set('cached_header_member', $headerMember);
+        }
+        if (empty($headerChapter) && $headerUserCode) {
+            $headerChapter = $db->table('chapter_members cm')
+                ->select('c.chapter_name')
+                ->join('chapters c', 'c.chapter_code = cm.chapter_code', 'left')
+                ->where('cm.user_code', $headerUserCode)
+                ->where('cm.members_status', '1')
+                ->get()->getRowArray() ?: [];
+            session()->set('cached_header_chapter', $headerChapter);
+        }
+    } catch (\Throwable $e) {}
+}
 
 $headerName = !empty($headerMember['name']) ? $headerMember['name'] : (session()->get('name') ?: 'Harri Kumar');
 $headerPhoto = !empty($headerMember['profile_photo']) ? $headerMember['profile_photo'] : (session()->get('profile_photo') ?: 'empty.png');
@@ -16,10 +29,16 @@ $headerBusiness = !empty($headerMember['business_name']) ? $headerMember['busine
 $headerIndustry = !empty($headerMember['industry']) ? $headerMember['industry'] : 'Web Development & Digital Marketing';
 $headerRole = !empty($headerMember['member_role']) ? $headerMember['member_role'] : (session()->get('member_role') ?: 'Sadasyaru');
 
-$unreadNotificationsCount = $db->table('notifications')
-    ->where('user_code', $headerUserCode)
-    ->where('status', 'unread')
-    ->countAllResults();
+$unreadNotificationsCount = 0;
+if ($headerUserCode) {
+    try {
+        $db = \Config\Database::connect();
+        $unreadNotificationsCount = $db->table('notifications')
+            ->where('user_code', $headerUserCode)
+            ->where('status', 'unread')
+            ->countAllResults();
+    } catch (\Throwable $e) {}
+}
 ?>
 
 <!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
