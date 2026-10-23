@@ -26,8 +26,11 @@ class App extends BaseConfig
         if ($forwardedHost) {
             $host = explode(',', $forwardedHost)[0];
             $host = trim($host);
-            if (strpos($host, 'eafconnect.com') !== false) {
-                $this->baseURL = 'https://eafconnect.com/';
+            // Strip internal proxy port numbers (e.g. :10000) so redirects never leak internal ports
+            $host = preg_replace('/:\d+$/', '', $host);
+
+            if (strpos($host, 'eafconnect.com') !== false || strpos($host, 'onrender.com') !== false) {
+                $this->baseURL = 'https://' . $host . '/';
             } else {
                 $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
                 $subDir = trim($scriptDir, '/');

@@ -29,9 +29,12 @@ RUN chown -R www-data:www-data /var/www/html/writable /var/www/html/public /var/
     && ln -s /var/www/html/images /var/www/html/preview/images \
     && ln -s /var/www/html/uploads /var/www/html/preview/uploads
 
-# 5. Configure Apache to support .htaccess rewrites and Render dynamic PORT
+# 5. Configure Apache to support .htaccess rewrites, reverse proxies, and Render dynamic PORT
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
-    && sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+    && sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+    && echo "UseCanonicalName Off" >> /etc/apache2/apache2.conf \
+    && echo "UseCanonicalPhysicalPort Off" >> /etc/apache2/apache2.conf
 
 ENV PORT=80
 EXPOSE 80
