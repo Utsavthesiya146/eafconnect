@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=9.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -551,20 +551,22 @@
                                     <?php foreach ($active_ads as $k => $ad): ?>
                                         <?php $adImageUrl = base_url('uploads/ads/' . $ad['ads_image']); ?>
                                         <div class="carousel-item <?= $k === 0 ? 'active' : '' ?>">
-                                            <div class="kvv-banner-card">
+                                            <div class="kvv-banner-card" style="height: auto !important; max-height: none !important;">
                                                 <img src="<?= $adImageUrl; ?>" 
                                                      alt="<?= esc($ad['ads_title'] ?: 'Member Spotlight'); ?>" 
                                                      class="kvv-banner-img"
+                                                     style="width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block !important;"
                                                      onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.png'); ?>';">
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <div class="carousel-item active">
-                                        <div class="kvv-banner-card">
+                                        <div class="kvv-banner-card" style="height: auto !important; max-height: none !important;">
                                             <img src="<?= base_url('images/sample-banner.png'); ?>" 
                                                  alt="Member Spotlight"
                                                  class="kvv-banner-img"
+                                                 style="width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block !important;"
                                                  onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.jpg'); ?>';">
                                         </div>
                                     </div>

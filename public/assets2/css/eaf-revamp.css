@@ -2399,46 +2399,63 @@ body[data-topbar=colored] #page-topbar,
 .kvv-banner-card {
     position: relative;
     width: 100%;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: none !important;
     background: #FFFFFF !important;
     overflow: hidden;
     border-radius: 16px;
     border: 1px solid #E2E8F0;
     box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    display: block !important;
+    line-height: 0;
+}
+
+.kvv-banner-img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: unset !important;
+    object-fit: contain !important;
+    display: block !important;
+    border-radius: 16px !important;
+    margin: 0 !important;
+    transition: none !important;
 }
 
 @media (min-width: 992px) {
     .kvv-banner-card {
-        height: 250px !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: none !important;
         display: block !important;
     }
     .kvv-banner-img {
         width: 100% !important;
-        height: 100% !important;
-        max-height: 250px !important;
-        object-fit: cover !important;
-        object-position: center !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: unset !important;
+        object-fit: contain !important;
         display: block !important;
         border-radius: 16px !important;
-        transition: transform 0.3s ease;
     }
 }
 
 @media (max-width: 991px) {
     .kvv-banner-card {
         height: auto !important;
-        min-height: 120px;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        min-height: unset !important;
+        max-height: none !important;
+        display: block !important;
     }
     .kvv-banner-img {
         width: 100% !important;
         height: auto !important;
-        max-height: 180px !important;
+        max-height: none !important;
+        min-height: unset !important;
         object-fit: contain !important;
         display: block !important;
-        margin: 0 auto !important;
-        border-radius: 14px;
+        border-radius: 14px !important;
     }
 }
 
@@ -2447,7 +2464,7 @@ body[data-topbar=colored] #page-topbar,
 }
 
 .kvv-carousel-container:hover .kvv-banner-img {
-    transform: scale(1.015);
+    transform: none !important;
 }
 
 /* Floating Glassmorphism Arrow Buttons Inside Banner */
