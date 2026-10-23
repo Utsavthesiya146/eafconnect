@@ -334,22 +334,33 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .filter-btn {
-            border: none;
-            background: #ece6dd;
-            padding: 6px 14px;
-            /* smaller */
-            border-radius: 7px;
+            border: 1px solid #E2E8F0;
+            background: #F8FAFC;
+            color: #475569;
+            padding: 7px 14px;
+            border-radius: 8px;
             font-size: 13px;
-            transition: .2s;
+            font-weight: 600;
+            transition: all .2s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .filter-btn:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #CBD5E1;
         }
 
         .filter-btn.active {
             background: #fac532;
-            color: #fff;
+            color: #0F172A;
+            border-color: #e5af1f;
+            box-shadow: 0 2px 6px rgba(250, 197, 50, 0.35);
         }
 
         /* ===== TAB CONTENT VISIBILITY ===== */
@@ -1290,29 +1301,33 @@
                         <div class="tab-content-box active" id="received">
                             <div class="content-card">
 
+                                <?php
+                                $statusList = [
+                                    'open for discussion' => 'Open For Discussion',
+                                    'contacted'           => 'Contacted',
+                                    'pending'             => 'Pending',
+                                    'need sometime'       => 'Need Sometime',
+                                    'mitb'                => 'MITB',
+                                    'completed'           => 'Completed',
+                                    'cancelled'           => 'Cancelled',
+                                ];
+                                $activeReceived = 'open for discussion';
+                                foreach (array_keys($statusList) as $k) {
+                                    if (($statusCountsReceived[$k] ?? 0) > 0) {
+                                        $activeReceived = $k;
+                                        break;
+                                    }
+                                }
+                                ?>
                                 <div class="filter-tabs">
-
-                                    <button class="filter-btn active" data-status="open for discussion">
-                                        Open For Discussion (<?= $statusCounts['open for discussion'] ?>)
-                                    </button>
-                                    <button class="filter-btn" data-status="contacted">
-                                        Contacted (<?= $statusCounts['contacted'] ?>)
-                                    </button>
-                                    <!-- <button class="filter-btn" data-status="closed business">
-                                        Closed Business (<?= $statusCounts['closed business'] ?>)
-                                    </button> -->
-                                    <button class="filter-btn" data-status="not converted">
-                                        Need Sometime (<?= $statusCounts['not converted'] ?>)
-                                    </button>
-                                    <button class="filter-btn" data-status="cancelled">
-                                        Cancelled (<?= $statusCounts['cancelled'] ?>)
-                                    </button>
-                                    <button class="filter-btn" data-status="MITB">
-                                        MITB (<?= $statusCounts['MITB'] ?>)
-                                    </button>
-                                    <button class="filter-btn " data-status="all">
-                                        All (<?= $statusCounts['all'] ?>)
-                                    </button>
+                                    <?php foreach ($statusList as $key => $label):
+                                        $isActive = ($key === $activeReceived) ? 'active' : '';
+                                        $cnt = $statusCountsReceived[$key] ?? 0;
+                                    ?>
+                                        <button type="button" class="filter-btn <?= $isActive ?>" data-status="<?= $key ?>">
+                                            <?= $label ?> (<?= $cnt ?>)
+                                        </button>
+                                    <?php endforeach; ?>
                                 </div>
 
                                 <h5 class="fw-bold text-navy mb-3"><i class="ri-arrow-down-circle-line me-1 text-primary"></i> Received Connects</h5>
@@ -1333,7 +1348,7 @@
                                     <?php if (!empty($received)): ?>
                                         <?php foreach ($received as $row): ?>
                                             <div class="referral-item"
-                                                data-status="<?= strtolower(trim($row['status'])) ?>">
+                                                data-status="<?= esc($row['status_slug'] ?? strtolower(trim($row['status']))) ?>">
                                                 <?= view('include/member/card/recived_card.php', ['row' => $row]) ?>
                                             </div>
                                         <?php endforeach; ?>
@@ -1349,6 +1364,26 @@
                         <!-- GIVEN -->
                         <div class="tab-content-box" id="given">
                             <div class="content-card">
+
+                                <?php
+                                $activeGiven = 'open for discussion';
+                                foreach (array_keys($statusList) as $k) {
+                                    if (($statusCountsGiven[$k] ?? 0) > 0) {
+                                        $activeGiven = $k;
+                                        break;
+                                    }
+                                }
+                                ?>
+                                <div class="filter-tabs">
+                                    <?php foreach ($statusList as $key => $label):
+                                        $isActive = ($key === $activeGiven) ? 'active' : '';
+                                        $cnt = $statusCountsGiven[$key] ?? 0;
+                                    ?>
+                                        <button type="button" class="filter-btn <?= $isActive ?>" data-status="<?= $key ?>">
+                                            <?= $label ?> (<?= $cnt ?>)
+                                        </button>
+                                    <?php endforeach; ?>
+                                </div>
 
                                 <h5 class="fw-bold text-navy mb-3"><i class="ri-arrow-up-circle-line me-1 text-warning"></i> Given Connects</h5>
 
@@ -1368,7 +1403,7 @@
                                     <?php if (!empty($given)): ?>
                                         <?php foreach ($given as $row): ?>
                                             <div class="referral-item"
-                                                data-status="<?= strtolower(trim($row['status'])) ?>">
+                                                data-status="<?= esc($row['status_slug'] ?? strtolower(trim($row['status']))) ?>">
                                                 <?= view('include/member/card/given_card.php', ['row' => $row]) ?>
                                             </div>
                                         <?php endforeach; ?>
@@ -1407,35 +1442,87 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?php echo view('include/member/popup/connects.php') ?>
     <script>
-        document.querySelectorAll(".tab-btn").forEach(button => {
-            button.addEventListener("click", function() {
-                // active button
-                document.querySelectorAll(".tab-btn")
-                    .forEach(btn => btn.classList.remove("active"));
-                this.classList.add("active");
-                // hide all contents
-                document.querySelectorAll(".tab-content-box")
-                    .forEach(tab => tab.classList.remove("active"));
-                // show selected content
-                let tab = this.getAttribute("data-tab");
-                document.getElementById(tab).classList.add("active");
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.filter-btn').click(function() {
-                $('.filter-btn').removeClass('active');
-                $(this).addClass('active');
-                let status = $(this).data('status');
-                if (status === 'all') {
-                    $('.referral-item').show();
+        function applyConnectFilter(containerId) {
+            var $container = $('#' + containerId);
+            if (!$container.length) return;
+
+            var $activeBtn = $container.find('.filter-btn.active');
+            if (!$activeBtn.length) {
+                $activeBtn = $container.find('.filter-btn').first().addClass('active');
+            }
+
+            var selectedStatus = $.trim(String($activeBtn.attr('data-status') || '')).toLowerCase();
+            var $items = $container.find('.referral-item');
+            var visibleCount = 0;
+
+            $items.each(function() {
+                var itemStatus = $.trim(String($(this).attr('data-status') || '')).toLowerCase();
+                if (itemStatus === selectedStatus) {
+                    $(this).show();
+                    visibleCount++;
                 } else {
-                    $('.referral-item').hide();
-                    $('.referral-item').filter(function() {
-                        return $(this).data('status') == status;
-                    }).show();
+                    $(this).hide();
                 }
+            });
+
+            var $emptyMsg = $container.find('.empty-filter-placeholder');
+            if (visibleCount === 0) {
+                if (!$emptyMsg.length) {
+                    $container.find('.referral-wrapper').append(
+                        '<div class="empty-filter-placeholder col-12 text-center p-4 text-muted" style="font-size:13.5px; font-weight:500;">No connects found in this status.</div>'
+                    );
+                } else {
+                    $emptyMsg.show();
+                }
+            } else {
+                $emptyMsg.hide();
+            }
+        }
+
+        $(document).ready(function() {
+            // Restore active tab if stored in sessionStorage
+            var savedTab = sessionStorage.getItem('activeConnectTab');
+            if (savedTab && $('#' + savedTab).length) {
+                $('.tab-btn').removeClass('active');
+                $('.tab-btn[data-tab="' + savedTab + '"]').addClass('active');
+                $('.tab-content-box').removeClass('active');
+                $('#' + savedTab).addClass('active');
+            }
+
+            // Apply filter initially on both containers
+            applyConnectFilter('received');
+            applyConnectFilter('given');
+
+            // Filter button click
+            $(document).on('click', '.tab-content-box .filter-btn', function() {
+                var $box = $(this).closest('.tab-content-box');
+                $box.find('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                applyConnectFilter($box.attr('id'));
+            });
+
+            // Main tab switch (Received / Given)
+            document.querySelectorAll(".tab-btn").forEach(function(button) {
+                button.addEventListener("click", function() {
+                    document.querySelectorAll(".tab-btn").forEach(function(btn) {
+                        btn.classList.remove("active");
+                    });
+                    this.classList.add("active");
+
+                    document.querySelectorAll(".tab-content-box").forEach(function(tab) {
+                        tab.classList.remove("active");
+                    });
+
+                    var tabId = this.getAttribute("data-tab");
+                    sessionStorage.setItem('activeConnectTab', tabId);
+                    var targetBox = document.getElementById(tabId);
+                    if (targetBox) {
+                        targetBox.classList.add("active");
+                    }
+                    setTimeout(function() {
+                        applyConnectFilter(tabId);
+                    }, 30);
+                });
             });
         });
     </script>

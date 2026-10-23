@@ -1,40 +1,25 @@
-
+<!-- DEBUG-VIEW START 27 APPPATH\Views\member\connects.php -->
 <!doctype html>
 <html lang="en">
 
 <head>
-<script>
-    // Live Backend Auto-Bridge: Route static preview hits into dynamic CodeIgniter backend
-    (function() {
-        if (window.location.protocol.startsWith("http")) {
-            var path = window.location.pathname;
-            var idx = path.indexOf("/preview/");
-            var base = idx !== -1 ? path.substring(0, idx) : "";
-            var p = path.split("/").pop().replace(".html", "");
-            if (!p || p === "index") p = "dashboard";
-            window.location.replace(base + "/preview/" + encodeURIComponent(p));
-        }
-    })();
-</script>
-
-
     <meta charset="utf-8" />
     <title>Connects </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../images/logo5.png">
-    <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="http://localhost/eaf/images/logo5.png">
+    <link href="http://localhost/eaf/assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
-    <script src="../assets2/js/layout.js"></script>
-    <link href="../assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <link href="../assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/eaf/assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://localhost/eaf/assets2/js/layout.js"></script>
+    <link href="http://localhost/eaf/assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/eaf/assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/eaf/assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="../assets2/css/eaf-revamp.css?v=3.5" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/eaf/assets2/css/eaf-revamp.css?v=3.5" rel="stylesheet" type="text/css" />
     <style>
      
 
@@ -350,22 +335,33 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .filter-btn {
-            border: none;
-            background: #ece6dd;
-            padding: 6px 14px;
-            /* smaller */
-            border-radius: 7px;
+            border: 1px solid #E2E8F0;
+            background: #F8FAFC;
+            color: #475569;
+            padding: 7px 14px;
+            border-radius: 8px;
             font-size: 13px;
-            transition: .2s;
+            font-weight: 600;
+            transition: all .2s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .filter-btn:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #CBD5E1;
         }
 
         .filter-btn.active {
             background: #fac532;
-            color: #fff;
+            color: #0F172A;
+            border-color: #e5af1f;
+            box-shadow: 0 2px 6px rgba(250, 197, 50, 0.35);
         }
 
         /* ===== TAB CONTENT VISIBILITY ===== */
@@ -741,13 +737,120 @@
             transform: translateY(-2px) !important;
         }
 
-        /* Horizontal Scroll on small screens */
-        @media (max-width: 1199px) {
+        /* Desktop & Tablet standard grid */
+        .ref-card-row,
+        .ref-grid-row {
+            display: grid !important;
+            grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important;
+            align-items: center !important;
+            gap: 12px !important;
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 12px !important;
+            padding: 0 16px !important;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            white-space: nowrap !important;
+            box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (min-width: 992px) {
             .referral-card,
             .ref-header-row,
-            .referral-item {
-                min-width: 1200px !important;
-                width: 1200px !important;
+            .referral-item,
+            .ref-card-col {
+                min-width: 1080px;
+                width: 100%;
+            }
+        }
+
+        /* Mobile Responsive Card UI */
+        @media (max-width: 991px) {
+            .referral-wrapper {
+                overflow-x: visible !important;
+                padding-bottom: 0 !important;
+            }
+            .ref-header-row {
+                display: none !important;
+            }
+            .referral-item,
+            .ref-card-col {
+                min-width: 100% !important;
+                width: 100% !important;
+                display: block !important;
+                margin-bottom: 12px !important;
+            }
+            .referral-card,
+            .ref-grid-row {
+                display: flex !important;
+                flex-direction: column !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                min-width: 100% !important;
+                width: 100% !important;
+                padding: 16px !important;
+                gap: 12px !important;
+                white-space: normal !important;
+                border-radius: 16px !important;
+                border: 1px solid #E2E8F0 !important;
+                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+            }
+            .referral-card > div {
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: none !important;
+            }
+            .ref-col.ref-business {
+                border-top: 1px solid #F1F5F9 !important;
+                padding-top: 10px !important;
+            }
+            .ref-col.ref-status {
+                text-align: left !important;
+                justify-content: flex-start !important;
+            }
+            .ref-col.ref-date {
+                text-align: left !important;
+                font-size: 12px !important;
+            }
+            .ref-col.ref-actions {
+                border-top: 1px dashed #E2E8F0 !important;
+                padding-top: 12px !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+            }
+            .ref-btn {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 15px !important;
+                border-radius: 9px !important;
+            }
+            .connect-tabs {
+                display: flex !important;
+                gap: 8px !important;
+                margin-bottom: 12px !important;
+            }
+            .tab-btn {
+                flex: 1 !important;
+                text-align: center !important;
+                padding: 10px 14px !important;
+                font-size: 13.5px !important;
+            }
+            .filter-tabs {
+                display: flex !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                white-space: nowrap !important;
+                gap: 6px !important;
+                flex-wrap: nowrap !important;
+                padding-bottom: 8px !important;
+            }
+            .filter-btn {
+                flex-shrink: 0 !important;
+                font-size: 12px !important;
+                padding: 6px 12px !important;
             }
         }
     </style>
@@ -756,15 +859,15 @@
 <body data-sidebar="colored">
     <!-- Begin page -->
     <div id="layout-wrapper">
-        
+        <!-- DEBUG-VIEW START 1 APPPATH\Views\include\member\header.php -->
 
 <!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
-<link rel="stylesheet" href="../assets2/css/eaf-design-system.css?v=5.0">
-<link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=5.0">
+<link rel="stylesheet" href="http://localhost/eaf/assets2/css/eaf-design-system.css?v=5.0">
+<link rel="stylesheet" href="http://localhost/eaf/assets2/css/eaf-revamp.css?v=5.0">
 
 <header id="page-topbar">
     <div class="navbar-header">
@@ -776,15 +879,15 @@
 
             <!-- KVV Member Profile Header Widget -->
             <div class="kvv-header-user-block">
-                <a href="profile.html">
-                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                <a href="http://localhost/eaf/member/profile">
+                    <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                          alt="Harri Kumar" 
                          class="kvv-header-avatar"
-                         onerror="this.onerror=null; this.src='../images/empty.png';">
+                         onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png';">
                 </a>
                 <div class="kvv-header-user-info">
                     <div class="kvv-header-name">
-                        <a href="profile.html" style="color:inherit;text-decoration:none;">
+                        <a href="http://localhost/eaf/member/profile" style="color:inherit;text-decoration:none;">
                             Harri Kumar <span class="kvv-name-divider">|</span> Chapter 2                        </a>
                     </div>
                     <div class="kvv-header-sub">
@@ -799,7 +902,7 @@
         <div class="d-flex align-items-center gap-2">
             <!-- Notifications Dropdown -->
             <div class="dropdown d-inline-block">
-                <a href="notifications.html" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                <a href="http://localhost/eaf/member/notifications" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
                     <i class="ri-notification-3-line font-size-20"></i>
                                     </a>
             </div>
@@ -811,27 +914,27 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
                     <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
-                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                        <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
                              class="rounded-circle shadow-sm"
                              alt="Profile Image"
                              width="64" height="64"
                              style="object-fit:cover; object-position:top center; border: 2px solid #C6A667;"
-                             onerror="this.onerror=null; this.src='../images/empty.png';">
+                             onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png';">
                         <h6 class="mt-2 mb-0 fw-bold" style="color:#ffffff;">
                             Harri Kumar                        </h6>
                         <small class="text-white-50">Chapter 2 • President</small>
                     </div>
                     <div class="p-2">
-                        <a href="profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                        <a href="http://localhost/eaf/member/profile" class="dropdown-item d-flex align-items-center rounded-3 py-2">
                             <i class="ri-user-line fs-5 text-warning me-2"></i>
                             <span>My Profile</span>
                         </a>
-                        <a href="profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                        <a href="http://localhost/eaf/member/profile" class="dropdown-item d-flex align-items-center rounded-3 py-2">
                             <i class="ri-lock-password-line fs-5 text-primary me-2"></i>
                             <span>Account Settings</span>
                         </a>
                         <hr class="my-2">
-                        <a href="member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                        <a href="http://localhost/eaf/logout" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
                             <i class="ri-logout-box-r-line fs-5 me-2"></i>
                             <span>Logout</span>
                         </a>
@@ -849,7 +952,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("../images/logo5.png") no-repeat center;
+        background: url("http://localhost/eaf/images/logo5.png") no-repeat center;
         background-size: 320px;
         opacity: 0.02;
         z-index: 0;
@@ -861,13 +964,13 @@
         z-index: 1;
     }
 </style>
-
-        
+<!-- DEBUG-VIEW ENDED 1 APPPATH\Views\include\member\header.php -->
+        <!-- DEBUG-VIEW START 2 APPPATH\Views\include\member\sidebar.php -->
 <div class="vertical-menu">
     <!-- LOGO / BRAND (EAF Connect Official Logo) -->
     <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
-        <a href="dashboard.html" class="d-flex align-items-center gap-2" style="text-decoration:none;">
-            <img src="../images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='../images/logo6.png'">
+        <a href="http://localhost/eaf/member/dashboard" class="d-flex align-items-center gap-2" style="text-decoration:none;">
+            <img src="http://localhost/eaf/images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='http://localhost/eaf/images/logo6.png'">
             <div style="display:flex; flex-direction:column; line-height:1.15;">
                 <span style="font-size:18px; font-weight:800; color:#101B35; letter-spacing:-0.3px; font-family:'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;">
                     EAF <span style="color:#C6A667; font-weight:700; font-size:16px;">Connect</span>
@@ -889,8 +992,8 @@
         <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
             <ul class="metismenu list-unstyled" id="side-menu">
                 <!-- 1. Dashboard -->
-                <li class="">
-                    <a href="dashboard.html" class="waves-effect ">
+                <li class="mm-active">
+                    <a href="http://localhost/eaf/member/dashboard" class="waves-effect active">
                         <i class="ri-dashboard-3-line"></i>
                         <span>Dashboard</span>
                     </a>
@@ -898,15 +1001,15 @@
 
                 <!-- 2. My Profile -->
                 <li class="">
-                    <a href="profile.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/profile" class="waves-effect ">
                         <i class="ri-user-3-line"></i>
                         <span>My Profile</span>
                     </a>
                 </li>
 
                 <!-- 3. Connects (EAF Wordings) -->
-                <li class="mm-active">
-                    <a href="connect.html" class="waves-effect active">
+                <li class="">
+                    <a href="http://localhost/eaf/member/connect" class="waves-effect ">
                         <i class="ri-shake-hands-line"></i>
                         <span>Connects</span>
                     </a>
@@ -914,7 +1017,7 @@
 
                 <!-- 4. F2F (1-to-1) -->
                 <li class="">
-                    <a href="f2f.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/f2f" class="waves-effect ">
                         <i class="ri-group-line"></i>
                         <span>F2F</span>
                     </a>
@@ -922,7 +1025,7 @@
 
                 <!-- 5. MITB -->
                 <li class="">
-                    <a href="mitb.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/mitb" class="waves-effect ">
                         <i class="ri-money-rupee-circle-line"></i>
                         <span>MITB</span>
                     </a>
@@ -930,7 +1033,7 @@
 
                 <!-- 6. Search -->
                 <li class="">
-                    <a href="search.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/search" class="waves-effect ">
                         <i class="ri-search-line"></i>
                         <span>Search</span>
                     </a>
@@ -938,7 +1041,7 @@
 
                 <!-- 7. My Attendance -->
                 <li class="">
-                    <a href="my_attendance.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/my_attendance" class="waves-effect ">
                         <i class="ri-calendar-check-line"></i>
                         <span>My Attendance</span>
                     </a>
@@ -946,7 +1049,7 @@
 
                 <!-- 8. Top Performers -->
                 <li class="">
-                    <a href="topperformer.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/topperformer" class="waves-effect ">
                         <i class="ri-bar-chart-2-line"></i>
                         <span>Top Performers</span>
                     </a>
@@ -954,7 +1057,7 @@
 
                 <!-- 9. Chapter Meetings -->
                 <li class="">
-                    <a href="meetings.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/meetings" class="waves-effect ">
                         <i class="ri-video-chat-line"></i>
                         <span>Chapter Meetings</span>
                     </a>
@@ -962,7 +1065,7 @@
 
                 <!-- 10. My Chapter -->
                 <li class="">
-                    <a href="mychapter.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/mychapter" class="waves-effect ">
                         <i class="ri-building-line"></i>
                         <span>My Chapter</span>
                     </a>
@@ -970,7 +1073,7 @@
 
                 <!-- 11. All Chapters -->
                 <li class="">
-                    <a href="chapter.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/chapter" class="waves-effect ">
                         <i class="ri-community-line"></i>
                         <span>All Chapters</span>
                     </a>
@@ -978,7 +1081,7 @@
 
                 <!-- 12. Visitor Tracking -->
                 <li class="">
-                    <a href="visitor.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/visitor" class="waves-effect ">
                         <i class="ri-user-follow-line"></i>
                         <span>Visitor Tracking</span>
                     </a>
@@ -986,7 +1089,7 @@
 
                 <!-- 13. Notifications -->
                 <li class="">
-                    <a href="notifications.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/notifications" class="waves-effect ">
                         <i class="ri-notification-3-line"></i>
                         <span>Notifications</span>
                     </a>
@@ -994,7 +1097,7 @@
 
                 <!-- 14. Broadcast -->
                 <li class="">
-                    <a href="broadcast.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/broadcast" class="waves-effect ">
                         <i class="ri-broadcast-line"></i>
                         <span>Broadcast</span>
                     </a>
@@ -1013,7 +1116,7 @@
 
                 <!-- 16. Logout (Red Accent at bottom) -->
                 <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
-                    <a href="member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                    <a href="http://localhost/eaf/logout" class="waves-effect logout-menu" style="color: #DC2626 !important;">
                         <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
                         <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
                     </a>
@@ -1023,7 +1126,7 @@
     </div>
 </div>
 <!-- Left Sidebar End -->
-
+<!-- DEBUG-VIEW ENDED 2 APPPATH\Views\include\member\sidebar.php -->
         <div class="main-content">
             <div class="page-content">
                                     <div class="eaf-member-hero-card">
@@ -1031,10 +1134,10 @@
                             <!-- AVATAR & AI BADGE -->
                             <div class="eaf-hero-avatar-wrap">
                                 <div class="eaf-hero-avatar-frame">
-                                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                                    <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
                                          class="eaf-hero-avatar-img"
                                          alt="Harri Kumar"
-                                         onerror="this.onerror=null; this.src='../images/empty.png';">
+                                         onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png';">
                                                                     </div>
                             </div>
 
@@ -1443,30 +1546,29 @@ stable, and efficient teams for organizations</p>
                         <div class="tab-content-box active" id="received">
                             <div class="content-card">
 
-                                <div class="filter-tabs">
-
-                                    <button class="filter-btn active" data-status="open for discussion">
-                                        Open For Discussion (0)
-                                    </button>
-                                    <button class="filter-btn" data-status="contacted">
-                                        Contacted (3)
-                                    </button>
-                                    <!-- <button class="filter-btn" data-status="closed business">
-                                        Closed Business (0)
-                                    </button> -->
-                                    <button class="filter-btn" data-status="not converted">
-                                        Need Sometime (0)
-                                    </button>
-                                    <button class="filter-btn" data-status="cancelled">
-                                        Cancelled (1)
-                                    </button>
-                                    <button class="filter-btn" data-status="MITB">
-                                        MITB (0)
-                                    </button>
-                                    <button class="filter-btn " data-status="all">
-                                        All (5)
-                                    </button>
-                                </div>
+                                                                <div class="filter-tabs">
+                                                                            <button type="button" class="filter-btn " data-status="open for discussion">
+                                            Open For Discussion (0)
+                                        </button>
+                                                                            <button type="button" class="filter-btn active" data-status="contacted">
+                                            Contacted (2)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="pending">
+                                            Pending (1)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="need sometime">
+                                            Need Sometime (0)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="mitb">
+                                            MITB (1)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="completed">
+                                            Completed (0)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="cancelled">
+                                            Cancelled (1)
+                                        </button>
+                                                                    </div>
 
                                 <h5 class="fw-bold text-navy mb-3"><i class="ri-arrow-down-circle-line me-1 text-primary"></i> Received Connects</h5>
 
@@ -1484,17 +1586,17 @@ stable, and efficient teams for organizations</p>
                                     </div>
 
                                                                                                                         <div class="referral-item"
-                                                data-status="contacted" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="mitb">
+                                                <!-- DEBUG-VIEW START 3 APPPATH\Views\include\member\card\recived_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Keerthi Shree K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Keerthi Shree K">
                     Keerthi Shree K                </div>
@@ -1512,10 +1614,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1534,14 +1636,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0025');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.25);"
-                  title="Click to update status">
-                Contacted            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(13, 148, 136, 0.14); color: #0D9488; border: 1px solid rgba(13, 148, 136, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                MITB            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 09:38 AM">
-            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 09:38 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 04:08 AM">
+            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 04:08 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -1556,7 +1660,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0025" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -1565,20 +1669,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 3 APPPATH\Views\include\member\card\recived_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="contacted" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="contacted">
+                                                <!-- DEBUG-VIEW START 4 APPPATH\Views\include\member\card\recived_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1596,10 +1700,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1618,14 +1722,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0023');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(2, 132, 199, 0.12); color: #0284C7; border: 1px solid rgba(2, 132, 199, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Contacted            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 09:13 AM">
-            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 09:13 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 03:43 AM">
+            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 03:43 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -1640,7 +1746,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0023" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -1649,20 +1755,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 4 APPPATH\Views\include\member\card\recived_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="pending" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="pending">
+                                                <!-- DEBUG-VIEW START 5 APPPATH\Views\include\member\card\recived_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Dhakkshinya"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Dhakkshinya">
                     Dhakkshinya                </div>
@@ -1680,10 +1786,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1702,14 +1808,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('49');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(245, 158, 11, 0.14); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Pending            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Aug 2026, 05:55 PM">
-            <i class="ri-time-line me-1 text-muted"></i>06 Aug 2026 • 05:55 PM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Aug 2026, 12:25 PM">
+            <i class="ri-time-line me-1 text-muted"></i>06 Aug 2026 • 12:25 PM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -1724,7 +1832,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/49" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -1733,20 +1841,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 5 APPPATH\Views\include\member\card\recived_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="contacted" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="contacted">
+                                                <!-- DEBUG-VIEW START 6 APPPATH\Views\include\member\card\recived_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="SRINIVAS THATIKONDA "
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="SRINIVAS THATIKONDA ">
                     SRINIVAS THATIKONDA                 </div>
@@ -1764,10 +1872,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1786,14 +1894,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('39');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(2, 132, 199, 0.12); color: #0284C7; border: 1px solid rgba(2, 132, 199, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Contacted            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Aug 2026, 05:49 PM">
-            <i class="ri-time-line me-1 text-muted"></i>06 Aug 2026 • 05:49 PM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Aug 2026, 12:19 PM">
+            <i class="ri-time-line me-1 text-muted"></i>06 Aug 2026 • 12:19 PM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -1808,7 +1918,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/39" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -1817,20 +1927,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 6 APPPATH\Views\include\member\card\recived_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="cancelled" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="cancelled">
+                                                <!-- DEBUG-VIEW START 7 APPPATH\Views\include\member\card\recived_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Praveen Kumar C H "
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Praveen Kumar C H ">
                     Praveen Kumar C H                 </div>
@@ -1848,10 +1958,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1870,14 +1980,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('23');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(239, 68, 68, 0.12); color: #DC2626; border: 1px solid rgba(239, 68, 68, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(239, 68, 68, 0.12); color: #DC2626; border: 1px solid rgba(239, 68, 68, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Cancelled            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 30 Jul 2026, 09:12 AM">
-            <i class="ri-time-line me-1 text-muted"></i>30 Jul 2026 • 09:12 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 30 Jul 2026, 03:42 AM">
+            <i class="ri-time-line me-1 text-muted"></i>30 Jul 2026 • 03:42 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -1892,7 +2004,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/23" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -1901,7 +2013,7 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 7 APPPATH\Views\include\member\card\recived_card.php -->
                                             </div>
                                                                             
                                 </div>
@@ -1910,6 +2022,30 @@ stable, and efficient teams for organizations</p>
                         <!-- GIVEN -->
                         <div class="tab-content-box" id="given">
                             <div class="content-card">
+
+                                                                <div class="filter-tabs">
+                                                                            <button type="button" class="filter-btn active" data-status="open for discussion">
+                                            Open For Discussion (4)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="contacted">
+                                            Contacted (1)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="pending">
+                                            Pending (4)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="need sometime">
+                                            Need Sometime (0)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="mitb">
+                                            MITB (0)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="completed">
+                                            Completed (7)
+                                        </button>
+                                                                            <button type="button" class="filter-btn " data-status="cancelled">
+                                            Cancelled (0)
+                                        </button>
+                                                                    </div>
 
                                 <h5 class="fw-bold text-navy mb-3"><i class="ri-arrow-up-circle-line me-1 text-warning"></i> Given Connects</h5>
 
@@ -1927,17 +2063,17 @@ stable, and efficient teams for organizations</p>
                                     </div>
 
                                                                                                                         <div class="referral-item"
-                                                data-status="open for discussion" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="open for discussion">
+                                                <!-- DEBUG-VIEW START 8 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -1955,10 +2091,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Keerthi Shree K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Keerthi Shree K">
                     Keerthi Shree K                </div>
@@ -1977,14 +2113,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0026');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(15, 59, 104, 0.12); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Open For Discussion            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Oct 2026, 04:57 PM">
-            <i class="ri-time-line me-1 text-muted"></i>06 Oct 2026 • 04:57 PM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Oct 2026, 11:27 AM">
+            <i class="ri-time-line me-1 text-muted"></i>06 Oct 2026 • 11:27 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -1999,7 +2137,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0026" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2008,20 +2146,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 8 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="open for discussion" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="open for discussion">
+                                                <!-- DEBUG-VIEW START 9 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2039,10 +2177,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Sandeep G"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Sandeep G">
                     Sandeep G                </div>
@@ -2061,14 +2199,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0024');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(15, 59, 104, 0.12); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Open For Discussion            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 09:13 AM">
-            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 09:13 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 03:43 AM">
+            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 03:43 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2083,7 +2223,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0024" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2092,20 +2232,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 9 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="contacted" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="contacted">
+                                                <!-- DEBUG-VIEW START 10 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2123,10 +2263,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2145,14 +2285,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0023');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(2, 132, 199, 0.12); color: #0284C7; border: 1px solid rgba(2, 132, 199, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Contacted            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 09:13 AM">
-            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 09:13 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 01 Oct 2026, 03:43 AM">
+            <i class="ri-time-line me-1 text-muted"></i>01 Oct 2026 • 03:43 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2167,7 +2309,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0023" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2176,20 +2318,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 10 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="open for discussion" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="open for discussion">
+                                                <!-- DEBUG-VIEW START 11 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2207,10 +2349,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Keerthi Shree K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Keerthi Shree K">
                     Keerthi Shree K                </div>
@@ -2229,14 +2371,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0011');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(15, 59, 104, 0.12); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Open For Discussion            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 27 Aug 2026, 09:11 AM">
-            <i class="ri-time-line me-1 text-muted"></i>27 Aug 2026 • 09:11 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 27 Aug 2026, 03:41 AM">
+            <i class="ri-time-line me-1 text-muted"></i>27 Aug 2026 • 03:41 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2251,7 +2395,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0011" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2260,20 +2404,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 11 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="open for discussion" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="open for discussion">
+                                                <!-- DEBUG-VIEW START 12 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2291,10 +2435,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Sandeep G"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Sandeep G">
                     Sandeep G                </div>
@@ -2313,14 +2457,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0010');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(15, 59, 104, 0.12); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.25);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Open For Discussion            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 27 Aug 2026, 09:05 AM">
-            <i class="ri-time-line me-1 text-muted"></i>27 Aug 2026 • 09:05 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 27 Aug 2026, 03:35 AM">
+            <i class="ri-time-line me-1 text-muted"></i>27 Aug 2026 • 03:35 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2335,7 +2481,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0010" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2344,20 +2490,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 12 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="bussiness done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 13 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2375,10 +2521,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="ARPITA"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="ARPITA">
                     ARPITA                </div>
@@ -2397,14 +2543,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('REFF0005');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;"
-                  title="Click to update status">
-                Bussiness Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 19 Aug 2026, 02:21 PM">
-            <i class="ri-time-line me-1 text-muted"></i>19 Aug 2026 • 02:21 PM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 19 Aug 2026, 08:51 AM">
+            <i class="ri-time-line me-1 text-muted"></i>19 Aug 2026 • 08:51 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2419,7 +2567,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/REFF0005" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2428,20 +2576,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 13 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="pending" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="pending">
+                                                <!-- DEBUG-VIEW START 14 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2459,10 +2607,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Keerthi Shree K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Keerthi Shree K">
                     Keerthi Shree K                </div>
@@ -2481,14 +2629,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('37');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(245, 158, 11, 0.14); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Pending            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Aug 2026, 05:01 PM">
-            <i class="ri-time-line me-1 text-muted"></i>06 Aug 2026 • 05:01 PM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 06 Aug 2026, 11:31 AM">
+            <i class="ri-time-line me-1 text-muted"></i>06 Aug 2026 • 11:31 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2503,7 +2653,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/37" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2512,20 +2662,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 14 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="pending" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="pending">
+                                                <!-- DEBUG-VIEW START 15 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2543,10 +2693,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1776319236_39f99881462bc0a885d2.jpg" 
+            <img src="http://localhost/eaf/uploads/profile/1776319236_39f99881462bc0a885d2.jpg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Sayed Asif "
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Sayed Asif ">
                     Sayed Asif                 </div>
@@ -2565,14 +2715,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('22');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(245, 158, 11, 0.14); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Pending            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 30 Jul 2026, 08:27 AM">
-            <i class="ri-time-line me-1 text-muted"></i>30 Jul 2026 • 08:27 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 30 Jul 2026, 02:57 AM">
+            <i class="ri-time-line me-1 text-muted"></i>30 Jul 2026 • 02:57 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2587,7 +2739,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/22" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2596,20 +2748,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 15 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="pending" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="pending">
+                                                <!-- DEBUG-VIEW START 16 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2627,10 +2779,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1773832488_3bb33909dec2362fc92a.jpg" 
+            <img src="http://localhost/eaf/uploads/profile/1773832488_3bb33909dec2362fc92a.jpg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Kashi Lohar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Kashi Lohar">
                     Kashi Lohar                </div>
@@ -2649,14 +2801,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('21');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(245, 158, 11, 0.14); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Pending            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 15 Jul 2026, 08:22 AM">
-            <i class="ri-time-line me-1 text-muted"></i>15 Jul 2026 • 08:22 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 15 Jul 2026, 02:52 AM">
+            <i class="ri-time-line me-1 text-muted"></i>15 Jul 2026 • 02:52 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2671,7 +2825,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/21" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2680,20 +2834,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 16 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="business_done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 17 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2711,10 +2865,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="VENKATESH G P"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="VENKATESH G P">
                     VENKATESH G P                </div>
@@ -2733,14 +2887,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('20');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);"
-                  title="Click to update status">
-                Business Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 02 Jul 2026, 06:10 AM">
-            <i class="ri-time-line me-1 text-muted"></i>02 Jul 2026 • 06:10 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 02 Jul 2026, 12:40 AM">
+            <i class="ri-time-line me-1 text-muted"></i>02 Jul 2026 • 12:40 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2755,7 +2911,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/20" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2764,20 +2920,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 17 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="pending" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="pending">
+                                                <!-- DEBUG-VIEW START 18 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2795,10 +2951,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1776319236_39f99881462bc0a885d2.jpg" 
+            <img src="http://localhost/eaf/uploads/profile/1776319236_39f99881462bc0a885d2.jpg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Sayed Asif "
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Sayed Asif ">
                     Sayed Asif                 </div>
@@ -2817,14 +2973,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('18');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);"
-                  title="Click to update status">
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(245, 158, 11, 0.14); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
                 Pending            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 14 May 2026, 08:51 AM">
-            <i class="ri-time-line me-1 text-muted"></i>14 May 2026 • 08:51 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 14 May 2026, 03:21 AM">
+            <i class="ri-time-line me-1 text-muted"></i>14 May 2026 • 03:21 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2839,7 +2997,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/18" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2848,20 +3006,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 18 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="business_done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 19 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2879,10 +3037,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Keerthi Shree K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Keerthi Shree K">
                     Keerthi Shree K                </div>
@@ -2901,14 +3059,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('8');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);"
-                  title="Click to update status">
-                Business Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 09 Apr 2026, 09:07 AM">
-            <i class="ri-time-line me-1 text-muted"></i>09 Apr 2026 • 09:07 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 09 Apr 2026, 03:37 AM">
+            <i class="ri-time-line me-1 text-muted"></i>09 Apr 2026 • 03:37 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -2923,7 +3083,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/8" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -2932,20 +3092,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 19 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="business_done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 20 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -2963,10 +3123,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781149319_1bc8a85528d411473f01.jpg" 
+            <img src="http://localhost/eaf/uploads/profile/1781149319_1bc8a85528d411473f01.jpg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Vinod K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Vinod K">
                     Vinod K                </div>
@@ -2985,14 +3145,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('7');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);"
-                  title="Click to update status">
-                Business Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 26 Mar 2026, 08:48 AM">
-            <i class="ri-time-line me-1 text-muted"></i>26 Mar 2026 • 08:48 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 26 Mar 2026, 03:18 AM">
+            <i class="ri-time-line me-1 text-muted"></i>26 Mar 2026 • 03:18 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -3007,7 +3169,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/7" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -3016,20 +3178,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 20 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="business_done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 21 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -3047,10 +3209,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1773832488_3bb33909dec2362fc92a.jpg" 
+            <img src="http://localhost/eaf/uploads/profile/1773832488_3bb33909dec2362fc92a.jpg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Kashi Lohar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Kashi Lohar">
                     Kashi Lohar                </div>
@@ -3069,14 +3231,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('5');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);"
-                  title="Click to update status">
-                Business Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 18 Mar 2026, 11:22 AM">
-            <i class="ri-time-line me-1 text-muted"></i>18 Mar 2026 • 11:22 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 18 Mar 2026, 05:52 AM">
+            <i class="ri-time-line me-1 text-muted"></i>18 Mar 2026 • 05:52 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -3091,7 +3255,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/5" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -3100,20 +3264,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 21 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="business_done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 22 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -3131,10 +3295,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../images/empty.png" 
+            <img src="http://localhost/eaf/images/empty.png" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="VENKATESH G P"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="VENKATESH G P">
                     VENKATESH G P                </div>
@@ -3153,14 +3317,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('4');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);"
-                  title="Click to update status">
-                Business Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 18 Mar 2026, 11:22 AM">
-            <i class="ri-time-line me-1 text-muted"></i>18 Mar 2026 • 11:22 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 18 Mar 2026, 05:52 AM">
+            <i class="ri-time-line me-1 text-muted"></i>18 Mar 2026 • 05:52 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -3175,7 +3341,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/4" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -3184,20 +3350,20 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 22 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                     <div class="referral-item"
-                                                data-status="business_done" style="width: 1200px; min-width: 1200px;">
-                                                
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+                                                data-status="completed">
+                                                <!-- DEBUG-VIEW START 23 APPPATH\Views\include\member\card\given_card.php -->
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                  alt="Harri Kumar"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Harri Kumar">
                     Harri Kumar                </div>
@@ -3215,10 +3381,10 @@ stable, and efficient teams for organizations</p>
 
         <!-- 3. TO RECEIVER (200px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 200px; overflow: hidden;">
-            <img src="../uploads/profile/1781149319_1bc8a85528d411473f01.jpg" 
+            <img src="http://localhost/eaf/uploads/profile/1781149319_1bc8a85528d411473f01.jpg" 
                  style="width: 38px; height: 38px; min-width: 38px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                  alt="Vinod K"
-                 onerror="this.onerror=null; this.src='../images/empty.png'">
+                 onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png'">
             <div style="overflow: hidden; line-height: 1.25;">
                 <div style="font-weight: 700; font-size: 13px; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Vinod K">
                     Vinod K                </div>
@@ -3237,14 +3403,16 @@ stable, and efficient teams for organizations</p>
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
             <span onclick="edit_refferral_status('3');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);"
-                  title="Click to update status">
-                Business Done            </span>
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                Completed            </span>
         </div>
 
         <!-- 6. DATE & TIME (160px) -->
-        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 18 Mar 2026, 11:06 AM">
-            <i class="ri-time-line me-1 text-muted"></i>18 Mar 2026 • 11:06 AM        </div>
+        <div style="width: 160px; text-align: center; font-size: 11.5px; color: #64748B; font-weight: 500; white-space: nowrap;" title="Created on 18 Mar 2026, 05:36 AM">
+            <i class="ri-time-line me-1 text-muted"></i>18 Mar 2026 • 05:36 AM        </div>
 
         <!-- 7. ACTIONS (110px - fully visible, no clipping) -->
         <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 110px; padding-right: 4px;">
@@ -3259,7 +3427,7 @@ stable, and efficient teams for organizations</p>
                    title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                        <a href="connect.html" 
+                        <a href="http://localhost/eaf/index.php/member/connect/details/3" 
                style="width: 30px; height: 30px; min-width: 30px; border-radius: 8px; background: #0F3B68; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(15, 59, 104, 0.2);" 
                title="View Details">
                 <i class="fa fa-eye"></i>
@@ -3268,7 +3436,7 @@ stable, and efficient teams for organizations</p>
 
     </div>
 </div>
-
+<!-- DEBUG-VIEW ENDED 23 APPPATH\Views\include\member\card\given_card.php -->
                                             </div>
                                                                                                             </div>
 
@@ -3279,7 +3447,7 @@ stable, and efficient teams for organizations</p>
                 </div>
             </div>
             <!-- End Page-content -->
-            
+            <!-- DEBUG-VIEW START 25 APPPATH\Views\include\member\footer.php -->
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
@@ -3292,20 +3460,20 @@ stable, and efficient teams for organizations</p>
         </footer>
 
         <!-- Mobile Bottom Navigation Bar (Thumb Zone) -->
-        
+        <!-- DEBUG-VIEW START 24 APPPATH\Views\include\member\bottom_nav.php -->
 
 <!-- ==========================================================================
      MOBILE BOTTOM NAVIGATION BAR (FIXED THUMB ZONE)
      ========================================================================== -->
 <nav class="eaf-bottom-nav-bar d-lg-none" id="eafBottomNav" aria-label="Mobile Navigation">
     <!-- 1. Home / Dashboard -->
-    <a href="dashboard.html" class="eaf-nav-tab " id="bottomNavHome">
+    <a href="http://localhost/eaf/member/dashboard" class="eaf-nav-tab " id="bottomNavHome">
         <i class="ri-dashboard-3-line"></i>
         <span>Home</span>
     </a>
 
     <!-- 2. Connects / Referrals -->
-    <a href="connect.html" class="eaf-nav-tab active" id="bottomNavConnects">
+    <a href="http://localhost/eaf/member/connect" class="eaf-nav-tab " id="bottomNavConnects">
         <i class="ri-shake-hands-line"></i>
         <span>Connects</span>
     </a>
@@ -3316,13 +3484,13 @@ stable, and efficient teams for organizations</p>
     </button>
 
     <!-- 4. My Chapter -->
-    <a href="mychapter.html" class="eaf-nav-tab " id="bottomNavChapter">
+    <a href="http://localhost/eaf/member/mychapter" class="eaf-nav-tab " id="bottomNavChapter">
         <i class="ri-community-line"></i>
         <span>Chapter</span>
     </a>
 
     <!-- 5. Profile -->
-    <a href="profile.html" class="eaf-nav-tab " id="bottomNavProfile">
+    <a href="http://localhost/eaf/member/profile" class="eaf-nav-tab " id="bottomNavProfile">
         <i class="ri-user-3-line"></i>
         <span>Profile</span>
     </a>
@@ -3353,7 +3521,7 @@ stable, and efficient teams for organizations</p>
                     </div>
 
                     <!-- Slip 2: Received Connects -->
-                    <a href="connect.html" class="eaf-sheet-item">
+                    <a href="http://localhost/eaf/member/connect" class="eaf-sheet-item">
                         <div class="eaf-sheet-icon" style="background: rgba(5, 150, 105, 0.12); color: #059669;">
                             <i class="ri-inbox-archive-fill"></i>
                         </div>
@@ -3412,53 +3580,53 @@ function handleQuickSlip(type) {
             if (typeof add_new_connects === 'function') {
                 add_new_connects();
             } else {
-                window.location.href = "../member/connect.html";
+                window.location.href = "http://localhost/eaf/member/connect";
             }
         } else if (type === 'mitb') {
             if (typeof add_mitb === 'function') {
                 add_mitb();
             } else {
-                window.location.href = "../member/mitb.html";
+                window.location.href = "http://localhost/eaf/member/mitb";
             }
         } else if (type === 'f2f') {
             if (typeof add_f2f === 'function') {
                 add_f2f();
             } else {
-                window.location.href = "../member/f2f.html";
+                window.location.href = "http://localhost/eaf/member/f2f";
             }
         } else if (type === 'visitor') {
             if (typeof add_vt === 'function') {
                 add_vt();
             } else {
-                window.location.href = "../member/visitor.html";
+                window.location.href = "http://localhost/eaf/member/visitor";
             }
         }
     }, 300);
 }
 </script>
 
-
+<!-- DEBUG-VIEW ENDED 24 APPPATH\Views\include\member\bottom_nav.php -->
         
-
+<!-- DEBUG-VIEW ENDED 25 APPPATH\Views\include\member\footer.php -->
         </div>
         <!-- end main content-->
     </div>
     <div class="rightbar-overlay"></div>
     <!-- JAVASCRIPT -->
-    <script src="../assets2/libs/jquery/jquery.min.js"></script>
-    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
-    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
-    <script src="../assets2/libs/node-waves/waves.min.js"></script>
-    <script src="../assets2/libs/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets2/libs/jsvectormap/jsvectormap.min.js"></script>
-    <script src="../assets2/libs/jsvectormap/maps/world-merc.js"></script>
-    <script src="../assets2/js/pages/dashboard.init.js"></script>
-    <script src="../assets2/js/app.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/jquery/jquery.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/node-waves/waves.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="http://localhost/eaf/assets2/js/pages/dashboard.init.js"></script>
+    <script src="http://localhost/eaf/assets2/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+    <!-- DEBUG-VIEW START 26 APPPATH\Views\include\member\popup\connects.php -->
 <!-- edit start-->
 <!-- edit start-->
 <div class="modal fade" id="connect_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
@@ -3638,17 +3806,14 @@ function handleQuickSlip(type) {
                                 Status
                             </label>
 
-                            <select class="form-select"
-                                name="status">
-
-                                <option value="Open for Discussion">
-                                    Open for Discussion
-                                </option>
-
-                                <option value="Bussiness Done">
-                                    MITB
-                                </option>
-
+                            <select class="form-select" name="status">
+                                <option value="Open For Discussion" selected>Open For Discussion</option>
+                                <option value="Contacted">Contacted</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Need Sometime">Need Sometime</option>
+                                <option value="MITB">MITB</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
                             </select>
 
                         </div>
@@ -3838,7 +4003,7 @@ function handleQuickSlip(type) {
         */
         $.ajax({
 
-            url: "../member/connect.html",
+            url: "http://localhost/eaf/member/connect/getMembers",
 
             type: "POST",
 
@@ -4144,7 +4309,7 @@ function handleQuickSlip(type) {
         let formData = new FormData(this);
 
         $.ajax({
-            url: "../member/connect.html",
+            url: "http://localhost/eaf/index.php/member/connect/AddNewReferralData",
             type: "POST",
             data: formData,
             processData: false,
@@ -4183,7 +4348,7 @@ function handleQuickSlip(type) {
         $('#connect_edit').modal('show');
 
         $.ajax({
-            url: "../member/connect.html" + referral_code,
+            url: "http://localhost/eaf/index.php/member/connect/edit_refferral_status/" + referral_code,
             success: function(response) {
                 $("#connect_edit_data").html(response);
             }
@@ -4195,7 +4360,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "../member/connect.html",
+            url: "http://localhost/eaf/index.php/member/connect/edit_refferral_status_action",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -4219,7 +4384,7 @@ function handleQuickSlip(type) {
                         timer: 1200,
                         showConfirmButton: false
                     }).then(() => {
-                        $("#chapter_edit").modal("hide"); // ✅ FIXED
+                        $("#connect_edit").modal("hide");
                         location.reload();
                     });
 
@@ -4251,7 +4416,7 @@ function handleQuickSlip(type) {
         $('#connect_edit').modal('show');
 
         $.ajax({
-            url: "../member/connect.html" + referral_code,
+            url: "http://localhost/eaf/index.php/member/connect/edit_refferral/" + referral_code,
             success: function(response) {
                 $("#connect_edit_data").html(response);
             }
@@ -4263,7 +4428,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "../member/connect.html",
+            url: "http://localhost/eaf/index.php/member/connect/edit_refferral_action",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -4515,41 +4680,93 @@ function handleQuickSlip(type) {
 
     }
 </style>
+<!-- DEBUG-VIEW ENDED 26 APPPATH\Views\include\member\popup\connects.php -->
+    <script>
+        function applyConnectFilter(containerId) {
+            var $container = $('#' + containerId);
+            if (!$container.length) return;
 
-    <script>
-        document.querySelectorAll(".tab-btn").forEach(button => {
-            button.addEventListener("click", function() {
-                // active button
-                document.querySelectorAll(".tab-btn")
-                    .forEach(btn => btn.classList.remove("active"));
-                this.classList.add("active");
-                // hide all contents
-                document.querySelectorAll(".tab-content-box")
-                    .forEach(tab => tab.classList.remove("active"));
-                // show selected content
-                let tab = this.getAttribute("data-tab");
-                document.getElementById(tab).classList.add("active");
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.filter-btn').click(function() {
-                $('.filter-btn').removeClass('active');
-                $(this).addClass('active');
-                let status = $(this).data('status');
-                if (status === 'all') {
-                    $('.referral-item').show();
+            var $activeBtn = $container.find('.filter-btn.active');
+            if (!$activeBtn.length) {
+                $activeBtn = $container.find('.filter-btn').first().addClass('active');
+            }
+
+            var selectedStatus = $.trim(String($activeBtn.attr('data-status') || '')).toLowerCase();
+            var $items = $container.find('.referral-item');
+            var visibleCount = 0;
+
+            $items.each(function() {
+                var itemStatus = $.trim(String($(this).attr('data-status') || '')).toLowerCase();
+                if (itemStatus === selectedStatus) {
+                    $(this).show();
+                    visibleCount++;
                 } else {
-                    $('.referral-item').hide();
-                    $('.referral-item').filter(function() {
-                        return $(this).data('status') == status;
-                    }).show();
+                    $(this).hide();
                 }
+            });
+
+            var $emptyMsg = $container.find('.empty-filter-placeholder');
+            if (visibleCount === 0) {
+                if (!$emptyMsg.length) {
+                    $container.find('.referral-wrapper').append(
+                        '<div class="empty-filter-placeholder col-12 text-center p-4 text-muted" style="font-size:13.5px; font-weight:500;">No connects found in this status.</div>'
+                    );
+                } else {
+                    $emptyMsg.show();
+                }
+            } else {
+                $emptyMsg.hide();
+            }
+        }
+
+        $(document).ready(function() {
+            // Restore active tab if stored in sessionStorage
+            var savedTab = sessionStorage.getItem('activeConnectTab');
+            if (savedTab && $('#' + savedTab).length) {
+                $('.tab-btn').removeClass('active');
+                $('.tab-btn[data-tab="' + savedTab + '"]').addClass('active');
+                $('.tab-content-box').removeClass('active');
+                $('#' + savedTab).addClass('active');
+            }
+
+            // Apply filter initially on both containers
+            applyConnectFilter('received');
+            applyConnectFilter('given');
+
+            // Filter button click
+            $(document).on('click', '.tab-content-box .filter-btn', function() {
+                var $box = $(this).closest('.tab-content-box');
+                $box.find('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                applyConnectFilter($box.attr('id'));
+            });
+
+            // Main tab switch (Received / Given)
+            document.querySelectorAll(".tab-btn").forEach(function(button) {
+                button.addEventListener("click", function() {
+                    document.querySelectorAll(".tab-btn").forEach(function(btn) {
+                        btn.classList.remove("active");
+                    });
+                    this.classList.add("active");
+
+                    document.querySelectorAll(".tab-content-box").forEach(function(tab) {
+                        tab.classList.remove("active");
+                    });
+
+                    var tabId = this.getAttribute("data-tab");
+                    sessionStorage.setItem('activeConnectTab', tabId);
+                    var targetBox = document.getElementById(tabId);
+                    if (targetBox) {
+                        targetBox.classList.add("active");
+                    }
+                    setTimeout(function() {
+                        applyConnectFilter(tabId);
+                    }, 30);
+                });
             });
         });
     </script>
 </body>
 
 </html>
-
+<!-- DEBUG-VIEW ENDED 27 APPPATH\Views\member\connects.php -->

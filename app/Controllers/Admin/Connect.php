@@ -8,6 +8,21 @@ use App\Models\ReferralModel;
 
 class Connect extends BaseController
 {
+    public static function normalizeStatus(?string $status): string
+    {
+        $clean = strtolower(trim(str_replace(['_', '-'], ' ', (string)$status)));
+        return match ($clean) {
+            'open for discussion' => 'Open For Discussion',
+            'contacted'           => 'Contacted',
+            'pending', 'new'      => 'Pending',
+            'need sometime', 'not converted' => 'Need Sometime',
+            'mitb'                => 'MITB',
+            'completed', 'closed business', 'business done', 'bussiness done' => 'Completed',
+            'cancelled', 'canceled', 'invalid' => 'Cancelled',
+            default               => !empty($clean) ? ucwords($clean) : 'Pending',
+        };
+    }
+
     public function index()
     {
         if (!session()->get('is_admin')) {
@@ -219,51 +234,65 @@ class Connect extends BaseController
 
     public function edit_refferral_status($referral_code)
     {
-        $commonModel = new CommonModel();
-        $qry = "SELECT * FROM referrals  WHERE  referral_code='" . esc($referral_code) . "'";
-        $user = $commonModel->exe_query($qry)->getResult();
-        if (empty($user)) {
-            return $this->response->setBody('<p class="text-center text-danger">User not found!</p>');
+        $db = \Config\Database::connect();
+        $referral_code = trim((string)$referral_code);
+        $row = $db->table('referrals')
+            ->groupStart()
+                ->where('referral_code', $referral_code)
+                ->orWhere('referral_id', $referral_code)
+            ->groupEnd()
+            ->get()
+            ->getRow();
+
+        if (empty($row)) {
+            return $this->response->setBody('<p class="text-center text-danger p-3">Referral not found!</p>');
         }
-        $row = $user[0]; // CI4 returns array of objects
+
+        $currentStatus = self::normalizeStatus($row->status ?? 'Pending');
+        $canonicalStatuses = [
+            'Open For Discussion',
+            'Contacted',
+            'Pending',
+            'Need Sometime',
+            'MITB',
+            'Completed',
+            'Cancelled',
+        ];
+
+        $optionsHtml = '';
+        foreach ($canonicalStatuses as $st) {
+            $selected = (strcasecmp($st, $currentStatus) === 0) ? ' selected' : '';
+            $optionsHtml .= '<option value="' . esc($st) . '"' . $selected . '>' . esc($st) . '</option>';
+        }
+
         $output = '
-<div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
-            <div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
-                      <form id="edit_refferral_status_action" method="post">
-                    <div class="modal-header" style="background-color:#1b4d8f; color:#fff; border-top-left-radius:12px; border-top-right-radius:12px;">
-                        <h6 class="modal-title mb-0" style="font-size:15px;color:#ffffff;">Change Refferral Status</h6>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-3">
-                        <input type="hidden" name="referral_code" value="' . $row->referral_code . '">
-                          <div class="row">
-                
-                        <div class="col-md-12">
-                            <label class="fw-bold">Referral status</label>
-                            <select name="status" class="form-control">
-                                <option value="' . $row->status . '">' . $row->status . '</option>
-                                   <option value="">Select Status</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="contacted">Contacted</option>
-                                        <option value="closed business">Closed Business</option>
-                                        <option value="not converted">Not Converted</option>
-                                        <option value="cancelled">Cancelled</option>
-                                        <option value="business_done">MITB</option>
-                            </select>
-                        </div>
-    <div class="col-md-12">
-                    <label class="fw-bold">Note</label>
-                    <textarea name="admin_note" class="form-control">' . esc($row->admin_note) . '</textarea>
+<div class="modal-content" style="border-radius:14px; border:none; box-shadow:0 8px 24px rgba(15,59,104,0.18); font-size:13px; overflow:hidden;">
+    <form id="edit_refferral_status_action" method="post">
+        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); padding:14px 18px;">
+            <h6 class="modal-title mb-0" style="font-size:15px; font-weight:700; color:#ffffff;">Change Referral Status</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3">
+            <input type="hidden" name="referral_code" value="' . esc($row->referral_code ?? $referral_code) . '">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="fw-bold mb-1" style="color:#334155;">Referral Status</label>
+                    <select name="status" class="form-select" style="font-weight:600; font-size:13.5px; height:42px; border-radius:8px;">
+                        ' . $optionsHtml . '
+                    </select>
                 </div>
-                             </div>
-                    </div>
-                    <div class="modal-footer justify-content-end border-0">
-                        <button type="button" class="btn btn-outline-secondary btn-sm px-3 m-1 p-1" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="status_c" class="btn btn-sm text-white px-3 m-1 p-1" style="background-color:#1b4d8f;">Update</button>
-                    </div>
-                </form>
+                <div class="col-md-12">
+                    <label class="fw-bold mb-1" style="color:#334155;">Admin Note</label>
+                    <textarea name="admin_note" class="form-control" rows="3">' . esc($row->admin_note ?? '') . '</textarea>
+                </div>
             </div>
-        </div>>';
+        </div>
+        <div class="modal-footer justify-content-end border-0 pt-0 pb-3 px-3">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 rounded-pill fw-bold" style="background:#0F3B68; box-shadow:0 2px 6px rgba(15,59,104,0.25);">Update Status</button>
+        </div>
+    </form>
+</div>';
 
         return $this->response->setBody($output);
     }
@@ -271,38 +300,40 @@ class Connect extends BaseController
 
     public function edit_refferral_status_action()
     {
-        $referral_code = $this->request->getPost('referral_code');
+        $referral_code = trim((string)$this->request->getPost('referral_code'));
 
-        if (!$referral_code) {
+        if ($referral_code === '') {
             return $this->response->setJSON([
-                'status' => 'error',
-                'message' => 'User code missing'
+                'status'  => 'error',
+                'message' => 'Referral code missing'
             ]);
         }
 
+        $rawStatus = trim((string)$this->request->getPost('status'));
         $data = [
-            'status' => $this->request->getPost('status'),
+            'status'     => self::normalizeStatus($rawStatus),
             'admin_note' => $this->request->getPost('admin_note'),
         ];
 
-        $model = new CommonModel();
-        $update = $model->update_row(
-            'referrals',
-            $data,
-            ['referral_code' => $referral_code]
-        );
+        try {
+            $db = \Config\Database::connect();
+            $db->table('referrals')
+                ->groupStart()
+                    ->where('referral_code', $referral_code)
+                    ->orWhere('referral_id', $referral_code)
+                ->groupEnd()
+                ->update($data);
 
-        if ($update) {
             return $this->response->setJSON([
-                'status' => 'success',
-                'message' => '✅ Refferral updated successfully!'
+                'status'  => 'success',
+                'message' => '✅ Referral status updated successfully!'
+            ]);
+        } catch (\Throwable $e) {
+            return $this->response->setJSON([
+                'status'  => 'error',
+                'message' => '❌ Update failed: ' . $e->getMessage()
             ]);
         }
-
-        return $this->response->setJSON([
-            'status' => 'error',
-            'message' => '❌ Update failed'
-        ]);
     }
 
     public function edit_refferral($referral_code)

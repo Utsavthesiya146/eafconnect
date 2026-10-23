@@ -177,17 +177,14 @@
                                 Status
                             </label>
 
-                            <select class="form-select"
-                                name="status">
-
-                                <option value="Open for Discussion">
-                                    Open for Discussion
-                                </option>
-
-                                <option value="Bussiness Done">
-                                    MITB
-                                </option>
-
+                            <select class="form-select" name="status">
+                                <option value="Open For Discussion" selected>Open For Discussion</option>
+                                <option value="Contacted">Contacted</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Need Sometime">Need Sometime</option>
+                                <option value="MITB">MITB</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
                             </select>
 
                         </div>

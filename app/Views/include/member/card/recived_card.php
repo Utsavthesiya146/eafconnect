@@ -1,12 +1,25 @@
 <?php
-$statusLower = strtolower(trim($row['status'] ?? ''));
+$statusLower = strtolower(trim(str_replace(['_', '-'], ' ', (string)($row['status'] ?? ''))));
 $badgeStyle = match ($statusLower) {
-    'cancelled' => 'background: rgba(239, 68, 68, 0.12); color: #DC2626; border: 1px solid rgba(239, 68, 68, 0.25);',
-    'completed', 'closed business', 'business_done', 'mitb' => 'background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);',
-    'pending' => 'background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);',
-    'contacted' => 'background: rgba(14, 165, 233, 0.12); color: #0284C7; border: 1px solid rgba(14, 165, 233, 0.25);',
-    'new' => 'background: rgba(15, 59, 104, 0.1); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.2);',
-    default => 'background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;'
+    'open for discussion' => 'background: rgba(15, 59, 104, 0.12); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.25);',
+    'contacted'           => 'background: rgba(2, 132, 199, 0.12); color: #0284C7; border: 1px solid rgba(2, 132, 199, 0.25);',
+    'pending', 'new'      => 'background: rgba(245, 158, 11, 0.14); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.3);',
+    'need sometime', 'not converted' => 'background: rgba(147, 51, 234, 0.12); color: #7C3AED; border: 1px solid rgba(147, 51, 234, 0.25);',
+    'mitb'                => 'background: rgba(13, 148, 136, 0.14); color: #0D9488; border: 1px solid rgba(13, 148, 136, 0.3);',
+    'completed', 'closed business', 'business done', 'bussiness done' => 'background: rgba(16, 185, 129, 0.14); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);',
+    'cancelled', 'canceled' => 'background: rgba(239, 68, 68, 0.12); color: #DC2626; border: 1px solid rgba(239, 68, 68, 0.25);',
+    default               => 'background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0;'
+};
+
+$displayStatus = match ($statusLower) {
+    'open for discussion' => 'Open For Discussion',
+    'contacted'           => 'Contacted',
+    'pending', 'new'      => 'Pending',
+    'need sometime', 'not converted' => 'Need Sometime',
+    'mitb'                => 'MITB',
+    'completed', 'closed business', 'business done', 'bussiness done' => 'Completed',
+    'cancelled', 'canceled' => 'Cancelled',
+    default               => !empty($row['status']) ? ucwords($statusLower) : 'Pending',
 };
 
 $phoneClean = preg_replace('/[^0-9+]/', '', $row['contact_number'] ?? '');
@@ -67,10 +80,12 @@ if (strlen($waClean) === 10) {
 
         <!-- 5. STATUS BADGE (120px) -->
         <div style="width: 120px; text-align: center;">
-            <span onclick="edit_refferral_status('<?= $row['referral_code'] ?>');"
-                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; <?= $badgeStyle ?>"
-                  title="Click to update status">
-                <?= esc(ucwords(str_replace('_', ' ', $row['status']))) ?>
+            <span onclick="edit_refferral_status('<?= esc($row['referral_code']) ?>');"
+                  style="display: inline-block; padding: 5px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; user-select: none; transition: transform 0.15s ease; <?= $badgeStyle ?>"
+                  onmouseover="this.style.transform='scale(1.05)';"
+                  onmouseout="this.style.transform='scale(1)';"
+                  title="Click to change status">
+                <?= esc($displayStatus) ?>
             </span>
         </div>
 
