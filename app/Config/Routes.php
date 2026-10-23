@@ -440,6 +440,17 @@ $routes->get('member/meetings/exportAttendancePdf/(:any)', 'Member\Meetings::exp
 $routes->get('member/topperformer', 'Member\Topperformer::index');
 
 
+$routes->get('member/connect', 'Member\Connect::index');
+$routes->get('member/connect/index', 'Member\Connect::index');
+$routes->get('member/connect/details/(:any)', 'Member\Connect::details/$1');
+$routes->post('member/connect/AddNewReferralData', 'Member\Connect::AddNewReferralData');
+$routes->get('member/connect/edit_refferral_status/(:any)', 'Member\Connect::edit_refferral_status/$1');
+$routes->post('member/connect/edit_refferral_status_action', 'Member\Connect::edit_refferral_status_action');
+$routes->get('member/connect/edit_refferral/(:any)', 'Member\Connect::edit_refferral/$1');
+$routes->post('member/connect/edit_refferral_action', 'Member\Connect::edit_refferral_action');
 $routes->post('member/connect/getMembers', 'Member\Connect::getMembers');
+
+$routes->get('preview/connect', 'Member\Connect::index');
+$routes->get('preview/connect/(:any)', 'Member\Connect::index');
 
 $routes->match(['GET', 'POST'], 'member/search', 'Member\Dashboard::search');
