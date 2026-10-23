@@ -195,24 +195,31 @@ class Database extends Config
         parent::__construct();
 
         // Support direct environment variables (e.g. Render / TiDB Cloud)
-        if ($host = getenv('DB_HOST')) {
-            $this->default['hostname'] = $host;
+        $dbHost = env('DB_HOST', env('database.default.hostname'));
+        if (!empty($dbHost)) {
+            $this->default['hostname'] = $dbHost;
         }
-        if ($user = getenv('DB_USER')) {
-            $this->default['username'] = $user;
+        $dbUser = env('DB_USER', env('database.default.username'));
+        if (!empty($dbUser)) {
+            $this->default['username'] = $dbUser;
         }
-        if ($pass = getenv('DB_PASSWORD')) {
-            $this->default['password'] = $pass;
+        $dbPass = env('DB_PASSWORD', env('database.default.password'));
+        if ($dbPass !== null) {
+            $this->default['password'] = $dbPass;
         }
-        if ($name = getenv('DB_NAME')) {
-            $this->default['database'] = $name;
+        $dbName = env('DB_NAME', env('database.default.database'));
+        if (!empty($dbName)) {
+            $this->default['database'] = $dbName;
         }
-        if ($port = getenv('DB_PORT')) {
-            $this->default['port'] = (int) $port;
+        $dbPort = env('DB_PORT', env('database.default.port'));
+        if (!empty($dbPort)) {
+            $this->default['port'] = (int) $dbPort;
         }
-        if (getenv('DB_ENCRYPT') === 'true' || getenv('DB_ENCRYPT') === '1') {
+        $dbEncrypt = env('DB_ENCRYPT', env('database.default.encrypt'));
+        if ($dbEncrypt === true || $dbEncrypt === 'true' || $dbEncrypt === '1') {
             $this->default['encrypt'] = true;
         }
+
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
