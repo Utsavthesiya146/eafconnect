@@ -26,7 +26,11 @@ $routes->get('blogs/details/(:any)', 'Blogs::details/$1');
 
 
 $routes->get('login', 'Home::member_login');
+$routes->get('login/', 'Home::member_login');
+$routes->get('member_login', 'Home::member_login');
+$routes->get('member_login/', 'Home::member_login');
 $routes->get('admin_login', 'Home::admin_login');
+$routes->get('admin_login/', 'Home::admin_login');
 $routes->post('loginCheck', 'Auth::loginCheck');
 $routes->post('loginCheckAdmin', 'Auth::loginCheckAdmin');
 
@@ -34,6 +38,7 @@ $routes->post('loginCheckAdmin', 'Auth::loginCheckAdmin');
 $routes->get('dashboard', 'Auth::dashboard');
 $routes->get('logout', 'Auth::logout');
 $routes->get('preview', 'Auth::preview');
+$routes->get('preview/', 'Auth::preview');
 $routes->get('preview/(:any)', 'Auth::preview/$1');
 
 $routes->group('admin', ['filter' => 'adminAuth'], function ($routes) {});

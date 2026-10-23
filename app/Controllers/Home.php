@@ -67,6 +67,12 @@ class Home extends BaseController
     {
         return view('contact');
     }
+
+    public function login()
+    {
+        return $this->member_login();
+    }
+
     public function member_login()
     {
         // If already logged in
