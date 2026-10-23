@@ -903,7 +903,7 @@
         ->join('chapters c', 'c.chapter_code = cm.chapter_code', 'left')
         ->where('cm.members_status', '1')
         ->where('u.status', '1')
-        ->groupBy('u.user_code')
+        ->groupBy(['u.user_code', 'u.name', 'c.chapter_name'])
         ->get()
         ->getResultArray();
     echo view('include/member/popup/f2f.php', ['member' => $f2f_members]);

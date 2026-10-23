@@ -53,3 +53,12 @@ Events::on('pre_system', static function (): void {
         }
     }
 });
+
+Events::on('post_controller_constructor', static function (): void {
+    try {
+        $db = \Config\Database::connect();
+        $db->query("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+    } catch (\Throwable $e) {
+        // Ignore if database is not connected
+    }
+});
