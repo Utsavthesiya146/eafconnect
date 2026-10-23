@@ -24,7 +24,9 @@ COPY . /var/www/html/
 
 # 4. Set proper permissions for CodeIgniter writable folder
 RUN chown -R www-data:www-data /var/www/html/writable /var/www/html/public \
-    && chmod -R 775 /var/www/html/writable
+    && chmod -R 775 /var/www/html/writable \
+    && ln -s /var/www/html/assets2 /var/www/html/preview/assets2 \
+    && ln -s /var/www/html/images /var/www/html/preview/images
 
 # 5. Configure Apache to support .htaccess rewrites and Render dynamic PORT
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
