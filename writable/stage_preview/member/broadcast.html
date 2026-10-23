@@ -1,0 +1,1465 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+
+    <meta charset="utf-8" />
+    <title>broadcast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../images/logo5.png">
+    <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <script src="../assets2/js/layout.js"></script>
+    <link href="../assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="../assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* =========================================================
+   THEME
+========================================================= */
+
+        :root {
+            --theme-blue: #0a3d61;
+            --theme-blue-dark: #072f4a;
+            --theme-blue-light: #0d527f;
+
+            --theme-gold: #fac532;
+            --theme-gold-light: #ffd85f;
+
+            --white: #ffffff;
+
+            --text-dark: #1f2937;
+            --text-muted: #7b8794;
+            --text-light: #9aa4ae;
+
+            --border: #e8edf1;
+            --bg-light: #f7f9fb;
+
+            --danger: #dc3545;
+        }
+
+
+        /* =========================================================
+   ANNOUNCEMENT LIST
+========================================================= */
+
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+
+        /* =========================================================
+   ANNOUNCEMENT ITEM
+========================================================= */
+
+        .announcement-item {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+            min-height: 105px;
+
+            padding: 12px 14px;
+
+            background: #fff;
+
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--theme-blue);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease;
+        }
+
+        .announcement-item:hover {
+            border-left-color: var(--theme-gold);
+
+            transform: translateX(3px);
+
+            box-shadow: 0 7px 20px rgba(10, 61, 97, .09);
+        }
+
+
+        /* =========================================================
+   DATE SECTION
+========================================================= */
+
+        .announcement-date {
+            flex: 0 0 62px;
+
+            width: 62px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 5px;
+        }
+
+
+        /* ICON */
+
+        .announcement-icon {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: rgba(10, 61, 97, .08);
+
+            color: var(--theme-blue);
+
+            font-size: 13px;
+
+            transition: all .25s ease;
+        }
+
+        .announcement-item:hover .announcement-icon {
+            background: var(--theme-gold);
+
+            color: var(--theme-blue);
+
+            transform: scale(1.05);
+        }
+
+
+        /* DATE TEXT */
+
+        .announcement-date-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            line-height: 1;
+        }
+
+        .announcement-date-text strong {
+            color: var(--theme-blue);
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .announcement-date-text span {
+            margin-top: 3px;
+
+            color: var(--text-light);
+
+            font-size: 9px;
+            font-weight: 500;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+   IMAGE
+========================================================= */
+
+        .announcement-image {
+            flex: 0 0 110px;
+
+            width: 110px;
+            height: 78px;
+
+            margin: 0 15px;
+
+            overflow: hidden;
+
+            border-radius: 8px;
+
+            background: #f3f5f7;
+        }
+
+        .announcement-image img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition: transform .35s ease;
+        }
+
+        .announcement-item:hover .announcement-image img {
+            transform: scale(1.06);
+        }
+
+
+        /* =========================================================
+   CONTENT
+========================================================= */
+
+        .announcement-content {
+            flex: 1;
+
+            min-width: 0;
+
+            padding-right: 8px;
+        }
+
+
+        /* LABEL */
+
+        .announcement-label {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 3px;
+        }
+
+        .announcement-label span {
+            display: inline-flex;
+            align-items: center;
+
+            color: var(--theme-gold);
+
+            font-size: 9px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+        }
+
+        .announcement-label span i {
+            margin-right: 4px;
+        }
+
+        .announcement-label small {
+            display: inline-flex;
+            align-items: center;
+
+            color: var(--text-light);
+
+            font-size: 9px;
+        }
+
+        .announcement-label small i {
+            margin-right: 4px;
+        }
+
+
+        /* =========================================================
+   TITLE
+========================================================= */
+
+        .announcement-title {
+            margin: 0 0 4px;
+
+            color: var(--text-dark);
+
+            font-size: 15px;
+            font-weight: 700;
+
+            line-height: 1.35;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================================================
+   MESSAGE
+========================================================= */
+
+        .announcement-message {
+            max-width: 850px;
+
+            margin: 0;
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.45;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 1;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+   FOOTER
+========================================================= */
+
+        .announcement-footer {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-top: 8px;
+        }
+
+
+        /* DATE */
+
+        .announcement-time {
+            color: var(--text-light);
+
+            font-size: 10px;
+
+            white-space: nowrap;
+        }
+
+        .announcement-time i {
+            margin-right: 4px;
+
+            color: var(--theme-blue);
+        }
+
+
+        /* =========================================================
+   ACTIONS
+========================================================= */
+
+        .announcement-actions {
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-left: auto;
+        }
+
+
+        /* COMMON ACTION */
+
+        .announcement-video,
+        .announcement-view {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 5px;
+
+            padding: 5px 9px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            line-height: 1;
+
+            text-decoration: none !important;
+
+            white-space: nowrap;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+        }
+
+
+        /* VIDEO */
+
+        .announcement-video {
+            border: 1px solid #f0d5d5;
+
+            background: #fff7f7;
+
+            color: var(--danger) !important;
+        }
+
+        .announcement-video:hover {
+            border-color: var(--danger);
+
+            background: var(--danger);
+
+            color: #fff !important;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* VIEW */
+
+        .announcement-view {
+            border: 1px solid var(--theme-blue);
+
+            background: var(--theme-blue);
+
+            color: #fff;
+
+            outline: none;
+        }
+
+        .announcement-view:hover {
+            border-color: var(--theme-gold);
+
+            background: var(--theme-gold);
+
+            color: var(--theme-blue);
+
+            transform: translateY(-1px);
+        }
+
+        .announcement-view:focus {
+            outline: none;
+
+            box-shadow: none;
+        }
+
+        .announcement-view i {
+            font-size: 9px;
+
+            transition: transform .2s ease;
+        }
+
+        .announcement-view:hover i {
+            transform: translateX(3px);
+        }
+
+        /* =========================================================
+   MODAL - ISOLATED FROM ANNOUNCEMENT HOVER
+========================================================= */
+
+        .announcement-modal {
+            position: relative;
+
+            width: 100%;
+
+            margin: 0;
+
+            padding: 0;
+
+            border: 0 !important;
+
+            border-radius: 14px !important;
+
+            overflow: hidden;
+
+            background: #ffffff !important;
+
+            color: #1f2937 !important;
+
+            box-shadow: 0 20px 55px rgba(0, 0, 0, .22) !important;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* IMPORTANT:
+   Prevent announcement-item hover styles affecting modal
+*/
+
+        .announcement-item:hover .announcement-modal {
+            transform: none !important;
+
+            box-shadow: 0 20px 55px rgba(0, 0, 0, .22) !important;
+
+            border-left: 0 !important;
+        }
+
+
+        /* =========================================================
+   MODAL HEADER
+========================================================= */
+
+        .announcement-modal .announcement-modal-header {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            width: 100%;
+
+            min-height: 64px;
+
+            margin: 0;
+
+            padding: 12px 16px;
+
+            background: #0a3d61 !important;
+
+            color: #ffffff !important;
+
+            border: 0 !important;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* =========================================================
+   TITLE AREA
+========================================================= */
+
+        .announcement-modal .modal-title-area {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            min-width: 0;
+
+            margin: 0;
+
+            padding: 0;
+        }
+
+
+        /* =========================================================
+   MODAL ICON
+========================================================= */
+
+        .announcement-modal .modal-badge {
+            width: 36px;
+            height: 36px;
+
+            min-width: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #fac532 !important;
+
+            color: #0a3d61 !important;
+
+            font-size: 14px;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* Prevent parent hover changing icon */
+
+        .announcement-item:hover .announcement-modal .modal-badge {
+            transform: none !important;
+
+            background: #fac532 !important;
+
+            color: #0a3d61 !important;
+        }
+
+
+        /* =========================================================
+   MODAL SMALL TITLE
+========================================================= */
+
+        .announcement-modal .modal-title-area small {
+            display: block;
+
+            margin: 0 0 2px;
+
+            padding: 0;
+
+            color: rgba(255, 255, 255, .65) !important;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            line-height: 1.2;
+
+            text-transform: uppercase;
+
+            letter-spacing: .6px;
+        }
+
+
+        /* =========================================================
+   MODAL TITLE
+========================================================= */
+
+        .announcement-modal .modal-title-area h5 {
+            margin: 0;
+
+            padding: 0;
+
+            max-width: 600px;
+
+            color: #ffffff !important;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            line-height: 1.3;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+        .announcement-modal .modal-close {
+            width: 32px;
+            height: 32px;
+
+            min-width: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+
+            padding: 0;
+
+            border: 0 !important;
+
+            border-radius: 7px;
+
+            background: rgba(255, 255, 255, .12) !important;
+
+            color: #ffffff !important;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+            outline: none !important;
+
+            box-shadow: none !important;
+
+            transform: none !important;
+
+            transition:
+                background .2s ease,
+                color .2s ease;
+        }
+
+        .announcement-modal .modal-close:hover {
+            background: #fac532 !important;
+
+            color: #0a3d61 !important;
+
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+   MODAL BODY
+========================================================= */
+
+        .announcement-modal .announcement-modal-body {
+            position: relative;
+
+            display: block;
+
+            width: 100%;
+
+            margin: 0;
+
+            padding: 18px;
+
+            background: #ffffff !important;
+
+            color: #4b5563 !important;
+
+            border: 0 !important;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* =========================================================
+   MODAL IMAGE
+========================================================= */
+
+        .announcement-modal .announcement-modal-image {
+            position: relative;
+
+            width: 100%;
+
+            margin: 0 0 12px;
+
+            padding: 0;
+
+            overflow: hidden;
+
+            border-radius: 9px;
+
+            background: #f3f5f7;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+        .announcement-modal .announcement-modal-image img {
+            width: 100%;
+
+            max-height: 330px;
+
+            display: block;
+
+            margin: 0;
+
+            padding: 0;
+
+            object-fit: cover;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* VERY IMPORTANT:
+   Parent announcement hover should NOT zoom modal image
+*/
+
+        .announcement-item:hover .announcement-modal .announcement-modal-image img {
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+   MODAL DATE
+========================================================= */
+
+        .announcement-modal .announcement-modal-date {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            margin: 0 0 12px;
+
+            padding: 5px 9px;
+
+            border-radius: 5px;
+
+            background: rgba(10, 61, 97, .06) !important;
+
+            color: #0a3d61 !important;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+   MODAL MESSAGE
+========================================================= */
+
+        .announcement-modal .announcement-full-message {
+            position: relative;
+
+            display: block;
+
+            width: 100%;
+
+            margin: 0;
+
+            padding: 0;
+
+            color: #56616d !important;
+
+            background: transparent !important;
+
+            font-size: 13px;
+
+            font-weight: 400;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+
+            word-break: break-word;
+
+            opacity: 1 !important;
+
+            visibility: visible !important;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+
+        /* =========================================================
+   MODAL VIDEO
+========================================================= */
+
+        .announcement-modal .announcement-video-wrapper {
+            position: relative;
+
+            width: 100%;
+
+            margin: 15px 0 0;
+
+            padding: 0;
+
+            overflow: hidden;
+
+            border-radius: 9px;
+
+            background: #000;
+
+            transform: none !important;
+
+            transition: none !important;
+        }
+
+        .announcement-modal .announcement-video-wrapper video {
+            width: 100%;
+
+            max-height: 400px;
+
+            display: block;
+
+            margin: 0;
+
+            padding: 0;
+
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+   REMOVE HOVER EFFECTS INSIDE MODAL
+========================================================= */
+
+        .announcement-item:hover .announcement-modal * {
+            transform: none !important;
+        }
+
+
+        /* =========================================================
+   MOBILE
+========================================================= */
+
+        @media (max-width: 767px) {
+
+            .announcement-modal .announcement-modal-header {
+                min-height: 58px;
+
+                padding: 10px 12px;
+            }
+
+            .announcement-modal .modal-badge {
+                width: 32px;
+                height: 32px;
+
+                min-width: 32px;
+
+                font-size: 12px;
+            }
+
+            .announcement-modal .modal-title-area {
+                gap: 8px;
+            }
+
+            .announcement-modal .modal-title-area h5 {
+                max-width: calc(100vw - 120px);
+
+                font-size: 14px;
+            }
+
+            .announcement-modal .announcement-modal-body {
+                padding: 14px;
+            }
+
+            .announcement-modal .announcement-full-message {
+                font-size: 12px;
+
+                line-height: 1.6;
+            }
+
+            .announcement-modal .announcement-modal-image img {
+                max-height: 280px;
+            }
+        }
+
+
+        @media (max-width: 575px) {
+
+            .announcement-modal .announcement-modal-header {
+                padding: 10px;
+            }
+
+            .announcement-modal .modal-title-area h5 {
+                max-width: calc(100vw - 105px);
+
+                font-size: 13px;
+            }
+
+            .announcement-modal .announcement-modal-body {
+                padding: 12px;
+            }
+
+            .announcement-modal .announcement-full-message {
+                font-size: 11px;
+
+                line-height: 1.6;
+            }
+
+            .announcement-modal .announcement-modal-image img {
+                max-height: 240px;
+            }
+        }
+    </style>
+</head>
+
+<body data-sidebar="colored">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        
+
+<!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+<link rel="stylesheet" href="../assets2/css/eaf-design-system.css?v=5.0">
+<link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=5.0">
+
+<header id="page-topbar">
+    <div class="navbar-header">
+        <!-- Left Side: Hamburger & Member Profile Info (KVV Benchmark) -->
+        <div class="d-flex align-items-center gap-3">
+            <button type="button" class="btn btn-sm px-2 font-size-22 header-item waves-effect vertical-menu-btn" id="vertical-menu-btn">
+                <i class="ri-menu-2-line align-middle" style="font-size:22px; color:#1E293B;"></i>
+            </button>
+
+            <!-- KVV Member Profile Header Widget -->
+            <div class="kvv-header-user-block">
+                <a href="../member/profile.html">
+                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                         alt="Harri Kumar" 
+                         class="kvv-header-avatar"
+                         onerror="this.onerror=null; this.src='../images/empty.png';">
+                </a>
+                <div class="kvv-header-user-info">
+                    <div class="kvv-header-name">
+                        <a href="../member/profile.html" style="color:inherit;text-decoration:none;">
+                            Harri Kumar <span class="kvv-name-divider">|</span> Chapter 2                        </a>
+                    </div>
+                    <div class="kvv-header-sub">
+                        <span>Website development and digital marketing • Hosting Baba</span>
+                        <span class="kvv-role-badge"><i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Notifications & Settings Dropdown -->
+        <div class="d-flex align-items-center gap-2">
+            <!-- Notifications Dropdown -->
+            <div class="dropdown d-inline-block">
+                <a href="../member/notifications.html" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                    <i class="ri-notification-3-line font-size-20"></i>
+                                    </a>
+            </div>
+
+            <!-- Profile Settings Dropdown -->
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown" aria-expanded="false" style="color:#475569;">
+                    <i class="ri-settings-3-line font-size-20"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
+                    <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
+                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                             class="rounded-circle shadow-sm"
+                             alt="Profile Image"
+                             width="64" height="64"
+                             style="object-fit:cover; object-position:top center; border: 2px solid #C6A667;"
+                             onerror="this.onerror=null; this.src='../images/empty.png';">
+                        <h6 class="mt-2 mb-0 fw-bold" style="color:#ffffff;">
+                            Harri Kumar                        </h6>
+                        <small class="text-white-50">Chapter 2 • President</small>
+                    </div>
+                    <div class="p-2">
+                        <a href="../member/profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                            <i class="ri-user-line fs-5 text-warning me-2"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="../member/profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                            <i class="ri-lock-password-line fs-5 text-primary me-2"></i>
+                            <span>Account Settings</span>
+                        </a>
+                        <hr class="my-2">
+                        <a href="../member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                            <i class="ri-logout-box-r-line fs-5 me-2"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="watermark"></div>
+<style>
+    .watermark {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../images/logo5.png") no-repeat center;
+        background-size: 320px;
+        opacity: 0.02;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .page-content {
+        position: relative;
+        z-index: 1;
+    }
+</style>
+
+        
+<div class="vertical-menu">
+    <!-- LOGO / BRAND (EAF Connect Official Logo) -->
+    <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
+        <a href="../member/dashboard.html" class="d-flex align-items-center gap-2" style="text-decoration:none;">
+            <img src="../images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='../images/logo6.png'">
+            <div style="display:flex; flex-direction:column; line-height:1.15;">
+                <span style="font-size:18px; font-weight:800; color:#101B35; letter-spacing:-0.3px; font-family:'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;">
+                    EAF <span style="color:#C6A667; font-weight:700; font-size:16px;">Connect</span>
+                </span>
+                <span style="font-size:10px; font-weight:700; color:#64748B; letter-spacing:0.5px; text-transform:uppercase;">
+                    Member Portal
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn d-none" id="vertical-menu-btn">
+        <i class="ri-menu-2-line align-middle"></i>
+    </button>
+
+    <div data-simplebar class="vertical-scroll" style="height: calc(100% - 75px);">
+        
+        <!--- Sidemenu -->
+        <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <!-- 1. Dashboard -->
+                <li class="">
+                    <a href="../member/dashboard.html" class="waves-effect ">
+                        <i class="ri-dashboard-3-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- 2. My Profile -->
+                <li class="">
+                    <a href="../member/profile.html" class="waves-effect ">
+                        <i class="ri-user-3-line"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+
+                <!-- 3. Connects (EAF Wordings) -->
+                <li class="">
+                    <a href="../member/connect.html" class="waves-effect ">
+                        <i class="ri-shake-hands-line"></i>
+                        <span>Connects</span>
+                    </a>
+                </li>
+
+                <!-- 4. F2F (1-to-1) -->
+                <li class="">
+                    <a href="../member/f2f.html" class="waves-effect ">
+                        <i class="ri-group-line"></i>
+                        <span>F2F</span>
+                    </a>
+                </li>
+
+                <!-- 5. MITB -->
+                <li class="">
+                    <a href="../member/mitb.html" class="waves-effect ">
+                        <i class="ri-money-rupee-circle-line"></i>
+                        <span>MITB</span>
+                    </a>
+                </li>
+
+                <!-- 6. Search -->
+                <li class="">
+                    <a href="../member/search.html" class="waves-effect ">
+                        <i class="ri-search-line"></i>
+                        <span>Search</span>
+                    </a>
+                </li>
+
+                <!-- 7. My Attendance -->
+                <li class="">
+                    <a href="../member/my_attendance.html" class="waves-effect ">
+                        <i class="ri-calendar-check-line"></i>
+                        <span>My Attendance</span>
+                    </a>
+                </li>
+
+                <!-- 8. Top Performers -->
+                <li class="">
+                    <a href="../member/topperformer.html" class="waves-effect ">
+                        <i class="ri-bar-chart-2-line"></i>
+                        <span>Top Performers</span>
+                    </a>
+                </li>
+
+                <!-- 9. Chapter Meetings -->
+                <li class="">
+                    <a href="../member/meetings.html" class="waves-effect ">
+                        <i class="ri-video-chat-line"></i>
+                        <span>Chapter Meetings</span>
+                    </a>
+                </li>
+
+                <!-- 10. My Chapter -->
+                <li class="">
+                    <a href="../member/mychapter.html" class="waves-effect ">
+                        <i class="ri-building-line"></i>
+                        <span>My Chapter</span>
+                    </a>
+                </li>
+
+                <!-- 11. All Chapters -->
+                <li class="">
+                    <a href="../member/chapter.html" class="waves-effect ">
+                        <i class="ri-community-line"></i>
+                        <span>All Chapters</span>
+                    </a>
+                </li>
+
+                <!-- 12. Visitor Tracking -->
+                <li class="">
+                    <a href="../member/visitor.html" class="waves-effect ">
+                        <i class="ri-user-follow-line"></i>
+                        <span>Visitor Tracking</span>
+                    </a>
+                </li>
+
+                <!-- 13. Notifications -->
+                <li class="">
+                    <a href="../member/notifications.html" class="waves-effect ">
+                        <i class="ri-notification-3-line"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+
+                <!-- 14. Broadcast -->
+                <li class="mm-active">
+                    <a href="../member/broadcast.html" class="waves-effect active">
+                        <i class="ri-broadcast-line"></i>
+                        <span>Broadcast</span>
+                    </a>
+                </li>
+
+                <!-- 15. EAF Policies -->
+                <li>
+                    <a href="javascript:void(0);" class="waves-effect d-flex align-items-center justify-content-between">
+                        <span>
+                            <i class="ri-shield-check-line"></i>
+                            <span>EAF Policies</span>
+                        </span>
+                        <i class="ri-arrow-down-s-line" style="font-size:14px; width:auto; height:auto; color:#94A3B8;"></i>
+                    </a>
+                </li>
+
+                <!-- 16. Logout (Red Accent at bottom) -->
+                <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
+                    <a href="../member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                        <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
+                        <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Left Sidebar End -->
+
+        <div class="main-content">
+            <div class="page-content">
+
+                <div class="container-fluid py-2">
+
+                    <!-- PAGE TITLE -->
+                    <div class="row mb-1">
+                        <div class="col-12">
+                            <div class="broadcast-header p-4 rounded-4 shadow-sm " style="background-color: #fac532;">
+                                <h3 class="fw-bold text-white mb-1">
+                                    <i class="fa fa-bullhorn me-2"></i> Broadcast Messages
+                                </h3>
+                                <p class="mb-0 text-dark">Latest announcements, updates and notifications</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="announcement-list mt-4">
+
+                        
+                            <!-- EMPTY STATE -->
+                            <div class="announcement-empty">
+
+                                <div class="empty-icon">
+                                    <i class="fa fa-bullhorn"></i>
+                                </div>
+
+                                <h5>No Announcements</h5>
+
+                                <p>
+                                    New announcements and updates will appear here.
+                                </p>
+
+                            </div>
+
+                        
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <!-- End Page-content -->
+            
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="underline" style="font-size:13px;">Copyright © 2026, All Rights Reserved. Designed & Developed with<a target="_blank" style="color:#08426b;" href="https://webhostingbaba.com/"> ❤️ Hosting Baba.</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- Mobile Bottom Navigation Bar (Thumb Zone) -->
+        
+
+<!-- ==========================================================================
+     MOBILE BOTTOM NAVIGATION BAR (FIXED THUMB ZONE)
+     ========================================================================== -->
+<nav class="eaf-bottom-nav-bar d-lg-none" id="eafBottomNav" aria-label="Mobile Navigation">
+    <!-- 1. Home / Dashboard -->
+    <a href="../member/dashboard.html" class="eaf-nav-tab " id="bottomNavHome">
+        <i class="ri-dashboard-3-line"></i>
+        <span>Home</span>
+    </a>
+
+    <!-- 2. Connects / Referrals -->
+    <a href="../member/connect.html" class="eaf-nav-tab " id="bottomNavConnects">
+        <i class="ri-shake-hands-line"></i>
+        <span>Connects</span>
+    </a>
+
+    <!-- 3. Central Hero Quick Slips Button (+) -->
+    <button type="button" class="eaf-nav-center-btn" id="bottomNavQuickSlips" data-bs-toggle="modal" data-bs-target="#eafQuickSlipsModal" aria-label="Quick Action Slips">
+        <i class="ri-add-line"></i>
+    </button>
+
+    <!-- 4. My Chapter -->
+    <a href="../member/mychapter.html" class="eaf-nav-tab " id="bottomNavChapter">
+        <i class="ri-community-line"></i>
+        <span>Chapter</span>
+    </a>
+
+    <!-- 5. Profile -->
+    <a href="../member/profile.html" class="eaf-nav-tab " id="bottomNavProfile">
+        <i class="ri-user-3-line"></i>
+        <span>Profile</span>
+    </a>
+</nav>
+
+<!-- ==========================================================================
+     QUICK SLIPS BOTTOM SHEET MODAL (MOBILE SLIDE-UP)
+     ========================================================================== -->
+<div class="modal fade eaf-bottom-sheet-modal" id="eafQuickSlipsModal" tabindex="-1" aria-labelledby="eafQuickSlipsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content eaf-bottom-sheet-content">
+            <div class="eaf-sheet-handle"></div>
+            <div class="modal-header border-0 pb-1 pt-2 px-4">
+                <h6 class="modal-title fw-bold text-dark" id="eafQuickSlipsModalLabel" style="font-size:16px;">
+                    <i class="ri-flashlight-line text-warning me-2"></i>Quick Action Slips
+                </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="eaf-sheet-grid">
+                    <!-- Slip 1: Give Connect -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('referral');">
+                        <div class="eaf-sheet-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563EB;">
+                            <i class="ri-send-plane-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">Give Connect</div>
+                        <div class="eaf-sheet-sub">Create a new connect</div>
+                    </div>
+
+                    <!-- Slip 2: Received Connects -->
+                    <a href="../member/connect.html" class="eaf-sheet-item">
+                        <div class="eaf-sheet-icon" style="background: rgba(5, 150, 105, 0.12); color: #059669;">
+                            <i class="ri-inbox-archive-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">Received Connects</div>
+                        <div class="eaf-sheet-sub">View inbound leads</div>
+                    </a>
+
+                    <!-- Slip 3: F2F Meeting (1-to-1) -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('f2f');">
+                        <div class="eaf-sheet-icon" style="background: rgba(124, 58, 237, 0.12); color: #7C3AED;">
+                            <i class="ri-user-voice-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">F2F Meeting</div>
+                        <div class="eaf-sheet-sub">Record 1-to-1 meeting</div>
+                    </div>
+
+                    <!-- Slip 4: Closed Business (MITB) -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('mitb');">
+                        <div class="eaf-sheet-icon" style="background: rgba(217, 119, 6, 0.12); color: #D97706;">
+                            <i class="ri-money-rupee-circle-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">MITB</div>
+                        <div class="eaf-sheet-sub">Record closed business</div>
+                    </div>
+
+                    <!-- Slip 5: Invite Visitor -->
+                    <div class="eaf-sheet-item" style="grid-column: span 2;" onclick="handleQuickSlip('visitor');">
+                        <div class="d-flex align-items-center gap-3 w-100 justify-content-center">
+                            <div class="eaf-sheet-icon mb-0" style="background: rgba(13, 148, 136, 0.12); color: #0D9488;">
+                                <i class="ri-user-add-fill"></i>
+                            </div>
+                            <div class="text-start">
+                                <div class="eaf-sheet-title">Invite a Visitor</div>
+                                <div class="eaf-sheet-sub">Register guest for upcoming meeting</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleQuickSlip(type) {
+    const slipModalEl = document.getElementById('eafQuickSlipsModal');
+    if (slipModalEl) {
+        const bsModal = bootstrap.Modal.getInstance(slipModalEl);
+        if (bsModal) {
+            bsModal.hide();
+        }
+    }
+
+    setTimeout(function() {
+        if (type === 'referral') {
+            if (typeof add_new_connects === 'function') {
+                add_new_connects();
+            } else {
+                window.location.href = "../member/connect.html";
+            }
+        } else if (type === 'mitb') {
+            if (typeof add_mitb === 'function') {
+                add_mitb();
+            } else {
+                window.location.href = "../member/mitb.html";
+            }
+        } else if (type === 'f2f') {
+            if (typeof add_f2f === 'function') {
+                add_f2f();
+            } else {
+                window.location.href = "../member/f2f.html";
+            }
+        } else if (type === 'visitor') {
+            if (typeof add_vt === 'function') {
+                add_vt();
+            } else {
+                window.location.href = "../member/visitor.html";
+            }
+        }
+    }, 300);
+}
+</script>
+
+
+        
+
+        </div>
+        <!-- end main content-->
+    </div>
+    <div class="rightbar-overlay"></div>
+    <!-- JAVASCRIPT -->
+    <script src="../assets2/libs/jquery/jquery.min.js"></script>
+    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="../assets2/libs/node-waves/waves.min.js"></script>
+    <script src="../assets2/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="../assets2/js/pages/dashboard.init.js"></script>
+    <script src="../assets2/js/app.js"></script>
+</body>
+
+</html>
+

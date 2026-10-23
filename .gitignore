@@ -1,0 +1,30 @@
+# Ignore large zip archives (Prevents GitHub 100MB rejection)
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Mobile app build outputs
+**/build/
+**/.dart_tool/
+*.apk
+*.aab
+
+# Ignore large user uploads exceeding GitHub 100MB limit
+uploads/portfolios/1773812428_857a1b1a8d68260a688a.pptx
+uploads/**/*.pptx
+
+# Ignore CodeIgniter runtime cache, sessions and logs
+writable/cache/*
+!writable/cache/index.html
+writable/session/*
+!writable/session/index.html
+writable/logs/*
+!writable/logs/index.html
+writable/debugbar/*
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

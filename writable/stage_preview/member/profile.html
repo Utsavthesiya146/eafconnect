@@ -1,0 +1,2792 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="utf-8" />
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/logo5.png">
+    <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <script src="../assets2/js/layout.js"></script>
+    <link href="../assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="../assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts & Master KVV/BNI Revamp Theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=3.0">
+    <style>
+        .profile-banner {
+            background: linear-gradient(135deg, #101B35 0%, #172B50 55%, #0B1325 100%);
+            border: 1px solid rgba(198, 166, 103, 0.32);
+            padding: 24px 28px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(16, 27, 53, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(198, 166, 103, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* PROFILE IMAGE */
+        .profile-img-wrapper {
+            position: relative;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 3px solid #C6A667;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        /* CAMERA ICON */
+        .camera-icon {
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            background: #C6A667;
+            width: 28px;
+            height: 28px;
+            font-size: 13px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #101B35;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+        }
+
+        /* USER TEXT AREA */
+        .profile-banner h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 4px !important;
+        }
+
+        .profile-banner .mb-2 {
+            margin-bottom: 6px !important;
+            font-size: 14px;
+            color: #CBD5E1;
+        }
+
+        /* BADGES */
+        .badge-pill,
+        .badge-pill-dark {
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 50px;
+        }
+
+        /* SAVE BUTTON */
+        .save-btn {
+            background: linear-gradient(135deg, #C6A667, #D4B679);
+            color: #101B35;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 4px 12px rgba(198, 166, 103, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(198, 166, 103, 0.4);
+            color: #101B35;
+        }
+
+        /* STATS BOX */
+        .stats-box {
+            background: #fff;
+            border-radius: 0 0 16px 16px;
+            padding: 16px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+            margin-top: -6px;
+            border: 1px solid #E2E8F0;
+            border-top: none;
+        }
+
+        .stats-box h6 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748B;
+            margin-bottom: 5px;
+        }
+
+        .stats-box h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #101B35;
+            margin: 0;
+        }
+
+        /* ===== Cards ===== */
+        .profile-card {
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(15, 59, 104, .05);
+            background: #FFFFFF;
+        }
+
+        /* ===== Card Header ===== */
+        .profile-header {
+            background: #fff;
+            border-bottom: 1px solid #F1F5F9;
+            padding: 16px 20px;
+            font-weight: 700;
+            color: #0F3B68;
+        }
+
+        /* ===== Inputs ===== */
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            height: 44px;
+            font-size: 14px;
+            border: 1px solid #CBD5E1;
+        }
+
+        textarea.form-control {
+            height: auto;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #0F3B68;
+            box-shadow: 0 0 0 .15rem rgba(15, 59, 104, .18);
+        }
+
+        /* ===== Labels ===== */
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+
+        /* ===== Sidebar ===== */
+        .profile-sidebar {
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(15, 59, 104, .05);
+            background: #FFFFFF;
+        }
+
+        /* ===== Sidebar Tabs ===== */
+        .profile-sidebar .nav-link {
+            border-radius: 10px;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 16px;
+            transition: .2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-sidebar .nav-link:hover {
+            background: rgba(15, 59, 104, 0.06);
+            color: #0F3B68;
+        }
+
+        .profile-sidebar .nav-link.active {
+            background: linear-gradient(135deg, #0F3B68, #1E293B);
+            color: #fff;
+            border-left: 3px solid #D97706;
+            box-shadow: 0 4px 12px rgba(15, 59, 104, 0.2);
+        }
+
+        /* ===== Section spacing ===== */
+        .profile-section .row>div {
+            margin-bottom: 10px;
+        }
+
+        /* ===== Badge ===== */
+        .badge {
+            font-size: 12px;
+        }
+
+        /* Sticky sidebar */
+        .sticky-card {
+            position: sticky;
+            top: 20px;
+        }
+
+        /* reduce card spacing */
+        .card {
+            margin-bottom: 14px !important;
+        }
+
+        /* reduce card body padding */
+        .card-body {
+            padding: 18px !important;
+        }
+
+        /* compact header */
+        .card-header {
+            padding: 10px 18px !important;
+        }
+
+        /* reduce row spacing */
+        .row {
+            --bs-gutter-y: .4rem;
+        }
+
+        /* form label smaller */
+        .form-label {
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        /* compact inputs */
+        .form-control,
+        .form-select {
+            height: 38px;
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+        textarea.form-control {
+            min-height: 70px;
+        }
+
+        /* sidebar buttons compact */
+        .nav-pills .nav-link {
+            padding: 9px 12px !important;
+            font-size: 14px;
+        }
+
+        /* remove extra tab gap */
+        .tab-pane {
+            margin-top: 0;
+        }
+
+        /* smaller section title */
+        .card-header h5 {
+            font-size: 16px;
+        }
+
+        /* reduce column spacing */
+        .mb-3 {
+            margin-bottom: .6rem !important;
+        }
+
+        /* reduce large spacing */
+        .p-4 {
+            padding: 1rem !important;
+        }
+
+        /* sidebar card padding */
+        .card-body.p-2 {
+            padding: .6rem !important;
+        }
+
+        /* banner spacing */
+        .profile-banner {
+            padding: 18px 22px;
+        }
+
+        /* profile image */
+        .profile-img {
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+
+        /* camera icon position */
+        .camera-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #ed2d7b;
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* save button alignment */
+        .save-btn {
+            white-space: nowrap;
+            padding: 8px 16px;
+        }
+
+        /* stats box */
+        .stats-box {
+            background: #fff;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+            margin-top: -6px;
+        }
+
+        /* stat items */
+        .stat-item {
+            padding: 14px 10px;
+        }
+
+        .stat-item h6 {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 3px;
+        }
+
+        .stat-item h3 {
+            font-weight: 700;
+        }
+
+        /* mobile fix */
+        @media(max-width:768px) {
+
+            .profile-banner .d-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 12px;
+            }
+
+            .save-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }/* =========================================================
+   PROFILE BANNER
+   Theme:
+   Primary  #0a3d61
+   Accent   #fac532
+========================================================= */
+
+.profile-banner {
+    position: relative;
+
+    width: 100%;
+
+    padding: 16px 20px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0a3d61 0%,
+            #0d4d76 55%,
+            #0a3d61 100%
+        );
+
+    box-shadow:
+        0 6px 20px rgba(10, 61, 97, .15);
+}
+
+
+/* =========================================================
+   SUBTLE DECORATIVE ELEMENT
+========================================================= */
+
+.profile-banner::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -70px;
+    top: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(250, 197, 50, .08);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   INNER
+========================================================= */
+
+.profile-banner-inner {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   PROFILE INFO
+========================================================= */
+
+.profile-info {
+    display: flex;
+
+    align-items: center;
+
+    min-width: 0;
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+.profile-img-wrapper {
+    position: relative;
+
+    flex: 0 0 68px;
+
+    width: 68px;
+    height: 68px;
+
+    padding: 3px;
+
+    border-radius: 50%;
+
+    background: #fac532;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, .18);
+}
+
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    border-radius: 50%;
+
+    border: 2px solid #fff;
+
+    background: #eef2f4;
+}
+
+
+/* =========================================================
+   USER DETAILS
+========================================================= */
+
+.profile-details {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.profile-name {
+    margin: 0 0 4px;
+
+    color: #fff;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    letter-spacing: -.2px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   BIO
+========================================================= */
+
+.profile-bio {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    max-width: 650px;
+
+    margin-bottom: 8px;
+
+    color: rgba(255,255,255,.78);
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+.profile-bio i {
+    flex: 0 0 auto;
+
+    color: #fac532;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.profile-badges {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+
+/* =========================================================
+   COMMON BADGE
+========================================================= */
+
+.profile-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 4px 8px;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+
+.profile-badge i {
+    font-size: 8px;
+}
+
+
+/* ROLE */
+
+.role-badge {
+    background: rgba(250, 197, 50, .16);
+
+    border: 1px solid rgba(250, 197, 50, .3);
+
+    color: #fac532;
+}
+
+
+/* SINCE */
+
+.since-badge {
+    background: rgba(255,255,255,.10);
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    color: rgba(255,255,255,.78);
+}
+
+
+/* =========================================================
+   PROFILE ACTION
+========================================================= */
+
+.profile-action {
+    position: relative;
+
+    flex: 0 0 auto;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    border: 1px solid rgba(250,197,50,.7);
+
+    border-radius: 7px;
+
+    background: #fac532;
+
+    color: #0a3d61;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,.12);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.profile-action:hover {
+    background: #ffd45b;
+
+    color: #0a3d61;
+
+    text-decoration: none;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 14px rgba(0,0,0,.18);
+}
+
+
+/* ACTION ICON */
+
+.profile-action-icon {
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 5px;
+
+    background: rgba(10,61,97,.10);
+}
+
+
+.profile-action-icon i {
+    font-size: 9px;
+}
+
+
+/* ARROW */
+
+.profile-arrow {
+    margin-left: 2px;
+
+    font-size: 8px;
+
+    transition: transform .2s ease;
+}
+
+
+.profile-action:hover .profile-arrow {
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .profile-banner {
+        padding: 13px 14px;
+
+        border-radius: 10px;
+    }
+
+    .profile-banner-inner {
+        gap: 12px;
+    }
+
+    .profile-info {
+        gap: 11px;
+    }
+
+    .profile-img-wrapper {
+        flex: 0 0 58px;
+
+        width: 58px;
+        height: 58px;
+    }
+
+    .profile-name {
+        font-size: 17px;
+    }
+
+    .profile-bio {
+        margin-bottom: 6px;
+
+        font-size: 10px;
+    }
+
+    .profile-badge {
+        padding: 3px 7px;
+
+        font-size: 8px;
+    }
+
+    .profile-action {
+        padding: 7px 9px;
+
+        font-size: 10px;
+    }
+
+    .profile-action-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .profile-banner {
+        padding: 11px;
+
+        border-radius: 9px;
+    }
+
+    .profile-banner-inner {
+        align-items: center;
+
+        gap: 9px;
+    }
+
+    .profile-info {
+        gap: 9px;
+    }
+
+    .profile-img-wrapper {
+        flex: 0 0 48px;
+
+        width: 48px;
+        height: 48px;
+
+        padding: 2px;
+    }
+
+    .profile-name {
+        max-width: 180px;
+
+        margin-bottom: 3px;
+
+        font-size: 15px;
+    }
+
+    .profile-bio {
+        max-width: 190px;
+
+        margin-bottom: 5px;
+
+        font-size: 9px;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+    .profile-bio i {
+        font-size: 8px;
+    }
+
+    .profile-badges {
+        gap: 4px;
+    }
+
+    .profile-badge {
+        padding: 3px 6px;
+
+        font-size: 7px;
+    }
+
+    .profile-badge i {
+        font-size: 7px;
+    }
+
+    .profile-action {
+        padding: 6px 8px;
+
+        border-radius: 6px;
+
+        font-size: 9px;
+    }
+
+    .profile-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .profile-action-icon i {
+        font-size: 8px;
+    }
+
+    .profile-arrow {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .profile-banner {
+        padding: 9px;
+    }
+
+    .profile-img-wrapper {
+        flex: 0 0 43px;
+
+        width: 43px;
+        height: 43px;
+    }
+
+    .profile-name {
+        max-width: 145px;
+
+        font-size: 14px;
+    }
+
+    .profile-bio {
+        max-width: 145px;
+
+        font-size: 8px;
+    }
+
+    .since-badge {
+        display: none;
+    }
+
+    .profile-action {
+        padding: 6px;
+
+        font-size: 8px;
+    }
+
+    .profile-action-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+    </style>
+</head>
+
+<body data-sidebar="colored">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        
+
+<!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+<link rel="stylesheet" href="../assets2/css/eaf-design-system.css?v=5.0">
+<link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=5.0">
+
+<header id="page-topbar">
+    <div class="navbar-header">
+        <!-- Left Side: Hamburger & Member Profile Info (KVV Benchmark) -->
+        <div class="d-flex align-items-center gap-3">
+            <button type="button" class="btn btn-sm px-2 font-size-22 header-item waves-effect vertical-menu-btn" id="vertical-menu-btn">
+                <i class="ri-menu-2-line align-middle" style="font-size:22px; color:#1E293B;"></i>
+            </button>
+
+            <!-- KVV Member Profile Header Widget -->
+            <div class="kvv-header-user-block">
+                <a href="../member/profile.html">
+                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                         alt="Harri Kumar" 
+                         class="kvv-header-avatar"
+                         onerror="this.onerror=null; this.src='../images/empty.png';">
+                </a>
+                <div class="kvv-header-user-info">
+                    <div class="kvv-header-name">
+                        <a href="../member/profile.html" style="color:inherit;text-decoration:none;">
+                            Harri Kumar <span class="kvv-name-divider">|</span> Chapter 2                        </a>
+                    </div>
+                    <div class="kvv-header-sub">
+                        <span>Website development and digital marketing • Hosting Baba</span>
+                        <span class="kvv-role-badge"><i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Notifications & Settings Dropdown -->
+        <div class="d-flex align-items-center gap-2">
+            <!-- Notifications Dropdown -->
+            <div class="dropdown d-inline-block">
+                <a href="../member/notifications.html" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                    <i class="ri-notification-3-line font-size-20"></i>
+                                    </a>
+            </div>
+
+            <!-- Profile Settings Dropdown -->
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown" aria-expanded="false" style="color:#475569;">
+                    <i class="ri-settings-3-line font-size-20"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
+                    <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
+                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                             class="rounded-circle shadow-sm"
+                             alt="Profile Image"
+                             width="64" height="64"
+                             style="object-fit:cover; object-position:top center; border: 2px solid #C6A667;"
+                             onerror="this.onerror=null; this.src='../images/empty.png';">
+                        <h6 class="mt-2 mb-0 fw-bold" style="color:#ffffff;">
+                            Harri Kumar                        </h6>
+                        <small class="text-white-50">Chapter 2 • President</small>
+                    </div>
+                    <div class="p-2">
+                        <a href="../member/profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                            <i class="ri-user-line fs-5 text-warning me-2"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="../member/profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                            <i class="ri-lock-password-line fs-5 text-primary me-2"></i>
+                            <span>Account Settings</span>
+                        </a>
+                        <hr class="my-2">
+                        <a href="../member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                            <i class="ri-logout-box-r-line fs-5 me-2"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="watermark"></div>
+<style>
+    .watermark {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../images/logo5.png") no-repeat center;
+        background-size: 320px;
+        opacity: 0.02;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .page-content {
+        position: relative;
+        z-index: 1;
+    }
+</style>
+
+        
+<div class="vertical-menu">
+    <!-- LOGO / BRAND (EAF Connect Official Logo) -->
+    <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
+        <a href="../member/dashboard.html" class="d-flex align-items-center gap-2" style="text-decoration:none;">
+            <img src="../images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='../images/logo6.png'">
+            <div style="display:flex; flex-direction:column; line-height:1.15;">
+                <span style="font-size:18px; font-weight:800; color:#101B35; letter-spacing:-0.3px; font-family:'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;">
+                    EAF <span style="color:#C6A667; font-weight:700; font-size:16px;">Connect</span>
+                </span>
+                <span style="font-size:10px; font-weight:700; color:#64748B; letter-spacing:0.5px; text-transform:uppercase;">
+                    Member Portal
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn d-none" id="vertical-menu-btn">
+        <i class="ri-menu-2-line align-middle"></i>
+    </button>
+
+    <div data-simplebar class="vertical-scroll" style="height: calc(100% - 75px);">
+        
+        <!--- Sidemenu -->
+        <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <!-- 1. Dashboard -->
+                <li class="">
+                    <a href="../member/dashboard.html" class="waves-effect ">
+                        <i class="ri-dashboard-3-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- 2. My Profile -->
+                <li class="mm-active">
+                    <a href="../member/profile.html" class="waves-effect active">
+                        <i class="ri-user-3-line"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+
+                <!-- 3. Connects (EAF Wordings) -->
+                <li class="">
+                    <a href="../member/connect.html" class="waves-effect ">
+                        <i class="ri-shake-hands-line"></i>
+                        <span>Connects</span>
+                    </a>
+                </li>
+
+                <!-- 4. F2F (1-to-1) -->
+                <li class="">
+                    <a href="../member/f2f.html" class="waves-effect ">
+                        <i class="ri-group-line"></i>
+                        <span>F2F</span>
+                    </a>
+                </li>
+
+                <!-- 5. MITB -->
+                <li class="">
+                    <a href="../member/mitb.html" class="waves-effect ">
+                        <i class="ri-money-rupee-circle-line"></i>
+                        <span>MITB</span>
+                    </a>
+                </li>
+
+                <!-- 6. Search -->
+                <li class="">
+                    <a href="../member/search.html" class="waves-effect ">
+                        <i class="ri-search-line"></i>
+                        <span>Search</span>
+                    </a>
+                </li>
+
+                <!-- 7. My Attendance -->
+                <li class="">
+                    <a href="../member/my_attendance.html" class="waves-effect ">
+                        <i class="ri-calendar-check-line"></i>
+                        <span>My Attendance</span>
+                    </a>
+                </li>
+
+                <!-- 8. Top Performers -->
+                <li class="">
+                    <a href="../member/topperformer.html" class="waves-effect ">
+                        <i class="ri-bar-chart-2-line"></i>
+                        <span>Top Performers</span>
+                    </a>
+                </li>
+
+                <!-- 9. Chapter Meetings -->
+                <li class="">
+                    <a href="../member/meetings.html" class="waves-effect ">
+                        <i class="ri-video-chat-line"></i>
+                        <span>Chapter Meetings</span>
+                    </a>
+                </li>
+
+                <!-- 10. My Chapter -->
+                <li class="">
+                    <a href="../member/mychapter.html" class="waves-effect ">
+                        <i class="ri-building-line"></i>
+                        <span>My Chapter</span>
+                    </a>
+                </li>
+
+                <!-- 11. All Chapters -->
+                <li class="">
+                    <a href="../member/chapter.html" class="waves-effect ">
+                        <i class="ri-community-line"></i>
+                        <span>All Chapters</span>
+                    </a>
+                </li>
+
+                <!-- 12. Visitor Tracking -->
+                <li class="">
+                    <a href="../member/visitor.html" class="waves-effect ">
+                        <i class="ri-user-follow-line"></i>
+                        <span>Visitor Tracking</span>
+                    </a>
+                </li>
+
+                <!-- 13. Notifications -->
+                <li class="">
+                    <a href="../member/notifications.html" class="waves-effect ">
+                        <i class="ri-notification-3-line"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+
+                <!-- 14. Broadcast -->
+                <li class="">
+                    <a href="../member/broadcast.html" class="waves-effect ">
+                        <i class="ri-broadcast-line"></i>
+                        <span>Broadcast</span>
+                    </a>
+                </li>
+
+                <!-- 15. EAF Policies -->
+                <li>
+                    <a href="javascript:void(0);" class="waves-effect d-flex align-items-center justify-content-between">
+                        <span>
+                            <i class="ri-shield-check-line"></i>
+                            <span>EAF Policies</span>
+                        </span>
+                        <i class="ri-arrow-down-s-line" style="font-size:14px; width:auto; height:auto; color:#94A3B8;"></i>
+                    </a>
+                </li>
+
+                <!-- 16. Logout (Red Accent at bottom) -->
+                <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
+                    <a href="../member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                        <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
+                        <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Left Sidebar End -->
+
+        <div class="main-content">
+            <div class="page-content">
+                                   
+                    <div class="profile-banner">
+
+                        <div class="profile-banner-inner">
+
+                            <!-- LEFT -->
+                            <div class="profile-info">
+
+                                <!-- PROFILE IMAGE -->
+                                                                <div class="profile-img-wrapper position-relative">
+
+                                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                                        class="profile-img"
+                                        alt="Harri Kumar"
+                                        style="object-fit: cover; object-position: top center; border: 3px solid #C6A667;"
+                                        onerror="this.onerror=null; this.src='../images/empty.png';">
+
+                                </div>
+
+
+                                <!-- USER DETAILS -->
+                                <div class="profile-details">
+
+                                    <h2 class="profile-name">
+                                        Harri Kumar                                    </h2>
+
+                                                                        <div class="profile-bio" style="max-width:760px; line-height:1.6; font-size:13px; color:#CBD5E1; margin:6px 0 10px;">
+                                        <i class="ri-briefcase-3-line" style="color:#C6A667; margin-right:4px;"></i>
+                                        <span style="display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">Harri Kumar
+CEO of Bangalore Jobhunterr India Pvt Ltd.
+The Founder of Jobhunterr.com
+Harri is the director of the company that provides recruitment outsourcing 
+and consulting services.
+Controls an experienced team of professionals and manages this company, 
+which has served as a leading organization for decades.
+Jobhunterr is a dedicated to being the premier provider of recruitment and 
+staffing services in the country, with a strong focus on empowering candidates to make informed career choices and creating high-performing, 
+stable, and efficient teams for organizations</span>
+                                    </div>
+
+
+                                    <!-- BADGES -->
+                                    <div class="profile-badges">
+
+                                        
+                                            <span class="profile-badge role-badge">
+
+                                                <i class="fas fa-user-tag"></i>
+
+                                                President
+                                            </span>
+
+                                        
+
+                                        <span class="profile-badge since-badge">
+
+                                            <i class="fas fa-calendar-alt"></i>
+
+                                            Since Mar 2026
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PROFILE BUTTON -->
+                            <a href="../member/profile/details.html"
+                                class="profile-action">
+
+                                <span class="profile-action-icon">
+                                    <i class="fas fa-user"></i>
+                                </span>
+
+                                <span>Profile</span>
+
+                                <i class="fas fa-arrow-right profile-arrow"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+                  
+                                        <div class="row text-center stats-box m-1">
+
+                        <!-- CONNECTS GIVEN -->
+                        <div class="col-md-4 col-4 border-end">
+                            <h6>Connects Given</h6>
+                            <h2 class="text-danger">16</h2>
+                        </div>
+
+                        <!-- CONNECTS RECEIVED -->
+                        <div class="col-md-4 col-4 border-end">
+                            <h6>Connects Received</h6>
+                            <h2 class="text-success">5</h2>
+                        </div>
+
+                        <!-- EVENTS ATTENDED -->
+                        <div class="col-md-4 col-4">
+                            <h6>Meetings Attended</h6>
+                            <h2 class="text-primary">19</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <!-- Sidebar Tabs -->
+                        <div class="col-lg-3">
+                            <div class="card border-0 shadow-sm rounded-4 mb-4 position-sticky" style="top: 20px;">
+                                <div class="card-body p-2">
+                                    <div class="nav flex-column nav-pills" id="profile-tabs" role="tablist">
+                                        <button class="nav-link active py-3 text-start fw-bold" id="personal-tab" data-bs-toggle="pill"
+                                            data-bs-target="#personal" type="button" role="tab"><i class="fas fa-user-circle fa-fw me-3"></i>
+                                            Personal Information</button>
+                                        <button class="nav-link py-3 text-start fw-bold" id="professional-tab" data-bs-toggle="pill"
+                                            data-bs-target="#professional" type="button" role="tab"><i
+                                                class="fas fa-graduation-cap fa-fw me-3"></i> Professional Info</button>
+                                        <button class="nav-link py-3 text-start fw-bold" id="business-tab" data-bs-toggle="pill"
+                                            data-bs-target="#business" type="button" role="tab"><i class="fas fa-building fa-fw me-3"></i>
+                                            Business Details</button>
+                                        <button class="nav-link py-3 text-start fw-bold" id="location-tab" data-bs-toggle="pill"
+                                            data-bs-target="#location" type="button" role="tab"><i
+                                                class="fas fa-map-marked-alt fa-fw me-3"></i> Location & Hours</button>
+                                        <button class="nav-link py-3 text-start fw-bold" id="social-tab" data-bs-toggle="pill"
+                                            data-bs-target="#social" type="button" role="tab"><i class="fas fa-globe fa-fw me-3"></i> Social
+                                            Presence</button>
+                                        <button class="nav-link py-3 text-start fw-bold" id="additional-tab" data-bs-toggle="pill"
+                                            data-bs-target="#additional" type="button" role="tab"><i
+                                                class="fas fa-info-circle fa-fw me-3"></i> Additional Info</button>
+                                        <button class="nav-link py-3 text-start fw-bold" id="media-tab" data-bs-toggle="pill"
+                                            data-bs-target="#media" type="button" role="tab"><i class="fas fa-images fa-fw me-3"></i> Media &
+                                            Docs</button>
+                                        <button class="nav-link py-3 text-start fw-bold text-danger border-danger" id="password-tab"
+                                            data-bs-toggle="pill" data-bs-target="#password" type="button" role="tab"><i
+                                                class="fas fa-key fa-fw me-3"></i> Change Password</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div class="col-lg-9">
+                            <div class="tab-content" id="profile-tabs-content">
+                                <!-- 1. Personal Information -->
+                                <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                        <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                            <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                                <i class="fas fa-user-circle fa-fw me-2"></i> <span>Personal Information</span>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <form id="updateMemberForm" method="post">
+                                                <!-- IMPORTANT ID -->
+                                                <input type="hidden" name="user_code" value="5">
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="form-label fw-bold">Full Name *</label>
+                                                        <input type="text" class="form-control" name="name"
+                                                            value="Harri Kumar" required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Gender</label>
+                                                        <select class="form-select" name="gender">
+                                                            <option value="">Select Gender</option>
+                                                            <option value="Male" >Male</option>
+                                                            <option value="Female" >Female</option>
+                                                            <option value="Other" >Other</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Date of Birth</label>
+                                                        <input type="date" class="form-control" name="dob"
+                                                            value="1987-09-10">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Email *</label>
+                                                        <input type="email" class="form-control" name="email"
+                                                            value="harri@jobhunterr.com" required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Phone</label>
+                                                        <input type="text" class="form-control" name="phone"
+                                                            value="">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Alternate Phone</label>
+                                                        <input type="text" class="form-control" name="alt_phone"
+                                                            value="9341873532">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">WhatsApp</label>
+                                                        <input type="text" class="form-control" name="whatsapp"
+                                                            value="9341873532">
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="form-label fw-bold">Address</label>
+                                                        <textarea class="form-control" name="address">Basaveshwara nagar</textarea>
+                                                    </div>
+                                                    <div class="col-md-4 mb-2">
+                                                        <label class="form-label fw-bold">City</label>
+                                                        <input type="text" class="form-control" name="city"
+                                                            value="Bangalore">
+                                                    </div>
+                                                    <div class="col-md-4 mb-2">
+                                                        <label class="form-label fw-bold">State</label>
+                                                        <input type="text" class="form-control" name="state"
+                                                            value="Karnataka ">
+                                                    </div>
+                                                    <div class="col-md-4 mb-2">
+                                                        <label class="form-label fw-bold">Pincode</label>
+                                                        <input type="text" class="form-control" name="pincode"
+                                                            value="560072">
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                        <i class="fas fa-shield-alt me-2"></i> Update
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Professional Information -->
+                                <div class="tab-pane fade" id="professional" role="tabpanel">
+                                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                        <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                            <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                                <i class="fas fa-graduation-cap fa-fw me-2"></i> <span>Professional & Skills</span>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <form id="updateProfessionalSkillsForm" method="post">
+                                                <div class="row">
+                                                    <div class="col-md-8 mb-2">
+                                                        <input type="hidden" name="user_code" value="5">
+                                                        <label class="form-label fw-bold">Designation</label>
+                                                        <input type="text" class="form-control" name="designation"
+                                                            value="CEO" placeholder="e.g. Managing Director">
+                                                    </div>
+                                                    <div class="col-md-4 mb-2">
+                                                        <label class="form-label fw-bold">Years of Exp.</label>
+                                                        <input type="number" class="form-control" name="exp_years"
+                                                            value="10">
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="form-label fw-bold">Skills / Expertise</label>
+                                                        <input type="text" class="form-control" name="skills"
+                                                            value="Website development and Digital marketing, SEO"
+                                                            placeholder="e.g. Strategic Planning, Team Leadership">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Services Offered</label>
+                                                        <textarea class="form-control" name="services"
+                                                            rows="2">Web site development and Digital marketing, SEO
+Social media marketing, 
+Whats app campaigns, lead generation </textarea>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Products Offered</label>
+                                                        <textarea class="form-control" name="products"
+                                                            rows="2">Software development </textarea>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="form-label fw-bold">Bio / About Me</label>
+                                                        <textarea class="form-control" name="bio"
+                                                            rows="4">Harri Kumar
+CEO of Bangalore Jobhunterr India Pvt Ltd.
+The Founder of Jobhunterr.com
+Harri is the director of the company that provides recruitment outsourcing 
+and consulting services.
+Controls an experienced team of professionals and manages this company, 
+which has served as a leading organization for decades.
+Jobhunterr is a dedicated to being the premier provider of recruitment and 
+staffing services in the country, with a strong focus on empowering candidates to make informed career choices and creating high-performing, 
+stable, and efficient teams for organizations</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                        <i class="fas fa-shield-alt me-2"></i> Update
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Business Details -->
+                                <div class="tab-pane fade" id="business" role="tabpanel">
+                                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                        <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                            <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                                <i class="fas fa-building fa-fw me-2"></i> <span>Business Information</span>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <form id="UpdateBusinessInformationForm" method="post">
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2">
+                                                        <input type="hidden" name="user_code" value="5">
+                                                        <label class="form-label fw-bold">Business Name</label>
+                                                        <input type="text" class="form-control" name="business_name"
+                                                            value="Hosting Baba">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Industry / Category</label>
+                                                        <input type="text" class="form-control" name="industry"
+                                                            value="Website development and digital marketing">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Subcategory</label>
+                                                        <input type="text" class="form-control" name="subcategory"
+                                                            value="Website development ">
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="form-label fw-bold">Business Description</label>
+                                                        <textarea class="form-control" name="description"
+                                                            rows="3"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Registration Number</label>
+                                                        <input type="text" class="form-control" name="reg_number"
+                                                            value="BANGALORE JOBHUNTERR INDIA PRIVATE LIMITED">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">GST Number</label>
+                                                        <input type="text" class="form-control" name="gst_number"
+                                                            value="29AAKCB0612Q1ZC">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">Year Started</label>
+                                                        <input type="number" class="form-control" name="start_year"
+                                                            value="20">
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label fw-bold">No. of Employees</label>
+                                                        <input type="number" class="form-control" name="employees"
+                                                            value="22">
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                        <i class="fas fa-shield-alt me-2"></i> Update
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 4. Location & Hours -->
+                                <div class="tab-pane fade" id="location" role="tabpanel">
+                                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                        <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                            <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                                <i class="fas fa-map-marked-alt fa-fw me-2"></i> <span>Business Location</span>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <form id="UpdateBusinessLocationForm" method="post">
+                                                <input type="hidden" name="user_code" value="5">
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold">Office Address</label>
+                                                    <textarea class="form-control" name="office_address"
+                                                        rows="3">Basaveshwara nagar</textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold">Working Hours</label>
+                                                    <input type="text" class="form-control" name="working_hours"
+                                                        value="Monday to Saturday 9:00 a.m. to 6:00 p.m."
+                                                        placeholder="e.g. Mon-Fri 9:00 AM - 6:00 PM">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label fw-bold">Service Areas (Locations Covered)</label>
+                                                    <textarea class="form-control" name="service_areas" rows="2"
+                                                        placeholder="e.g. Bangalore, Mumbai, International">Across the globe</textarea>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                        <i class="fas fa-shield-alt me-2"></i> Update
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- 6. Social Presence -->
+                                <div class="tab-pane fade" id="social" role="tabpanel">
+                                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                        <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                            <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                                <i class="fas fa-globe fa-fw me-2"></i> <span>Social Media & Links</span>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <form id="updateSocialMedia" method="post">
+                                                <input type="hidden" name="user_code" value="5">
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-3">
+                                                        <label class="form-label fw-bold">Website URL</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="fas fa-link"></i></span>
+                                                            <input type="text" class="form-control" name="website"
+                                                                value="https://www.webhostingbaba.com">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label fw-bold">LinkedIn</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-primary"><i
+                                                                    class="fab fa-linkedin"></i></span>
+                                                            <input type="text" class="form-control" name="linkedin"
+                                                                value="https://www.linkedin.com/company/92608532/admin/dashboard/">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label fw-bold">Facebook</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-primary"><i
+                                                                    class="fab fa-facebook"></i></span>
+                                                            <input type="text" class="form-control" name="facebook"
+                                                                value="https://www.facebook.com/Hostingbaba?mibextid=ZbWKwL">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label fw-bold">Instagram</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-danger"><i
+                                                                    class="fab fa-instagram"></i></span>
+                                                            <input type="text" class="form-control" name="instagram"
+                                                                value="https://www.instagram.com/hostingbaba?igsh=cWY4MTkycjhucnZu">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label fw-bold">Twitter / X</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-dark"><i class="fab fa-twitter"></i></span>
+                                                            <input type="text" class="form-control" name="twitter"
+                                                                value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label fw-bold">YouTube Channel</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-danger"><i class="fab fa-youtube"></i></span>
+                                                            <input type="text" class="form-control" name="youtube"
+                                                                value="https://youtube.com/@hosting_baba?si=0pE2N9Ml48HiRcnW">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label class="form-label fw-bold">Google Business Page</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-warning"><i class="fab fa-google"></i></span>
+                                                            <input type="text" class="form-control" name="google_business"
+                                                                value="https://share.google/GGWlBnNk5sBXL0Ak3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        <button type="submit"
+                                                            class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                            <i class="fas fa-shield-alt me-2"></i> Update
+                                                        </button>
+                                                    </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 7. Additional Info -->
+                            <div class="tab-pane fade" id="additional" role="tabpanel">
+                                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                    <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                        <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                            <i class="fas fa-info-circle fa-fw me-2"></i> <span>Extras & Awards</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <form id="updateAwardsData" method="post">
+                                            <input type="hidden" name="user_code" value="5">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Awards & Achievements</label>
+                                                <textarea class="form-control" name="awards"
+                                                    rows="2">Got Continues work from Canada after recantations </textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Certifications</label>
+                                                <textarea class="form-control" name="certifications"
+                                                    rows="2">Form BNI 
+KVV
+EAF </textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Profile Tags / Keywords</label>
+                                                <input type="text" class="form-control" name="tags"
+                                                    value="Digital Marketing Keywords ???? Core Keywords Digital Marketing Services Online Marketing Internet Marketing Performance Marketing Growth Marketing ???? SEO Keywords SEO Services Search Engine Optimization Local SEO Services Technical SEO On-Page SEO Off-Page SEO SEO Agency Near Me Keyword Research Services ???? Paid Ads / PPC Google Ads Services Pay Per Click (PPC) Facebook Ads Agency Instagram A"
+                                                    placeholder="e.g. Web Design, SEO, Digital Marketing">
+                                            </div>
+                                            <div class="text-end">
+                                                <button type="submit"
+                                                    class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                    <i class="fas fa-shield-alt me-2"></i> Update
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 8. Media & Docs -->
+                            <div class="tab-pane fade" id="media" role="tabpanel">
+                                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                                    <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                        <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height: 60px;">
+                                            <i class="fas fa-images fa-fw me-2"></i> <span>Media & Document Management</span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <form id="updateMediaDocumentData" method="post" enctype="multipart/form-data">
+
+                                            <input type="hidden" name="user_code" value="5">
+
+                                            <div class="row g-4">
+
+                                                <!-- PROFILE PHOTO -->
+                                                <div class="col-md-6">
+                                                    <label class="fw-bold d-flex align-items-center justify-content-between">
+                                                        <span>Profile Photo</span>
+                                                        <span class="badge bg-light text-muted fw-normal" style="font-size: 11px;">JPG, PNG up to 5MB</span>
+                                                    </label>
+
+                                                    <input type="file" class="form-control mb-2"
+                                                        name="profile_photo"
+                                                        accept=".jpg,.jpeg,.png">
+
+                                                                                                        <div class="d-flex align-items-center gap-3 p-2 rounded-3" style="background: rgba(16, 27, 53, 0.03); border: 1px dashed rgba(198, 166, 103, 0.4);">
+                                                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                                                            class="rounded-3 shadow-sm"
+                                                            style="height: 72px; width: 72px; object-fit: cover; border: 2px solid #22C55E;">
+                                                        <div>
+                                                                                                                            <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 11px; font-weight: 700;">
+                                                                    <i class="ri-checkbox-circle-fill me-1"></i> Custom Photograph Active
+                                                                </span>
+                                                                <p class="small text-muted mb-0 mt-1" style="font-size: 11.5px; line-height: 1.35;">
+                                                                    Upload a new photo above whenever you'd like to update your executive picture.
+                                                                </p>
+                                                                                                                    </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- BUSINESS LOGO -->
+                                                <div class="col-md-6">
+                                                    <label class="fw-bold">Business Logo</label>
+
+                                                    <input type="file" class="form-control mb-2"
+                                                        name="business_logo"
+                                                        accept="image/*"
+                                                        onchange="previewImg(this,'logoPrev')">
+
+                                                    <img id="logoPrev"
+                                                        src="../images/empty.png"
+                                                        class="img-thumbnail"
+                                                        style="height:90px;">
+                                                </div>
+
+
+                                                <!-- BUSINESS CARD -->
+                                                <div class="col-md-6">
+                                                    <label class="fw-bold">Business Card</label>
+
+                                                    <input type="file" class="form-control mb-2"
+                                                        name="business_card"
+                                                        accept=".pdf,.doc,.docx,.jpg,.png">
+
+                                                                                                            <a href="../uploads/business_cards/1786697447_09838829f978589824b1.pdf"
+                                                            target="_blank"
+                                                            class="btn btn-sm btn-outline-danger">
+                                                            Download Card
+                                                        </a>
+                                                                                                    </div>
+
+
+                                                <!-- BROCHURE -->
+                                                <div class="col-md-6">
+                                                    <label class="fw-bold">Company Brochure</label>
+
+                                                    <input type="file" class="form-control mb-2"
+                                                        name="brochure"
+                                                        accept=".pdf,.doc,.docx,.jpg,.png">
+
+                                                                                                            <a href="javascript:void(0)"
+                                                            target="_blank"
+                                                            class="btn btn-sm btn-outline-primary">
+                                                            Download Brochure
+                                                        </a>
+                                                                                                    </div>
+
+
+                                                <!-- PORTFOLIO -->
+                                                <div class="col-md-12">
+                                                    <label class="fw-bold">Portfolio</label>
+
+                                                    <input type="file" class="form-control mb-2"
+                                                        name="portfolio"
+                                                        accept=".pdf,.zip,.rar,.doc,.docx">
+
+                                                                                                            <a href="../uploads/portfolios/1773812428_857a1b1a8d68260a688a.pptx"
+                                                            target="_blank"
+                                                            class="btn btn-sm btn-outline-info">
+                                                            Download Portfolio
+                                                        </a>
+
+                                                        <span class="text-muted small ms-2">
+                                                            1773812428_857a1b1a8d68260a688a.pptx                                                        </span>
+                                                                                                    </div>
+
+                                            </div>
+
+                                            <div class="text-end mt-3">
+                                                <button type="submit"
+                                                    class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                    <i class="fas fa-shield-alt me-2"></i> Update
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 9. Change Password -->
+                            <div class="tab-pane fade" id="password" role="tabpanel">
+                                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                                    <div class="card-header bg-white border-bottom border-danger border-opacity-25 py-0 px-4">
+                                        <h5 class="mb-0 fw-bold text-danger d-flex align-items-center" style="height:60px;">
+                                            <i class="fas fa-key me-2"></i> Security: Change Password
+                                        </h5>
+                                    </div>
+
+                                    <div class="card-body p-4">
+
+                                        <form id="updateChangePasswordtData" method="post">
+                                            <input type="hidden" name="user_code" value="5">
+                                            <div class="row">
+                                                <!-- OLD PASSWORD -->
+                                                <!-- <div class="col-md-12 mb-3">
+                                                    <label class="fw-bold">Old Password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="current_password"
+                                                            id="current_password"
+                                                            class="form-control"
+                                                            required>
+                                                        <button class="btn btn-outline-secondary"
+                                                            type="button"
+                                                            onclick="togglePass('current_password',this)">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> -->
+                                                <!-- NEW PASSWORD -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="fw-bold">New Password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="new_password"
+                                                            id="new_password"
+                                                            class="form-control"
+                                                            minlength="6"
+                                                            required>
+                                                        <button class="btn btn-outline-secondary"
+                                                            type="button"
+                                                            onclick="togglePass('new_password',this)">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </div>
+                                                    <small class="text-muted">Minimum 6 characters</small>
+                                                </div>
+                                                <!-- CONFIRM -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="fw-bold">Confirm Password</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="confirm_password"
+                                                            id="confirm_password"
+                                                            class="form-control"
+                                                            minlength="6"
+                                                            required>
+                                                        <button class="btn btn-outline-secondary"
+                                                            type="button"
+                                                            onclick="togglePass('confirm_password',this)">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-3 text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-danger px-4 rounded-pill fw-bold shadow-sm">
+                                                        <i class="fas fa-shield-alt me-2"></i> Update
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        
+        </div>
+        <!-- End Page-content -->
+        
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="underline" style="font-size:13px;">Copyright © 2026, All Rights Reserved. Designed & Developed with<a target="_blank" style="color:#08426b;" href="https://webhostingbaba.com/"> ❤️ Hosting Baba.</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- Mobile Bottom Navigation Bar (Thumb Zone) -->
+        
+
+<!-- ==========================================================================
+     MOBILE BOTTOM NAVIGATION BAR (FIXED THUMB ZONE)
+     ========================================================================== -->
+<nav class="eaf-bottom-nav-bar d-lg-none" id="eafBottomNav" aria-label="Mobile Navigation">
+    <!-- 1. Home / Dashboard -->
+    <a href="../member/dashboard.html" class="eaf-nav-tab " id="bottomNavHome">
+        <i class="ri-dashboard-3-line"></i>
+        <span>Home</span>
+    </a>
+
+    <!-- 2. Connects / Referrals -->
+    <a href="../member/connect.html" class="eaf-nav-tab " id="bottomNavConnects">
+        <i class="ri-shake-hands-line"></i>
+        <span>Connects</span>
+    </a>
+
+    <!-- 3. Central Hero Quick Slips Button (+) -->
+    <button type="button" class="eaf-nav-center-btn" id="bottomNavQuickSlips" data-bs-toggle="modal" data-bs-target="#eafQuickSlipsModal" aria-label="Quick Action Slips">
+        <i class="ri-add-line"></i>
+    </button>
+
+    <!-- 4. My Chapter -->
+    <a href="../member/mychapter.html" class="eaf-nav-tab " id="bottomNavChapter">
+        <i class="ri-community-line"></i>
+        <span>Chapter</span>
+    </a>
+
+    <!-- 5. Profile -->
+    <a href="../member/profile.html" class="eaf-nav-tab active" id="bottomNavProfile">
+        <i class="ri-user-3-line"></i>
+        <span>Profile</span>
+    </a>
+</nav>
+
+<!-- ==========================================================================
+     QUICK SLIPS BOTTOM SHEET MODAL (MOBILE SLIDE-UP)
+     ========================================================================== -->
+<div class="modal fade eaf-bottom-sheet-modal" id="eafQuickSlipsModal" tabindex="-1" aria-labelledby="eafQuickSlipsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content eaf-bottom-sheet-content">
+            <div class="eaf-sheet-handle"></div>
+            <div class="modal-header border-0 pb-1 pt-2 px-4">
+                <h6 class="modal-title fw-bold text-dark" id="eafQuickSlipsModalLabel" style="font-size:16px;">
+                    <i class="ri-flashlight-line text-warning me-2"></i>Quick Action Slips
+                </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="eaf-sheet-grid">
+                    <!-- Slip 1: Give Connect -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('referral');">
+                        <div class="eaf-sheet-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563EB;">
+                            <i class="ri-send-plane-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">Give Connect</div>
+                        <div class="eaf-sheet-sub">Create a new connect</div>
+                    </div>
+
+                    <!-- Slip 2: Received Connects -->
+                    <a href="../member/connect.html" class="eaf-sheet-item">
+                        <div class="eaf-sheet-icon" style="background: rgba(5, 150, 105, 0.12); color: #059669;">
+                            <i class="ri-inbox-archive-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">Received Connects</div>
+                        <div class="eaf-sheet-sub">View inbound leads</div>
+                    </a>
+
+                    <!-- Slip 3: F2F Meeting (1-to-1) -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('f2f');">
+                        <div class="eaf-sheet-icon" style="background: rgba(124, 58, 237, 0.12); color: #7C3AED;">
+                            <i class="ri-user-voice-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">F2F Meeting</div>
+                        <div class="eaf-sheet-sub">Record 1-to-1 meeting</div>
+                    </div>
+
+                    <!-- Slip 4: Closed Business (MITB) -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('mitb');">
+                        <div class="eaf-sheet-icon" style="background: rgba(217, 119, 6, 0.12); color: #D97706;">
+                            <i class="ri-money-rupee-circle-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">MITB</div>
+                        <div class="eaf-sheet-sub">Record closed business</div>
+                    </div>
+
+                    <!-- Slip 5: Invite Visitor -->
+                    <div class="eaf-sheet-item" style="grid-column: span 2;" onclick="handleQuickSlip('visitor');">
+                        <div class="d-flex align-items-center gap-3 w-100 justify-content-center">
+                            <div class="eaf-sheet-icon mb-0" style="background: rgba(13, 148, 136, 0.12); color: #0D9488;">
+                                <i class="ri-user-add-fill"></i>
+                            </div>
+                            <div class="text-start">
+                                <div class="eaf-sheet-title">Invite a Visitor</div>
+                                <div class="eaf-sheet-sub">Register guest for upcoming meeting</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleQuickSlip(type) {
+    const slipModalEl = document.getElementById('eafQuickSlipsModal');
+    if (slipModalEl) {
+        const bsModal = bootstrap.Modal.getInstance(slipModalEl);
+        if (bsModal) {
+            bsModal.hide();
+        }
+    }
+
+    setTimeout(function() {
+        if (type === 'referral') {
+            if (typeof add_new_connects === 'function') {
+                add_new_connects();
+            } else {
+                window.location.href = "../member/connect.html";
+            }
+        } else if (type === 'mitb') {
+            if (typeof add_mitb === 'function') {
+                add_mitb();
+            } else {
+                window.location.href = "../member/mitb.html";
+            }
+        } else if (type === 'f2f') {
+            if (typeof add_f2f === 'function') {
+                add_f2f();
+            } else {
+                window.location.href = "../member/f2f.html";
+            }
+        } else if (type === 'visitor') {
+            if (typeof add_vt === 'function') {
+                add_vt();
+            } else {
+                window.location.href = "../member/visitor.html";
+            }
+        }
+    }, 300);
+}
+</script>
+
+
+        
+
+    </div>
+    <!-- end main content-->
+    </div>
+    <div class="rightbar-overlay"></div>
+    <!-- JAVASCRIPT -->
+    
+<!-- edit start-->
+<div class="modal fade" id="model" style="padding:120px 0px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="model_data" style="max-width:600px;float:center;">
+    </div>
+</div>
+<!-- edit end -->
+<script>
+    function team_app_status($apply_code) {
+        $('#model').modal('show');
+        $.ajax({
+            url: "javascript:void(0).phpemployee/team_applications/appication_status/" + $apply_code,
+            success: function(response) {
+                $("#model_data").html(response);
+            }
+        })
+    }
+</script>
+
+
+<style>
+    /* ===== MODERN SWEET ALERT UI ===== */
+
+    .swal2-popup {
+        border-radius: 16px !important;
+        padding: 28px 26px !important;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, .18) !important;
+        animation: popupFade .25s ease;
+    }
+
+    /* smooth popup animation */
+    @keyframes popupFade {
+        from {
+            transform: translateY(20px) scale(.96);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* title */
+    .swal2-title {
+        font-size: 20px !important;
+        font-weight: 600 !important;
+        color: #2b2b2b;
+    }
+
+    /* text */
+    .swal2-html-container {
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    /* backdrop blur */
+    .swal2-container.swal2-backdrop-show {
+        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, .35) !important;
+    }
+
+    /* loader size */
+    .swal2-loader {
+        border-width: 3px !important;
+    }
+
+    /* buttons */
+    .swal2-confirm {
+        border-radius: 8px !important;
+        padding: 8px 18px !important;
+        font-weight: 500;
+    }
+
+    /* success icon smoother */
+    .swal2-success-ring {
+        border-width: 3px !important;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on("submit", "#updateMemberForm", function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const btn = form.find("button[type='submit']");
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+               `);
+                Swal.fire({
+                    title: "Updating Profile",
+                    html: `
+                    <div style="font-size:13px">
+                        Syncing your latest information securely...
+                    </div>
+                `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                Swal.close();
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1600);
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message,
+                        confirmButtonColor: "#dc3545"
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect. Please try again.",
+                    confirmButtonColor: "#dc3545"
+                });
+                console.log(xhr.responseText);
+            },
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).on("submit", "#updateProfessionalSkillsForm", function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const btn = form.find("button[type='submit']");
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+               `);
+                Swal.fire({
+                    title: "Updating Profile",
+                    html: `
+                    <div style="font-size:13px">
+                        Syncing your latest information securely...
+                    </div>
+                `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                Swal.close();
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1600);
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message,
+                        confirmButtonColor: "#dc3545"
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect. Please try again.",
+                    confirmButtonColor: "#dc3545"
+                });
+                console.log(xhr.responseText);
+            },
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+    $(document).on("submit", "#UpdateBusinessInformationForm", function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const btn = form.find("button[type='submit']");
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+               `);
+                Swal.fire({
+                    title: "Updating Profile",
+                    html: `
+                    <div style="font-size:13px">
+                        Syncing your latest information securely...
+                    </div>
+                `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                Swal.close();
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1600);
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message,
+                        confirmButtonColor: "#dc3545"
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect. Please try again.",
+                    confirmButtonColor: "#dc3545"
+                });
+                console.log(xhr.responseText);
+            },
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+    $(document).on("submit", "#UpdateBusinessLocationForm", function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const btn = form.find("button[type='submit']");
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+               `);
+                Swal.fire({
+                    title: "Updating Profile",
+                    html: `
+                    <div style="font-size:13px">
+                        Syncing your latest information securely...
+                    </div>
+                `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                Swal.close();
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1600);
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message,
+                        confirmButtonColor: "#dc3545"
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect. Please try again.",
+                    confirmButtonColor: "#dc3545"
+                });
+                console.log(xhr.responseText);
+            },
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).on("submit", "#updateSocialMedia", function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const btn = form.find("button[type='submit']");
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+               `);
+                Swal.fire({
+                    title: "Updating Profile",
+                    html: `
+                    <div style="font-size:13px">
+                        Syncing your latest information securely...
+                    </div>
+                `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                Swal.close();
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1600);
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message,
+                        confirmButtonColor: "#dc3545"
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect. Please try again.",
+                    confirmButtonColor: "#dc3545"
+                });
+                console.log(xhr.responseText);
+            },
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).on("submit", "#updateAwardsData", function(e) {
+        e.preventDefault();
+        const form = $(this);
+        const btn = form.find("button[type='submit']");
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+               `);
+                Swal.fire({
+                    title: "Updating Profile",
+                    html: `
+                    <div style="font-size:13px">
+                        Syncing your latest information securely...
+                    </div>
+                `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                Swal.close();
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1600);
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message,
+                        confirmButtonColor: "#dc3545"
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect. Please try again.",
+                    confirmButtonColor: "#dc3545"
+                });
+                console.log(xhr.responseText);
+            },
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).on("submit", "#updateMediaDocumentData", function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const btn = $(form).find("button[type='submit']");
+
+        // ✅ Use FormData for file upload
+        const formData = new FormData(form);
+
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: formData,
+            processData: false, // ✅ REQUIRED
+            contentType: false, // ✅ REQUIRED
+            dataType: "json",
+
+            beforeSend: function() {
+                btn.prop("disabled", true)
+                    .addClass("opacity-75")
+                    .html(`
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Saving Changes...
+                `);
+
+                Swal.fire({
+                    title: "Updating Profile",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+
+            success: function(res) {
+                Swal.close();
+
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Profile Updated Successfully",
+                        text: res.message,
+                        timer: 1700,
+                        showConfirmButton: false
+                    });
+
+                    setTimeout(() => location.reload(), 1600);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Update Failed",
+                        text: res.message
+                    });
+                }
+            },
+
+            error: function(xhr) {
+                Swal.close();
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Unable to connect."
+                });
+
+                console.log(xhr.responseText);
+            },
+
+            complete: function() {
+                btn.prop("disabled", false)
+                    .removeClass("opacity-75")
+                    .html(`<i class="fas fa-save me-1"></i> Update Profile`);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).on("submit", "#updateChangePasswordtData", function(e) {
+        e.preventDefault();
+
+        let form = $(this);
+        let btn = form.find("button[type='submit']");
+
+        $.ajax({
+            url: "../member/profile.html",
+            type: "POST",
+            data: form.serialize(),
+            dataType: "json",
+
+            beforeSend: function() {
+                btn.prop("disabled", true);
+
+                Swal.fire({
+                    title: "Updating Password...",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            },
+
+            success: function(res) {
+
+                // ✅ safely replace loading popup
+                if (res.status === "success") {
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: res.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                    form[0].reset();
+
+                } else {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.message
+                    });
+                }
+            },
+
+            error: function(xhr) {
+
+                console.log(xhr.responseText);
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Something went wrong"
+                });
+            },
+
+            complete: function() {
+                btn.prop("disabled", false);
+            }
+        });
+    });
+</script>
+
+    <script src="../assets2/libs/jquery/jquery.min.js"></script>
+    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="../assets2/libs/node-waves/waves.min.js"></script>
+    <script src="../assets2/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="../assets2/js/pages/dashboard.init.js"></script>
+    <script src="../assets2/js/app.js"></script>
+    <script>
+        function previewImg(input, id) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#' + id).attr('src', e.target.result).show();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        function togglePass(id, btn) {
+            let input = document.getElementById(id);
+            let icon = btn.querySelector("i");
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+    </script>
+</body>
+
+</html>
+

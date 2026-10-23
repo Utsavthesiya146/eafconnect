@@ -1,0 +1,2319 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="utf-8" />
+    <title>Chapters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../images/logo5.png">
+    <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <script src="../assets2/js/layout.js"></script>
+    <link href="../assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="../assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts & Master KVV/BNI Revamp Theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=3.5">
+    <style>
+        .filter-bar {
+            border-radius: 8px;
+        }
+
+        .filter-bar .form-control,
+        .filter-bar .form-select {
+            height: 34px;
+            font-size: 13px;
+        }
+
+        .filter-bar .input-group-text {
+            padding: 4px 8px;
+            font-size: 13px;
+        }
+
+        .filter-bar .btn {
+            height: 34px;
+            font-size: 13px;
+            padding: 4px 10px;
+        }
+
+        .chapter-card-pro {
+            background: #0a3d61;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            transition: all .3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* TOP STRIP */
+        .chapter-card-pro::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, #fac532, #fbc531);
+        }
+
+        .chapter-card-pro:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        /* HEADER */
+        .chapter-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-top h4 {
+            color: #ffffff;
+            font-weight: 600;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .location-badge {
+            background: rgba(187, 24, 30, 0.1);
+            color: #ffffff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .card-menu {
+            color: #999;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* LEADER */
+        .section-label {
+            margin-top: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fac532;
+            letter-spacing: .5px;
+        }
+
+        .leader-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .leader-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #fff3cd;
+            color: #ffc107;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .leader-box strong {
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+        .leader-box small {
+            display: block;
+            font-size: 12px;
+            color: #fac532;
+        }
+
+        /* ===== STATS ===== */
+
+        .chapter-stats {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .stat {
+            background: #0a3d61;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #eee;
+            transition: .25s;
+        }
+
+        .stat:hover {
+            border-color: #1b4e8f33;
+        }
+
+        /* LABEL */
+        .stat span {
+            font-weight: 500;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        /* ✅ REDUCED COUNT SIZE */
+        .stat.large h3 {
+            margin: 4px 0 0;
+            font-size: 18px;
+            /* reduced from big size */
+            font-weight: 700;
+            color: #fbc531;
+        }
+
+        .stat.small h5 {
+            margin-top: 4px;
+            font-size: 15px;
+            /* smaller numbers */
+            font-weight: 700;
+            color: #fbc531;
+        }
+
+        /* SMALL STATS ROW FIX */
+        .row.mt-2 {
+            margin-top: 6px !important;
+        }
+
+        /* BUTTON */
+        .dashboard-btn {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            padding: 9px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fbc531;
+            border: 2px solid #fbc531;
+            transition: all .3s;
+        }
+
+        .dashboard-btn:hover {
+            background: linear-gradient(90deg, #08426b, #fbc531);
+            color: #fff;
+            box-shadow: 0 5px 12px rgba(187, 24, 30, .3);
+        }
+
+        .leader-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leader-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .leader-avatar {
+            border: 2px solid #08426b;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
+        }
+
+        /* container */
+        .card-menu {
+            display: flex;
+            gap: 3px;
+        }
+
+        /* base button */
+        .action-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-decoration: none;
+            color: #fff;
+            transition: all .25s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+        }
+
+        /* view */
+        .view-btn {
+            background: #08426b;
+        }
+
+        /* edit */
+        .edit-btn {
+            background: #f59e0b;
+        }
+
+        /* delete */
+        .delete-btn {
+            background: #fbc531;
+        }
+
+        /* hover effect */
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .15);
+            opacity: .9;
+        }
+
+        /* icon alignment fix */
+        .action-btn i {
+            font-size: 12px;
+        }
+
+        .chapter-card-pro {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
+        }
+
+        /* middle content grows automatically */
+        .chapter-card-pro .leader-section,
+        .chapter-card-pro .chapter-stats,
+        .chapter-card-pro .row {
+            flex-shrink: 0;
+        }
+
+        /* push button to bottom */
+        .dashboard-btn {
+            margin-top: auto;
+        }
+
+        .chapter-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0px;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        /* ACTIVE */
+        .status-active {
+            background: #e8f8f0;
+            color: #1ca67a;
+        }
+
+        .status-active:hover {
+            background: #1ca67a;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* PENDING */
+        .status-pending {
+            background: #fff6e5;
+            color: #e6a100;
+        }
+
+        .status-pending:hover {
+            background: #e6a100;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* BLOCKED */
+        .status-blocked {
+            background: #ffeaea;
+            color: #fbc531;
+        }
+
+        .status-blocked:hover {
+            background: #fbc531;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ICON SIZE */
+        .chapter-status i {
+            font-size: 14px;
+        }
+
+        .pagination-wrapper {
+            margin-top: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 6px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .pagination li {
+            display: inline-block;
+        }
+
+        .pagination li a,
+        .pagination li span {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            color: #333;
+            background: #fff;
+            font-size: 14px;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        /* Hover effect */
+        .pagination li a:hover {
+            background: #0a3d61;
+            color: #fff;
+            border-color: #0a3d61;
+            transform: translateY(-1px);
+        }
+
+        /* Active page */
+        .pagination li.active span {
+            background: #fac532;
+            color: #fff;
+            border-color: #fac532;
+            font-weight: 600;
+        }
+
+        /* Disabled buttons */
+        .pagination li.disabled span {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* First/Last/Prev/Next styling */
+        .pagination li:first-child a,
+        .pagination li:last-child a {
+            font-weight: 500;
+        }
+
+        .news-ticker {
+            background: #08426b;
+            color: #fff;
+            padding: 7px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        @keyframes tickerScroll {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .news-ticker {
+            background: linear-gradient(90deg, #08426b, #08426b);
+            color: #fff;
+            font-weight: 500;
+            line-height: 1em;
+        }
+    </style>
+</head>
+
+<body data-sidebar="colored">
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        
+
+<!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+<link rel="stylesheet" href="../assets2/css/eaf-design-system.css?v=5.0">
+<link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=5.0">
+
+<header id="page-topbar">
+    <div class="navbar-header">
+        <!-- Left Side: Hamburger & Member Profile Info (KVV Benchmark) -->
+        <div class="d-flex align-items-center gap-3">
+            <button type="button" class="btn btn-sm px-2 font-size-22 header-item waves-effect vertical-menu-btn" id="vertical-menu-btn">
+                <i class="ri-menu-2-line align-middle" style="font-size:22px; color:#1E293B;"></i>
+            </button>
+
+            <!-- KVV Member Profile Header Widget -->
+            <div class="kvv-header-user-block">
+                <a href="../member/profile.html">
+                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                         alt="Harri Kumar" 
+                         class="kvv-header-avatar"
+                         onerror="this.onerror=null; this.src='../images/empty.png';">
+                </a>
+                <div class="kvv-header-user-info">
+                    <div class="kvv-header-name">
+                        <a href="../member/profile.html" style="color:inherit;text-decoration:none;">
+                            Harri Kumar <span class="kvv-name-divider">|</span> Chapter 2                        </a>
+                    </div>
+                    <div class="kvv-header-sub">
+                        <span>Website development and digital marketing • Hosting Baba</span>
+                        <span class="kvv-role-badge"><i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Notifications & Settings Dropdown -->
+        <div class="d-flex align-items-center gap-2">
+            <!-- Notifications Dropdown -->
+            <div class="dropdown d-inline-block">
+                <a href="../member/notifications.html" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                    <i class="ri-notification-3-line font-size-20"></i>
+                                    </a>
+            </div>
+
+            <!-- Profile Settings Dropdown -->
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown" aria-expanded="false" style="color:#475569;">
+                    <i class="ri-settings-3-line font-size-20"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
+                    <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
+                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                             class="rounded-circle shadow-sm"
+                             alt="Profile Image"
+                             width="64" height="64"
+                             style="object-fit:cover; object-position:top center; border: 2px solid #C6A667;"
+                             onerror="this.onerror=null; this.src='../images/empty.png';">
+                        <h6 class="mt-2 mb-0 fw-bold" style="color:#ffffff;">
+                            Harri Kumar                        </h6>
+                        <small class="text-white-50">Chapter 2 • President</small>
+                    </div>
+                    <div class="p-2">
+                        <a href="../member/profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                            <i class="ri-user-line fs-5 text-warning me-2"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="../member/profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                            <i class="ri-lock-password-line fs-5 text-primary me-2"></i>
+                            <span>Account Settings</span>
+                        </a>
+                        <hr class="my-2">
+                        <a href="../member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                            <i class="ri-logout-box-r-line fs-5 me-2"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="watermark"></div>
+<style>
+    .watermark {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../images/logo5.png") no-repeat center;
+        background-size: 320px;
+        opacity: 0.02;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .page-content {
+        position: relative;
+        z-index: 1;
+    }
+</style>
+
+        
+<div class="vertical-menu">
+    <!-- LOGO / BRAND (EAF Connect Official Logo) -->
+    <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
+        <a href="../member/dashboard.html" class="d-flex align-items-center gap-2" style="text-decoration:none;">
+            <img src="../images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='../images/logo6.png'">
+            <div style="display:flex; flex-direction:column; line-height:1.15;">
+                <span style="font-size:18px; font-weight:800; color:#101B35; letter-spacing:-0.3px; font-family:'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;">
+                    EAF <span style="color:#C6A667; font-weight:700; font-size:16px;">Connect</span>
+                </span>
+                <span style="font-size:10px; font-weight:700; color:#64748B; letter-spacing:0.5px; text-transform:uppercase;">
+                    Member Portal
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn d-none" id="vertical-menu-btn">
+        <i class="ri-menu-2-line align-middle"></i>
+    </button>
+
+    <div data-simplebar class="vertical-scroll" style="height: calc(100% - 75px);">
+        
+        <!--- Sidemenu -->
+        <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <!-- 1. Dashboard -->
+                <li class="">
+                    <a href="../member/dashboard.html" class="waves-effect ">
+                        <i class="ri-dashboard-3-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- 2. My Profile -->
+                <li class="">
+                    <a href="../member/profile.html" class="waves-effect ">
+                        <i class="ri-user-3-line"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+
+                <!-- 3. Connects (EAF Wordings) -->
+                <li class="">
+                    <a href="../member/connect.html" class="waves-effect ">
+                        <i class="ri-shake-hands-line"></i>
+                        <span>Connects</span>
+                    </a>
+                </li>
+
+                <!-- 4. F2F (1-to-1) -->
+                <li class="">
+                    <a href="../member/f2f.html" class="waves-effect ">
+                        <i class="ri-group-line"></i>
+                        <span>F2F</span>
+                    </a>
+                </li>
+
+                <!-- 5. MITB -->
+                <li class="">
+                    <a href="../member/mitb.html" class="waves-effect ">
+                        <i class="ri-money-rupee-circle-line"></i>
+                        <span>MITB</span>
+                    </a>
+                </li>
+
+                <!-- 6. Search -->
+                <li class="">
+                    <a href="../member/search.html" class="waves-effect ">
+                        <i class="ri-search-line"></i>
+                        <span>Search</span>
+                    </a>
+                </li>
+
+                <!-- 7. My Attendance -->
+                <li class="">
+                    <a href="../member/my_attendance.html" class="waves-effect ">
+                        <i class="ri-calendar-check-line"></i>
+                        <span>My Attendance</span>
+                    </a>
+                </li>
+
+                <!-- 8. Top Performers -->
+                <li class="">
+                    <a href="../member/topperformer.html" class="waves-effect ">
+                        <i class="ri-bar-chart-2-line"></i>
+                        <span>Top Performers</span>
+                    </a>
+                </li>
+
+                <!-- 9. Chapter Meetings -->
+                <li class="">
+                    <a href="../member/meetings.html" class="waves-effect ">
+                        <i class="ri-video-chat-line"></i>
+                        <span>Chapter Meetings</span>
+                    </a>
+                </li>
+
+                <!-- 10. My Chapter -->
+                <li class="">
+                    <a href="../member/mychapter.html" class="waves-effect ">
+                        <i class="ri-building-line"></i>
+                        <span>My Chapter</span>
+                    </a>
+                </li>
+
+                <!-- 11. All Chapters -->
+                <li class="mm-active">
+                    <a href="../member/chapter.html" class="waves-effect active">
+                        <i class="ri-community-line"></i>
+                        <span>All Chapters</span>
+                    </a>
+                </li>
+
+                <!-- 12. Visitor Tracking -->
+                <li class="">
+                    <a href="../member/visitor.html" class="waves-effect ">
+                        <i class="ri-user-follow-line"></i>
+                        <span>Visitor Tracking</span>
+                    </a>
+                </li>
+
+                <!-- 13. Notifications -->
+                <li class="">
+                    <a href="../member/notifications.html" class="waves-effect ">
+                        <i class="ri-notification-3-line"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+
+                <!-- 14. Broadcast -->
+                <li class="">
+                    <a href="../member/broadcast.html" class="waves-effect ">
+                        <i class="ri-broadcast-line"></i>
+                        <span>Broadcast</span>
+                    </a>
+                </li>
+
+                <!-- 15. EAF Policies -->
+                <li>
+                    <a href="javascript:void(0);" class="waves-effect d-flex align-items-center justify-content-between">
+                        <span>
+                            <i class="ri-shield-check-line"></i>
+                            <span>EAF Policies</span>
+                        </span>
+                        <i class="ri-arrow-down-s-line" style="font-size:14px; width:auto; height:auto; color:#94A3B8;"></i>
+                    </a>
+                </li>
+
+                <!-- 16. Logout (Red Accent at bottom) -->
+                <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
+                    <a href="../member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                        <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
+                        <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Left Sidebar End -->
+
+        <div class="main-content">
+            <div class="page-content" style="background-color:#f5f8f9 ;">
+
+                <!-- ================= CHAPTERS HEADER ================= -->
+                <div class="row align-items-center g-3 mb-3">
+
+                    <!-- LEFT TITLE -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="chapter-heading">
+
+                            <div class="chapter-icon">
+                                <i class="bi bi-diagram-3-fill"></i>
+                            </div>
+
+                            <div class="chapter-title">
+                                <h5 class="mb-0">All Chapters</h5>
+                                <span>View and manage all chapters</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- RIGHT SEARCH -->
+                    <div class="col-lg-6 col-md-6 col-12">
+
+                        <div class="chapter-filter">
+
+                            <form id="search-form" method="POST">
+                                <input type="hidden" name="csrf_test_name" value="0345e3a6b3af3c40414bcb1ca417d70e">
+                                <div class="chapter-search">
+
+                                    <div class="search-field">
+                                        <i class="bi bi-search"></i>
+
+                                        <input type="text"
+                                            id="search"
+                                            name="search"
+                                            class="form-control"
+                                            placeholder="Search chapters..."
+                                            autocomplete="off">
+                                    </div>
+
+                                    <button type="button"
+                                        id="reset-btn"
+                                        class="reset-btn"
+                                        title="Reset Search">
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                        <span>Reset</span>
+                                    </button>
+
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- HEADER DIVIDER -->
+                <div class="chapter-divider"></div>
+
+
+                <style>
+                    /* =========================================================
+   CHAPTER HEADER
+========================================================= */
+
+                    .chapter-heading {
+                        min-height: 62px;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                    }
+
+                    /* Chapter Icon */
+                    .chapter-icon {
+                        width: 42px;
+                        height: 42px;
+                        flex: 0 0 42px;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        border-radius: 10px;
+
+                        background: linear-gradient(135deg, #0a3d61, #176b9c);
+                        color: #fff;
+
+                        font-size: 19px;
+
+                        box-shadow: 0 4px 12px rgba(10, 61, 97, 0.16);
+                    }
+
+                    /* Title */
+                    .chapter-title h5 {
+                        color: #173b56;
+                        font-size: 18px;
+                        font-weight: 700;
+                        line-height: 1.2;
+                    }
+
+                    .chapter-title span {
+                        display: block;
+                        margin-top: 4px;
+                        color: #8a98a7;
+                        font-size: 11px;
+                    }
+
+                    /* =========================================================
+   FILTER
+========================================================= */
+
+                    .chapter-filter {
+                        width: 100%;
+                        padding: 8px;
+
+                        background: #fff;
+
+                        border: 1px solid #e5ebf0;
+                        border-radius: 11px;
+
+                        box-shadow: 0 3px 12px rgba(15, 61, 92, 0.05);
+                    }
+
+                    .chapter-filter form {
+                        width: 100%;
+                    }
+
+                    /* Search Layout */
+                    .chapter-search {
+                        display: flex;
+                        align-items: center;
+                        gap: 7px;
+                    }
+
+                    /* Search Field */
+                    .search-field {
+                        position: relative;
+                        flex: 1;
+                    }
+
+                    .search-field i {
+                        position: absolute;
+                        left: 13px;
+                        top: 50%;
+
+                        transform: translateY(-50%);
+
+                        color: #8997a4;
+                        font-size: 14px;
+
+                        z-index: 2;
+                    }
+
+                    .search-field .form-control {
+                        height: 42px;
+
+                        padding: 0 12px 0 36px;
+
+                        border: 1px solid #dfe6ec;
+                        border-radius: 8px;
+
+                        background: #f8fafc;
+
+                        color: #34495e;
+
+                        font-size: 12px;
+
+                        box-shadow: none;
+
+                        transition: all .2s ease;
+                    }
+
+                    .search-field .form-control::placeholder {
+                        color: #9aa7b3;
+                    }
+
+                    .search-field .form-control:focus {
+                        background: #fff;
+
+                        border-color: #0a3d61;
+
+                        box-shadow:
+                            0 0 0 3px rgba(10, 61, 97, .07);
+                    }
+
+                    /* =========================================================
+   RESET BUTTON
+========================================================= */
+
+                    .reset-btn {
+                        height: 42px;
+                        min-width: 78px;
+
+                        padding: 0 13px;
+
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        gap: 6px;
+
+                        border: 1px solid #dfe4e8;
+                        border-radius: 8px;
+
+                        background: #f8f9fa;
+
+                        color: #66727d;
+
+                        font-size: 11px;
+                        font-weight: 600;
+
+                        transition: all .2s ease;
+                    }
+
+                    .reset-btn i {
+                        font-size: 13px;
+                    }
+
+                    .reset-btn:hover {
+                        background: #eef1f3;
+                        border-color: #cbd3d9;
+
+                        color: #263746;
+
+                        transform: translateY(-1px);
+
+                        box-shadow: 0 3px 8px rgba(0, 0, 0, .06);
+                    }
+
+                    /* =========================================================
+   DIVIDER
+========================================================= */
+
+                    .chapter-divider {
+                        height: 2px;
+
+                        margin: 3px 0 18px;
+
+                        border-radius: 10px;
+
+                        background: linear-gradient(90deg,
+                                #0a3d61 0%,
+                                #176b9c 45%,
+                                transparent 100%);
+                    }
+
+                    /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+                    @media (max-width: 767px) {
+
+                        .chapter-heading {
+                            min-height: auto;
+                        }
+
+                        .chapter-filter {
+                            padding: 7px;
+                        }
+
+                        .chapter-search {
+                            gap: 6px;
+                        }
+
+                        .reset-btn {
+                            min-width: 72px;
+                        }
+                    }
+
+                    @media (max-width: 480px) {
+
+                        .chapter-title h5 {
+                            font-size: 16px;
+                        }
+
+                        .chapter-title span {
+                            font-size: 10px;
+                        }
+
+                        .chapter-icon {
+                            width: 38px;
+                            height: 38px;
+                            flex-basis: 38px;
+                            font-size: 17px;
+                        }
+
+                        .search-field .form-control,
+                        .reset-btn {
+                            height: 40px;
+                        }
+
+                        .reset-btn span {
+                            display: none;
+                        }
+
+                        .reset-btn {
+                            min-width: 42px;
+                            width: 42px;
+                            padding: 0;
+                        }
+                    }
+                </style>
+
+
+                <div class="container-fluid mt-1 ">
+                    <div class="row g-2 mt-2" id="list_data"></div>
+                    <div class="row g-2 mt-2" id="old_results">
+                                                                                    
+<div class="col-md-3 d-flex">
+
+    
+
+    <div class="chapter-card-pro">
+
+        <!-- HEADER -->
+        <div class="chapter-top">
+            <div>
+                <h4>Chapter 1</h4>
+                <span class="location-badge">
+                    <i class="fa fa-geo-alt-fill"></i>
+                    Nagarbhavi                </span>
+            </div>
+
+            <div class="card-menu">
+                                <span class="chapter-status status-active">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Active                </span>
+                <a href="../member/chapter/details.html"
+                    class="action-btn view-btn">
+                    <i class="fa fa-eye"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- LEADER -->
+        <div class="leader-section">
+            <p class="section-label">CHAPTER LEADER</p>
+
+            <div class="leader-box">
+                <div class="leader-avatar">
+                    <img src="../images/empty.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;">
+                    <!-- <img src="../images/img1.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;"> -->
+                </div>
+
+                <div>
+                    <strong>
+                        Admin                    </strong>
+                    <small>Chapter Leader</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="chapter-stats">
+            <div class="stat large">
+                <span>Members</span>
+                <h3>49</h3>
+            </div>
+
+            <div class="stat large">
+                <span>Business</span>
+                <h3>₹4,75,000</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>CON </span>
+                    <h5>26</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>Vis</span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>F2F</span>
+                    <h5>4</h5>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ACTION -->
+        <a href="../member/chapter/details.html"
+            class="dashboard-btn mt-2">
+            <i class="fa fa-graph-up-arrow"></i>
+            View Dashboard
+
+        </a>
+
+    </div>
+</div>
+
+                                                            
+<div class="col-md-3 d-flex">
+
+    
+
+    <div class="chapter-card-pro">
+
+        <!-- HEADER -->
+        <div class="chapter-top">
+            <div>
+                <h4>Chapter 2</h4>
+                <span class="location-badge">
+                    <i class="fa fa-geo-alt-fill"></i>
+                    Nagarbhavi                </span>
+            </div>
+
+            <div class="card-menu">
+                                <span class="chapter-status status-active">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Active                </span>
+                <a href="../member/chapter/details.html"
+                    class="action-btn view-btn">
+                    <i class="fa fa-eye"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- LEADER -->
+        <div class="leader-section">
+            <p class="section-label">CHAPTER LEADER</p>
+
+            <div class="leader-box">
+                <div class="leader-avatar">
+                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;">
+                    <!-- <img src="../images/img1.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;"> -->
+                </div>
+
+                <div>
+                    <strong>
+                        Harri Kumar                    </strong>
+                    <small>Chapter Leader</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="chapter-stats">
+            <div class="stat large">
+                <span>Members</span>
+                <h3>24</h3>
+            </div>
+
+            <div class="stat large">
+                <span>Business</span>
+                <h3>₹86,53,455</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>CON </span>
+                    <h5>69</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>Vis</span>
+                    <h5>36</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>F2F</span>
+                    <h5>11</h5>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ACTION -->
+        <a href="../member/chapter/details.html"
+            class="dashboard-btn mt-2">
+            <i class="fa fa-graph-up-arrow"></i>
+            View Dashboard
+
+        </a>
+
+    </div>
+</div>
+
+                                                            
+<div class="col-md-3 d-flex">
+
+    
+
+    <div class="chapter-card-pro">
+
+        <!-- HEADER -->
+        <div class="chapter-top">
+            <div>
+                <h4>Chapter Tumakuru</h4>
+                <span class="location-badge">
+                    <i class="fa fa-geo-alt-fill"></i>
+                    Tumakuru                </span>
+            </div>
+
+            <div class="card-menu">
+                                <span class="chapter-status status-active">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Active                </span>
+                <a href="../member/chapter/details.html"
+                    class="action-btn view-btn">
+                    <i class="fa fa-eye"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- LEADER -->
+        <div class="leader-section">
+            <p class="section-label">CHAPTER LEADER</p>
+
+            <div class="leader-box">
+                <div class="leader-avatar">
+                    <img src="../images/empty.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;">
+                    <!-- <img src="../images/img1.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;"> -->
+                </div>
+
+                <div>
+                    <strong>
+                        Not Assigned                    </strong>
+                    <small>Chapter Leader</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="chapter-stats">
+            <div class="stat large">
+                <span>Members</span>
+                <h3>0</h3>
+            </div>
+
+            <div class="stat large">
+                <span>Business</span>
+                <h3>₹0</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>CON </span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>Vis</span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>F2F</span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ACTION -->
+        <a href="../member/chapter/details.html"
+            class="dashboard-btn mt-2">
+            <i class="fa fa-graph-up-arrow"></i>
+            View Dashboard
+
+        </a>
+
+    </div>
+</div>
+
+                                                            
+<div class="col-md-3 d-flex">
+
+    
+
+    <div class="chapter-card-pro">
+
+        <!-- HEADER -->
+        <div class="chapter-top">
+            <div>
+                <h4>Chapter Shivamogga</h4>
+                <span class="location-badge">
+                    <i class="fa fa-geo-alt-fill"></i>
+                    Shivamogga                </span>
+            </div>
+
+            <div class="card-menu">
+                                <span class="chapter-status status-active">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Active                </span>
+                <a href="../member/chapter/details.html"
+                    class="action-btn view-btn">
+                    <i class="fa fa-eye"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- LEADER -->
+        <div class="leader-section">
+            <p class="section-label">CHAPTER LEADER</p>
+
+            <div class="leader-box">
+                <div class="leader-avatar">
+                    <img src="../images/empty.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;">
+                    <!-- <img src="../images/img1.png"
+                        class="leader-img"
+                        style="object-fit:cover;object-position:top center;"> -->
+                </div>
+
+                <div>
+                    <strong>
+                        Not Assigned                    </strong>
+                    <small>Chapter Leader</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="chapter-stats">
+            <div class="stat large">
+                <span>Members</span>
+                <h3>0</h3>
+            </div>
+
+            <div class="stat large">
+                <span>Business</span>
+                <h3>₹0</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>CON </span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>Vis</span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-4">
+                <div class="stat small">
+                    <span>F2F</span>
+                    <h5>0</h5>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ACTION -->
+        <a href="../member/chapter/details.html"
+            class="dashboard-btn mt-2">
+            <i class="fa fa-graph-up-arrow"></i>
+            View Dashboard
+
+        </a>
+
+    </div>
+</div>
+
+                                                                        </div>
+
+                    <div class="mt-4">
+                        
+
+<nav aria-label="Page navigation">
+	<ul class="pagination">
+		
+					<li class="active">
+				<a href="../member/chapter.html">
+					1				</a>
+			</li>
+		
+			</ul>
+</nav>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Page-content -->
+            
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="underline" style="font-size:13px;">Copyright © 2026, All Rights Reserved. Designed & Developed with<a target="_blank" style="color:#08426b;" href="https://webhostingbaba.com/"> ❤️ Hosting Baba.</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- Mobile Bottom Navigation Bar (Thumb Zone) -->
+        
+
+<!-- ==========================================================================
+     MOBILE BOTTOM NAVIGATION BAR (FIXED THUMB ZONE)
+     ========================================================================== -->
+<nav class="eaf-bottom-nav-bar d-lg-none" id="eafBottomNav" aria-label="Mobile Navigation">
+    <!-- 1. Home / Dashboard -->
+    <a href="../member/dashboard.html" class="eaf-nav-tab " id="bottomNavHome">
+        <i class="ri-dashboard-3-line"></i>
+        <span>Home</span>
+    </a>
+
+    <!-- 2. Connects / Referrals -->
+    <a href="../member/connect.html" class="eaf-nav-tab " id="bottomNavConnects">
+        <i class="ri-shake-hands-line"></i>
+        <span>Connects</span>
+    </a>
+
+    <!-- 3. Central Hero Quick Slips Button (+) -->
+    <button type="button" class="eaf-nav-center-btn" id="bottomNavQuickSlips" data-bs-toggle="modal" data-bs-target="#eafQuickSlipsModal" aria-label="Quick Action Slips">
+        <i class="ri-add-line"></i>
+    </button>
+
+    <!-- 4. My Chapter -->
+    <a href="../member/mychapter.html" class="eaf-nav-tab active" id="bottomNavChapter">
+        <i class="ri-community-line"></i>
+        <span>Chapter</span>
+    </a>
+
+    <!-- 5. Profile -->
+    <a href="../member/profile.html" class="eaf-nav-tab " id="bottomNavProfile">
+        <i class="ri-user-3-line"></i>
+        <span>Profile</span>
+    </a>
+</nav>
+
+<!-- ==========================================================================
+     QUICK SLIPS BOTTOM SHEET MODAL (MOBILE SLIDE-UP)
+     ========================================================================== -->
+<div class="modal fade eaf-bottom-sheet-modal" id="eafQuickSlipsModal" tabindex="-1" aria-labelledby="eafQuickSlipsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content eaf-bottom-sheet-content">
+            <div class="eaf-sheet-handle"></div>
+            <div class="modal-header border-0 pb-1 pt-2 px-4">
+                <h6 class="modal-title fw-bold text-dark" id="eafQuickSlipsModalLabel" style="font-size:16px;">
+                    <i class="ri-flashlight-line text-warning me-2"></i>Quick Action Slips
+                </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="eaf-sheet-grid">
+                    <!-- Slip 1: Give Connect -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('referral');">
+                        <div class="eaf-sheet-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563EB;">
+                            <i class="ri-send-plane-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">Give Connect</div>
+                        <div class="eaf-sheet-sub">Create a new connect</div>
+                    </div>
+
+                    <!-- Slip 2: Received Connects -->
+                    <a href="../member/connect.html" class="eaf-sheet-item">
+                        <div class="eaf-sheet-icon" style="background: rgba(5, 150, 105, 0.12); color: #059669;">
+                            <i class="ri-inbox-archive-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">Received Connects</div>
+                        <div class="eaf-sheet-sub">View inbound leads</div>
+                    </a>
+
+                    <!-- Slip 3: F2F Meeting (1-to-1) -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('f2f');">
+                        <div class="eaf-sheet-icon" style="background: rgba(124, 58, 237, 0.12); color: #7C3AED;">
+                            <i class="ri-user-voice-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">F2F Meeting</div>
+                        <div class="eaf-sheet-sub">Record 1-to-1 meeting</div>
+                    </div>
+
+                    <!-- Slip 4: Closed Business (MITB) -->
+                    <div class="eaf-sheet-item" onclick="handleQuickSlip('mitb');">
+                        <div class="eaf-sheet-icon" style="background: rgba(217, 119, 6, 0.12); color: #D97706;">
+                            <i class="ri-money-rupee-circle-fill"></i>
+                        </div>
+                        <div class="eaf-sheet-title">MITB</div>
+                        <div class="eaf-sheet-sub">Record closed business</div>
+                    </div>
+
+                    <!-- Slip 5: Invite Visitor -->
+                    <div class="eaf-sheet-item" style="grid-column: span 2;" onclick="handleQuickSlip('visitor');">
+                        <div class="d-flex align-items-center gap-3 w-100 justify-content-center">
+                            <div class="eaf-sheet-icon mb-0" style="background: rgba(13, 148, 136, 0.12); color: #0D9488;">
+                                <i class="ri-user-add-fill"></i>
+                            </div>
+                            <div class="text-start">
+                                <div class="eaf-sheet-title">Invite a Visitor</div>
+                                <div class="eaf-sheet-sub">Register guest for upcoming meeting</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleQuickSlip(type) {
+    const slipModalEl = document.getElementById('eafQuickSlipsModal');
+    if (slipModalEl) {
+        const bsModal = bootstrap.Modal.getInstance(slipModalEl);
+        if (bsModal) {
+            bsModal.hide();
+        }
+    }
+
+    setTimeout(function() {
+        if (type === 'referral') {
+            if (typeof add_new_connects === 'function') {
+                add_new_connects();
+            } else {
+                window.location.href = "../member/connect.html";
+            }
+        } else if (type === 'mitb') {
+            if (typeof add_mitb === 'function') {
+                add_mitb();
+            } else {
+                window.location.href = "../member/mitb.html";
+            }
+        } else if (type === 'f2f') {
+            if (typeof add_f2f === 'function') {
+                add_f2f();
+            } else {
+                window.location.href = "../member/f2f.html";
+            }
+        } else if (type === 'visitor') {
+            if (typeof add_vt === 'function') {
+                add_vt();
+            } else {
+                window.location.href = "../member/visitor.html";
+            }
+        }
+    }, 300);
+}
+</script>
+
+
+        
+
+        </div>
+        <!-- end main content-->
+    </div>
+    <div class="rightbar-overlay"></div>
+    <!-- JAVASCRIPT -->
+    <script src="../assets2/libs/jquery/jquery.min.js"></script>
+    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="../assets2/libs/node-waves/waves.min.js"></script>
+    <script src="../assets2/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="../assets2/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="../assets2/js/pages/dashboard.init.js"></script>
+    <script src="../assets2/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+<!-- edit start-->
+<!-- edit start-->
+<div class="modal fade" id="chapter_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="chapter_edit_data" style="max-width:600px;">
+        <!-- Content will be loaded here via AJAX -->
+    </div>
+</div>
+<script>
+    function add_new_chapter() {
+        $('#add_new_chapter').modal('show');
+    }
+</script>
+<!-- edit end -->
+<!-- ADD MEMBER MODAL -->
+<div class="modal fade" id="add_new_chapter" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
+        <div class="modal-content" style="border-radius:12px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.1);font-size:13px;">
+            <form id="AddNewChapterData" enctype="multipart/form-data">
+                <!-- HEADER -->
+                <div class="modal-header" style="background:#1b4e8f;color:#fff;">
+                    <h6 class="mb-0" style="color:#ffffff;">Add New Chapter</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- BODY -->
+                <div class="modal-body p-3">
+                    <div class="row g-2">
+                        <div class="col-md-12">
+                            <label class="fw-bold">Chapter Name</label>
+                            <input type="text" name="chapter_name" class="form-control" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="fw-bold">Location</label>
+                            <input type="text" name="location" class="form-control">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="fw-bold">Chapter Leader</label>
+                            <select name="leader_code" class="form-select">
+                                <option value="">-- Select Leader --</option>
+                                                                    <option value="1">
+                                        Admin (1)
+                                    </option>
+                                                                    <option value="5">
+                                        Harri Kumar (5)
+                                    </option>
+                                                                    <option value="6">
+                                        Sagar Dhongady (6)
+                                    </option>
+                                                                    <option value="8">
+                                        Vinod K (8)
+                                    </option>
+                                                                    <option value="9">
+                                        Sayed Asif  (9)
+                                    </option>
+                                                                    <option value="10">
+                                        Arpitha B (10)
+                                    </option>
+                                                                    <option value="12">
+                                        Praveen Kumar C H  (12)
+                                    </option>
+                                                                    <option value="17">
+                                        VENKATESH G P (17)
+                                    </option>
+                                                                    <option value="18">
+                                        Ravi Shankar  (18)
+                                    </option>
+                                                                    <option value="19">
+                                        Kashi Lohar (19)
+                                    </option>
+                                                                    <option value="22">
+                                        THEJA MURTHY. M. S. (22)
+                                    </option>
+                                                                    <option value="23">
+                                        AMAR V MEHARWADE (23)
+                                    </option>
+                                                                    <option value="24">
+                                        ARUN SAINATH (24)
+                                    </option>
+                                                                    <option value="25">
+                                        ARPITA (25)
+                                    </option>
+                                                                    <option value="26">
+                                        ASHA A N (26)
+                                    </option>
+                                                                    <option value="27">
+                                        BALESH SHIRAGAONKAR (27)
+                                    </option>
+                                                                    <option value="28">
+                                        Dr. BALASUBRAHMANYA H.V. (28)
+                                    </option>
+                                                                    <option value="29">
+                                        CHIDAMBAR JOSHI (29)
+                                    </option>
+                                                                    <option value="30">
+                                        DAKSHA KUMAR TL (30)
+                                    </option>
+                                                                    <option value="31">
+                                        DILEEP KUMAR D (31)
+                                    </option>
+                                                                    <option value="32">
+                                        DEEPAK AGARWAL (32)
+                                    </option>
+                                                                    <option value="34">
+                                        JAY MENON (34)
+                                    </option>
+                                                                    <option value="35">
+                                        KARUNAKAR RAO L. (35)
+                                    </option>
+                                                                    <option value="36">
+                                        KESHAVA K C (36)
+                                    </option>
+                                                                    <option value="37">
+                                        KRISHNA CHOUDHARY (37)
+                                    </option>
+                                                                    <option value="38">
+                                        KUMARA (38)
+                                    </option>
+                                                                    <option value="39">
+                                        MOUNESH (39)
+                                    </option>
+                                                                    <option value="40">
+                                        MIR FAHEEM (40)
+                                    </option>
+                                                                    <option value="41">
+                                        NAGESH B C (41)
+                                    </option>
+                                                                    <option value="42">
+                                        NANDA KUMAR (42)
+                                    </option>
+                                                                    <option value="43">
+                                        NIHAS R PRASAD (43)
+                                    </option>
+                                                                    <option value="44">
+                                        NAGRAJ K E (44)
+                                    </option>
+                                                                    <option value="45">
+                                        NEELAKANTAPPA (45)
+                                    </option>
+                                                                    <option value="46">
+                                        PRAKASH REDDY N P (46)
+                                    </option>
+                                                                    <option value="47">
+                                        PRASANNA KUMAR M (47)
+                                    </option>
+                                                                    <option value="48">
+                                        PRADEEP RAO M S (48)
+                                    </option>
+                                                                    <option value="49">
+                                        RAGHAVENDRA BILLAVA (49)
+                                    </option>
+                                                                    <option value="50">
+                                        RAMDAS M (Nirmal) (50)
+                                    </option>
+                                                                    <option value="51">
+                                        RITANJALI SHIVASHANKAR (51)
+                                    </option>
+                                                                    <option value="52">
+                                        SASI K NAMBIAR (52)
+                                    </option>
+                                                                    <option value="53">
+                                        SATISH S (53)
+                                    </option>
+                                                                    <option value="54">
+                                        SANJAY GU (54)
+                                    </option>
+                                                                    <option value="55">
+                                        SANJANA ANAND (55)
+                                    </option>
+                                                                    <option value="56">
+                                        SHASHI BUSHAN (56)
+                                    </option>
+                                                                    <option value="57">
+                                        SETHURAM N (57)
+                                    </option>
+                                                                    <option value="58">
+                                        SINGAM AMRUTHAM (58)
+                                    </option>
+                                                                    <option value="59">
+                                        SRINIVASA N (59)
+                                    </option>
+                                                                    <option value="60">
+                                        SRINVASA V P (60)
+                                    </option>
+                                                                    <option value="62">
+                                        SUCHARITHA N (62)
+                                    </option>
+                                                                    <option value="62">
+                                        Suma A G E (62)
+                                    </option>
+                                                                    <option value="63">
+                                        TEJASS G (63)
+                                    </option>
+                                                                    <option value="64">
+                                        VEERU ACHAR KM (64)
+                                    </option>
+                                                                    <option value="65">
+                                        VINAY K N (65)
+                                    </option>
+                                                                    <option value="66">
+                                        Dr. G VIJAY KUMAR YADHAV (B.V.A , M.V.A) (66)
+                                    </option>
+                                                                    <option value="67">
+                                        YOGESH MEHTA (67)
+                                    </option>
+                                                                    <option value="68">
+                                        G. L.YEDUKISHORE (68)
+                                    </option>
+                                                                    <option value="69">
+                                        Bruno Vincent (69)
+                                    </option>
+                                                                    <option value="70">
+                                        RAHUL KULLOLLI (70)
+                                    </option>
+                                                                    <option value="72">
+                                        Keerthi Shree K (72)
+                                    </option>
+                                                                    <option value="75">
+                                        Anand B C (75)
+                                    </option>
+                                                                    <option value="76">
+                                        Umashankar P (76)
+                                    </option>
+                                                                    <option value="78">
+                                        Mr Prashant Katigar (78)
+                                    </option>
+                                                                    <option value="79">
+                                        Dhakkshinya (79)
+                                    </option>
+                                                                    <option value="80">
+                                        D Revanna (80)
+                                    </option>
+                                                                    <option value="81">
+                                        Sandeep G (81)
+                                    </option>
+                                                                    <option value="82">
+                                        Gokul Raj (82)
+                                    </option>
+                                                                    <option value="83">
+                                        Guruprasanna S (83)
+                                    </option>
+                                                                    <option value="84">
+                                        SRINIVAS THATIKONDA  (84)
+                                    </option>
+                                                                    <option value="85">
+                                        Kumar B (85)
+                                    </option>
+                                                                    <option value="87">
+                                        shylaja s. J. (87)
+                                    </option>
+                                                                    <option value="USR00001">
+                                        Yoginath (USR00001)
+                                    </option>
+                                                                    <option value="USR00003">
+                                         Sandeep Srikande (USR00003)
+                                    </option>
+                                                                    <option value="USR00004">
+                                        Ajay R (USR00004)
+                                    </option>
+                                                                    <option value="USR00005">
+                                        Lakshman (USR00005)
+                                    </option>
+                                                                    <option value="USR00006">
+                                        Nethra  (USR00006)
+                                    </option>
+                                                                    <option value="USR00007">
+                                        Shwetha  (USR00007)
+                                    </option>
+                                                                    <option value="USR00008">
+                                        Rathi H R  (USR00008)
+                                    </option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="fw-bold">Chapter Profile</label>
+                            <input type="file" name="chapter_profile" class="form-control">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="fw-bold">Chapter Title</label>
+                            <input type="text" name="chapter_title" class="form-control">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="fw-bold">About Chapter</label>
+                            <textarea name="chapter_description" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- FOOTER -->
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sm text-white" style="background:#1b4e8f;">Create Chapter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("submit", "#AddNewChapterData", function(e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        $.ajax({
+            url: "../admin/chapter.html",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+
+            beforeSend: function() {
+                Swal.fire({
+                    title: "Saving...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+
+            success: function(res) {
+
+                Swal.fire({
+                    icon: "success",
+                    title: res.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    $("#add_new_chapter").modal("hide");
+                    location.reload();
+                });
+            },
+
+            error: function(xhr) {
+                Swal.fire("Server Error", xhr.responseText, "error");
+            }
+        });
+    });
+</script>
+
+<script>
+    function delete_chapter(chapter_code) {
+        $('#chapter_edit').modal('show');
+        $.ajax({
+            url: "../admin/chapter.html" + chapter_code,
+            success: function(response) {
+                $("#chapter_edit_data").html(response);
+            }
+        });
+    }
+
+    $(document).on("submit", "#delete_chapter_action", function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "../admin/chapter.html",
+            type: "POST",
+            data: $(this).serialize(),
+            dataType: "json",
+            beforeSend: function() {
+                Swal.fire({
+                    title: "Deleting...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+            success: function(res) {
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Deleted",
+                        text: res.message,
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        $("#user_edit").modal("hide");
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.message
+                    });
+                }
+            },
+            error: function(xhr) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Something went wrong. Check console."
+                });
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
+
+
+<script>
+    function edit_chapter_status(chapter_code) {
+        $('#chapter_edit').modal('show');
+
+        $.ajax({
+            url: "../admin/chapter.html" + chapter_code,
+            success: function(response) {
+                $("#chapter_edit_data").html(response);
+            }
+        });
+    }
+
+
+    $(document).on("submit", "#edit_chapter_status_action", function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "../admin/chapter.html",
+            type: "POST",
+            data: $(this).serialize(),
+            dataType: "json",
+
+            beforeSend: function() {
+                Swal.fire({
+                    title: "Updating...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+
+            success: function(res) {
+
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Updated",
+                        text: res.message,
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        $("#chapter_edit").modal("hide"); // ✅ FIXED
+                        location.reload();
+                    });
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.message
+                    });
+                }
+            },
+
+            error: function(xhr) {
+                console.error(xhr.responseText);
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Something went wrong"
+                });
+            }
+        });
+    });
+</script>
+
+
+<script>
+    function edit_chapter(chapter_code) {
+        $('#chapter_edit').modal('show');
+
+        $.ajax({
+            url: "../admin/chapter.html" + chapter_code,
+            success: function(response) {
+                $("#chapter_edit_data").html(response);
+            }
+        });
+    }
+
+
+    $(document).on("submit", "#edit_chapter_action", function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "../admin/chapter.html",
+            type: "POST",
+            data: $(this).serialize(),
+            dataType: "json",
+
+            beforeSend: function() {
+                Swal.fire({
+                    title: "Updating...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+
+            success: function(res) {
+
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Updated",
+                        text: res.message,
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        $("#chapter_edit").modal("hide"); // ✅ FIXED
+                        location.reload();
+                    });
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.message
+                    });
+                }
+            },
+
+            error: function(xhr) {
+                console.error(xhr.responseText);
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Something went wrong"
+                });
+            }
+        });
+    });
+</script>
+
+
+
+
+<script>
+    function add_chapter_members(chapter_code) {
+        $('#chapter_edit').modal('show');
+
+        $.ajax({
+            url: "../admin/chapter.html" + chapter_code,
+            success: function(response) {
+                $("#chapter_edit_data").html(response);
+            }
+        });
+    }
+
+
+    $(document).on("submit", "#add_chapter_members_action", function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "../admin/chapter.html",
+            type: "POST",
+            data: $(this).serialize(),
+            dataType: "json",
+
+            beforeSend: function() {
+                Swal.fire({
+                    title: "Updating...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    didOpen: () => Swal.showLoading()
+                });
+            },
+
+            success: function(res) {
+
+                if (res.status === "success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Updated",
+                        text: res.message,
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        $("#chapter_edit").modal("hide"); // ✅ FIXED
+                        location.reload();
+                    });
+
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.message
+                    });
+                }
+            },
+
+            error: function(xhr) {
+                console.error(xhr.responseText);
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Server Error",
+                    text: "Something went wrong"
+                });
+            }
+        });
+    });
+</script>
+
+    <script>
+        $(document).ready(function() {
+
+            // Debounce helper
+            function debounce(fn, delay) {
+                let timer;
+                return function() {
+                    const args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function() {
+                        fn.apply(null, args);
+                    }, delay);
+                };
+            }
+
+            function collectFilters() {
+                return {
+                    search: $('#search').val().trim(),
+                    status: $('#status1').val()
+                };
+            }
+
+            function saveFiltersToStorage() {
+                localStorage.setItem('userFilters', JSON.stringify(collectFilters()));
+            }
+
+            function loadFiltersFromStorage() {
+                let filters = localStorage.getItem('userFilters');
+                if (!filters) return null;
+
+                filters = JSON.parse(filters);
+
+                if (filters) {
+                    $('#search').val(filters.search || '');
+                    $('#status1').val(filters.status || '');
+                }
+                return filters;
+            }
+
+            const loadUsers = debounce(function() {
+                const formData = collectFilters();
+                saveFiltersToStorage();
+
+                const anyFilter = Object.values(formData).some(val => val !== "");
+                if (!anyFilter) {
+                    $('#list_data').hide().html('');
+                    $('#old_results').show();
+                    localStorage.removeItem('userFilters');
+                    return;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '../member/chapter.html',
+                    data: formData,
+                    dataType: 'html',
+                    beforeSend: function() {
+                        $("#list_data").show().html('<div class="text-center py-3">Loading...</div>');
+                        $('#old_results').hide();
+                    },
+                    success: function(response) {
+                        $("#list_data").html(response).show();
+                        $('#old_results').hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', error);
+                        $("#list_data").html('<div class="alert alert-danger">An error occurred. Please try again later.</div>');
+                    }
+                });
+            }, 400);
+
+            $('#search, #status1').on('keyup change', loadUsers);
+            $('#reset-btn').on('click', function() {
+                // Clear filter inputs
+                $('#search').val('');
+                $('#status1').val('');
+
+                // Clear filtered data
+                $('#list_data').hide().html('');
+
+                // Show original table
+                $('#old_results').show();
+
+                // Clear localStorage
+                localStorage.removeItem('userFilters');
+            });
+
+            const savedFilters = loadFiltersFromStorage();
+            if (savedFilters && Object.values(savedFilters).some(val => val)) {
+                loadUsers();
+            } else {
+                $('#list_data').hide();
+                $('#old_results').show();
+            }
+
+        });
+    </script>
+</body>
+
+</html>
+

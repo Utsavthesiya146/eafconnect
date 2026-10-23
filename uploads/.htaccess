@@ -1,0 +1,14 @@
+# =========================================================
+# EAF Connect – Security Protection for Uploads
+# Prevent execution of any scripts in the uploads directory
+# =========================================================
+<FilesMatch "(?i)\.(php|phtml|php3|php4|php5|php7|php8|phps|phar|inc|cgi|pl|exe|sh|bat)$">
+    <IfModule authz_core_module>
+        Require all denied
+    </IfModule>
+    <IfModule !authz_core_module>
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+Options -ExecCGI -Indexes

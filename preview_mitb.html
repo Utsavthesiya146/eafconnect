@@ -1,0 +1,3309 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>MITB Reports & Monthly Contribution Analytics | EAF Connect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/logo5.png">
+    
+    <!-- Vendor CSS & Design System -->
+    <script src="assets2/js/layout.js"></script>
+    <link href="assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets2/css/eaf-design-system.css?v=5.0">
+    <link rel="stylesheet" href="assets2/css/eaf-revamp.css?v=5.0">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+            background-color: #F8FAFC !important;
+            color: #1E293B;
+        }
+
+        .mitb-page-header {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 16px rgba(16, 27, 53, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .mitb-header-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #101B35;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mitb-header-sub {
+            font-size: 13px;
+            color: #64748B;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
+        .btn-submit-mitb {
+            background: linear-gradient(135deg, #101B35 0%, #172B50 100%);
+            color: #ffffff !important;
+            border: 1px solid #C6A667;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(16, 27, 53, 0.2);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-submit-mitb:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(198, 166, 103, 0.35);
+        }
+
+        /* KPI SUITE */
+        .kpi-suite-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-suite-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 576px) {
+            .kpi-suite-grid { grid-template-columns: 1fr; }
+        }
+
+        .kpi-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 18px 20px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 16px rgba(16, 27, 53, 0.05);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: all 0.25s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(16, 27, 53, 0.09);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+        }
+
+        .kpi-card.card-primary::before { background: linear-gradient(180deg, #101B35, #C6A667); }
+        .kpi-card.card-received::before { background: #0D9488; }
+        .kpi-card.card-given::before { background: #C6A667; }
+        .kpi-card.card-avg::before { background: #172B50; }
+
+        .kpi-icon-wrap {
+            width: 46px; height: 46px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+
+        .card-primary .kpi-icon-wrap { background: rgba(16, 27, 53, 0.08); color: #101B35; }
+        .card-received .kpi-icon-wrap { background: rgba(13, 148, 136, 0.12); color: #0D9488; }
+        .card-given .kpi-icon-wrap { background: rgba(198, 166, 103, 0.18); color: #A88849; }
+        .card-avg .kpi-icon-wrap { background: rgba(23, 43, 80, 0.1); color: #172B50; }
+
+        .kpi-info { flex: 1; min-width: 0; }
+        .kpi-label {
+            font-size: 12px; font-weight: 600; color: #64748B;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .kpi-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px; font-weight: 800; color: #101B35;
+            line-height: 1.2; letter-spacing: -0.5px;
+        }
+
+        .card-received .kpi-value { color: #0D9488; }
+        .card-given .kpi-value { color: #A88849; }
+
+        .kpi-subtext {
+            font-size: 11.5px; color: #64748B; margin-top: 6px;
+        }
+
+        .kpi-pill {
+            display: inline-flex; align-items: center; gap: 3px;
+            padding: 2px 7px; border-radius: 6px; font-size: 10.5px; font-weight: 700;
+        }
+        .pill-growth { background: #ECFDF5; color: #059669; }
+        .pill-neutral { background: #F1F5F9; color: #475569; }
+
+        /* ANALYTICS CARD */
+        .analytics-container-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 22px 24px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 16px rgba(16, 27, 53, 0.04);
+            margin-bottom: 24px;
+        }
+
+        .analytics-card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
+            border-bottom: 1px solid #F1F5F9; padding-bottom: 14px;
+        }
+
+        .analytics-title {
+            font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700;
+            color: #101B35; margin: 0; display: flex; align-items: center; gap: 8px;
+        }
+
+        .monthly-strip-label {
+            font-size: 12px; font-weight: 700; color: #64748B;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .monthly-chips-scroll {
+            display: flex; align-items: center; gap: 10px;
+            overflow-x: auto; padding-bottom: 10px; margin-bottom: 16px;
+        }
+
+        .month-chip {
+            background: #F8FAFC; border: 1.5px solid #E2E8F0;
+            border-radius: 12px; padding: 9px 14px; cursor: pointer;
+            flex-shrink: 0; transition: all 0.2s ease;
+            display: flex; flex-direction: column; gap: 2px; min-width: 130px;
+        }
+
+        .month-chip:hover { border-color: #C6A667; background: #FFFDF9; transform: translateY(-2px); }
+        .month-chip.active {
+            background: linear-gradient(135deg, #101B35, #172B50);
+            border-color: #C6A667; box-shadow: 0 4px 14px rgba(16, 27, 53, 0.2);
+        }
+
+        .month-chip .chip-month-title {
+            font-size: 12px; font-weight: 700; color: #1E293B;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .month-chip.active .chip-month-title { color: #ffffff; }
+
+        .month-chip .chip-month-val {
+            font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #0D9488;
+        }
+        .month-chip.active .chip-month-val { color: #C6A667; }
+
+        .month-chip .chip-month-slips { font-size: 10.5px; color: #64748B; }
+        .month-chip.active .chip-month-slips { color: #E2E8F0; }
+
+        /* FILTER TOOLBAR */
+        .mitb-filter-card {
+            background: #ffffff; border-radius: 16px; padding: 18px 20px;
+            border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(16, 27, 53, 0.04);
+            margin-bottom: 20px;
+        }
+
+        .filter-grid-row {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr 1fr 1.2fr 1.1fr 1.1fr 1.1fr auto;
+            gap: 10px; align-items: flex-end;
+        }
+
+        @media (max-width: 1400px) { .filter-grid-row { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 768px) { .filter-grid-row { grid-template-columns: 1fr; } }
+
+        .filter-field-group { display: flex; flex-direction: column; gap: 4px; }
+        .filter-field-label { font-size: 11px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px; }
+        .filter-field-label i { color: #0D9488; }
+
+        .filter-ctrl {
+            height: 38px; border-radius: 9px; border: 1px solid #CBD5E1;
+            padding: 0 12px; font-size: 12.5px; color: #1E293B; background: #F8FAFC;
+        }
+
+        .filter-search-wrap { position: relative; }
+        .filter-search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; }
+        .filter-search-wrap input { padding-left: 36px; }
+
+        .filter-actions-group { display: flex; align-items: center; gap: 6px; }
+        .btn-filter-action {
+            height: 38px; padding: 0 14px; border-radius: 9px;
+            font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid transparent; cursor: pointer;
+        }
+
+        .btn-reset-filters { background: #F1F5F9; color: #475569; border-color: #E2E8F0; }
+        .btn-export-excel { background: #ECFDF5; color: #059669; border-color: #A7F3D0; }
+        .btn-export-pdf { background: #FFF1F2; color: #E11D48; border-color: #FECDD3; }
+
+        /* TABS */
+        .mitb-tabs-nav {
+            display: flex; align-items: center; gap: 8px;
+            border-bottom: 2px solid #E2E8F0; margin-bottom: 16px; padding-left: 4px;
+        }
+
+        .mitb-tab-btn {
+            background: transparent; border: none; padding: 10px 18px;
+            font-size: 13.5px; font-weight: 600; color: #64748B;
+            border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+
+        .mitb-tab-btn.active { color: #101B35; border-bottom-color: #C6A667; font-weight: 700; }
+        .mitb-tab-badge {
+            background: #F1F5F9; color: #475569; font-size: 11px; font-weight: 700;
+            padding: 2px 8px; border-radius: 12px; border: 1px solid #E2E8F0;
+        }
+        .mitb-tab-btn.active .mitb-tab-badge { background: #101B35; color: #ffffff; border-color: #101B35; }
+
+        /* TABLE */
+        .mitb-table-card {
+            background: #ffffff; border-radius: 16px; border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 16px rgba(16, 27, 53, 0.04); overflow: hidden; margin-bottom: 30px;
+        }
+
+        .mitb-modern-table { width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; }
+        .mitb-modern-table thead { background: #F8FAFC; border-bottom: 2px solid #E2E8F0; }
+        .mitb-modern-table th {
+            padding: 14px 16px; font-size: 11.5px; font-weight: 700; color: #475569;
+            text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 2px solid #E2E8F0;
+        }
+
+        .mitb-modern-table tbody tr { border-bottom: 1px solid #F1F5F9; transition: background 0.15s; }
+        .mitb-modern-table tbody tr:hover { background: #FFFDF9; }
+        .mitb-modern-table td { padding: 13px 16px; vertical-align: middle; border-bottom: 1px solid #F1F5F9; font-size: 13px; }
+
+        .mitb-idx-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 26px; height: 26px; border-radius: 7px; background: #F1F5F9; color: #64748B; font-size: 11px; font-weight: 700;
+        }
+
+        .mitb-date-val { font-weight: 700; color: #1E293B; font-size: 13px; }
+        .mitb-amount-number { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; }
+        .amount-received { color: #0D9488; }
+        .amount-given { color: #C6A667; }
+
+        .mitb-direction-badge {
+            display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px;
+            border-radius: 6px; font-size: 10px; font-weight: 700; width: fit-content;
+        }
+        .badge-inbound { background: #F0FDFA; color: #0D9488; border: 1px solid #CCFBF1; }
+        .badge-outbound { background: #FFFBEB; color: #B45309; border: 1px solid #FEF3C7; }
+
+        .mitb-member-cell { display: flex; align-items: center; gap: 10px; }
+        .mitb-avatar-wrap { position: relative; flex-shrink: 0; }
+        .mitb-table-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+        .avatar-from { border: 2px solid #101B35; }
+        .avatar-to { border: 2px solid #C6A667; }
+        .mitb-you-tag {
+            position: absolute; bottom: -3px; right: -3px; background: #101B35; color: #ffffff;
+            font-size: 8.5px; font-weight: 700; padding: 1px 4px; border-radius: 4px;
+        }
+        .mitb-you-tag.tag-gold { background: #C6A667; color: #101B35; }
+
+        .mitb-member-name { font-weight: 700; color: #1E293B; font-size: 13px; }
+        .mitb-flow-indicator {
+            width: 28px; height: 28px; border-radius: 50%; background: #F1F5F9; color: #64748B;
+            display: inline-flex; align-items: center; justify-content: center; font-size: 14px;
+        }
+
+        .mitb-chip { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .chip-category { background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; }
+        .chip-new { background: #EFF6FF; color: #2563EB; border: 1px solid #DBEAFE; }
+        .chip-repeat { background: #FAF5FF; color: #7E22CE; border: 1px solid #F3E8FF; }
+
+        .mitb-action-group { display: inline-flex; align-items: center; gap: 4px; }
+        .mitb-action-icon {
+            width: 30px; height: 30px; border-radius: 8px; display: inline-flex;
+            align-items: center; justify-content: center; background: #F8FAFC; color: #64748B; border: none; cursor: pointer;
+        }
+        .mitb-action-icon:hover { background: #F0FDFA; color: #0D9488; }
+        .monthly-matrix-row { cursor: pointer; }
+        .month-calendar-icon {
+            width: 32px; height: 32px; border-radius: 8px; background: rgba(16, 27, 53, 0.08); color: #101B35;
+            display: inline-flex; align-items: center; justify-content: center; font-size: 16px;
+        }
+
+        @media (max-width: 991px) {
+            #vertical-menu-btn {
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .kvv-header-sub {
+                font-size: 11px;
+                white-space: normal;
+                line-height: 1.25;
+            }
+            .kvv-header-user-info {
+                max-width: 190px;
+            }
+            .mitb-page-header {
+                padding: 16px;
+            }
+            .mitb-header-title {
+                font-size: 18px;
+            }
+            .kpi-suite-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .kpi-card {
+                padding: 16px;
+            }
+            .mitb-filter-card {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body data-sidebar="colored">
+    <div id="layout-wrapper">
+        
+        <!-- Page Topbar (KVV & BNI Benchmark Standard) -->
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <!-- Left Side: Hamburger & Member Profile Info -->
+                <div class="d-flex align-items-center gap-3">
+                    <button type="button" class="btn btn-sm px-2 font-size-22 header-item waves-effect vertical-menu-btn" id="vertical-menu-btn" style="display:inline-flex !important; align-items:center; justify-content:center; cursor:pointer;" aria-label="Toggle Menu">
+                        <i class="ri-menu-2-line align-middle" style="font-size:22px; color:#1E293B;"></i>
+                    </button>
+
+                    <!-- KVV Member Profile Header Widget -->
+                    <div class="kvv-header-user-block">
+                        <a href="javascript:void(0);">
+                            <img src="uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                                 alt="Harri Kumar" 
+                                 class="kvv-header-avatar"
+                                 onerror="this.onerror=null; this.src='images/empty.png';">
+                        </a>
+                        <div class="kvv-header-user-info">
+                            <div class="kvv-header-name">
+                                <a href="javascript:void(0);" style="color:inherit;text-decoration:none;">
+                                    Harri Kumar <span class="kvv-name-divider">|</span> Chapter 2
+                                </a>
+                            </div>
+                            <div class="kvv-header-sub">
+                                <span>Website development and digital marketing • Hosting Baba</span>
+                                <span class="kvv-role-badge"><i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Live Portal Connected, Notification & Settings -->
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold d-none d-md-inline-flex align-items-center me-2">
+                        <i class="ri-checkbox-circle-fill me-1 text-success"></i> Live Portal Connected
+                    </span>
+
+                    <!-- Notifications Dropdown -->
+                    <div class="dropdown d-inline-block">
+                        <a href="javascript:void(0);" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                            <i class="ri-notification-3-line font-size-20"></i>
+                        </a>
+                    </div>
+
+                    <!-- Profile Settings Dropdown -->
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown" aria-expanded="false" style="color:#475569;">
+                            <i class="ri-settings-3-line font-size-20"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
+                            <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
+                                <img src="uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                                     class="rounded-circle shadow-sm"
+                                     alt="Profile Image"
+                                     width="64" height="64"
+                                     style="object-fit:cover; object-position:top center; border: 2px solid #C6A667;"
+                                     onerror="this.onerror=null; this.src='images/empty.png';">
+                                <h6 class="mt-2 mb-0 fw-bold" style="color:#ffffff;">Harri Kumar</h6>
+                                <small class="text-white-50">Chapter 2 • President</small>
+                            </div>
+                            <div class="p-2">
+                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                                    <i class="ri-user-line fs-5 text-warning me-2"></i>
+                                    <span>My Profile</span>
+                                </a>
+                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                                    <i class="ri-lock-password-line fs-5 text-primary me-2"></i>
+                                    <span>Account Settings</span>
+                                </a>
+                                <hr class="my-2">
+                                <a href="member_login" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                                    <i class="ri-logout-box-r-line fs-5 me-2"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Left Sidebar (Vertical Navigation) -->
+        <div class="vertical-menu">
+            <!-- LOGO / BRAND (EAF Connect Official Logo) -->
+            <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
+                <a href="preview_mitb.html" class="d-flex align-items-center gap-2" style="text-decoration:none;">
+                    <img src="images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='images/logo6.png'">
+                    <div style="display:flex; flex-direction:column; line-height:1.15;">
+                        <span style="font-size:18px; font-weight:800; color:#101B35; letter-spacing:-0.3px; font-family:'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;">
+                            EAF <span style="color:#C6A667; font-weight:700; font-size:16px;">Connect</span>
+                        </span>
+                        <span style="font-size:10px; font-weight:700; color:#64748B; letter-spacing:0.5px; text-transform:uppercase;">
+                            Member Portal
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn d-none" id="vertical-menu-btn">
+                <i class="ri-menu-2-line align-middle"></i>
+            </button>
+
+            <div data-simplebar class="vertical-scroll" style="height: calc(100% - 75px);">
+                <!--- Sidemenu -->
+                <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <!-- 1. Dashboard -->
+                        <li>
+                            <a href="dashboard" class="waves-effect">
+                                <i class="ri-dashboard-3-line"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <!-- 2. My Profile -->
+                        <li>
+                            <a href="member/profile" class="waves-effect">
+                                <i class="ri-user-3-line"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+
+                        <!-- 3. Connects (EAF Wordings) -->
+                        <li>
+                            <a href="member/connect" class="waves-effect">
+                                <i class="ri-shake-hands-line"></i>
+                                <span>Connects</span>
+                            </a>
+                        </li>
+
+                        <!-- 4. F2F (1-to-1) -->
+                        <li>
+                            <a href="member/f2f" class="waves-effect">
+                                <i class="ri-group-line"></i>
+                                <span>F2F</span>
+                            </a>
+                        </li>
+
+                        <!-- 5. MITB (Active) -->
+                        <li class="mm-active">
+                            <a href="preview_mitb.html" class="waves-effect active">
+                                <i class="ri-money-rupee-circle-line"></i>
+                                <span>MITB</span>
+                            </a>
+                        </li>
+
+                        <!-- 6. Search -->
+                        <li>
+                            <a href="member/search" class="waves-effect">
+                                <i class="ri-search-line"></i>
+                                <span>Search</span>
+                            </a>
+                        </li>
+
+                        <!-- 7. My Attendance -->
+                        <li>
+                            <a href="member/my_attendance" class="waves-effect">
+                                <i class="ri-calendar-check-line"></i>
+                                <span>My Attendance</span>
+                            </a>
+                        </li>
+
+                        <!-- 8. Top Performers -->
+                        <li>
+                            <a href="member/topperformer" class="waves-effect">
+                                <i class="ri-bar-chart-2-line"></i>
+                                <span>Top Performers</span>
+                            </a>
+                        </li>
+
+                        <!-- 9. Chapter Meetings -->
+                        <li>
+                            <a href="member/meetings" class="waves-effect">
+                                <i class="ri-video-chat-line"></i>
+                                <span>Chapter Meetings</span>
+                            </a>
+                        </li>
+
+                        <!-- 10. My Chapter -->
+                        <li>
+                            <a href="member/mychapter" class="waves-effect">
+                                <i class="ri-building-line"></i>
+                                <span>My Chapter</span>
+                            </a>
+                        </li>
+
+                        <!-- 11. All Chapters -->
+                        <li>
+                            <a href="member/chapter" class="waves-effect">
+                                <i class="ri-community-line"></i>
+                                <span>All Chapters</span>
+                            </a>
+                        </li>
+
+                        <!-- 12. Visitor Tracking -->
+                        <li>
+                            <a href="member/visitor" class="waves-effect">
+                                <i class="ri-user-follow-line"></i>
+                                <span>Visitor Tracking</span>
+                            </a>
+                        </li>
+
+                        <!-- 13. Notifications -->
+                        <li>
+                            <a href="member/notifications" class="waves-effect">
+                                <i class="ri-notification-3-line"></i>
+                                <span>Notifications</span>
+                            </a>
+                        </li>
+
+                        <!-- 14. Broadcast -->
+                        <li>
+                            <a href="member/broadcast" class="waves-effect">
+                                <i class="ri-broadcast-line"></i>
+                                <span>Broadcast</span>
+                            </a>
+                        </li>
+
+                        <!-- 15. EAF Policies -->
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect d-flex align-items-center justify-content-between">
+                                <span>
+                                    <i class="ri-shield-check-line"></i>
+                                    <span>EAF Policies</span>
+                                </span>
+                                <i class="ri-arrow-down-s-line" style="font-size:14px; width:auto; height:auto; color:#94A3B8;"></i>
+                            </a>
+                        </li>
+
+                        <!-- 16. Logout (Red Accent at bottom) -->
+                        <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
+                            <a href="member_login" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                                <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
+                                <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- 1. PAGE HEADER -->
+                    <div class="mitb-page-header">
+                        <div>
+                            <h4 class="mitb-header-title">
+                                <i class="ri-money-rupee-circle-fill text-warning"></i>
+                                MITB Reports & Contribution Analytics
+                            </h4>
+                            <p class="mitb-header-sub">
+                                Complete tracking of closed business (TYFCB), monthly contributions & chapter performance
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="button" class="btn-submit-mitb" onclick="alert('Submit MITB slip modal will open.');">
+                                <i class="ri-add-circle-fill"></i>
+                                <span>+ Submit MITB Slip</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. HERO KPI SUITE -->
+                    <div class="kpi-suite-grid">
+                        <div class="kpi-card card-primary">
+                            <div class="kpi-icon-wrap"><i class="ri-bank-card-fill"></i></div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">
+                                    <span>Total Closed Business</span>
+                                    <span class="badge bg-primary-subtle text-primary border" id="kpi-records-badge">29 Records</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-total-revenue">₹ 2,394,525.00</div>
+                                <div class="kpi-subtext"><span>Personal & Chapter contribution</span></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card card-received">
+                            <div class="kpi-icon-wrap"><i class="ri-arrow-down-circle-fill"></i></div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">
+                                    <span>Business Received</span>
+                                    <span class="kpi-pill pill-growth" id="kpi-received-count-badge">7 Slips</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-total-received">₹ 1,403,525.00</div>
+                                <div class="kpi-subtext"><span>Inbound closed business from referrals</span></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card card-given">
+                            <div class="kpi-icon-wrap"><i class="ri-arrow-up-circle-fill"></i></div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">
+                                    <span>Business Given</span>
+                                    <span class="kpi-pill pill-neutral" id="kpi-given-count-badge">22 Slips</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-total-given">₹ 991,000.00</div>
+                                <div class="kpi-subtext"><span>Outbound business generated for members</span></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card card-avg">
+                            <div class="kpi-icon-wrap"><i class="ri-line-chart-fill"></i></div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">
+                                    <span>Avg Member Value</span>
+                                    <span class="kpi-pill pill-growth"><i class="ri-arrow-up-line"></i> +305% MoM</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-avg-value">₹ 82,569.83</div>
+                                <div class="kpi-subtext"><span>This Month: ₹ 81,000 (5 Slips)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. MONTHLY CONTRIBUTIONS & INTERACTIVE APEXCHART -->
+                    <div class="analytics-container-card">
+                        <div class="analytics-card-header">
+                            <div>
+                                <h5 class="analytics-title">
+                                    <i class="ri-bar-chart-grouped-fill text-primary"></i>
+                                    Monthly Contribution Trends & History
+                                </h5>
+                                <small class="text-muted">Interactive comparison of Business Received vs Business Given across months</small>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-light text-dark border px-3 py-1">Benchmark: BNI & KVV Global</span>
+                            </div>
+                        </div>
+
+                        <!-- MONTHLY CHIPS -->
+                        <div>
+                            <div class="monthly-strip-label">
+                                <i class="ri-calendar-check-fill text-primary"></i>
+                                <span>Filter By Specific Month Contribution:</span>
+                            </div>
+                            <div class="monthly-chips-scroll" id="monthly-chips-container">
+                                
+<div class='month-chip active' onclick="filterByMonth('')">
+    <div class='chip-month-title'><span>All Months</span><i class='ri-check-line'></i></div>
+    <div class='chip-month-val'>₹ 2,394,525</div>
+    <div class='chip-month-slips'>29 total slips</div>
+</div>
+    <div class='month-chip' data-month='2026-10' onclick="filterByMonth('2026-10')">
+        <div class='chip-month-title'><span>Oct 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 81,000</div>
+        <div class='chip-month-slips'>5 slips (Rec: ₹0)</div>
+    </div>
+    <div class='month-chip' data-month='2026-09' onclick="filterByMonth('2026-09')">
+        <div class='chip-month-title'><span>Sep 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 20,000</div>
+        <div class='chip-month-slips'>2 slips (Rec: ₹0)</div>
+    </div>
+    <div class='month-chip' data-month='2026-08' onclick="filterByMonth('2026-08')">
+        <div class='chip-month-title'><span>Aug 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 236,000</div>
+        <div class='chip-month-slips'>2 slips (Rec: ₹236,000)</div>
+    </div>
+    <div class='month-chip' data-month='2026-07' onclick="filterByMonth('2026-07')">
+        <div class='chip-month-title'><span>Jul 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 70,000</div>
+        <div class='chip-month-slips'>4 slips (Rec: ₹0)</div>
+    </div>
+    <div class='month-chip' data-month='2026-06' onclick="filterByMonth('2026-06')">
+        <div class='chip-month-title'><span>Jun 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 15,000</div>
+        <div class='chip-month-slips'>1 slips (Rec: ₹0)</div>
+    </div>
+    <div class='month-chip' data-month='2026-04' onclick="filterByMonth('2026-04')">
+        <div class='chip-month-title'><span>Apr 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 487,525</div>
+        <div class='chip-month-slips'>5 slips (Rec: ₹467,525)</div>
+    </div>
+    <div class='month-chip' data-month='2026-03' onclick="filterByMonth('2026-03')">
+        <div class='chip-month-title'><span>Mar 2026</span><i class='ri-calendar-line'></i></div>
+        <div class='chip-month-val'>₹ 1,485,000</div>
+        <div class='chip-month-slips'>10 slips (Rec: ₹700,000)</div>
+    </div>
+                            </div>
+                        </div>
+
+                        <!-- CHART -->
+                        <div id="monthlyMitbApexChart" style="min-height: 280px;"></div>
+                    </div>
+
+                    <!-- 4. FILTER TOOLBAR -->
+                    <div class="mitb-filter-card">
+                        <form id="filterForm" onsubmit="return false;">
+                            <input type="hidden" id="filter_month" value="">
+                            <input type="hidden" id="filter_tab" value="all">
+
+                            <div class="filter-grid-row">
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-search-line"></i> Search</label>
+                                    <div class="filter-search-wrap">
+                                        <i class="ri-search-line"></i>
+                                        <input type="text" id="search" class="filter-ctrl" placeholder="Search members, amount, slip...">
+                                    </div>
+                                </div>
+
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-price-tag-3-line"></i> Category</label>
+                                    <select id="category" class="filter-ctrl">
+                                        <option value="">All Categories</option>
+                                        <option value="New">New</option>
+                                        <option value="Visitor">Visitor</option>
+                                        <option value="My Chapter Member">My Chapter Member</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-briefcase-4-line"></i> Business Type</label>
+                                    <select id="business_type" class="filter-ctrl">
+                                        <option value="">All Types</option>
+                                        <option value="new">New Business</option>
+                                        <option value="repeat">Repeat Business</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-community-line"></i> Chapter</label>
+                                    <select id="chapter_code" class="filter-ctrl">
+                                        <option value="">All Chapters</option>
+                                        <option value="CHAP001">Chapter 1</option>
+                                        <option value="CHAP002" selected>Chapter 2</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-time-line"></i> Duration</label>
+                                    <select id="duration" class="filter-ctrl">
+                                        <option value="">All Time</option>
+                                        <option value="30">Last 30 Days</option>
+                                        <option value="180">Last 6 Months</option>
+                                        <option value="365">Last 12 Months</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-calendar-event-line"></i> From</label>
+                                    <input type="date" id="from_date" class="filter-ctrl">
+                                </div>
+
+                                <div class="filter-field-group">
+                                    <label class="filter-field-label"><i class="ri-calendar-check-line"></i> To</label>
+                                    <input type="date" id="to_date" class="filter-ctrl">
+                                </div>
+
+                                <div class="filter-actions-group">
+                                    <button type="button" id="reset-btn" class="btn-filter-action btn-reset-filters" onclick="resetFilters();">
+                                        <i class="ri-refresh-line"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 5. TABS -->
+                    <div class="mitb-tabs-nav">
+                        <button type="button" class="mitb-tab-btn active" data-tab="all" onclick="switchTab('all');">
+                            <i class="ri-file-list-3-line"></i>
+                            <span>All Contributions</span>
+                            <span class="mitb-tab-badge" id="tab-all-badge">29</span>
+                        </button>
+                        <button type="button" class="mitb-tab-btn" data-tab="received" onclick="switchTab('received');">
+                            <i class="ri-arrow-down-circle-line text-success"></i>
+                            <span>Business Received</span>
+                            <span class="mitb-tab-badge" id="tab-rec-badge">7</span>
+                        </button>
+                        <button type="button" class="mitb-tab-btn" data-tab="given" onclick="switchTab('given');">
+                            <i class="ri-arrow-up-circle-line text-warning"></i>
+                            <span>Business Given</span>
+                            <span class="mitb-tab-badge" id="tab-giv-badge">22</span>
+                        </button>
+                        <button type="button" class="mitb-tab-btn" data-tab="matrix" onclick="switchTab('matrix');">
+                            <i class="ri-calendar-todo-line text-primary"></i>
+                            <span>Monthly Summary Matrix</span>
+                            <span class="mitb-tab-badge">7 Months</span>
+                        </button>
+                    </div>
+
+                    <!-- 6. TABLES -->
+                    <div id="tab-transactions" class="mitb-table-card">
+                        <div class="table-responsive">
+                            <table class="mitb-modern-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 50px;">#</th>
+                                        <th>Date & Time</th>
+                                        <th>Amount (INR)</th>
+                                        <th>Given By (From)</th>
+                                        <th class="text-center" style="width: 40px;">Flow</th>
+                                        <th>Received By (To)</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Business Type</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mitb_table_body">
+                                    
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-10' 
+        data-cat='My Chapter Member' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar ajay r 15000.00 mitb0010 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>1</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>08 Oct 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>09:22 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1788060986_8acec72c80aac78360ec.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Ajay R</span>
+                    <small class='mitb-member-email text-muted'>r.ajayathreya@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0010', 'Payment advance ', '15,000.00', 'Harri Kumar', 'Ajay R');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-10' 
+        data-cat='My Chapter Member' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar ajay r 15000.00 mitb0009 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>2</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>08 Oct 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>09:21 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1788060986_8acec72c80aac78360ec.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Ajay R</span>
+                    <small class='mitb-member-email text-muted'>r.ajayathreya@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0009', 'Web advance ', '15,000.00', 'Harri Kumar', 'Ajay R');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-10' 
+        data-cat='My Chapter Member' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar ajay r 15000.00 mitb0008 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>3</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>08 Oct 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>09:21 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1788060986_8acec72c80aac78360ec.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Ajay R</span>
+                    <small class='mitb-member-email text-muted'>r.ajayathreya@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0008', 'Web advance ', '15,000.00', 'Harri Kumar', 'Ajay R');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-10' 
+        data-cat='My Chapter Member' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar ajay r 21000.00 mitb0005 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>4</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>02 Oct 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>02:30 PM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 21,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1788060986_8acec72c80aac78360ec.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Ajay R</span>
+                    <small class='mitb-member-email text-muted'>r.ajayathreya@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0005', 'Thank you ', '21,000.00', 'Harri Kumar', 'Ajay R');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-10' 
+        data-cat='My Chapter Member' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar keerthi shree k 15000.00 mitb0004 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>5</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>01 Oct 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>09:09 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Keerthi Shree K</span>
+                    <small class='mitb-member-email text-muted'>giftingdestiny123@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0004', 'Digital marketing ', '15,000.00', 'Harri Kumar', 'Keerthi Shree K');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-09' 
+        data-cat='My Chapter Member' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar sayed asif  5000.00 mitb0003 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>6</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>19 Sep 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>04:41 PM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 5,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1776319236_39f99881462bc0a885d2.jpg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Sayed Asif </span>
+                    <small class='mitb-member-email text-muted'>a.m.fabricator28@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0003', 'Domain ', '5,000.00', 'Harri Kumar', 'Sayed Asif ');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-09' 
+        data-cat='My Chapter Member' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar keerthi shree k 15000.00 mitb0002 my chapter member'>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>7</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>03 Sep 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>06:36 PM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Keerthi Shree K</span>
+                    <small class='mitb-member-email text-muted'>giftingdestiny123@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i>My Chapter Member</span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('MITB0002', 'Thank you ', '15,000.00', 'Harri Kumar', 'Keerthi Shree K');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-08' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='received'
+        data-search='ravi shankar  harri kumar 20000.00 51 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>8</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>06 Aug 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>12:22 PM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 20,000.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Ravi Shankar </span>
+                    <small class='mitb-member-email text-muted'>ravishankargiri5@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('51', '20000', '20,000.00', 'Ravi Shankar ', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-08' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='received'
+        data-search='vinod k harri kumar 216000.00 45 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>9</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>02 Aug 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>11:05 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 216,000.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781149319_1bc8a85528d411473f01.jpg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Vinod K</span>
+                    <small class='mitb-member-email text-muted'>vibrantdesignstudio.blr@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('45', 'nagarbhavi', '216,000.00', 'Vinod K', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-07' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar praveen kumar c h  10000.00 39 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>10</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>08 Jul 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>03:46 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 10,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Praveen Kumar C H </span>
+                    <small class='mitb-member-email text-muted'>Constructions.masterclass@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('39', 'From Santoshi', '10,000.00', 'Harri Kumar', 'Praveen Kumar C H ');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-07' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar d revanna 20000.00 38 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>11</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>02 Jul 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>02:20 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 20,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781248442_3660792f47bbed0b6eaf.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>D Revanna</span>
+                    <small class='mitb-member-email text-muted'>drevannahegded@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('38', 'Website ', '20,000.00', 'Harri Kumar', 'D Revanna');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-07' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar keerthi shree k 25000.00 37 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>12</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>02 Jul 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>02:15 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 25,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Keerthi Shree K</span>
+                    <small class='mitb-member-email text-muted'>giftingdestiny123@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('37', 'Digital marketing ', '25,000.00', 'Harri Kumar', 'Keerthi Shree K');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-07' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='given'
+        data-search='harri kumar venkatesh g p 15000.00 36 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>13</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>02 Jul 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>12:43 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>VENKATESH G P</span>
+                    <small class='mitb-member-email text-muted'>venkatesh@techgenie.in</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('36', 'Web rewamp', '15,000.00', 'Harri Kumar', 'VENKATESH G P');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-06' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar d revanna 15000.00 35 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>14</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>29 Jun 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>09:27 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781248442_3660792f47bbed0b6eaf.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>D Revanna</span>
+                    <small class='mitb-member-email text-muted'>drevannahegded@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('35', 'web pay', '15,000.00', 'Harri Kumar', 'D Revanna');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-04' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar praveen kumar c h  20000.00 32 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>15</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>29 Apr 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>12:53 PM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 20,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Praveen Kumar C H </span>
+                    <small class='mitb-member-email text-muted'>Constructions.masterclass@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('32', 'Got Advance payment from Santhoshi ', '20,000.00', 'Harri Kumar', 'Praveen Kumar C H ');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-04' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='received'
+        data-search='kashi lohar harri kumar 350000.00 29 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>16</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>23 Apr 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>03:45 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 350,000.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1773832488_3bb33909dec2362fc92a.jpg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Kashi Lohar</span>
+                    <small class='mitb-member-email text-muted'>svekrupa@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('29', 'Solar pump system 10HP', '350,000.00', 'Kashi Lohar', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-04' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='received'
+        data-search='keerthi shree k harri kumar 57525.00 28 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>17</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>23 Apr 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>03:45 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 57,525.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Keerthi Shree K</span>
+                    <small class='mitb-member-email text-muted'>giftingdestiny123@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('28', 'Thank u for procuring gifts from Gifting Destiny', '57,525.00', 'Keerthi Shree K', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-04' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='received'
+        data-search='sayed asif  harri kumar 40000.00 22 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>18</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>16 Apr 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>04:04 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 40,000.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1776319236_39f99881462bc0a885d2.jpg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Sayed Asif </span>
+                    <small class='mitb-member-email text-muted'>a.m.fabricator28@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('22', 'Metal fabrication ', '40,000.00', 'Sayed Asif ', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-04' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='received'
+        data-search='ravi shankar  harri kumar 20000.00 21 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>19</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>16 Apr 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>03:56 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 20,000.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Ravi Shankar </span>
+                    <small class='mitb-member-email text-muted'>ravishankargiri5@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('21', 'Insurance ', '20,000.00', 'Ravi Shankar ', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row received-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='repeat' 
+        data-dir='received'
+        data-search='kashi lohar harri kumar 700000.00 16 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>20</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>21 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>08:03 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-received'>
+                    ₹ 700,000.00
+                </span>
+                <span class='mitb-direction-badge badge-inbound'><i class='ri-arrow-down-line'></i> Received</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1773832488_3bb33909dec2362fc92a.jpg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Kashi Lohar</span>
+                    <small class='mitb-member-email text-muted'>svekrupa@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag tag-gold'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-repeat'>
+                <i class='ri-repeat-2-line me-1'></i>Repeat
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('16', 'solar roof ', '700,000.00', 'Kashi Lohar', 'Harri Kumar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                <span class='text-muted small'><i class='ri-shield-check-line text-success' title='Verified'></i></span>
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar veena prakash s 30000.00 9 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>21</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>20 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>10:29 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 30,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>VEENA PRAKASH S</span>
+                    <small class='mitb-member-email text-muted'>veena.aatvi@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('9', 'Mails', '30,000.00', 'Harri Kumar', 'VEENA PRAKASH S');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar harish b. r. 15000.00 8 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>22</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>18 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>02:20 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 15,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harish B. R.</span>
+                    <small class='mitb-member-email text-muted'>harishbagoor@yahoo.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('8', 'Club whats app campaign ', '15,000.00', 'Harri Kumar', 'Harish B. R.');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar venkatesh g p 120000.00 7 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>23</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>18 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>12:21 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 120,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>VENKATESH G P</span>
+                    <small class='mitb-member-email text-muted'>venkatesh@techgenie.in</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('7', 'Web and Mails ', '120,000.00', 'Harri Kumar', 'VENKATESH G P');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar niranjan r 45000.00 6 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>24</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>18 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>12:20 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 45,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Niranjan R</span>
+                    <small class='mitb-member-email text-muted'>designncare0411@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('6', 'WEb', '45,000.00', 'Harri Kumar', 'Niranjan R');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar praveen kumar c h  45000.00 5 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>25</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>18 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>12:19 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 45,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/empty.png' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Praveen Kumar C H </span>
+                    <small class='mitb-member-email text-muted'>Constructions.masterclass@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('5', 'Web', '45,000.00', 'Harri Kumar', 'Praveen Kumar C H ');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar arpitha b 45000.00 4 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>26</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>17 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>07:49 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 45,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1774494281_ee53e80fc367e040e6bc.jpg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Arpitha B</span>
+                    <small class='mitb-member-email text-muted'>arpitha.ibo7@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('4', 'Web Dev', '45,000.00', 'Harri Kumar', 'Arpitha B');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar kashi lohar 350000.00 3 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>27</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>17 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>07:45 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 350,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1773832488_3bb33909dec2362fc92a.jpg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Kashi Lohar</span>
+                    <small class='mitb-member-email text-muted'>svekrupa@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('3', 'Web ', '350,000.00', 'Harri Kumar', 'Kashi Lohar');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar sayed asif  45000.00 2 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>28</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>17 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>07:45 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 45,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1776319236_39f99881462bc0a885d2.jpg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Sayed Asif </span>
+                    <small class='mitb-member-email text-muted'>a.m.fabricator28@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('2', 'WEB', '45,000.00', 'Harri Kumar', 'Sayed Asif ');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class='mitb-table-row given-item' 
+        data-month='2026-03' 
+        data-cat='' 
+        data-btype='new' 
+        data-dir='given'
+        data-search='harri kumar vinod k 90000.00 1 '>
+        <td class='text-center align-middle'>
+            <span class='mitb-idx-badge'>29</span>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-date-cell'>
+                <span class='mitb-date-val'><i class='ri-calendar-line text-primary me-1'></i>17 Mar 2026</span>
+                <small class='mitb-time-val text-muted'><i class='ri-time-line me-1'></i>07:45 AM</small>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-amount-cell'>
+                <span class='mitb-amount-number amount-given'>
+                    ₹ 90,000.00
+                </span>
+                <span class='mitb-direction-badge badge-outbound'><i class='ri-arrow-up-line'></i> Given</span>
+            </div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg' class='mitb-table-avatar avatar-from' onerror="this.src='images/empty.png'">
+                    <span class='mitb-you-tag'>You</span>
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Harri Kumar</span>
+                    <small class='mitb-member-email text-muted'>harri@jobhunterr.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-flow-indicator'><i class='ri-arrow-right-line'></i></div>
+        </td>
+        <td class='align-middle'>
+            <div class='mitb-member-cell'>
+                <div class='mitb-avatar-wrap'>
+                    <img src='uploads/profile/1781149319_1bc8a85528d411473f01.jpg' class='mitb-table-avatar avatar-to' onerror="this.src='images/empty.png'">
+                    
+                </div>
+                <div class='mitb-member-info'>
+                    <span class='mitb-member-name'>Vinod K</span>
+                    <small class='mitb-member-email text-muted'>vibrantdesignstudio.blr@gmail.com</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-category'><i class='ri-price-tag-3-line me-1'></i></span>
+        </td>
+        <td class='text-center align-middle'>
+            <span class='mitb-chip chip-new'>
+                <i class='ri-sparkling-fill me-1'></i>New
+            </span>
+        </td>
+        <td class='text-center align-middle'>
+            <div class='mitb-action-group'>
+                <button type='button' class='mitb-action-icon btn-view' onclick="showMitbDesc('1', 'Web 2', '90,000.00', 'Harri Kumar', 'Vinod K');" title='View Description'>
+                    <i class='ri-information-line'></i>
+                </button>
+                
+                <button type='button' class='mitb-action-icon btn-edit' title='Edit Slip'><i class='ri-pencil-line'></i></button>
+                <button type='button' class='mitb-action-icon btn-del' title='Delete Slip'><i class='ri-delete-bin-line'></i></button>
+                
+            </div>
+        </td>
+    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="tab-matrix" class="mitb-table-card" style="display: none;">
+                        <div class="table-responsive">
+                            <table class="mitb-modern-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 60px;">#</th>
+                                        <th>Month & Year</th>
+                                        <th class="text-end">Business Received (INR)</th>
+                                        <th class="text-end">Business Given (INR)</th>
+                                        <th class="text-end">Total Volume (INR)</th>
+                                        <th class="text-center">Total Slips</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-10')">
+        <td class='text-center fw-semibold text-muted'>1</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>October 2026</span>
+                    <small class='text-muted'>2026-10</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 0.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 81,000.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 81,000.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>5 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-10');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-09')">
+        <td class='text-center fw-semibold text-muted'>2</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>September 2026</span>
+                    <small class='text-muted'>2026-09</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 0.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 20,000.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 20,000.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>2 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-09');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-08')">
+        <td class='text-center fw-semibold text-muted'>3</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>August 2026</span>
+                    <small class='text-muted'>2026-08</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 236,000.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 0.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 236,000.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>2 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-08');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-07')">
+        <td class='text-center fw-semibold text-muted'>4</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>July 2026</span>
+                    <small class='text-muted'>2026-07</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 0.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 70,000.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 70,000.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>4 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-07');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-06')">
+        <td class='text-center fw-semibold text-muted'>5</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>June 2026</span>
+                    <small class='text-muted'>2026-06</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 0.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 15,000.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 15,000.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>1 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-06');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-04')">
+        <td class='text-center fw-semibold text-muted'>6</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>April 2026</span>
+                    <small class='text-muted'>2026-04</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 467,525.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 20,000.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 487,525.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>5 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-04');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+    <tr class='monthly-matrix-row' onclick="filterByMonth('2026-03')">
+        <td class='text-center fw-semibold text-muted'>7</td>
+        <td>
+            <div class='d-flex align-items-center gap-2'>
+                <span class='month-calendar-icon'><i class='ri-calendar-event-fill'></i></span>
+                <div>
+                    <span class='fw-bold text-dark d-block'>March 2026</span>
+                    <small class='text-muted'>2026-03</small>
+                </div>
+            </div>
+        </td>
+        <td class='text-end fw-bold text-success' style='font-size:14px;'>₹ 700,000.00</td>
+        <td class='text-end fw-bold' style='color:#C6A667; font-size:14px;'>₹ 785,000.00</td>
+        <td class='text-end fw-bold' style='color:#101B35; font-size:15px;'>₹ 1,485,000.00</td>
+        <td class='text-center'>
+            <span class='badge rounded-pill bg-light text-dark border px-2 py-1'>
+                <i class='ri-file-list-3-line me-1 text-primary'></i>10 Slips
+            </span>
+        </td>
+        <td class='text-center'>
+            <button type='button' class='btn btn-sm btn-outline-primary py-1 px-3 rounded-pill' onclick="event.stopPropagation(); filterByMonth('2026-03');">
+                <i class='ri-filter-3-line me-1'></i> View Transactions
+            </button>
+        </td>
+    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="descModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius:16px;">
+                <div class="modal-header text-white" style="background:#101B35;">
+                    <h6 class="modal-title text-white"><i class="ri-file-list-3-line me-2 text-warning"></i> Slip Details</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-3">
+                        <span class="badge bg-success-subtle text-success fs-6 px-3 py-2 rounded-pill fw-bold" id="descAmount"></span>
+                    </div>
+                    <div class="p-3 bg-light rounded-3 mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small">Given By:</span>
+                            <span class="fw-bold small text-dark" id="descFrom"></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted small">Received By:</span>
+                            <span class="fw-bold small text-dark" id="descTo"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label text-muted small fw-bold">Note:</label>
+                        <p class="p-3 bg-white border rounded-3 mb-0" id="descBody" style="font-size:13px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets2/libs/jquery/jquery.min.js"></script>
+    <script src="assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets2/libs/node-waves/waves.min.js"></script>
+    <script src="assets2/js/app.js"></script>
+    <script src="assets2/libs/apexcharts/apexcharts.min.js"></script>
+
+    <script>
+        const chartCategories = ["Mar 2026","Apr 2026","Jun 2026","Jul 2026","Aug 2026","Sep 2026","Oct 2026"];
+        const chartGiven      = [785000,20000,15000,70000,0,20000,81000];
+        const chartReceived   = [700000,467525,0,0,236000,0,0];
+
+        let chart = null;
+
+        function initChart() {
+            const options = {
+                series: [{
+                    name: 'Business Received (Inbound)',
+                    data: chartReceived
+                }, {
+                    name: 'Business Given (Outbound)',
+                    data: chartGiven
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 290,
+                    toolbar: { show: false },
+                    fontFamily: 'Plus Jakarta Sans, Outfit, sans-serif'
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '42%',
+                        borderRadius: 6
+                    }
+                },
+                dataLabels: { enabled: false },
+                colors: ['#0D9488', '#C6A667'],
+                xaxis: {
+                    categories: chartCategories,
+                    labels: { style: { colors: '#64748B', fontWeight: 600 } }
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(val) {
+                            if (val >= 100000) return '₹ ' + (val / 100000).toFixed(1) + ' L';
+                            if (val >= 1000) return '₹ ' + (val / 1000).toFixed(0) + ' k';
+                            return '₹ ' + val;
+                        }
+                    }
+                },
+                grid: { borderColor: '#F1F5F9' },
+                legend: { position: 'top', horizontalAlign: 'right' },
+                tooltip: {
+                    y: { formatter: function(val) { return '₹ ' + Number(val).toLocaleString('en-IN'); } }
+                }
+            };
+
+            chart = new ApexCharts(document.querySelector("#monthlyMitbApexChart"), options);
+            chart.render();
+        }
+
+        function filterRows() {
+            const search = $('#search').val().toLowerCase();
+            const cat = $('#category').val();
+            const btype = $('#business_type').val().toLowerCase();
+            const month = $('#filter_month').val();
+            const tab = $('#filter_tab').val();
+
+            let visibleCount = 0;
+            let recCount = 0;
+            let givCount = 0;
+            let totRev = 0;
+
+            $('.mitb-table-row').each(function() {
+                const rSearch = $(this).data('search') || '';
+                const rCat = $(this).data('cat') || '';
+                const rBtype = $(this).data('btype') || '';
+                const rMonth = $(this).data('month') || '';
+                const rDir = $(this).data('dir') || '';
+
+                let match = true;
+
+                if (search && !rSearch.includes(search)) match = false;
+                if (cat && rCat !== cat) match = false;
+                if (btype && !rBtype.includes(btype)) match = false;
+                if (month && rMonth !== month) match = false;
+
+                if (tab === 'received' && rDir !== 'received') match = false;
+                if (tab === 'given' && rDir !== 'given') match = false;
+
+                if (match) {
+                    $(this).show();
+                    visibleCount++;
+                    const amtText = $(this).find('.mitb-amount-number').text().replace(/[^\d.]/g, '');
+                    const amt = parseFloat(amtText) || 0;
+                    totRev += amt;
+                    if (rDir === 'received') recCount++;
+                    if (rDir === 'given') givCount++;
+                } else {
+                    $(this).hide();
+                }
+            });
+
+            $('#tab-all-badge').text(visibleCount);
+        }
+
+        function filterByMonth(mKey) {
+            $('#filter_month').val(mKey);
+            $('.month-chip').removeClass('active');
+            if (!mKey) {
+                $('.month-chip:first').addClass('active');
+            } else {
+                $(`.month-chip[data-month="${mKey}"]`).addClass('active');
+            }
+            switchTab('all');
+            filterRows();
+        }
+
+        function switchTab(tab) {
+            $('.mitb-tab-btn').removeClass('active');
+            $(`.mitb-tab-btn[data-tab="${tab}"]`).addClass('active');
+            $('#filter_tab').val(tab);
+
+            if (tab === 'matrix') {
+                $('#tab-transactions').hide();
+                $('#tab-matrix').fadeIn(200);
+            } else {
+                $('#tab-matrix').hide();
+                $('#tab-transactions').fadeIn(200);
+                filterRows();
+            }
+        }
+
+        function resetFilters() {
+            $('#filterForm')[0].reset();
+            $('#filter_month').val('');
+            $('.month-chip').removeClass('active');
+            $('.month-chip:first').addClass('active');
+            switchTab('all');
+            filterRows();
+        }
+
+        function showMitbDesc(code, desc, amt, from, to) {
+            $('#descAmount').text('₹ ' + amt);
+            $('#descFrom').text(from);
+            $('#descTo').text(to);
+            $('#descBody').text(desc || 'No description note provided.');
+            new bootstrap.Modal(document.getElementById('descModal')).show();
+        }
+
+        $(document).ready(function() {
+            initChart();
+            $('#search').on('keyup input', filterRows);
+            $('#category, #business_type').on('change', filterRows);
+        });
+    </script>
+</body>
+
+</html>

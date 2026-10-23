@@ -1,0 +1,2045 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Insights & Articles - EAF Connect</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 & Remix Icons -->
+    <link href="./assets2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
+    <!-- EAF Enterprise Design System -->
+    <link href="./assets2/css/eaf-design-system.css?v=5.0" rel="stylesheet" type="text/css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body style="background-color: #FAF9F6; color: #101B35;">
+
+    <!-- HEADER -->
+    
+<!-- EAF Connect Design System -->
+<link rel="stylesheet" href="./assets2/css/eaf-design-system.css?v=5.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
+<style>
+/* =========================================================
+   PREMIUM CORPORATE HEADER
+   Deep Midnight Navy (#101B35) + Champagne Gold (#C6A667)
+========================================================= */
+.eaf-navbar-master {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: #101B35;
+    border-bottom: 1px solid rgba(198, 166, 103, 0.25);
+    box-shadow: 0 4px 20px rgba(16, 27, 53, 0.25);
+    transition: all 0.2s ease;
+}
+
+.eaf-topbar-strip {
+    background: #0B1325;
+    padding: 7px 0;
+    font-size: 12px;
+    color: #94A3B8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eaf-topbar-strip a {
+    color: #E4D4AE;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.eaf-topbar-strip a:hover {
+    color: #FFFFFF;
+}
+
+.eaf-nav-container {
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.eaf-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+}
+
+.eaf-brand-logo {
+    height: 52px;
+    width: auto;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.eaf-brand-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.eaf-brand-title .main-title {
+    color: #FFFFFF;
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.eaf-brand-title .main-title span {
+    color: #C6A667;
+}
+
+.eaf-brand-title .sub-title {
+    color: #94A3B8;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.eaf-desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.eaf-desktop-nav li a {
+    color: #E2E8F0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.eaf-desktop-nav li a:hover,
+.eaf-desktop-nav li a.active {
+    color: #C6A667;
+    background: rgba(198, 166, 103, 0.12);
+}
+
+.eaf-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.eaf-mobile-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(198, 166, 103, 0.3);
+    color: #FFFFFF;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@media (max-width: 991px) {
+    .eaf-desktop-nav {
+        display: none;
+    }
+    .eaf-mobile-toggle {
+        display: block;
+    }
+    .eaf-topbar-strip {
+        display: none;
+    }
+}
+</style>
+
+<!-- TOP METADATA BAR -->
+<div class="eaf-topbar-strip">
+    <div class="container d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-4">
+            <span class="d-inline-flex align-items-center gap-2">
+                <i class="ri-phone-fill text-warning"></i>
+                <span>Call Us:</span>
+                <a href="tel:+919886115993">+91-9886115993</a>
+            </span>
+            <span class="d-inline-flex align-items-center gap-2">
+                <i class="ri-mail-fill text-warning"></i>
+                <span>Email:</span>
+                <a href="mailto:info@eafconnect.com">info@eafconnect.com</a>
+            </span>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-white-50"><i class="ri-map-pin-2-fill text-warning me-1"></i>Karnataka, India</span>
+            <span class="text-white-50">|</span>
+            <a href="./contact.html" class="text-decoration-none">
+                <i class="ri-customer-service-2-line me-1"></i>Support Desk
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN NAVBAR -->
+<nav class="eaf-navbar-master">
+    <div class="container eaf-nav-container">
+        <!-- Brand Logo -->
+        <a href="./index.html" class="eaf-brand-group">
+            <img src="./images/logo5.png" alt="EAF Connect" class="eaf-brand-logo">
+            <div class="eaf-brand-title">
+                <div class="main-title">EAF <span>CONNECT</span></div>
+                <div class="sub-title">World Infra Networking</div>
+            </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="eaf-desktop-nav">
+            <li><a href="./index.html">HOME</a></li>
+            <li><a href="./index.html#about">ABOUT</a></li>
+            <li><a href="./index.html#chapters">CHAPTERS</a></li>
+            <li><a href="./index.html#benefits">BENEFITS</a></li>
+            <li><a href="./blogs.html">BLOGS</a></li>
+            <li><a href="./contact.html">CONTACT</a></li>
+        </ul>
+
+        <!-- Action CTAs -->
+        <div class="eaf-header-actions">
+                                                <a href="./member/dashboard.html" class="eaf-btn eaf-btn-gold">
+                        <i class="ri-dashboard-3-line"></i>
+                        <span>Member Portal</span>
+                    </a>
+                            
+            <!-- Mobile Hamburger Toggle -->
+            <button class="eaf-mobile-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#eafMobileNav" aria-controls="eafMobileNav">
+                <i class="ri-menu-3-line"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- OFFCANVAS MOBILE DRAWER -->
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="eafMobileNav" style="background:#101B35 !important; border-left: 1px solid rgba(198,166,103,0.3);">
+    <div class="offcanvas-header border-bottom border-secondary border-opacity-25 p-3">
+        <div class="d-flex align-items-center gap-2">
+            <img src="./images/logo5.png" alt="EAF Connect" style="height:40px; background:#fff; border-radius:6px; padding:2px;">
+            <span class="fs-5 fw-bold text-white font-family-outfit">EAF <span style="color:#C6A667;">CONNECT</span></span>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-4">
+        <ul class="nav flex-column gap-2 mb-4">
+            <li class="nav-item">
+                <a class="nav-link text-white py-2 px-3 rounded" href="./index.html"><i class="ri-home-4-line me-2 text-warning"></i>Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white py-2 px-3 rounded" href="./index.html#about"><i class="ri-information-line me-2 text-warning"></i>About EAF</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white py-2 px-3 rounded" href="./index.html#chapters"><i class="ri-community-line me-2 text-warning"></i>Chapters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white py-2 px-3 rounded" href="./index.html#benefits"><i class="ri-trophy-line me-2 text-warning"></i>Membership Benefits</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white py-2 px-3 rounded" href="./blogs.html"><i class="ri-article-line me-2 text-warning"></i>Blogs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white py-2 px-3 rounded" href="./contact.html"><i class="ri-mail-line me-2 text-warning"></i>Contact</a>
+            </li>
+        </ul>
+
+        <div class="border-top border-secondary border-opacity-25 pt-3">
+                            <a href="./member/dashboard.html" class="eaf-btn eaf-btn-gold w-100 justify-content-center mb-2">
+                    <i class="ri-dashboard-line"></i> Dashboard
+                </a>
+                <a href="./member_login.html" class="btn btn-outline-danger w-100 btn-sm">
+                    <i class="ri-logout-box-line"></i> Logout
+                </a>
+                    </div>
+    </div>
+</div>
+
+
+    <!-- HERO STRIP -->
+    <section class="py-5" style="background: radial-gradient(circle at 10% 20%, rgba(23,43,80,0.95) 0%, #101B35 80%); color:#fff; border-bottom:1px solid rgba(198,166,103,0.3);">
+        <div class="container py-3 text-center">
+            <span class="eaf-badge eaf-badge-gold mb-2">Thought Leadership</span>
+            <h1 class="display-5 fw-bold font-family-outfit mb-2 text-white">EAF Business Insights</h1>
+            <p class="text-white-50 fs-6 max-w-600 mx-auto mb-0" style="max-width: 620px;">
+                Expert strategies, scale-up frameworks, and referral networking insights curated for entrepreneurs and business leaders.
+            </p>
+        </div>
+    </section>
+
+    <!-- BLOGS GRID -->
+    <section class="py-5">
+        <div class="container py-3">
+            <div class="row g-4">
+                                    <div class="col-12 text-center py-5">
+                        <div class="p-5 bg-white rounded-4 border border-light shadow-sm max-w-500 mx-auto" style="max-width: 500px;">
+                            <i class="ri-newspaper-line fs-1 text-muted mb-3 d-block"></i>
+                            <h4 class="fw-bold font-family-outfit mb-2">No Articles Published Yet</h4>
+                            <p class="text-muted fs-7 mb-4">Our editorial board is curating the latest strategic articles. Check back shortly.</p>
+                            <a href="./index.html" class="eaf-btn eaf-btn-primary">
+                                <i class="ri-home-4-line"></i> Return Home
+                            </a>
+                        </div>
+                    </div>
+                            </div>
+
+            <!-- PAGINATION -->
+                            <div class="mt-5 d-flex justify-content-center">
+                    
+
+<nav aria-label="Page navigation">
+	<ul class="pagination">
+		
+		
+			</ul>
+</nav>
+
+
+                </div>
+                    </div>
+    </section>
+
+    <!-- FOOTER -->
+    
+<!-- ========================= EAF CONNECT CORPORATE FOOTER ========================= -->
+<footer class="eaf-corporate-footer">
+    <div class="container">
+        <div class="row g-4 py-5">
+            <!-- Brand & Mission Column -->
+            <div class="col-12 col-lg-5">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <img src="./images/logo5.png" alt="EAF Connect" style="height: 54px; background:#fff; border-radius:8px; padding:3px;">
+                    <div>
+                        <h4 class="mb-0 text-white font-family-outfit fw-bold">EAF <span style="color:#C6A667;">CONNECT</span></h4>
+                        <small class="text-white-50 letter-spacing-1 text-uppercase" style="font-size:11px;">World Infra Networking</small>
+                    </div>
+                </div>
+
+                <p class="text-white-50 mb-4 pe-lg-4" style="font-size: 14px; line-height: 1.7;">
+                    EAF Connect is an elite business networking organization empowering entrepreneurs, business owners, and corporate leaders to build trusted relationships, exchange high-value referrals, and scale sustainable enterprises.
+                </p>
+
+                <div class="d-flex gap-3">
+                    <div class="eaf-footer-pill">
+                        <i class="ri-team-line text-warning"></i>
+                        <div>
+                            <strong>Structured Network</strong>
+                            <small class="d-block text-white-50">Verified Members</small>
+                        </div>
+                    </div>
+                    <div class="eaf-footer-pill">
+                        <i class="ri-shake-hands-line text-warning"></i>
+                        <div>
+                            <strong>Quality Referrals</strong>
+                            <small class="d-block text-white-50">High Conversion</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-6 col-lg-2">
+                <h6 class="text-white fw-bold mb-3 text-uppercase letter-spacing-1" style="color:#C6A667 !important;">Quick Links</h6>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="font-size: 14px;">
+                    <li><a href="./index.html" class="eaf-footer-link"><i class="ri-arrow-right-s-line me-1 text-warning"></i>Home</a></li>
+                    <li><a href="./index.html#about" class="eaf-footer-link"><i class="ri-arrow-right-s-line me-1 text-warning"></i>About EAF</a></li>
+                    <li><a href="./index.html#chapters" class="eaf-footer-link"><i class="ri-arrow-right-s-line me-1 text-warning"></i>Chapters</a></li>
+                    <li><a href="./index.html#benefits" class="eaf-footer-link"><i class="ri-arrow-right-s-line me-1 text-warning"></i>Why Join</a></li>
+                    <li><a href="./blogs.html" class="eaf-footer-link"><i class="ri-arrow-right-s-line me-1 text-warning"></i>Articles</a></li>
+                    <li><a href="./contact.html" class="eaf-footer-link"><i class="ri-arrow-right-s-line me-1 text-warning"></i>Contact Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Member Access -->
+            <div class="col-6 col-lg-2">
+                <h6 class="text-white fw-bold mb-3 text-uppercase letter-spacing-1" style="color:#C6A667 !important;">Portals</h6>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="font-size: 14px;">
+                    <li><a href="./member_login.html" class="eaf-footer-link"><i class="ri-login-circle-line me-1 text-warning"></i>Member Login</a></li>
+                    <li><a href="./member/dashboard.html" class="eaf-footer-link"><i class="ri-dashboard-line me-1 text-warning"></i>My Dashboard</a></li>
+                    <li><a href="./member/mychapter.html" class="eaf-footer-link"><i class="ri-community-line me-1 text-warning"></i>My Chapter</a></li>
+                    <li><a href="./member/search.html" class="eaf-footer-link"><i class="ri-search-line me-1 text-warning"></i>Directory Search</a></li>
+                    <li><a href="./admin_login.html" class="eaf-footer-link"><i class="ri-shield-keyhole-line me-1 text-warning"></i>Admin Desk</a></li>
+                </ul>
+            </div>
+
+            <!-- Connect & CTA -->
+            <div class="col-12 col-lg-3">
+                <h6 class="text-white fw-bold mb-3 text-uppercase letter-spacing-1" style="color:#C6A667 !important;">Connect With Us</h6>
+                <p class="text-white-50 mb-3" style="font-size: 13px;">
+                    Ready to accelerate your professional growth? Join Karnataka's premier business network today.
+                </p>
+
+                <!-- Social Handles -->
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <a href="https://www.facebook.com/connecteaf" target="_blank" class="eaf-social-btn" title="Facebook">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="https://www.instagram.com/connect.eaf" target="_blank" class="eaf-social-btn" title="Instagram">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@connecteaf" target="_blank" class="eaf-social-btn" title="YouTube">
+                        <i class="ri-youtube-fill"></i>
+                    </a>
+                    <a href="https://wa.me/919341873532" target="_blank" class="eaf-social-btn" title="WhatsApp Support">
+                        <i class="ri-whatsapp-line"></i>
+                    </a>
+                </div>
+
+                <a href="#" data-bs-toggle="modal" data-bs-target="#joinCommunityModal" class="eaf-btn eaf-btn-gold w-100 justify-content-center">
+                    <i class="ri-user-add-line"></i>
+                    <span>Apply for Membership</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="border-top border-secondary border-opacity-25 py-3 d-flex flex-wrap align-items-center justify-content-between gap-2" style="font-size: 13px;">
+            <div class="text-white-50">
+                &copy; 2026 EAF Connect. All Rights Reserved. Enterprise Networking Platform.
+            </div>
+            <div class="text-white-50">
+                Technology Partner: <a href="https://webhostingbaba.com" target="_blank" class="text-warning text-decoration-none fw-semibold">Hosting Baba</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+.eaf-corporate-footer {
+    background: #101B35;
+    border-top: 1px solid rgba(198, 166, 103, 0.25);
+    color: #94A3B8;
+}
+
+.eaf-footer-link {
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.eaf-footer-link:hover {
+    color: #C6A667;
+    transform: translateX(3px);
+}
+
+.eaf-footer-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    font-size: 13px;
+    color: #FFFFFF;
+}
+
+.eaf-footer-pill i {
+    font-size: 20px;
+}
+
+.eaf-social-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.eaf-social-btn:hover {
+    background: #C6A667;
+    color: #101B35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(198, 166, 103, 0.3);
+}
+</style>
+
+<!-- INCLUDE LEAD CAPTURE MODAL -->
+<script>
+$(document).on('submit', '#contact_form', function(e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const form = this;
+    const $form = $(form);
+    const $button = $('#submitLeadBtn');
+
+    console.log('FORM SUBMIT INTERCEPTED');
+    console.log('AJAX URL:', 'javascript:void(0)');
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+    }
+
+    $.ajax({
+        url: 'javascript:void(0)',
+        type: 'POST',
+        data: $form.serialize(),
+        dataType: 'json',
+
+        beforeSend: function() {
+
+            $button.prop('disabled', true);
+
+            Swal.fire({
+                title: 'Submitting...',
+                text: 'Please wait',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: function() {
+                    Swal.showLoading();
+                }
+            });
+        },
+
+        success: function(res) {
+
+            console.log('Response:', res);
+
+            Swal.close();
+
+            if (res.status === 'success') {
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: res.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(function() {
+
+                    $form[0].reset();
+
+                });
+
+            } else {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: res.message || 'Unable to submit.'
+                });
+            }
+        },
+
+        error: function(xhr) {
+
+            Swal.close();
+
+            console.error('HTTP:', xhr.status);
+            console.error('Response:', xhr.responseText);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Server Error',
+                text: 'Unable to submit the form.'
+            });
+        },
+
+        complete: function() {
+            $button.prop('disabled', false);
+        }
+    });
+
+    return false;
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- ========================= JOIN COMMUNITY MODAL ========================= -->
+<div class="modal fade"
+    id="joinCommunityModal"
+    tabindex="-1"
+    aria-labelledby="joinCommunityLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content crm-modal">
+
+            <!-- ================= HEADER ================= -->
+            <div class="crm-modal-header">
+
+                <div class="d-flex align-items-center gap-2">
+
+                    <div class="crm-header-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="crm-modal-title" id="joinCommunityLabel">
+                            Join EAF Connect
+                        </h5>
+
+                        <div class="crm-modal-subtitle">
+                            Business Network Registration
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="button"
+                    class="crm-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+
+            </div>
+
+
+            <!-- ================= BODY ================= -->
+            <div class="modal-body crm-modal-body">
+
+                <!-- Intro -->
+                <div class="crm-intro">
+
+                    <div class="crm-intro-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+
+                    <div>
+                        <h6>Build meaningful business connections</h6>
+                        <p>
+                            Complete your business details to join the EAF Connect network.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Form -->
+                <form  action="#" method="post" onsubmit="alert('This action requires a live server.');return false;">
+
+                    <!-- ================= PERSONAL DETAILS ================= -->
+                    <div class="crm-section">
+
+                        <div class="crm-section-header">
+                            <div class="crm-section-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div>
+                                <h6>Personal Details</h6>
+                                <small>Tell us about yourself</small>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+
+                            <!-- First Name -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    First Name <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-user"></i>
+
+                                    <input type="text"
+                                        name="name"
+                                        class="form-control crm-input"
+                                        placeholder="Enter first name"
+                                        autocomplete="given-name"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Last Name <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-user"></i>
+
+                                    <input type="text"
+                                        name="last_name"
+                                        class="form-control crm-input"
+                                        placeholder="Enter last name"
+                                        autocomplete="family-name"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Email Address <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-envelope"></i>
+
+                                    <input type="email"
+                                        name="email"
+                                        class="form-control crm-input"
+                                        placeholder="name@example.com"
+                                        autocomplete="email"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Phone Number <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-phone"></i>
+
+                                    <input type="tel"
+                                        name="phone"
+                                        class="form-control crm-input"
+                                        placeholder="Enter phone number"
+                                        autocomplete="tel"
+                                        required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- ================= BUSINESS DETAILS ================= -->
+                    <div class="crm-section">
+
+                        <div class="crm-section-header">
+
+                            <div class="crm-section-icon business">
+                                <i class="fas fa-building"></i>
+                            </div>
+
+                            <div>
+                                <h6>Business Information</h6>
+                                <small>Tell us about your business</small>
+                            </div>
+
+                        </div>
+
+                        <div class="row g-3">
+
+                            <!-- Business Name -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Business Name <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-building"></i>
+
+                                    <input type="text"
+                                        name="business"
+                                        class="form-control crm-input"
+                                        placeholder="Enter business name"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Business Category <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-layer-group"></i>
+
+                                    <input type="text"
+                                        name="category"
+                                        class="form-control crm-input"
+                                        placeholder="e.g. IT, Finance, Retail"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Since -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Business Since <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-calendar-alt"></i>
+
+                                    <input type="date"
+                                        name="since"
+                                        class="form-control crm-input"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="col-md-6">
+                                <label class="crm-label">
+                                    Business Location <span>*</span>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-map-marker-alt"></i>
+
+                                    <input type="text"
+                                        name="location"
+                                        class="form-control crm-input"
+                                        placeholder="City / Location"
+                                        required>
+                                </div>
+                            </div>
+
+                            <!-- GST -->
+                            <div class="col-12">
+                                <label class="crm-label">
+                                    GST Number
+                                    <small>(Optional)</small>
+                                </label>
+
+                                <div class="crm-input-group">
+                                    <i class="fas fa-file-invoice"></i>
+
+                                    <input type="text"
+                                        name="gst"
+                                        class="form-control crm-input"
+                                        placeholder="Enter GST number if applicable">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- ================= SUBMIT ================= -->
+                    <div class="crm-submit-area">
+
+                        <div class="crm-security">
+                            <i class="fas fa-shield-alt"></i>
+
+                            <span>
+                                Your information is secure and confidential.
+                            </span>
+                        </div>
+
+                        <button type="submit" id="submitLeadBtn" class="crm-submit-btn">
+                            <span>
+                                <i class="fas fa-paper-plane me-2"></i>
+                                Submit Registration
+                            </span>
+                            <i class="fas fa-arrow-right crm-submit-arrow"></i>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ========================= CRM MODAL CSS ========================= -->
+<style>
+    /* =========================================================
+   CRM MODAL
+========================================================= */
+
+    #joinCommunityModal .modal-dialog {
+        max-width: 820px;
+    }
+
+    #joinCommunityModal .crm-modal {
+        border: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #f7f9fc;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, .22);
+    }
+
+
+    /* =========================================================
+   HEADER
+========================================================= */
+
+    #joinCommunityModal .crm-modal-header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        background: linear-gradient(135deg,
+                #08426b 0%,
+                #0a507f 55%,
+                #b91f16 150%);
+        color: #fff;
+    }
+
+    #joinCommunityModal .crm-header-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        background: rgba(255, 255, 255, .14);
+        border: 1px solid rgba(255, 255, 255, .16);
+        font-size: 17px;
+    }
+
+    #joinCommunityModal .crm-modal-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -.2px;
+    }
+
+    #joinCommunityModal .crm-modal-subtitle {
+        margin-top: 2px;
+        color: rgba(255, 255, 255, .72);
+        font-size: 12px;
+    }
+
+    #joinCommunityModal .crm-close {
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .10);
+        color: #fff;
+        font-size: 13px;
+        transition: .25s ease;
+    }
+
+    #joinCommunityModal .crm-close:hover {
+        background: rgba(255, 255, 255, .20);
+        transform: rotate(90deg);
+    }
+
+
+    /* =========================================================
+   BODY
+========================================================= */
+
+    #joinCommunityModal .crm-modal-body {
+        padding: 22px;
+        background: #f7f9fc;
+    }
+
+
+    /* =========================================================
+   INTRO
+========================================================= */
+
+    #joinCommunityModal .crm-intro {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 13px 15px;
+        margin-bottom: 18px;
+        border: 1px solid #e5eaf0;
+        border-radius: 11px;
+        background: #fff;
+    }
+
+    #joinCommunityModal .crm-intro-icon {
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9px;
+        background: #eef5fa;
+        color: #08426b;
+    }
+
+    #joinCommunityModal .crm-intro h6 {
+        margin: 0 0 2px;
+        color: #1d2939;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    #joinCommunityModal .crm-intro p {
+        margin: 0;
+        color: #7a8699;
+        font-size: 12px;
+    }
+
+
+    /* =========================================================
+   SECTIONS
+========================================================= */
+
+    #joinCommunityModal .crm-section {
+        padding: 18px;
+        margin-bottom: 15px;
+        background: #fff;
+        border: 1px solid #e6eaf0;
+        border-radius: 13px;
+    }
+
+    #joinCommunityModal .crm-section-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 17px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #edf0f4;
+    }
+
+    #joinCommunityModal .crm-section-icon {
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: #eef5fa;
+        color: #08426b;
+        font-size: 13px;
+    }
+
+    #joinCommunityModal .crm-section-icon.business {
+        background: #fff1ef;
+        color: #b91f16;
+    }
+
+    #joinCommunityModal .crm-section-header h6 {
+        margin: 0;
+        color: #1d2939;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    #joinCommunityModal .crm-section-header small {
+        display: block;
+        margin-top: 2px;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+
+    /* =========================================================
+   LABELS
+========================================================= */
+
+    #joinCommunityModal .crm-label {
+        display: block;
+        margin-bottom: 6px;
+        color: #344054;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    #joinCommunityModal .crm-label span {
+        color: #d92d20;
+    }
+
+    #joinCommunityModal .crm-label small {
+        color: #98a2b3;
+        font-weight: 400;
+    }
+
+
+    /* =========================================================
+   INPUTS
+========================================================= */
+
+    #joinCommunityModal .crm-input-group {
+        position: relative;
+    }
+
+    #joinCommunityModal .crm-input-group>i {
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        z-index: 2;
+        transform: translateY(-50%);
+        color: #98a2b3;
+        font-size: 13px;
+        pointer-events: none;
+        transition: .2s ease;
+    }
+
+    #joinCommunityModal .crm-input {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 12px 10px 38px;
+        border: 1px solid #dfe4ea;
+        border-radius: 9px;
+        background: #fff;
+        color: #344054;
+        font-size: 13px;
+        outline: none;
+        box-shadow: none;
+        transition: all .2s ease;
+    }
+
+    #joinCommunityModal .crm-input::placeholder {
+        color: #a6afbb;
+        font-size: 12px;
+    }
+
+    #joinCommunityModal .crm-input:hover {
+        border-color: #c7ced8;
+    }
+
+    #joinCommunityModal .crm-input:focus {
+        border-color: #08426b;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(8, 66, 107, .08);
+    }
+
+    #joinCommunityModal .crm-input:focus+* {
+        color: #08426b;
+    }
+
+
+    /* Date input */
+    #joinCommunityModal input[type="date"] {
+        color: #667085;
+    }
+
+
+    /* =========================================================
+   SUBMIT AREA
+========================================================= */
+
+    #joinCommunityModal .crm-submit-area {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 3px 2px 0;
+    }
+
+    #joinCommunityModal .crm-security {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+    #joinCommunityModal .crm-security i {
+        color: #12b76a;
+        font-size: 12px;
+    }
+
+
+    /* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+    #joinCommunityModal .crm-submit-btn {
+        min-width: 225px;
+        min-height: 46px;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border: 0;
+        border-radius: 9px;
+        background: linear-gradient(135deg,
+                #08426b,
+                #0b527f);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 5px 14px rgba(8, 66, 107, .18);
+        transition: all .25s ease;
+    }
+
+    #joinCommunityModal .crm-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(8, 66, 107, .25);
+    }
+
+    #joinCommunityModal .crm-submit-arrow {
+        transition: .25s ease;
+        font-size: 12px;
+    }
+
+    #joinCommunityModal .crm-submit-btn:hover .crm-submit-arrow {
+        transform: translateX(4px);
+    }
+
+
+    /* =========================================================
+   MOBILE
+========================================================= */
+
+    @media (max-width: 767.98px) {
+
+        #joinCommunityModal .modal-dialog {
+            margin: 8px;
+        }
+
+        #joinCommunityModal .crm-modal {
+            border-radius: 13px;
+        }
+
+        #joinCommunityModal .crm-modal-header {
+            padding: 15px;
+        }
+
+        #joinCommunityModal .crm-modal-body {
+            padding: 12px;
+        }
+
+        #joinCommunityModal .crm-header-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 15px;
+        }
+
+        #joinCommunityModal .crm-modal-title {
+            font-size: 16px;
+        }
+
+        #joinCommunityModal .crm-modal-subtitle {
+            font-size: 11px;
+        }
+
+        #joinCommunityModal .crm-section {
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        #joinCommunityModal .crm-section-header {
+            margin-bottom: 14px;
+        }
+
+        #joinCommunityModal .crm-intro {
+            padding: 11px;
+            margin-bottom: 12px;
+        }
+
+        #joinCommunityModal .crm-input {
+            min-height: 42px;
+            font-size: 12px;
+        }
+
+        #joinCommunityModal .crm-submit-area {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #joinCommunityModal .crm-security {
+            justify-content: center;
+            order: 2;
+        }
+
+        #joinCommunityModal .crm-submit-btn {
+            width: 100%;
+            order: 1;
+        }
+
+    }
+
+
+    /* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+    @media (max-width: 480px) {
+
+        #joinCommunityModal .crm-modal-header {
+            padding: 13px;
+        }
+
+        #joinCommunityModal .crm-modal-body {
+            padding: 9px;
+        }
+
+        #joinCommunityModal .crm-section {
+            padding: 12px;
+        }
+
+        #joinCommunityModal .crm-label {
+            font-size: 11px;
+        }
+
+        #joinCommunityModal .crm-input {
+            padding-left: 35px;
+        }
+
+        #joinCommunityModal .crm-input::placeholder {
+            font-size: 11px;
+        }
+
+    }
+</style>
+<!-- INCLUDE EAF AUTHENTICATION MODAL (SIGN IN & SIGN UP) -->
+<!-- =========================================================
+     EAF CONNECT – PREMIUM SIGN IN & SIGN UP MODAL
+     Midnight Navy (#101B35) + Champagne Gold (#C6A667)
+========================================================= -->
+
+<div class="modal fade" id="eafAuthModal" tabindex="-1" aria-labelledby="eafAuthModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content eaf-auth-modal-content">
+            
+            <!-- MODAL HEADER -->
+            <div class="eaf-auth-modal-header">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="./images/logo5.png" alt="EAF Connect" class="eaf-auth-logo">
+                        <div>
+                            <h4 class="eaf-auth-brand-title mb-0">EAF <span>CONNECT</span></h4>
+                            <small class="eaf-auth-brand-sub">World Infra Networking</small>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="eaf-auth-close-btn" data-bs-dismiss="modal" aria-label="Close" id="closeEafAuthModalBtn">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+
+                <!-- DUAL AUTHENTICATION TABS -->
+                <div class="eaf-auth-tabs-wrapper mt-3">
+                    <ul class="nav nav-pills eaf-auth-pills" id="eafAuthTabs" role="tablist">
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link active w-100" id="pills-signin-tab" data-bs-toggle="pill" data-bs-target="#pills-signin" type="button" role="tab" aria-controls="pills-signin" aria-selected="true">
+                                <i class="ri-login-box-line me-1"></i> Member Sign In
+                            </button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="pills-signup-tab" data-bs-toggle="pill" data-bs-target="#pills-signup" type="button" role="tab" aria-controls="pills-signup" aria-selected="false">
+                                <i class="ri-user-add-line me-1"></i> Apply for Membership
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MODAL BODY -->
+            <div class="modal-body eaf-auth-modal-body p-4 p-md-4">
+                <div class="tab-content" id="eafAuthTabsContent">
+                    
+                    <!-- ====================================================
+                         TAB 1: SIGN IN (MEMBERS & ADMIN)
+                    ==================================================== -->
+                    <div class="tab-pane fade show active" id="pills-signin" role="tabpanel" aria-labelledby="pills-signin-tab">
+                        <div class="mb-3 text-center text-md-start">
+                            <span class="badge eaf-auth-badge mb-1">MEMBER & EXECUTIVE PORTAL</span>
+                            <h5 class="fw-bold font-family-outfit text-navy mb-1" style="color:#101B35;">Welcome to EAF Connect</h5>
+                            <p class="text-muted fs-7 mb-0">Enter your registered credentials to access your chapter dashboard.</p>
+                        </div>
+
+                        <!-- AJAX / Flash Alert Container -->
+                        <div id="signinAlertContainer">
+                                                                                </div>
+
+                        <form id="eafSignInForm" method="post" action="#" autocomplete="on" onsubmit="alert('This action requires a live server.');return false;">
+                            <input type="hidden" name="csrf_test_name" value="869981263c9c83a9a27013285f19f8b3">
+                            <!-- Email / Username -->
+                            <div class="mb-3">
+                                <label for="auth_email" class="eaf-auth-label">Registered Email / Username <span>*</span></label>
+                                <div class="eaf-auth-input-group">
+                                    <i class="ri-mail-line eaf-auth-input-icon"></i>
+                                    <input type="email" name="email" id="auth_email" class="form-control eaf-auth-input" placeholder="name@company.com" autocomplete="username" required>
+                                </div>
+                            </div>
+
+                            <!-- Password with Show/Hide -->
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <label for="auth_password" class="eaf-auth-label mb-0">Password <span>*</span></label>
+                                    <a href="./contact.html" class="eaf-auth-forgot-link">Forgot Password?</a>
+                                </div>
+                                <div class="eaf-auth-input-group">
+                                    <i class="ri-lock-2-line eaf-auth-input-icon"></i>
+                                    <input type="password" name="password" id="auth_password" class="form-control eaf-auth-input pe-5" placeholder="••••••••" autocomplete="current-password" required>
+                                    <button type="button" class="eaf-auth-eye-btn" onclick="toggleAuthPassword()" aria-label="Toggle password visibility">
+                                        <i class="ri-eye-line" id="authEyeIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Remember Me Checkbox -->
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="authRememberMe" name="remember" value="1" checked>
+                                    <label class="form-check-label text-muted" for="authRememberMe" style="font-size:12px;">
+                                        Keep me signed in on this device
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="btnSignInSubmit" class="eaf-btn eaf-btn-gold w-100 justify-content-center py-2 mb-3">
+                                <span id="btnSignInText"><i class="ri-login-box-line me-1"></i> Sign In to Member Portal</span>
+                            </button>
+
+                            <!-- Switch to Sign Up -->
+                            <div class="text-center pt-2 border-top border-light">
+                                <p class="mb-0 text-muted" style="font-size:13px;">
+                                    Not an approved member yet? 
+                                    <a href="javascript:void(0)" onclick="switchToSignUpTab()" class="fw-bold" style="color:#C6A667; text-decoration:none;">
+                                        Apply for Membership
+                                    </a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <!-- ====================================================
+                         TAB 2: SIGN UP (APPLY FOR MEMBERSHIP)
+                    ==================================================== -->
+                    <div class="tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+                        <div class="mb-3 text-center text-md-start">
+                            <span class="badge eaf-auth-badge mb-1">MEMBERSHIP ADMISSIONS</span>
+                            <h5 class="fw-bold font-family-outfit text-navy mb-1" style="color:#101B35;">Apply for Chapter Membership</h5>
+                            <p class="text-muted fs-7 mb-0">Seats are limited to one business per category per chapter. Complete your application below.</p>
+                        </div>
+
+                        <!-- Alert Container -->
+                        <div id="signupAlertContainer"></div>
+
+                        <form id="eafSignUpForm" method="post" action="#" autocomplete="on" onsubmit="alert('This action requires a live server.');return false;">
+                            <input type="hidden" name="csrf_test_name" value="869981263c9c83a9a27013285f19f8b3">
+                            <div class="row g-2 mb-2">
+                                <!-- First Name -->
+                                <div class="col-md-6">
+                                    <label for="reg_name" class="eaf-auth-label">First Name <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-user-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="name" id="reg_name" class="form-control eaf-auth-input" placeholder="First Name" required>
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-md-6">
+                                    <label for="reg_last_name" class="eaf-auth-label">Last Name <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-user-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="last_name" id="reg_last_name" class="form-control eaf-auth-input" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-2">
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <label for="reg_email" class="eaf-auth-label">Business Email <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-mail-line eaf-auth-input-icon"></i>
+                                        <input type="email" name="email" id="reg_email" class="form-control eaf-auth-input" placeholder="name@business.com" required>
+                                    </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-md-6">
+                                    <label for="reg_phone" class="eaf-auth-label">Mobile / WhatsApp <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-phone-line eaf-auth-input-icon"></i>
+                                        <input type="tel" name="phone" id="reg_phone" class="form-control eaf-auth-input" placeholder="+91 9876543210" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-2">
+                                <!-- Business Name -->
+                                <div class="col-md-6">
+                                    <label for="reg_business" class="eaf-auth-label">Business / Company Name <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-building-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="business" id="reg_business" class="form-control eaf-auth-input" placeholder="e.g. Apex Infra Corp" required>
+                                    </div>
+                                </div>
+
+                                <!-- Business Category -->
+                                <div class="col-md-6">
+                                    <label for="reg_category" class="eaf-auth-label">Category / Specialization <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-price-tag-3-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="category" id="reg_category" class="form-control eaf-auth-input" placeholder="e.g. Architect, CA, IT Solutions" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <!-- Business Location -->
+                                <div class="col-md-4">
+                                    <label for="reg_location" class="eaf-auth-label">City / Location <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-map-pin-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="location" id="reg_location" class="form-control eaf-auth-input" placeholder="e.g. Bengaluru" required>
+                                    </div>
+                                </div>
+
+                                <!-- Business Since Year -->
+                                <div class="col-md-4">
+                                    <label for="reg_since" class="eaf-auth-label">Business Since <span>*</span></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-calendar-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="since" id="reg_since" class="form-control eaf-auth-input" placeholder="e.g. 2018" required>
+                                    </div>
+                                </div>
+
+                                <!-- GST (Optional) -->
+                                <div class="col-md-4">
+                                    <label for="reg_gst" class="eaf-auth-label">GST Number <small class="text-muted">(Optional)</small></label>
+                                    <div class="eaf-auth-input-group">
+                                        <i class="ri-file-text-line eaf-auth-input-icon"></i>
+                                        <input type="text" name="gst" id="reg_gst" class="form-control eaf-auth-input" placeholder="29ABCDE1234F1Z5">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Trust note -->
+                            <div class="p-2 mb-3 rounded-3" style="background:rgba(198,166,103,0.08); border:1px solid rgba(198,166,103,0.25);">
+                                <small class="text-muted d-flex align-items-center gap-2" style="font-size:11px;">
+                                    <i class="ri-shield-check-fill text-warning fs-6"></i>
+                                    <span><strong>Category Exclusivity:</strong> Applications undergo executive committee review to ensure conflict-free category exclusivity.</span>
+                                </small>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="btnSignUpSubmit" class="eaf-btn eaf-btn-gold w-100 justify-content-center py-2 mb-3">
+                                <span id="btnSignUpText"><i class="ri-send-plane-fill me-1"></i> Submit Membership Application</span>
+                            </button>
+
+                            <!-- Switch to Sign In -->
+                            <div class="text-center pt-2 border-top border-light">
+                                <p class="mb-0 text-muted" style="font-size:13px;">
+                                    Already an active member? 
+                                    <a href="javascript:void(0)" onclick="switchToSignInTab()" class="fw-bold" style="color:#C6A667; text-decoration:none;">
+                                        Sign In to Member Portal
+                                    </a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- MODAL FOOTER NOTE -->
+            <div class="eaf-auth-modal-footer text-center py-2 px-3">
+                <small class="text-muted" style="font-size:11px;">
+                    <i class="ri-lock-line me-1"></i> 256-bit SSL Encrypted • EAF Connect Enterprise Platform
+                </small>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     EAF AUTH MODAL STYLING (MATCHING THEME)
+========================================================= -->
+<style>
+/* Backdrop Blur & Overlay */
+.modal-backdrop.show {
+    opacity: 0.82 !important;
+    background-color: #101B35 !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.eaf-auth-modal-content {
+    border: 1px solid rgba(198, 166, 103, 0.45) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 25px 70px rgba(16, 27, 53, 0.5) !important;
+    overflow: hidden;
+    background: #FFFFFF;
+}
+
+.eaf-auth-modal-header {
+    background: linear-gradient(135deg, #101B35 0%, #172B50 100%);
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid rgba(198, 166, 103, 0.3);
+    position: relative;
+}
+
+.eaf-auth-logo {
+    height: 48px;
+    width: auto;
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 3px;
+    border: 1px solid rgba(198, 166, 103, 0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.eaf-auth-brand-title {
+    color: #FFFFFF;
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.eaf-auth-brand-title span {
+    color: #C6A667;
+}
+
+.eaf-auth-brand-sub {
+    color: #94A3B8;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.eaf-auth-close-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.eaf-auth-close-btn:hover {
+    background: #C6A667;
+    color: #101B35;
+    transform: rotate(90deg);
+}
+
+/* Nav Pills inside Header */
+.eaf-auth-tabs-wrapper {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.eaf-auth-pills .nav-link {
+    color: #CBD5E1;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 9px;
+    transition: all 0.2s ease;
+    border: 0;
+}
+
+.eaf-auth-pills .nav-link:hover {
+    color: #FFFFFF;
+}
+
+.eaf-auth-pills .nav-link.active {
+    background: #C6A667 !important;
+    color: #101B35 !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(198, 166, 103, 0.35);
+}
+
+/* Form inputs & styling */
+.eaf-auth-modal-body {
+    background: #FAF9F6;
+    max-height: calc(85vh - 120px);
+    overflow-y: auto;
+}
+
+.eaf-auth-badge {
+    background: rgba(198, 166, 103, 0.15);
+    color: #93712C;
+    border: 1px solid rgba(198, 166, 103, 0.4);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.eaf-auth-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #101B35;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.eaf-auth-label span {
+    color: #DC2626;
+}
+
+.eaf-auth-input-group {
+    position: relative;
+}
+
+.eaf-auth-input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    font-size: 16px;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.eaf-auth-input {
+    min-height: 44px;
+    padding: 8px 14px 8px 40px;
+    border-radius: 9px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    font-size: 13px;
+    color: #101B35;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.eaf-auth-input:focus {
+    border-color: #C6A667;
+    box-shadow: 0 0 0 3px rgba(198, 166, 103, 0.2);
+    background: #FFFFFF;
+    color: #101B35;
+}
+
+.eaf-auth-input:focus ~ .eaf-auth-input-icon {
+    color: #C6A667;
+}
+
+.eaf-auth-eye-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    color: #94A3B8;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.eaf-auth-eye-btn:hover {
+    color: #101B35;
+}
+
+.eaf-auth-forgot-link {
+    font-size: 12px;
+    color: #64748B;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.eaf-auth-forgot-link:hover {
+    color: #C6A667;
+    text-decoration: underline;
+}
+
+.eaf-auth-modal-footer {
+    background: #FFFFFF;
+    border-top: 1px solid #E2E8F0;
+}
+
+@media (max-width: 576px) {
+    .eaf-auth-modal-content {
+        border-radius: 14px !important;
+    }
+    .eaf-auth-modal-header {
+        padding: 16px 16px 12px;
+    }
+    .eaf-auth-modal-body {
+        padding: 16px !important;
+    }
+    .eaf-auth-pills .nav-link {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
+</style>
+
+<!-- =========================================================
+     MODAL CONTROLLER JAVASCRIPT
+========================================================= -->
+<script>
+// Toggle Password Visibility
+function toggleAuthPassword() {
+    const input = document.getElementById('auth_password');
+    const icon = document.getElementById('authEyeIcon');
+    if (!input || !icon) return;
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'ri-eye-off-line';
+    } else {
+        input.type = 'password';
+        icon.className = 'ri-eye-line';
+    }
+}
+
+// Tab Switching Helpers
+function switchToSignInTab() {
+    const tabTrigger = document.querySelector('#pills-signin-tab');
+    if (tabTrigger) {
+        bootstrap.Tab.getOrCreateInstance(tabTrigger).show();
+    }
+}
+
+function switchToSignUpTab() {
+    const tabTrigger = document.querySelector('#pills-signup-tab');
+    if (tabTrigger) {
+        bootstrap.Tab.getOrCreateInstance(tabTrigger).show();
+    }
+}
+
+// Function to Open Modal Programmatically
+function openEafAuthModal(tab = 'signin') {
+    const modalEl = document.getElementById('eafAuthModal');
+    if (!modalEl) return;
+    
+    if (tab === 'signup') {
+        switchToSignUpTab();
+    } else {
+        switchToSignInTab();
+    }
+    
+    const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modalInstance.show();
+}
+
+// Auto-Opening on Page Load for Unauthenticated Visitors
+document.addEventListener('DOMContentLoaded', function() {
+    const modalEl = document.getElementById('eafAuthModal');
+    if (!modalEl) return;
+
+    // Check if user is already authenticated
+    const isAuthenticated = true;
+    if (isAuthenticated) {
+        // Do not display popup if already authenticated
+        return;
+    }
+
+    // Check URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceAuth = urlParams.get('auth') || urlParams.get('signin');
+    const forceSignUp = urlParams.get('signup');
+
+    // If explicit query parameter or first visit
+    if (forceSignUp) {
+        openEafAuthModal('signup');
+    } else if (forceAuth) {
+        openEafAuthModal('signin');
+    } else {
+        // Check session storage
+        const dismissed = sessionStorage.getItem('eaf_auth_modal_dismissed');
+        if (!dismissed) {
+            // First homepage opening: Auto show modal after subtle delay
+            setTimeout(function() {
+                openEafAuthModal('signin');
+            }, 450);
+        }
+    }
+
+    // When modal is closed by user, remember for current session
+    modalEl.addEventListener('hidden.bs.modal', function() {
+        sessionStorage.setItem('eaf_auth_modal_dismissed', 'true');
+    });
+
+    // ── AJAX SIGN IN SUBMISSION ────────────────────────────────
+    const signinForm = document.getElementById('eafSignInForm');
+    if (signinForm) {
+        signinForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSignInSubmit');
+            const btnText = document.getElementById('btnSignInText');
+            const alertBox = document.getElementById('signinAlertContainer');
+
+            btn.disabled = true;
+            btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Authenticating...';
+
+            const formData = new FormData(signinForm);
+
+            fetch('javascript:void(0)', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                btn.disabled = false;
+                btnText.innerHTML = '<i class="ri-login-box-line me-1"></i> Sign In to Member Portal';
+
+                if (data.status === 'success') {
+                    alertBox.innerHTML = `
+                        <div class="alert alert-success border-0 rounded-3 py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size:13px;">
+                            <i class="ri-checkbox-circle-fill text-success fs-5"></i>
+                            <span>${data.message || 'Login successful! Redirecting...'}</span>
+                        </div>
+                    `;
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 600);
+                } else {
+                    alertBox.innerHTML = `
+                        <div class="alert alert-danger border-0 rounded-3 py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size:13px;">
+                            <i class="ri-error-warning-fill text-danger fs-5"></i>
+                            <span>${data.message || 'Invalid email or password.'}</span>
+                        </div>
+                    `;
+                }
+            })
+            .catch(err => {
+                // If running on static staging preview (e.g. ship.place) or local file demo:
+                const isStaticPreview = window.location.hostname.includes('ship.place') || window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+                if (isStaticPreview) {
+                    btn.disabled = false;
+                    btnText.innerHTML = '<i class="ri-login-box-line me-1"></i> Sign In to Member Portal';
+                    alertBox.innerHTML = `
+                        <div class="alert alert-success border-0 rounded-3 py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size:13px;">
+                            <i class="ri-checkbox-circle-fill text-success fs-5"></i>
+                            <span>Preview Demo: Authenticated! Redirecting to Member Dashboard...</span>
+                        </div>
+                    `;
+                    setTimeout(() => {
+                        window.location.href = 'member/dashboard.html';
+                    }, 600);
+                } else {
+                    // Fallback to standard form submission if on live/XAMPP server
+                    signinForm.submit();
+                }
+            });
+        });
+    }
+
+    // ── AJAX SIGN UP (MEMBERSHIP APPLICATION) SUBMISSION ────────
+    const signupForm = document.getElementById('eafSignUpForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSignUpSubmit');
+            const btnText = document.getElementById('btnSignUpText');
+            const alertBox = document.getElementById('signupAlertContainer');
+
+            btn.disabled = true;
+            btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Submitting Application...';
+
+            const formData = new FormData(signupForm);
+
+            fetch('javascript:void(0)', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                btn.disabled = false;
+                btnText.innerHTML = '<i class="ri-send-plane-fill me-1"></i> Submit Membership Application';
+
+                if (data.status === 'success') {
+                    signupForm.reset();
+                    alertBox.innerHTML = `
+                        <div class="alert alert-success border-0 rounded-3 py-3 px-3 mb-3" style="font-size:13px; background:#EFFCF6; border-left:4px solid #12B76A !important;">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <i class="ri-checkbox-circle-fill text-success fs-5"></i>
+                                <strong style="color:#027A48;">Application Received!</strong>
+                            </div>
+                            <div style="color:#027A48; line-height:1.5;">${data.message}</div>
+                        </div>
+                    `;
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Application Submitted',
+                            text: data.message,
+                            confirmButtonColor: '#C6A667'
+                        });
+                    }
+                } else {
+                    alertBox.innerHTML = `
+                        <div class="alert alert-danger border-0 rounded-3 py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size:13px;">
+                            <i class="ri-error-warning-fill text-danger fs-5"></i>
+                            <span>${data.message || 'Unable to submit application. Please check all fields.'}</span>
+                        </div>
+                    `;
+                }
+            })
+            .catch(err => {
+                const isStaticPreview = window.location.hostname.includes('ship.place') || window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+                if (isStaticPreview) {
+                    btn.disabled = false;
+                    btnText.innerHTML = '<i class="ri-send-plane-fill me-1"></i> Submit Membership Application';
+                    signupForm.reset();
+                    alertBox.innerHTML = `
+                        <div class="alert alert-success border-0 rounded-3 py-3 px-3 mb-3" style="font-size:13px; background:#EFFCF6; border-left:4px solid #12B76A !important;">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <i class="ri-checkbox-circle-fill text-success fs-5"></i>
+                                <strong style="color:#027A48;">Application Received (Preview Demo)!</strong>
+                            </div>
+                            <div style="color:#027A48; line-height:1.5;">Your membership application was demonstrated successfully. In the live portal, this submits to the Chapter Executive Committee.</div>
+                        </div>
+                    `;
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Application Received (Demo)',
+                            text: 'Your membership application was demonstrated successfully.',
+                            confirmButtonColor: '#C6A667'
+                        });
+                    }
+                } else {
+                    signupForm.submit();
+                }
+            });
+        });
+    }
+});
+</script>
+
+
+
+</body>
+</html>
+

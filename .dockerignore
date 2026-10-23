@@ -1,0 +1,17 @@
+.git
+.github
+*.zip
+*.tar.gz
+tests
+phpunit.xml.dist
+README.md
+.env.backup
+.DS_Store
+Thumbs.db
+eaf_mobile/
+eaf_connect_webview/
+writable/cache/*
+writable/session/*
+writable/logs/*
+uploads/portfolios/*.pptx
+
