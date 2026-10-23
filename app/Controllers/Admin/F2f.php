@@ -294,7 +294,17 @@ class F2f extends BaseController
         $users = $model->findAll();
 
         if (empty($users)) {
-            return '<div class="alert alert-warning text-center">No 121 found.</div>';
+            return '<tr>
+                <td colspan="8" class="text-center py-5">
+                    <div class="d-flex flex-column align-items-center justify-content-center py-3">
+                        <div style="width:54px; height:54px; border-radius:50%; background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:24px; margin-bottom:12px;">
+                            <i class="ri-calendar-event-line"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size:15px;">No F2F Meetings Found</h6>
+                        <p class="text-muted mb-0" style="font-size:13px;">There are no One-to-One records matching your search or filter criteria.</p>
+                    </div>
+                </td>
+            </tr>';
         }
 
         $output = '';

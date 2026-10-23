@@ -1,39 +1,24 @@
-
+<!-- DEBUG-VIEW START 11 APPPATH\Views\member\f2f.php -->
 <!doctype html>
 <html lang="en">
 
 <head>
-<script>
-    // Live Backend Auto-Bridge: Route static preview hits into dynamic CodeIgniter backend
-    (function() {
-        if (window.location.protocol.startsWith("http")) {
-            var path = window.location.pathname;
-            var idx = path.indexOf("/preview/");
-            var base = idx !== -1 ? path.substring(0, idx) : "";
-            var p = path.split("/").pop().replace(".html", "");
-            if (!p || p === "index") p = "dashboard";
-            window.location.replace(base + "/preview/" + encodeURIComponent(p));
-        }
-    })();
-</script>
-
-
     <meta charset="utf-8" />
     <title>F2F </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../images/logo5.png">
-    <link href="../assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
-    <script src="../assets2/js/layout.js"></script>
-    <link href="../assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <link href="../assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="http://localhost/eaf/images/logo5.png">
+    <link href="http://localhost/eaf/assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://localhost/eaf/assets2/js/layout.js"></script>
+    <link href="http://localhost/eaf/assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/eaf/assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://localhost/eaf/assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Google Fonts & Master KVV/BNI Revamp Theme -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=3.0">
+    <link rel="stylesheet" href="http://localhost/eaf/assets2/css/eaf-revamp.css?v=3.0">
     <style>
         /* =========================================================
    FILTER BAR
@@ -212,6 +197,12 @@
         .status.scheduled {
             background: #cce5ff;
             color: #004085;
+        }
+
+        .status.re-scheduled,
+        .status.rescheduled {
+            background: #fff3cd;
+            color: #856404;
         }
 
         .status.active {
@@ -786,15 +777,15 @@
 <body data-sidebar="colored">
     <!-- Begin page -->
     <div id="layout-wrapper">
-        
+        <!-- DEBUG-VIEW START 1 APPPATH\Views\include\member\header.php -->
 
 <!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
-<link rel="stylesheet" href="../assets2/css/eaf-design-system.css?v=5.0">
-<link rel="stylesheet" href="../assets2/css/eaf-revamp.css?v=5.0">
+<link rel="stylesheet" href="http://localhost/eaf/assets2/css/eaf-design-system.css?v=5.0">
+<link rel="stylesheet" href="http://localhost/eaf/assets2/css/eaf-revamp.css?v=5.0">
 
 <header id="page-topbar">
     <div class="navbar-header">
@@ -806,15 +797,15 @@
 
             <!-- KVV Member Profile Header Widget -->
             <div class="kvv-header-user-block">
-                <a href="profile.html">
-                    <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
+                <a href="http://localhost/eaf/member/profile">
+                    <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" 
                          alt="Harri Kumar" 
                          class="kvv-header-avatar"
-                         onerror="this.onerror=null; this.src='../images/empty.png';">
+                         onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png';">
                 </a>
                 <div class="kvv-header-user-info">
                     <div class="kvv-header-name">
-                        <a href="profile.html" style="color:inherit;text-decoration:none;">
+                        <a href="http://localhost/eaf/member/profile" style="color:inherit;text-decoration:none;">
                             Harri Kumar <span class="kvv-name-divider">|</span> Chapter 2                        </a>
                     </div>
                     <div class="kvv-header-sub">
@@ -829,7 +820,7 @@
         <div class="d-flex align-items-center gap-2">
             <!-- Notifications Dropdown -->
             <div class="dropdown d-inline-block">
-                <a href="notifications.html" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                <a href="http://localhost/eaf/member/notifications" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
                     <i class="ri-notification-3-line font-size-20"></i>
                                     </a>
             </div>
@@ -841,27 +832,27 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
                     <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
-                        <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
+                        <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg"
                              class="rounded-circle shadow-sm"
                              alt="Profile Image"
                              width="64" height="64"
                              style="object-fit:cover; object-position:top center; border: 2px solid #C6A667;"
-                             onerror="this.onerror=null; this.src='../images/empty.png';">
+                             onerror="this.onerror=null; this.src='http://localhost/eaf/images/empty.png';">
                         <h6 class="mt-2 mb-0 fw-bold" style="color:#ffffff;">
                             Harri Kumar                        </h6>
                         <small class="text-white-50">Chapter 2 • President</small>
                     </div>
                     <div class="p-2">
-                        <a href="profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                        <a href="http://localhost/eaf/member/profile" class="dropdown-item d-flex align-items-center rounded-3 py-2">
                             <i class="ri-user-line fs-5 text-warning me-2"></i>
                             <span>My Profile</span>
                         </a>
-                        <a href="profile.html" class="dropdown-item d-flex align-items-center rounded-3 py-2">
+                        <a href="http://localhost/eaf/member/profile" class="dropdown-item d-flex align-items-center rounded-3 py-2">
                             <i class="ri-lock-password-line fs-5 text-primary me-2"></i>
                             <span>Account Settings</span>
                         </a>
                         <hr class="my-2">
-                        <a href="member_login.html" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
+                        <a href="http://localhost/eaf/logout" class="dropdown-item d-flex align-items-center rounded-3 py-2 text-danger">
                             <i class="ri-logout-box-r-line fs-5 me-2"></i>
                             <span>Logout</span>
                         </a>
@@ -879,7 +870,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url("../images/logo5.png") no-repeat center;
+        background: url("http://localhost/eaf/images/logo5.png") no-repeat center;
         background-size: 320px;
         opacity: 0.02;
         z-index: 0;
@@ -891,13 +882,13 @@
         z-index: 1;
     }
 </style>
-
-        
+<!-- DEBUG-VIEW ENDED 1 APPPATH\Views\include\member\header.php -->
+        <!-- DEBUG-VIEW START 2 APPPATH\Views\include\member\sidebar.php -->
 <div class="vertical-menu">
     <!-- LOGO / BRAND (EAF Connect Official Logo) -->
     <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
-        <a href="dashboard.html" class="d-flex align-items-center gap-2" style="text-decoration:none;">
-            <img src="../images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='../images/logo6.png'">
+        <a href="http://localhost/eaf/member/dashboard" class="d-flex align-items-center gap-2" style="text-decoration:none;">
+            <img src="http://localhost/eaf/images/logo5.png" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='http://localhost/eaf/images/logo6.png'">
             <div style="display:flex; flex-direction:column; line-height:1.15;">
                 <span style="font-size:18px; font-weight:800; color:#101B35; letter-spacing:-0.3px; font-family:'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;">
                     EAF <span style="color:#C6A667; font-weight:700; font-size:16px;">Connect</span>
@@ -919,8 +910,8 @@
         <div id="sidebar-menu" style="padding: 12px 0 30px 0;">
             <ul class="metismenu list-unstyled" id="side-menu">
                 <!-- 1. Dashboard -->
-                <li class="">
-                    <a href="dashboard.html" class="waves-effect ">
+                <li class="mm-active">
+                    <a href="http://localhost/eaf/member/dashboard" class="waves-effect active">
                         <i class="ri-dashboard-3-line"></i>
                         <span>Dashboard</span>
                     </a>
@@ -928,7 +919,7 @@
 
                 <!-- 2. My Profile -->
                 <li class="">
-                    <a href="profile.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/profile" class="waves-effect ">
                         <i class="ri-user-3-line"></i>
                         <span>My Profile</span>
                     </a>
@@ -936,15 +927,15 @@
 
                 <!-- 3. Connects (EAF Wordings) -->
                 <li class="">
-                    <a href="connect.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/connect" class="waves-effect ">
                         <i class="ri-shake-hands-line"></i>
                         <span>Connects</span>
                     </a>
                 </li>
 
                 <!-- 4. F2F (1-to-1) -->
-                <li class="mm-active">
-                    <a href="f2f.html" class="waves-effect active">
+                <li class="">
+                    <a href="http://localhost/eaf/member/f2f" class="waves-effect ">
                         <i class="ri-group-line"></i>
                         <span>F2F</span>
                     </a>
@@ -952,7 +943,7 @@
 
                 <!-- 5. MITB -->
                 <li class="">
-                    <a href="mitb.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/mitb" class="waves-effect ">
                         <i class="ri-money-rupee-circle-line"></i>
                         <span>MITB</span>
                     </a>
@@ -960,7 +951,7 @@
 
                 <!-- 6. Search -->
                 <li class="">
-                    <a href="search.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/search" class="waves-effect ">
                         <i class="ri-search-line"></i>
                         <span>Search</span>
                     </a>
@@ -968,7 +959,7 @@
 
                 <!-- 7. My Attendance -->
                 <li class="">
-                    <a href="my_attendance.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/my_attendance" class="waves-effect ">
                         <i class="ri-calendar-check-line"></i>
                         <span>My Attendance</span>
                     </a>
@@ -976,7 +967,7 @@
 
                 <!-- 8. Top Performers -->
                 <li class="">
-                    <a href="topperformer.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/topperformer" class="waves-effect ">
                         <i class="ri-bar-chart-2-line"></i>
                         <span>Top Performers</span>
                     </a>
@@ -984,7 +975,7 @@
 
                 <!-- 9. Chapter Meetings -->
                 <li class="">
-                    <a href="meetings.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/meetings" class="waves-effect ">
                         <i class="ri-video-chat-line"></i>
                         <span>Chapter Meetings</span>
                     </a>
@@ -992,7 +983,7 @@
 
                 <!-- 10. My Chapter -->
                 <li class="">
-                    <a href="mychapter.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/mychapter" class="waves-effect ">
                         <i class="ri-building-line"></i>
                         <span>My Chapter</span>
                     </a>
@@ -1000,7 +991,7 @@
 
                 <!-- 11. All Chapters -->
                 <li class="">
-                    <a href="chapter.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/chapter" class="waves-effect ">
                         <i class="ri-community-line"></i>
                         <span>All Chapters</span>
                     </a>
@@ -1008,7 +999,7 @@
 
                 <!-- 12. Visitor Tracking -->
                 <li class="">
-                    <a href="visitor.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/visitor" class="waves-effect ">
                         <i class="ri-user-follow-line"></i>
                         <span>Visitor Tracking</span>
                     </a>
@@ -1016,7 +1007,7 @@
 
                 <!-- 13. Notifications -->
                 <li class="">
-                    <a href="notifications.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/notifications" class="waves-effect ">
                         <i class="ri-notification-3-line"></i>
                         <span>Notifications</span>
                     </a>
@@ -1024,7 +1015,7 @@
 
                 <!-- 14. Broadcast -->
                 <li class="">
-                    <a href="broadcast.html" class="waves-effect ">
+                    <a href="http://localhost/eaf/member/broadcast" class="waves-effect ">
                         <i class="ri-broadcast-line"></i>
                         <span>Broadcast</span>
                     </a>
@@ -1043,7 +1034,7 @@
 
                 <!-- 16. Logout (Red Accent at bottom) -->
                 <li style="margin-top: 14px; padding-top: 10px; border-top: 1px solid #F1F5F9;">
-                    <a href="member_login.html" class="waves-effect logout-menu" style="color: #DC2626 !important;">
+                    <a href="http://localhost/eaf/logout" class="waves-effect logout-menu" style="color: #DC2626 !important;">
                         <i class="ri-logout-box-r-line" style="color: #DC2626 !important;"></i>
                         <span style="color: #DC2626 !important; font-weight:600;">Logout</span>
                     </a>
@@ -1053,7 +1044,7 @@
     </div>
 </div>
 <!-- Left Sidebar End -->
-
+<!-- DEBUG-VIEW ENDED 2 APPPATH\Views\include\member\sidebar.php -->
         <div class="main-content">
             <div class="page-content">
                 <div class="row p-2">
@@ -1278,7 +1269,7 @@
                                             <option value="">Select Status</option>
                                             <option value="scheduled">Scheduled</option>
                                             <option value="completed">Completed</option>
-                                            <option value="Re-scheduled">Re-scheduled</option>
+                                            <option value="re-scheduled">Re-scheduled</option>
                                             <option value="cancelled">Cancelled</option>
                                         </select>
                                     </div>
@@ -1288,143 +1279,35 @@
                                         <label class="fw-bold">Member With👤</label>
                                         <select name="to_user" class="form-select" id="to_user">
                                             <option value="">-- Select Member --</option>
-                                                                                            <option value="5">
-                                                    Harri Kumar (Chapter 2)
+                                                                                            <option value="USR00001">
+                                                    Yoginath (Chapter 1)
                                                 </option>
-                                                                                            <option value="6">
-                                                    Sagar Dhongady (Chapter 1)
+                                                                                            <option value="76">
+                                                    Umashankar P (Chapter 1)
                                                 </option>
-                                                                                            <option value="8">
-                                                    Vinod K (Chapter 2)
+                                                                                            <option value="70">
+                                                    RAHUL KULLOLLI (Chapter 1)
                                                 </option>
-                                                                                            <option value="9">
-                                                    Sayed Asif  (Chapter 2)
+                                                                                            <option value="69">
+                                                    Bruno Vincent (Chapter 1)
                                                 </option>
-                                                                                            <option value="10">
-                                                    Arpitha B (Chapter 2)
+                                                                                            <option value="68">
+                                                    G. L.YEDUKISHORE (Chapter 1)
                                                 </option>
-                                                                                            <option value="12">
-                                                    Praveen Kumar C H  (Chapter 2)
+                                                                                            <option value="67">
+                                                    YOGESH MEHTA (Chapter 1)
                                                 </option>
-                                                                                            <option value="17">
-                                                    VENKATESH G P (Chapter 2)
+                                                                                            <option value="66">
+                                                    Dr. G VIJAY KUMAR YADHAV (B.V.A , M.V.A) (Chapter 1)
                                                 </option>
-                                                                                            <option value="18">
-                                                    Ravi Shankar  (Chapter 2)
+                                                                                            <option value="65">
+                                                    VINAY K N (Chapter 1)
                                                 </option>
-                                                                                            <option value="19">
-                                                    Kashi Lohar (Chapter 2)
+                                                                                            <option value="64">
+                                                    VEERU ACHAR KM (Chapter 1)
                                                 </option>
-                                                                                            <option value="22">
-                                                    THEJA MURTHY. M. S. (Chapter 2)
-                                                </option>
-                                                                                            <option value="23">
-                                                    AMAR V MEHARWADE (Chapter 1)
-                                                </option>
-                                                                                            <option value="24">
-                                                    ARUN SAINATH (Chapter 1)
-                                                </option>
-                                                                                            <option value="25">
-                                                    ARPITA (Chapter 1)
-                                                </option>
-                                                                                            <option value="26">
-                                                    ASHA A N (Chapter 1)
-                                                </option>
-                                                                                            <option value="27">
-                                                    BALESH SHIRAGAONKAR (Chapter 1)
-                                                </option>
-                                                                                            <option value="28">
-                                                    Dr. BALASUBRAHMANYA H.V. (Chapter 1)
-                                                </option>
-                                                                                            <option value="29">
-                                                    CHIDAMBAR JOSHI (Chapter 1)
-                                                </option>
-                                                                                            <option value="30">
-                                                    DAKSHA KUMAR TL (Chapter 1)
-                                                </option>
-                                                                                            <option value="31">
-                                                    DILEEP KUMAR D (Chapter 1)
-                                                </option>
-                                                                                            <option value="32">
-                                                    DEEPAK AGARWAL (Chapter 1)
-                                                </option>
-                                                                                            <option value="34">
-                                                    JAY MENON (Chapter 1)
-                                                </option>
-                                                                                            <option value="35">
-                                                    KARUNAKAR RAO L. (Chapter 1)
-                                                </option>
-                                                                                            <option value="36">
-                                                    KESHAVA K C (Chapter 1)
-                                                </option>
-                                                                                            <option value="37">
-                                                    KRISHNA CHOUDHARY (Chapter 1)
-                                                </option>
-                                                                                            <option value="38">
-                                                    KUMARA (Chapter 1)
-                                                </option>
-                                                                                            <option value="39">
-                                                    MOUNESH (Chapter 1)
-                                                </option>
-                                                                                            <option value="40">
-                                                    MIR FAHEEM (Chapter 1)
-                                                </option>
-                                                                                            <option value="41">
-                                                    NAGESH B C (Chapter 1)
-                                                </option>
-                                                                                            <option value="42">
-                                                    NANDA KUMAR (Chapter 1)
-                                                </option>
-                                                                                            <option value="43">
-                                                    NIHAS R PRASAD (Chapter 1)
-                                                </option>
-                                                                                            <option value="44">
-                                                    NAGRAJ K E (Chapter 1)
-                                                </option>
-                                                                                            <option value="45">
-                                                    NEELAKANTAPPA (Chapter 1)
-                                                </option>
-                                                                                            <option value="46">
-                                                    PRAKASH REDDY N P (Chapter 1)
-                                                </option>
-                                                                                            <option value="47">
-                                                    PRASANNA KUMAR M (Chapter 1)
-                                                </option>
-                                                                                            <option value="48">
-                                                    PRADEEP RAO M S (Chapter 1)
-                                                </option>
-                                                                                            <option value="50">
-                                                    RAMDAS M (Nirmal) (Chapter 1)
-                                                </option>
-                                                                                            <option value="51">
-                                                    RITANJALI SHIVASHANKAR (Chapter 1)
-                                                </option>
-                                                                                            <option value="52">
-                                                    SASI K NAMBIAR (Chapter 1)
-                                                </option>
-                                                                                            <option value="53">
-                                                    SATISH S (Chapter 1)
-                                                </option>
-                                                                                            <option value="54">
-                                                    SANJAY GU (Chapter 1)
-                                                </option>
-                                                                                            <option value="55">
-                                                    SANJANA ANAND (Chapter 1)
-                                                </option>
-                                                                                            <option value="56">
-                                                    SHASHI BUSHAN (Chapter 1)
-                                                </option>
-                                                                                            <option value="57">
-                                                    SETHURAM N (Chapter 1)
-                                                </option>
-                                                                                            <option value="58">
-                                                    SINGAM AMRUTHAM (Chapter 1)
-                                                </option>
-                                                                                            <option value="59">
-                                                    SRINIVASA N (Chapter 1)
-                                                </option>
-                                                                                            <option value="60">
-                                                    SRINVASA V P (Chapter 1)
+                                                                                            <option value="63">
+                                                    TEJASS G (Chapter 1)
                                                 </option>
                                                                                             <option value="62">
                                                     SUCHARITHA N (Chapter 1)
@@ -1432,80 +1315,188 @@
                                                                                             <option value="62">
                                                     Suma A G E (Chapter 1)
                                                 </option>
-                                                                                            <option value="63">
-                                                    TEJASS G (Chapter 1)
+                                                                                            <option value="60">
+                                                    SRINVASA V P (Chapter 1)
                                                 </option>
-                                                                                            <option value="64">
-                                                    VEERU ACHAR KM (Chapter 1)
+                                                                                            <option value="59">
+                                                    SRINIVASA N (Chapter 1)
                                                 </option>
-                                                                                            <option value="65">
-                                                    VINAY K N (Chapter 1)
+                                                                                            <option value="58">
+                                                    SINGAM AMRUTHAM (Chapter 1)
                                                 </option>
-                                                                                            <option value="66">
-                                                    Dr. G VIJAY KUMAR YADHAV (B.V.A , M.V.A) (Chapter 1)
+                                                                                            <option value="57">
+                                                    SETHURAM N (Chapter 1)
                                                 </option>
-                                                                                            <option value="67">
-                                                    YOGESH MEHTA (Chapter 1)
+                                                                                            <option value="56">
+                                                    SHASHI BUSHAN (Chapter 1)
                                                 </option>
-                                                                                            <option value="68">
-                                                    G. L.YEDUKISHORE (Chapter 1)
+                                                                                            <option value="55">
+                                                    SANJANA ANAND (Chapter 1)
                                                 </option>
-                                                                                            <option value="69">
-                                                    Bruno Vincent (Chapter 1)
+                                                                                            <option value="54">
+                                                    SANJAY GU (Chapter 1)
                                                 </option>
-                                                                                            <option value="70">
-                                                    RAHUL KULLOLLI (Chapter 1)
+                                                                                            <option value="53">
+                                                    SATISH S (Chapter 1)
                                                 </option>
-                                                                                            <option value="72">
-                                                    Keerthi Shree K (Chapter 2)
+                                                                                            <option value="52">
+                                                    SASI K NAMBIAR (Chapter 1)
                                                 </option>
-                                                                                            <option value="75">
-                                                    Anand B C (Chapter 2)
+                                                                                            <option value="51">
+                                                    RITANJALI SHIVASHANKAR (Chapter 1)
                                                 </option>
-                                                                                            <option value="76">
-                                                    Umashankar P (Chapter 1)
+                                                                                            <option value="50">
+                                                    RAMDAS M (Nirmal) (Chapter 1)
                                                 </option>
-                                                                                            <option value="78">
-                                                    Mr Prashant Katigar (Chapter 2)
+                                                                                            <option value="48">
+                                                    PRADEEP RAO M S (Chapter 1)
                                                 </option>
-                                                                                            <option value="79">
-                                                    Dhakkshinya (Chapter 2)
+                                                                                            <option value="47">
+                                                    PRASANNA KUMAR M (Chapter 1)
                                                 </option>
-                                                                                            <option value="80">
-                                                    D Revanna (Chapter 2)
+                                                                                            <option value="46">
+                                                    PRAKASH REDDY N P (Chapter 1)
                                                 </option>
-                                                                                            <option value="81">
-                                                    Sandeep G (Chapter 2)
+                                                                                            <option value="45">
+                                                    NEELAKANTAPPA (Chapter 1)
                                                 </option>
-                                                                                            <option value="82">
-                                                    Gokul Raj (Chapter 2)
+                                                                                            <option value="44">
+                                                    NAGRAJ K E (Chapter 1)
                                                 </option>
-                                                                                            <option value="83">
-                                                    Guruprasanna S (Chapter 2)
+                                                                                            <option value="43">
+                                                    NIHAS R PRASAD (Chapter 1)
                                                 </option>
-                                                                                            <option value="84">
-                                                    SRINIVAS THATIKONDA  (Chapter 2)
+                                                                                            <option value="42">
+                                                    NANDA KUMAR (Chapter 1)
                                                 </option>
-                                                                                            <option value="85">
-                                                    Kumar B (Chapter 2)
+                                                                                            <option value="41">
+                                                    NAGESH B C (Chapter 1)
                                                 </option>
-                                                                                            <option value="87">
-                                                    shylaja s. J. (Chapter 2)
+                                                                                            <option value="40">
+                                                    MIR FAHEEM (Chapter 1)
                                                 </option>
-                                                                                            <option value="USR00001">
-                                                    Yoginath (Chapter 1)
+                                                                                            <option value="39">
+                                                    MOUNESH (Chapter 1)
                                                 </option>
-                                                                                            <option value="USR00003">
-                                                     Sandeep Srikande (Chapter 2)
+                                                                                            <option value="38">
+                                                    KUMARA (Chapter 1)
                                                 </option>
-                                                                                            <option value="USR00004">
-                                                    Ajay R (Chapter 2)
+                                                                                            <option value="37">
+                                                    KRISHNA CHOUDHARY (Chapter 1)
+                                                </option>
+                                                                                            <option value="36">
+                                                    KESHAVA K C (Chapter 1)
+                                                </option>
+                                                                                            <option value="35">
+                                                    KARUNAKAR RAO L. (Chapter 1)
+                                                </option>
+                                                                                            <option value="34">
+                                                    JAY MENON (Chapter 1)
+                                                </option>
+                                                                                            <option value="32">
+                                                    DEEPAK AGARWAL (Chapter 1)
+                                                </option>
+                                                                                            <option value="31">
+                                                    DILEEP KUMAR D (Chapter 1)
+                                                </option>
+                                                                                            <option value="30">
+                                                    DAKSHA KUMAR TL (Chapter 1)
+                                                </option>
+                                                                                            <option value="29">
+                                                    CHIDAMBAR JOSHI (Chapter 1)
+                                                </option>
+                                                                                            <option value="28">
+                                                    Dr. BALASUBRAHMANYA H.V. (Chapter 1)
+                                                </option>
+                                                                                            <option value="27">
+                                                    BALESH SHIRAGAONKAR (Chapter 1)
+                                                </option>
+                                                                                            <option value="26">
+                                                    ASHA A N (Chapter 1)
+                                                </option>
+                                                                                            <option value="25">
+                                                    ARPITA (Chapter 1)
+                                                </option>
+                                                                                            <option value="24">
+                                                    ARUN SAINATH (Chapter 1)
+                                                </option>
+                                                                                            <option value="23">
+                                                    AMAR V MEHARWADE (Chapter 1)
+                                                </option>
+                                                                                            <option value="6">
+                                                    Sagar Dhongady (Chapter 1)
+                                                </option>
+                                                                                            <option value="USR00008">
+                                                    Rathi H R  (Chapter 2)
                                                 </option>
                                                                                             <option value="USR00007">
                                                     Shwetha  (Chapter 2)
                                                 </option>
-                                                                                            <option value="USR00008">
-                                                    Rathi H R  (Chapter 2)
+                                                                                            <option value="USR00004">
+                                                    Ajay R (Chapter 2)
+                                                </option>
+                                                                                            <option value="USR00003">
+                                                     Sandeep Srikande (Chapter 2)
+                                                </option>
+                                                                                            <option value="82">
+                                                    Gokul Raj (Chapter 2)
+                                                </option>
+                                                                                            <option value="87">
+                                                    shylaja s. J. (Chapter 2)
+                                                </option>
+                                                                                            <option value="85">
+                                                    Kumar B (Chapter 2)
+                                                </option>
+                                                                                            <option value="84">
+                                                    SRINIVAS THATIKONDA  (Chapter 2)
+                                                </option>
+                                                                                            <option value="83">
+                                                    Guruprasanna S (Chapter 2)
+                                                </option>
+                                                                                            <option value="81">
+                                                    Sandeep G (Chapter 2)
+                                                </option>
+                                                                                            <option value="80">
+                                                    D Revanna (Chapter 2)
+                                                </option>
+                                                                                            <option value="79">
+                                                    Dhakkshinya (Chapter 2)
+                                                </option>
+                                                                                            <option value="78">
+                                                    Mr Prashant Katigar (Chapter 2)
+                                                </option>
+                                                                                            <option value="75">
+                                                    Anand B C (Chapter 2)
+                                                </option>
+                                                                                            <option value="72">
+                                                    Keerthi Shree K (Chapter 2)
+                                                </option>
+                                                                                            <option value="22">
+                                                    THEJA MURTHY. M. S. (Chapter 2)
+                                                </option>
+                                                                                            <option value="19">
+                                                    Kashi Lohar (Chapter 2)
+                                                </option>
+                                                                                            <option value="18">
+                                                    Ravi Shankar  (Chapter 2)
+                                                </option>
+                                                                                            <option value="17">
+                                                    VENKATESH G P (Chapter 2)
+                                                </option>
+                                                                                            <option value="12">
+                                                    Praveen Kumar C H  (Chapter 2)
+                                                </option>
+                                                                                            <option value="10">
+                                                    Arpitha B (Chapter 2)
+                                                </option>
+                                                                                            <option value="9">
+                                                    Sayed Asif  (Chapter 2)
+                                                </option>
+                                                                                            <option value="8">
+                                                    Vinod K (Chapter 2)
+                                                </option>
+                                                                                            <option value="5">
+                                                    Harri Kumar (Chapter 2)
                                                 </option>
                                                                                     </select>
                                     </div>
@@ -1532,11 +1523,11 @@
                 <div class="container-fluid mt-1">
                     <!-- ================= TABS ================= -->
                     <div class="f2f-tabs mb-3">
-                        <a href="f2f.html"
+                        <a href="http://localhost/eaf/index.php/?tab=initiated_by_me"
                             class="tab-btn active">
                             <i class="fa fa-user"></i> Initiated By Me
                         </a>
-                        <a href="f2f.html"
+                        <a href="http://localhost/eaf/index.php/?tab=initiated_with_me"
                             class="tab-btn ">
                             <i class="fa fa-users"></i> Initiated With Me
                         </a>
@@ -1563,7 +1554,7 @@
                                 
                                     
                                     
-                                        
+                                        <!-- DEBUG-VIEW START 3 APPPATH\Views\include\member\card\f2f_card.php -->
 <tr>
 
     <td>1</td>
@@ -1571,7 +1562,7 @@
     <!-- FROM -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
             <div>
                 <div class="name">Harri Kumar</div>
                 <small>harri@jobhunterr.com</small>
@@ -1582,7 +1573,7 @@
     <!-- TO -->
     <td>
         <div class="member-cell">
-            <img src="../images/empty.png" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
+            <img src="http://localhost/eaf/images/empty.png" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
             <div>
                 <div class="name">Praveen Kumar C H </div>
                 <small>Constructions.masterclass@gmail.com</small>
@@ -1595,8 +1586,8 @@
     <td>25 Jun 2026</td>
 
     <td>
-                <span class="status pending">
-                    </span>
+                <span class="status scheduled">
+            Scheduled        </span>
     </td>
 
     <td>
@@ -1610,11 +1601,11 @@
             </td>
 
 </tr>
-
+<!-- DEBUG-VIEW ENDED 3 APPPATH\Views\include\member\card\f2f_card.php -->
 
                                         
                                     
-                                        
+                                        <!-- DEBUG-VIEW START 4 APPPATH\Views\include\member\card\f2f_card.php -->
 <tr>
 
     <td>2</td>
@@ -1622,7 +1613,7 @@
     <!-- FROM -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
             <div>
                 <div class="name">Harri Kumar</div>
                 <small>harri@jobhunterr.com</small>
@@ -1633,7 +1624,7 @@
     <!-- TO -->
     <td>
         <div class="member-cell">
-            <img src="../images/empty.png" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
+            <img src="http://localhost/eaf/images/empty.png" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
             <div>
                 <div class="name">Ravi Shankar </div>
                 <small>ravishankargiri5@gmail.com</small>
@@ -1646,8 +1637,8 @@
     <td>19 Feb 2026</td>
 
     <td>
-                <span class="status pending">
-                    </span>
+                <span class="status scheduled">
+            Scheduled        </span>
     </td>
 
     <td>
@@ -1661,11 +1652,11 @@
             </td>
 
 </tr>
-
+<!-- DEBUG-VIEW ENDED 4 APPPATH\Views\include\member\card\f2f_card.php -->
 
                                         
                                     
-                                        
+                                        <!-- DEBUG-VIEW START 5 APPPATH\Views\include\member\card\f2f_card.php -->
 <tr>
 
     <td>3</td>
@@ -1673,7 +1664,7 @@
     <!-- FROM -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
             <div>
                 <div class="name">Harri Kumar</div>
                 <small>harri@jobhunterr.com</small>
@@ -1684,7 +1675,7 @@
     <!-- TO -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/empty.png" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
+            <img src="http://localhost/eaf/uploads/profile/1774494281_ee53e80fc367e040e6bc.jpg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
             <div>
                 <div class="name">Arpitha B</div>
                 <small>arpitha.ibo7@gmail.com</small>
@@ -1697,8 +1688,8 @@
     <td>18 Mar 2026</td>
 
     <td>
-                <span class="status pending">
-                    </span>
+                <span class="status scheduled">
+            Scheduled        </span>
     </td>
 
     <td>
@@ -1712,11 +1703,11 @@
             </td>
 
 </tr>
-
+<!-- DEBUG-VIEW ENDED 5 APPPATH\Views\include\member\card\f2f_card.php -->
 
                                         
                                     
-                                        
+                                        <!-- DEBUG-VIEW START 6 APPPATH\Views\include\member\card\f2f_card.php -->
 <tr>
 
     <td>4</td>
@@ -1724,7 +1715,7 @@
     <!-- FROM -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
             <div>
                 <div class="name">Harri Kumar</div>
                 <small>harri@jobhunterr.com</small>
@@ -1735,7 +1726,7 @@
     <!-- TO -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1781149319_1bc8a85528d411473f01.jpg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
+            <img src="http://localhost/eaf/uploads/profile/1781149319_1bc8a85528d411473f01.jpg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
             <div>
                 <div class="name">Vinod K</div>
                 <small>vibrantdesignstudio.blr@gmail.com</small>
@@ -1748,8 +1739,8 @@
     <td>17 Mar 2026</td>
 
     <td>
-                <span class="status pending">
-                    </span>
+                <span class="status scheduled">
+            Scheduled        </span>
     </td>
 
     <td>
@@ -1763,11 +1754,11 @@
             </td>
 
 </tr>
-
+<!-- DEBUG-VIEW ENDED 6 APPPATH\Views\include\member\card\f2f_card.php -->
 
                                         
                                     
-                                        
+                                        <!-- DEBUG-VIEW START 7 APPPATH\Views\include\member\card\f2f_card.php -->
 <tr>
 
     <td>5</td>
@@ -1775,7 +1766,7 @@
     <!-- FROM -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
+            <img src="http://localhost/eaf/uploads/profile/1781855215_69876d1aca8cb723ead2.jpeg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #101B35;">
             <div>
                 <div class="name">Harri Kumar</div>
                 <small>harri@jobhunterr.com</small>
@@ -1786,7 +1777,7 @@
     <!-- TO -->
     <td>
         <div class="member-cell">
-            <img src="../uploads/profile/1776319236_39f99881462bc0a885d2.jpg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
+            <img src="http://localhost/eaf/uploads/profile/1776319236_39f99881462bc0a885d2.jpg" class="avatar" style="object-fit:cover; object-position:top center; border: 1.5px solid #C6A667;">
             <div>
                 <div class="name">Sayed Asif </div>
                 <small>a.m.fabricator28@gmail.com</small>
@@ -1799,8 +1790,8 @@
     <td>17 Mar 2026</td>
 
     <td>
-                <span class="status pending">
-                    </span>
+                <span class="status scheduled">
+            Scheduled        </span>
     </td>
 
     <td>
@@ -1814,7 +1805,7 @@
             </td>
 
 </tr>
-
+<!-- DEBUG-VIEW ENDED 7 APPPATH\Views\include\member\card\f2f_card.php -->
 
                                         
                                     
@@ -1827,27 +1818,27 @@
                     <!-- ================= PAGINATION ================= -->
                     <div class="row mt-3">
                         <div class="d-flex justify-content-center">
-                            
+                            <!-- DEBUG-VIEW START 1 SYSTEMPATH\Pager\Views\default_full.php -->
 
 <nav aria-label="Page navigation">
 	<ul class="pagination">
 		
 					<li class="active">
-				<a href="f2f.html">
+				<a href="http://localhost/eaf/index.php/?page=1">
 					1				</a>
 			</li>
 		
 			</ul>
 </nav>
 
-
+<!-- DEBUG-VIEW ENDED 1 SYSTEMPATH\Pager\Views\default_full.php -->
                         </div>
                     </div>
 
                 </div>
             </div>
             <!-- End Page-content -->
-            
+            <!-- DEBUG-VIEW START 9 APPPATH\Views\include\member\footer.php -->
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
@@ -1860,20 +1851,20 @@
         </footer>
 
         <!-- Mobile Bottom Navigation Bar (Thumb Zone) -->
-        
+        <!-- DEBUG-VIEW START 8 APPPATH\Views\include\member\bottom_nav.php -->
 
 <!-- ==========================================================================
      MOBILE BOTTOM NAVIGATION BAR (FIXED THUMB ZONE)
      ========================================================================== -->
 <nav class="eaf-bottom-nav-bar d-lg-none" id="eafBottomNav" aria-label="Mobile Navigation">
     <!-- 1. Home / Dashboard -->
-    <a href="dashboard.html" class="eaf-nav-tab " id="bottomNavHome">
+    <a href="http://localhost/eaf/member/dashboard" class="eaf-nav-tab " id="bottomNavHome">
         <i class="ri-dashboard-3-line"></i>
         <span>Home</span>
     </a>
 
     <!-- 2. Connects / Referrals -->
-    <a href="connect.html" class="eaf-nav-tab " id="bottomNavConnects">
+    <a href="http://localhost/eaf/member/connect" class="eaf-nav-tab " id="bottomNavConnects">
         <i class="ri-shake-hands-line"></i>
         <span>Connects</span>
     </a>
@@ -1884,13 +1875,13 @@
     </button>
 
     <!-- 4. My Chapter -->
-    <a href="mychapter.html" class="eaf-nav-tab " id="bottomNavChapter">
+    <a href="http://localhost/eaf/member/mychapter" class="eaf-nav-tab " id="bottomNavChapter">
         <i class="ri-community-line"></i>
         <span>Chapter</span>
     </a>
 
     <!-- 5. Profile -->
-    <a href="profile.html" class="eaf-nav-tab " id="bottomNavProfile">
+    <a href="http://localhost/eaf/member/profile" class="eaf-nav-tab " id="bottomNavProfile">
         <i class="ri-user-3-line"></i>
         <span>Profile</span>
     </a>
@@ -1921,7 +1912,7 @@
                     </div>
 
                     <!-- Slip 2: Received Connects -->
-                    <a href="connect.html" class="eaf-sheet-item">
+                    <a href="http://localhost/eaf/member/connect" class="eaf-sheet-item">
                         <div class="eaf-sheet-icon" style="background: rgba(5, 150, 105, 0.12); color: #059669;">
                             <i class="ri-inbox-archive-fill"></i>
                         </div>
@@ -1980,53 +1971,53 @@ function handleQuickSlip(type) {
             if (typeof add_new_connects === 'function') {
                 add_new_connects();
             } else {
-                window.location.href = "../member/connect.html";
+                window.location.href = "http://localhost/eaf/member/connect";
             }
         } else if (type === 'mitb') {
             if (typeof add_mitb === 'function') {
                 add_mitb();
             } else {
-                window.location.href = "../member/mitb.html";
+                window.location.href = "http://localhost/eaf/member/mitb";
             }
         } else if (type === 'f2f') {
             if (typeof add_f2f === 'function') {
                 add_f2f();
             } else {
-                window.location.href = "../member/f2f.html";
+                window.location.href = "http://localhost/eaf/member/f2f";
             }
         } else if (type === 'visitor') {
             if (typeof add_vt === 'function') {
                 add_vt();
             } else {
-                window.location.href = "../member/visitor.html";
+                window.location.href = "http://localhost/eaf/member/visitor";
             }
         }
     }, 300);
 }
 </script>
 
-
+<!-- DEBUG-VIEW ENDED 8 APPPATH\Views\include\member\bottom_nav.php -->
         
-
+<!-- DEBUG-VIEW ENDED 9 APPPATH\Views\include\member\footer.php -->
         </div>
         <!-- end main content-->
     </div>
     <div class="rightbar-overlay"></div>
     <!-- JAVASCRIPT -->
-    <script src="../assets2/libs/jquery/jquery.min.js"></script>
-    <script src="../assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets2/libs/metismenu/metisMenu.min.js"></script>
-    <script src="../assets2/libs/simplebar/simplebar.min.js"></script>
-    <script src="../assets2/libs/node-waves/waves.min.js"></script>
-    <script src="../assets2/libs/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets2/libs/jsvectormap/jsvectormap.min.js"></script>
-    <script src="../assets2/libs/jsvectormap/maps/world-merc.js"></script>
-    <script src="../assets2/js/pages/dashboard.init.js"></script>
-    <script src="../assets2/js/app.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/jquery/jquery.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/metismenu/metisMenu.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/simplebar/simplebar.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/node-waves/waves.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/jsvectormap/jsvectormap.min.js"></script>
+    <script src="http://localhost/eaf/assets2/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="http://localhost/eaf/assets2/js/pages/dashboard.init.js"></script>
+    <script src="http://localhost/eaf/assets2/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+    <!-- DEBUG-VIEW START 10 APPPATH\Views\include\member\popup\f2f.php -->
 <div class="modal fade" id="f2f_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="f2f_edit_data" style="max-width:600px;">
         <!-- Content will be loaded here via AJAX -->
@@ -2055,143 +2046,35 @@ function handleQuickSlip(type) {
                             <label class="fw-bold">Met With👤</label>
                             <select name="to_user" class="form-select">
                                 <option value="">-- Select Member --</option>
-                                                                    <option value="5">
-                                        Harri Kumar (Chapter 2)
+                                                                    <option value="USR00001">
+                                        Yoginath (Chapter 1)
                                     </option>
-                                                                    <option value="6">
-                                        Sagar Dhongady (Chapter 1)
+                                                                    <option value="76">
+                                        Umashankar P (Chapter 1)
                                     </option>
-                                                                    <option value="8">
-                                        Vinod K (Chapter 2)
+                                                                    <option value="70">
+                                        RAHUL KULLOLLI (Chapter 1)
                                     </option>
-                                                                    <option value="9">
-                                        Sayed Asif  (Chapter 2)
+                                                                    <option value="69">
+                                        Bruno Vincent (Chapter 1)
                                     </option>
-                                                                    <option value="10">
-                                        Arpitha B (Chapter 2)
+                                                                    <option value="68">
+                                        G. L.YEDUKISHORE (Chapter 1)
                                     </option>
-                                                                    <option value="12">
-                                        Praveen Kumar C H  (Chapter 2)
+                                                                    <option value="67">
+                                        YOGESH MEHTA (Chapter 1)
                                     </option>
-                                                                    <option value="17">
-                                        VENKATESH G P (Chapter 2)
+                                                                    <option value="66">
+                                        Dr. G VIJAY KUMAR YADHAV (B.V.A , M.V.A) (Chapter 1)
                                     </option>
-                                                                    <option value="18">
-                                        Ravi Shankar  (Chapter 2)
+                                                                    <option value="65">
+                                        VINAY K N (Chapter 1)
                                     </option>
-                                                                    <option value="19">
-                                        Kashi Lohar (Chapter 2)
+                                                                    <option value="64">
+                                        VEERU ACHAR KM (Chapter 1)
                                     </option>
-                                                                    <option value="22">
-                                        THEJA MURTHY. M. S. (Chapter 2)
-                                    </option>
-                                                                    <option value="23">
-                                        AMAR V MEHARWADE (Chapter 1)
-                                    </option>
-                                                                    <option value="24">
-                                        ARUN SAINATH (Chapter 1)
-                                    </option>
-                                                                    <option value="25">
-                                        ARPITA (Chapter 1)
-                                    </option>
-                                                                    <option value="26">
-                                        ASHA A N (Chapter 1)
-                                    </option>
-                                                                    <option value="27">
-                                        BALESH SHIRAGAONKAR (Chapter 1)
-                                    </option>
-                                                                    <option value="28">
-                                        Dr. BALASUBRAHMANYA H.V. (Chapter 1)
-                                    </option>
-                                                                    <option value="29">
-                                        CHIDAMBAR JOSHI (Chapter 1)
-                                    </option>
-                                                                    <option value="30">
-                                        DAKSHA KUMAR TL (Chapter 1)
-                                    </option>
-                                                                    <option value="31">
-                                        DILEEP KUMAR D (Chapter 1)
-                                    </option>
-                                                                    <option value="32">
-                                        DEEPAK AGARWAL (Chapter 1)
-                                    </option>
-                                                                    <option value="34">
-                                        JAY MENON (Chapter 1)
-                                    </option>
-                                                                    <option value="35">
-                                        KARUNAKAR RAO L. (Chapter 1)
-                                    </option>
-                                                                    <option value="36">
-                                        KESHAVA K C (Chapter 1)
-                                    </option>
-                                                                    <option value="37">
-                                        KRISHNA CHOUDHARY (Chapter 1)
-                                    </option>
-                                                                    <option value="38">
-                                        KUMARA (Chapter 1)
-                                    </option>
-                                                                    <option value="39">
-                                        MOUNESH (Chapter 1)
-                                    </option>
-                                                                    <option value="40">
-                                        MIR FAHEEM (Chapter 1)
-                                    </option>
-                                                                    <option value="41">
-                                        NAGESH B C (Chapter 1)
-                                    </option>
-                                                                    <option value="42">
-                                        NANDA KUMAR (Chapter 1)
-                                    </option>
-                                                                    <option value="43">
-                                        NIHAS R PRASAD (Chapter 1)
-                                    </option>
-                                                                    <option value="44">
-                                        NAGRAJ K E (Chapter 1)
-                                    </option>
-                                                                    <option value="45">
-                                        NEELAKANTAPPA (Chapter 1)
-                                    </option>
-                                                                    <option value="46">
-                                        PRAKASH REDDY N P (Chapter 1)
-                                    </option>
-                                                                    <option value="47">
-                                        PRASANNA KUMAR M (Chapter 1)
-                                    </option>
-                                                                    <option value="48">
-                                        PRADEEP RAO M S (Chapter 1)
-                                    </option>
-                                                                    <option value="50">
-                                        RAMDAS M (Nirmal) (Chapter 1)
-                                    </option>
-                                                                    <option value="51">
-                                        RITANJALI SHIVASHANKAR (Chapter 1)
-                                    </option>
-                                                                    <option value="52">
-                                        SASI K NAMBIAR (Chapter 1)
-                                    </option>
-                                                                    <option value="53">
-                                        SATISH S (Chapter 1)
-                                    </option>
-                                                                    <option value="54">
-                                        SANJAY GU (Chapter 1)
-                                    </option>
-                                                                    <option value="55">
-                                        SANJANA ANAND (Chapter 1)
-                                    </option>
-                                                                    <option value="56">
-                                        SHASHI BUSHAN (Chapter 1)
-                                    </option>
-                                                                    <option value="57">
-                                        SETHURAM N (Chapter 1)
-                                    </option>
-                                                                    <option value="58">
-                                        SINGAM AMRUTHAM (Chapter 1)
-                                    </option>
-                                                                    <option value="59">
-                                        SRINIVASA N (Chapter 1)
-                                    </option>
-                                                                    <option value="60">
-                                        SRINVASA V P (Chapter 1)
+                                                                    <option value="63">
+                                        TEJASS G (Chapter 1)
                                     </option>
                                                                     <option value="62">
                                         SUCHARITHA N (Chapter 1)
@@ -2199,80 +2082,188 @@ function handleQuickSlip(type) {
                                                                     <option value="62">
                                         Suma A G E (Chapter 1)
                                     </option>
-                                                                    <option value="63">
-                                        TEJASS G (Chapter 1)
+                                                                    <option value="60">
+                                        SRINVASA V P (Chapter 1)
                                     </option>
-                                                                    <option value="64">
-                                        VEERU ACHAR KM (Chapter 1)
+                                                                    <option value="59">
+                                        SRINIVASA N (Chapter 1)
                                     </option>
-                                                                    <option value="65">
-                                        VINAY K N (Chapter 1)
+                                                                    <option value="58">
+                                        SINGAM AMRUTHAM (Chapter 1)
                                     </option>
-                                                                    <option value="66">
-                                        Dr. G VIJAY KUMAR YADHAV (B.V.A , M.V.A) (Chapter 1)
+                                                                    <option value="57">
+                                        SETHURAM N (Chapter 1)
                                     </option>
-                                                                    <option value="67">
-                                        YOGESH MEHTA (Chapter 1)
+                                                                    <option value="56">
+                                        SHASHI BUSHAN (Chapter 1)
                                     </option>
-                                                                    <option value="68">
-                                        G. L.YEDUKISHORE (Chapter 1)
+                                                                    <option value="55">
+                                        SANJANA ANAND (Chapter 1)
                                     </option>
-                                                                    <option value="69">
-                                        Bruno Vincent (Chapter 1)
+                                                                    <option value="54">
+                                        SANJAY GU (Chapter 1)
                                     </option>
-                                                                    <option value="70">
-                                        RAHUL KULLOLLI (Chapter 1)
+                                                                    <option value="53">
+                                        SATISH S (Chapter 1)
                                     </option>
-                                                                    <option value="72">
-                                        Keerthi Shree K (Chapter 2)
+                                                                    <option value="52">
+                                        SASI K NAMBIAR (Chapter 1)
                                     </option>
-                                                                    <option value="75">
-                                        Anand B C (Chapter 2)
+                                                                    <option value="51">
+                                        RITANJALI SHIVASHANKAR (Chapter 1)
                                     </option>
-                                                                    <option value="76">
-                                        Umashankar P (Chapter 1)
+                                                                    <option value="50">
+                                        RAMDAS M (Nirmal) (Chapter 1)
                                     </option>
-                                                                    <option value="78">
-                                        Mr Prashant Katigar (Chapter 2)
+                                                                    <option value="48">
+                                        PRADEEP RAO M S (Chapter 1)
                                     </option>
-                                                                    <option value="79">
-                                        Dhakkshinya (Chapter 2)
+                                                                    <option value="47">
+                                        PRASANNA KUMAR M (Chapter 1)
                                     </option>
-                                                                    <option value="80">
-                                        D Revanna (Chapter 2)
+                                                                    <option value="46">
+                                        PRAKASH REDDY N P (Chapter 1)
                                     </option>
-                                                                    <option value="81">
-                                        Sandeep G (Chapter 2)
+                                                                    <option value="45">
+                                        NEELAKANTAPPA (Chapter 1)
                                     </option>
-                                                                    <option value="82">
-                                        Gokul Raj (Chapter 2)
+                                                                    <option value="44">
+                                        NAGRAJ K E (Chapter 1)
                                     </option>
-                                                                    <option value="83">
-                                        Guruprasanna S (Chapter 2)
+                                                                    <option value="43">
+                                        NIHAS R PRASAD (Chapter 1)
                                     </option>
-                                                                    <option value="84">
-                                        SRINIVAS THATIKONDA  (Chapter 2)
+                                                                    <option value="42">
+                                        NANDA KUMAR (Chapter 1)
                                     </option>
-                                                                    <option value="85">
-                                        Kumar B (Chapter 2)
+                                                                    <option value="41">
+                                        NAGESH B C (Chapter 1)
                                     </option>
-                                                                    <option value="87">
-                                        shylaja s. J. (Chapter 2)
+                                                                    <option value="40">
+                                        MIR FAHEEM (Chapter 1)
                                     </option>
-                                                                    <option value="USR00001">
-                                        Yoginath (Chapter 1)
+                                                                    <option value="39">
+                                        MOUNESH (Chapter 1)
                                     </option>
-                                                                    <option value="USR00003">
-                                         Sandeep Srikande (Chapter 2)
+                                                                    <option value="38">
+                                        KUMARA (Chapter 1)
                                     </option>
-                                                                    <option value="USR00004">
-                                        Ajay R (Chapter 2)
+                                                                    <option value="37">
+                                        KRISHNA CHOUDHARY (Chapter 1)
+                                    </option>
+                                                                    <option value="36">
+                                        KESHAVA K C (Chapter 1)
+                                    </option>
+                                                                    <option value="35">
+                                        KARUNAKAR RAO L. (Chapter 1)
+                                    </option>
+                                                                    <option value="34">
+                                        JAY MENON (Chapter 1)
+                                    </option>
+                                                                    <option value="32">
+                                        DEEPAK AGARWAL (Chapter 1)
+                                    </option>
+                                                                    <option value="31">
+                                        DILEEP KUMAR D (Chapter 1)
+                                    </option>
+                                                                    <option value="30">
+                                        DAKSHA KUMAR TL (Chapter 1)
+                                    </option>
+                                                                    <option value="29">
+                                        CHIDAMBAR JOSHI (Chapter 1)
+                                    </option>
+                                                                    <option value="28">
+                                        Dr. BALASUBRAHMANYA H.V. (Chapter 1)
+                                    </option>
+                                                                    <option value="27">
+                                        BALESH SHIRAGAONKAR (Chapter 1)
+                                    </option>
+                                                                    <option value="26">
+                                        ASHA A N (Chapter 1)
+                                    </option>
+                                                                    <option value="25">
+                                        ARPITA (Chapter 1)
+                                    </option>
+                                                                    <option value="24">
+                                        ARUN SAINATH (Chapter 1)
+                                    </option>
+                                                                    <option value="23">
+                                        AMAR V MEHARWADE (Chapter 1)
+                                    </option>
+                                                                    <option value="6">
+                                        Sagar Dhongady (Chapter 1)
+                                    </option>
+                                                                    <option value="USR00008">
+                                        Rathi H R  (Chapter 2)
                                     </option>
                                                                     <option value="USR00007">
                                         Shwetha  (Chapter 2)
                                     </option>
-                                                                    <option value="USR00008">
-                                        Rathi H R  (Chapter 2)
+                                                                    <option value="USR00004">
+                                        Ajay R (Chapter 2)
+                                    </option>
+                                                                    <option value="USR00003">
+                                         Sandeep Srikande (Chapter 2)
+                                    </option>
+                                                                    <option value="82">
+                                        Gokul Raj (Chapter 2)
+                                    </option>
+                                                                    <option value="87">
+                                        shylaja s. J. (Chapter 2)
+                                    </option>
+                                                                    <option value="85">
+                                        Kumar B (Chapter 2)
+                                    </option>
+                                                                    <option value="84">
+                                        SRINIVAS THATIKONDA  (Chapter 2)
+                                    </option>
+                                                                    <option value="83">
+                                        Guruprasanna S (Chapter 2)
+                                    </option>
+                                                                    <option value="81">
+                                        Sandeep G (Chapter 2)
+                                    </option>
+                                                                    <option value="80">
+                                        D Revanna (Chapter 2)
+                                    </option>
+                                                                    <option value="79">
+                                        Dhakkshinya (Chapter 2)
+                                    </option>
+                                                                    <option value="78">
+                                        Mr Prashant Katigar (Chapter 2)
+                                    </option>
+                                                                    <option value="75">
+                                        Anand B C (Chapter 2)
+                                    </option>
+                                                                    <option value="72">
+                                        Keerthi Shree K (Chapter 2)
+                                    </option>
+                                                                    <option value="22">
+                                        THEJA MURTHY. M. S. (Chapter 2)
+                                    </option>
+                                                                    <option value="19">
+                                        Kashi Lohar (Chapter 2)
+                                    </option>
+                                                                    <option value="18">
+                                        Ravi Shankar  (Chapter 2)
+                                    </option>
+                                                                    <option value="17">
+                                        VENKATESH G P (Chapter 2)
+                                    </option>
+                                                                    <option value="12">
+                                        Praveen Kumar C H  (Chapter 2)
+                                    </option>
+                                                                    <option value="10">
+                                        Arpitha B (Chapter 2)
+                                    </option>
+                                                                    <option value="9">
+                                        Sayed Asif  (Chapter 2)
+                                    </option>
+                                                                    <option value="8">
+                                        Vinod K (Chapter 2)
+                                    </option>
+                                                                    <option value="5">
+                                        Harri Kumar (Chapter 2)
                                     </option>
                                                             </select>
                         </div>
@@ -2306,7 +2297,7 @@ function handleQuickSlip(type) {
         let formData = new FormData(this);
 
         $.ajax({
-            url: "../member/f2f.html",
+            url: "http://localhost/eaf/index.php/member/f2f/addNewf2fData",
             type: "POST",
             data: formData,
             processData: false,
@@ -2329,7 +2320,7 @@ function handleQuickSlip(type) {
                     timer: 1500,
                     showConfirmButton: false
                 }).then(() => {
-                    $("#add_new_mitb").modal("hide");
+                    $("#add_new_f2f").modal("hide");
                     location.reload();
                 });
             },
@@ -2344,7 +2335,7 @@ function handleQuickSlip(type) {
     function delete_f2f(mitb_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "../member/f2f.html" + mitb_code,
+            url: "http://localhost/eaf/index.php/member/f2f/delete_f2f/" + mitb_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -2355,7 +2346,7 @@ function handleQuickSlip(type) {
         e.preventDefault();
 
         $.ajax({
-            url: "../member/f2f.html",
+            url: "http://localhost/eaf/index.php/member/f2f/delete_f2f_action",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2403,7 +2394,7 @@ function handleQuickSlip(type) {
     function edit_f2f(mitb_code) {
         $('#f2f_edit').modal('show');
         $.ajax({
-            url: "../member/f2f.html" + mitb_code,
+            url: "http://localhost/eaf/index.php/member/f2f/edit_f2f/" + mitb_code,
             success: function(response) {
                 $("#f2f_edit_data").html(response);
             }
@@ -2413,7 +2404,7 @@ function handleQuickSlip(type) {
     $(document).on("submit", "#edit_f2f_action", function(e) {
         e.preventDefault();
         $.ajax({
-            url: "../member/f2f.html",
+            url: "http://localhost/eaf/index.php/member/f2f/edit_f2f_action",
             type: "POST",
             data: $(this).serialize(),
             dataType: "json",
@@ -2429,7 +2420,7 @@ function handleQuickSlip(type) {
                 if (res.status === "success") {
                     Swal.fire({
                         icon: "success",
-                        title: "Deleted",
+                        title: "Updated",
                         text: res.message,
                         timer: 1200,
                         showConfirmButton: false
@@ -2456,7 +2447,7 @@ function handleQuickSlip(type) {
         });
     });
 </script>
-
+<!-- DEBUG-VIEW ENDED 10 APPPATH\Views\include\member\popup\f2f.php -->
     <script>
         $(document).ready(function() {
 
@@ -2476,7 +2467,8 @@ function handleQuickSlip(type) {
                     search: $('#search').val().trim(),
                     status: $('#status1').val(),
                     date: $('#date').val(),
-                    to_user: $('#to_user').val()
+                    to_user: $('#to_user').val(),
+                    tab: 'initiated_by_me'
                 };
             }
 
@@ -2503,7 +2495,7 @@ function handleQuickSlip(type) {
                 let formData = collectFilters();
                 saveFilters();
 
-                let hasFilter = Object.values(formData).some(v => v !== "");
+                let hasFilter = (formData.search !== "" || formData.status !== "" || formData.date !== "" || formData.to_user !== "");
 
                 if (!hasFilter) {
                     $('#list_data').hide().html('');
@@ -2514,12 +2506,12 @@ function handleQuickSlip(type) {
 
                 $.ajax({
                     type: 'POST',
-                    url: '../member/f2f.html',
+                    url: 'http://localhost/eaf/member/f2f/get_filtered_data',
                     data: formData,
                     dataType: 'html',
 
                     beforeSend: function() {
-                        $('#list_data').show().html('<div class="text-center py-3">Loading...</div>');
+                        $('#list_data').show().html('<tr><td colspan="8" class="text-center py-5 text-muted"><div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading meetings...</td></tr>');
                         $('#old_results').hide();
                     },
 
@@ -2529,7 +2521,7 @@ function handleQuickSlip(type) {
 
                     error: function(xhr) {
                         console.log(xhr.responseText);
-                        $('#list_data').html('<div class="alert alert-danger">Server Error</div>');
+                        $('#list_data').html('<tr><td colspan="8" class="text-center py-5 text-danger">Server Error. Please try again.</td></tr>');
                     }
                 });
 
@@ -2565,4 +2557,4 @@ function handleQuickSlip(type) {
 </body>
 
 </html>
-
+<!-- DEBUG-VIEW ENDED 11 APPPATH\Views\member\f2f.php -->

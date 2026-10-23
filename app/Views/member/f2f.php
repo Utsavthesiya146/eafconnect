@@ -198,6 +198,12 @@
             color: #004085;
         }
 
+        .status.re-scheduled,
+        .status.rescheduled {
+            background: #fff3cd;
+            color: #856404;
+        }
+
         .status.active {
             background: #e6f7ec;
             color: #198754;
@@ -996,7 +1002,7 @@
                                             <option value="">Select Status</option>
                                             <option value="scheduled">Scheduled</option>
                                             <option value="completed">Completed</option>
-                                            <option value="Re-scheduled">Re-scheduled</option>
+                                            <option value="re-scheduled">Re-scheduled</option>
                                             <option value="cancelled">Cancelled</option>
                                         </select>
                                     </div>
@@ -1085,8 +1091,14 @@
                                 <?php else: ?>
 
                                     <tr>
-                                        <td colspan="8" class="text-center p-4">
-                                            No Meetings Found
+                                        <td colspan="8" class="text-center py-5">
+                                            <div class="d-flex flex-column align-items-center justify-content-center py-3">
+                                                <div style="width:54px; height:54px; border-radius:50%; background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:24px; margin-bottom:12px;">
+                                                    <i class="ri-calendar-event-line"></i>
+                                                </div>
+                                                <h6 class="fw-bold text-dark mb-1" style="font-size:15px;">No F2F Meetings Found</h6>
+                                                <p class="text-muted mb-0" style="font-size:13px;">There are no One-to-One records found in this section.</p>
+                                            </div>
                                         </td>
                                     </tr>
 
@@ -1146,7 +1158,8 @@
                     search: $('#search').val().trim(),
                     status: $('#status1').val(),
                     date: $('#date').val(),
-                    to_user: $('#to_user').val()
+                    to_user: $('#to_user').val(),
+                    tab: '<?= esc($tab ?? 'initiated_by_me') ?>'
                 };
             }
 
@@ -1173,7 +1186,7 @@
                 let formData = collectFilters();
                 saveFilters();
 
-                let hasFilter = Object.values(formData).some(v => v !== "");
+                let hasFilter = (formData.search !== "" || formData.status !== "" || formData.date !== "" || formData.to_user !== "");
 
                 if (!hasFilter) {
                     $('#list_data').hide().html('');
@@ -1189,7 +1202,7 @@
                     dataType: 'html',
 
                     beforeSend: function() {
-                        $('#list_data').show().html('<div class="text-center py-3">Loading...</div>');
+                        $('#list_data').show().html('<tr><td colspan="8" class="text-center py-5 text-muted"><div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading meetings...</td></tr>');
                         $('#old_results').hide();
                     },
 
@@ -1199,7 +1212,7 @@
 
                     error: function(xhr) {
                         console.log(xhr.responseText);
-                        $('#list_data').html('<div class="alert alert-danger">Server Error</div>');
+                        $('#list_data').html('<tr><td colspan="8" class="text-center py-5 text-danger">Server Error. Please try again.</td></tr>');
                     }
                 });
 

@@ -86,7 +86,7 @@
                     timer: 1500,
                     showConfirmButton: false
                 }).then(() => {
-                    $("#add_new_mitb").modal("hide");
+                    $("#add_new_f2f").modal("hide");
                     location.reload();
                 });
             },
@@ -186,7 +186,7 @@
                 if (res.status === "success") {
                     Swal.fire({
                         icon: "success",
-                        title: "Deleted",
+                        title: "Updated",
                         text: res.message,
                         timer: 1200,
                         showConfirmButton: false

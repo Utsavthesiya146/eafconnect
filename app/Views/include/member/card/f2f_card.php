@@ -30,15 +30,25 @@
 
     <td>
         <?php
-        $statusClass = match ($row['status']) {
-            'scheduled' => 'status scheduled',
-            'completed' => 'status completed',
-            'cancelled' => 'status cancelled',
-            default => 'status pending'
+        $rawStatus = strtolower(trim((string)($row['status'] ?? '')));
+        if ($rawStatus === '') {
+            $rawStatus = 'scheduled';
+        }
+        $statusClass = match ($rawStatus) {
+            'completed'                   => 'status completed',
+            'cancelled'                   => 'status cancelled',
+            're-scheduled', 'rescheduled' => 'status pending',
+            default                       => 'status scheduled'
+        };
+        $statusLabel = match ($rawStatus) {
+            'completed'                   => 'Completed',
+            'cancelled'                   => 'Cancelled',
+            're-scheduled', 'rescheduled' => 'Re-scheduled',
+            default                       => 'Scheduled'
         };
         ?>
         <span class="<?= $statusClass ?>">
-            <?= ucfirst($row['status']) ?>
+            <?= $statusLabel ?>
         </span>
     </td>
 

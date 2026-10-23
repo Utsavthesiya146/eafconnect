@@ -471,12 +471,13 @@ class F2f extends BaseController
 
         // ✅ INSERT DATA
         $insert = [
-            'f2f_code'  => $f2f_code,
-            'from_user' => (string)$user_code,
-            'to_user'   => $data['to_user'] ?? null,
-            'date'      => $date,
-            'location'  => $data['location'] ?? null,
-            'summary'   => $data['summary'] ?? null,
+            'f2f_code'   => $f2f_code,
+            'from_user'  => (string)$user_code,
+            'to_user'    => $data['to_user'] ?? null,
+            'date'       => $date,
+            'location'   => $data['location'] ?? null,
+            'summary'    => $data['summary'] ?? null,
+            'status'     => 'scheduled',
             'created_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -655,7 +656,10 @@ class F2f extends BaseController
             return $this->response->setBody('<p class="text-center text-danger">F2F not found!</p>');
         }
         $row = $user[0]; // CI4 returns array of objects
-        // Safe query
+        $currentStatus = strtolower(trim((string)($row->status ?? '')));
+        if ($currentStatus === '') {
+            $currentStatus = 'scheduled';
+        }
         $output = '
 <div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
     <form id="edit_f2f_action" method="post">
@@ -666,28 +670,27 @@ class F2f extends BaseController
         <div class="modal-body p-3">
             <input type="hidden" name="f2f_code" value="' . esc($row->f2f_code) . '">
             <div class="row g-2">
-                   <div class="col-md-12">
-                    <label class="fw-bold">status</label>
+                <div class="col-md-12">
+                    <label class="fw-bold mb-1">Status</label>
                     <select class="form-select" name="status">
-                        <option value="' . esc($row->status) . '">' . esc(ucfirst($row->status)) . '</option>
-                        <option value="scheduled">Scheduled</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
+                        <option value="scheduled"' . ($currentStatus === 'scheduled' ? ' selected' : '') . '>Scheduled</option>
+                        <option value="completed"' . ($currentStatus === 'completed' ? ' selected' : '') . '>Completed</option>
+                        <option value="re-scheduled"' . ($currentStatus === 're-scheduled' || $currentStatus === 'rescheduled' ? ' selected' : '') . '>Re-scheduled</option>
+                        <option value="cancelled"' . ($currentStatus === 'cancelled' ? ' selected' : '') . '>Cancelled</option>
                     </select>
                 </div>
                 <div class="col-md-12">
-                    <label class="fw-bold">summary</label>
-                    <textarea name="summary" class="form-control">' . esc($row->summary) . '</textarea>
+                    <label class="fw-bold mb-1">Summary / Discussion Notes</label>
+                    <textarea name="summary" class="form-control" rows="3">' . esc($row->summary) . '</textarea>
                 </div>
             </div>
         </div>
         <div class="modal-footer justify-content-end border-0">
-            <button type="button" class="btn btn-outline-secondary btn-sm px-3 m-1 p-1" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sm text-white px-3 m-1 p-1" style="background-color:#1b4d8f;">Update</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm text-white px-3" style="background-color:#1b4d8f;">Update Status</button>
         </div>
     </form>
-</div>
-';
+</div>';
 
         return $this->response->setBody($output);
     }
@@ -727,27 +730,39 @@ class F2f extends BaseController
     {
         $request = \Config\Services::request();
         $user_code = session()->get('user_code');
-        $search  = $request->getPost('search');
-        $date    = $request->getPost('date');
-        $status  = $request->getPost('status');
-        $to_user = $request->getPost('to_user');
+        $search  = trim((string)$request->getPost('search'));
+        $date    = trim((string)$request->getPost('date'));
+        $status  = trim((string)$request->getPost('status'));
+        $to_user = trim((string)$request->getPost('to_user'));
+        $tab     = trim((string)($request->getPost('tab') ?: 'initiated_by_me'));
 
         $model = new OneToOneModel();
 
         $model->select("
-        one_to_ones.*,
-
-        from_user.name AS from_name,
-        from_user.email AS from_email,
-        COALESCE(from_user.profile_photo,'empty.png') AS from_profile,
-
-        to_user.name AS to_name,
-        to_user.email AS to_email,
-        COALESCE(to_user.profile_photo,'empty.png') AS to_profile
-    ");
+            one_to_ones.*,
+            from_user.name AS from_name,
+            from_user.email AS from_email,
+            COALESCE(from_user.profile_photo,'empty.png') AS from_profile,
+            to_user.name AS to_name,
+            to_user.email AS to_email,
+            COALESCE(to_user.profile_photo,'empty.png') AS to_profile
+        ");
 
         $model->join('users AS from_user', 'from_user.user_code = one_to_ones.from_user', 'left');
         $model->join('users AS to_user', 'to_user.user_code = one_to_ones.to_user', 'left');
+
+        // Tab filter & Member With filter
+        if ($tab === 'initiated_with_me') {
+            $model->where('one_to_ones.to_user', $user_code);
+            if (!empty($to_user)) {
+                $model->where('one_to_ones.from_user', $to_user);
+            }
+        } else {
+            $model->where('one_to_ones.from_user', $user_code);
+            if (!empty($to_user)) {
+                $model->where('one_to_ones.to_user', $to_user);
+            }
+        }
 
         // ✅ SEARCH
         if (!empty($search)) {
@@ -756,12 +771,21 @@ class F2f extends BaseController
                 ->orLike('to_user.name', $search)
                 ->orLike('one_to_ones.location', $search)
                 ->orLike('one_to_ones.topics', $search)
+                ->orLike('one_to_ones.summary', $search)
                 ->groupEnd();
         }
 
         // ✅ STATUS
         if (!empty($status)) {
-            $model->where('one_to_ones.status', $status);
+            $st = strtolower($status);
+            if ($st === 're-scheduled' || $st === 'rescheduled') {
+                $model->groupStart()
+                    ->where('LOWER(one_to_ones.status)', 're-scheduled')
+                    ->orWhere('LOWER(one_to_ones.status)', 'rescheduled')
+                    ->groupEnd();
+            } else {
+                $model->where('LOWER(one_to_ones.status)', $st);
+            }
         }
 
         // ✅ DATE
@@ -769,20 +793,22 @@ class F2f extends BaseController
             $model->where('one_to_ones.date', $date);
         }
 
-        // ✅ TO USER
-        if (!empty($to_user)) {
-            $model->where('one_to_ones.to_user', $to_user);
-        }
-        if (!empty($to_user)) {
-            $model->where('one_to_ones.from_user', $to_user);
-        }
-        $model->where('one_to_ones.from_user', $user_code);
         $model->orderBy('one_to_ones.f2f_id', 'DESC');
 
         $users = $model->findAll();
 
         if (empty($users)) {
-            return '<div class="alert alert-warning text-center">No 121 found.</div>';
+            return '<tr>
+                <td colspan="8" class="text-center py-5">
+                    <div class="d-flex flex-column align-items-center justify-content-center py-3">
+                        <div style="width:54px; height:54px; border-radius:50%; background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:24px; margin-bottom:12px;">
+                            <i class="ri-calendar-event-line"></i>
+                        </div>
+                        <h6 class="fw-bold text-dark mb-1" style="font-size:15px;">No F2F Meetings Found</h6>
+                        <p class="text-muted mb-0" style="font-size:13px;">There are no One-to-One records matching your search or filter criteria.</p>
+                    </div>
+                </td>
+            </tr>';
         }
 
         $output = '';
