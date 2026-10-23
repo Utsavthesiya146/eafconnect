@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=6.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=7.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -549,9 +549,11 @@
                             <div class="carousel-inner">
                                 <?php if (!empty($active_ads)): ?>
                                     <?php foreach ($active_ads as $k => $ad): ?>
+                                        <?php $adImageUrl = base_url('uploads/ads/' . $ad['ads_image']); ?>
                                         <div class="carousel-item <?= $k === 0 ? 'active' : '' ?>">
                                             <div class="kvv-banner-card">
-                                                <img src="<?= base_url('uploads/ads/' . $ad['ads_image']); ?>" 
+                                                <div class="kvv-banner-blur-bg" style="background-image: url('<?= $adImageUrl; ?>');"></div>
+                                                <img src="<?= $adImageUrl; ?>" 
                                                      alt="<?= esc($ad['ads_title'] ?: 'Member Spotlight'); ?>" 
                                                      class="kvv-banner-img"
                                                      onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.png'); ?>';">
@@ -561,6 +563,7 @@
                                 <?php else: ?>
                                     <div class="carousel-item active">
                                         <div class="kvv-banner-card">
+                                            <div class="kvv-banner-blur-bg" style="background-image: url('<?= base_url('images/sample-banner.png'); ?>');"></div>
                                             <img src="<?= base_url('images/sample-banner.png'); ?>" 
                                                  alt="Member Spotlight"
                                                  class="kvv-banner-img"

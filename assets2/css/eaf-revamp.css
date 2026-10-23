@@ -1517,6 +1517,8 @@ body[data-topbar=colored] #page-topbar,
     border-bottom: 1px solid #EDF2F7 !important;
     box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03) !important;
     height: 70px !important;
+}
+
 .navbar-header {
     padding: 0 16px !important;
     background: #FFFFFF !important;
@@ -2397,37 +2399,56 @@ body[data-topbar=colored] #page-topbar,
 .kvv-banner-card {
     position: relative;
     width: 100%;
-    height: 150px;
-    background: transparent;
+    height: 220px;
+    background: #0B1325;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: 18px;
 }
 
 @media (min-width: 576px) {
-    .kvv-banner-card {
-        height: 190px;
-    }
-}
-
-@media (min-width: 992px) {
     .kvv-banner-card {
         height: 240px;
     }
 }
 
+@media (min-width: 992px) {
+    .kvv-banner-card {
+        height: 260px;
+    }
+}
+
+.kvv-banner-blur-bg {
+    position: absolute;
+    inset: -25px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(28px) brightness(0.35);
+    -webkit-filter: blur(28px) brightness(0.35);
+    transform: scale(1.2);
+    pointer-events: none;
+    z-index: 1;
+}
+
 .kvv-banner-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform 0.4s ease;
+    position: relative;
+    z-index: 2;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+    transition: transform 0.3s ease;
 }
 
 .kvv-carousel-container:hover .kvv-banner-img {
-    transform: scale(1.02);
+    transform: scale(1.015);
 }
 
 /* Floating Glassmorphism Arrow Buttons Inside Banner */
