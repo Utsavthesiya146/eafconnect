@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=7.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -271,7 +271,7 @@
             border-radius: 16px;
             overflow: hidden;
             width: 100%;
-            background: #0B192C;
+            background: #FFFFFF;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -552,7 +552,6 @@
                                         <?php $adImageUrl = base_url('uploads/ads/' . $ad['ads_image']); ?>
                                         <div class="carousel-item <?= $k === 0 ? 'active' : '' ?>">
                                             <div class="kvv-banner-card">
-                                                <div class="kvv-banner-blur-bg" style="background-image: url('<?= $adImageUrl; ?>');"></div>
                                                 <img src="<?= $adImageUrl; ?>" 
                                                      alt="<?= esc($ad['ads_title'] ?: 'Member Spotlight'); ?>" 
                                                      class="kvv-banner-img"
@@ -563,7 +562,6 @@
                                 <?php else: ?>
                                     <div class="carousel-item active">
                                         <div class="kvv-banner-card">
-                                            <div class="kvv-banner-blur-bg" style="background-image: url('<?= base_url('images/sample-banner.png'); ?>');"></div>
                                             <img src="<?= base_url('images/sample-banner.png'); ?>" 
                                                  alt="Member Spotlight"
                                                  class="kvv-banner-img"
@@ -591,57 +589,65 @@
                     <div class="kvv-quick-actions-grid">
                         <!-- Action 1: Give Connect -->
                         <div class="kvv-action-slip-card action-give" onclick="if(typeof add_new_connects==='function'){add_new_connects();}else{window.location.href='<?= base_url('member/connect'); ?>';}">
-                            <div class="kvv-slip-icon-wrap icon-give">
-                                <i class="ri-send-plane-2-fill"></i>
+                            <div class="kvv-slip-top-row">
+                                <div class="kvv-slip-icon-wrap icon-give">
+                                    <i class="ri-send-plane-2-fill"></i>
+                                </div>
+                                <div class="kvv-action-slip-arrow">
+                                    <i class="ri-arrow-right-line"></i>
+                                </div>
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">Give Connect</span>
                                 <span class="kvv-action-slip-sub">New referral</span>
                             </div>
-                            <div class="kvv-action-slip-arrow">
-                                <i class="ri-arrow-right-line"></i>
-                            </div>
                         </div>
 
                         <!-- Action 2: Received Connects -->
                         <a href="<?= base_url('member/connect'); ?>" class="kvv-action-slip-card action-receive">
-                            <div class="kvv-slip-icon-wrap icon-receive">
-                                <i class="ri-inbox-archive-fill"></i>
+                            <div class="kvv-slip-top-row">
+                                <div class="kvv-slip-icon-wrap icon-receive">
+                                    <i class="ri-inbox-archive-fill"></i>
+                                </div>
+                                <div class="kvv-action-slip-arrow">
+                                    <i class="ri-arrow-right-line"></i>
+                                </div>
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">Received Connects</span>
                                 <span class="kvv-action-slip-sub">Inbound leads</span>
                             </div>
-                            <div class="kvv-action-slip-arrow">
-                                <i class="ri-arrow-right-line"></i>
-                            </div>
                         </a>
 
                         <!-- Action 3: F2F Meeting -->
                         <div class="kvv-action-slip-card action-f2f" onclick="if(typeof add_f2f==='function'){add_f2f();}else{window.location.href='<?= base_url('member/f2f'); ?>';}">
-                            <div class="kvv-slip-icon-wrap icon-f2f">
-                                <i class="ri-user-voice-fill"></i>
+                            <div class="kvv-slip-top-row">
+                                <div class="kvv-slip-icon-wrap icon-f2f">
+                                    <i class="ri-user-voice-fill"></i>
+                                </div>
+                                <div class="kvv-action-slip-arrow">
+                                    <i class="ri-arrow-right-line"></i>
+                                </div>
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">F2F Meeting</span>
                                 <span class="kvv-action-slip-sub">1-to-1 meeting</span>
                             </div>
-                            <div class="kvv-action-slip-arrow">
-                                <i class="ri-arrow-right-line"></i>
-                            </div>
                         </div>
 
                         <!-- Action 4: MITB (Closed Business) -->
                         <div class="kvv-action-slip-card action-mitb" onclick="if(typeof add_mitb==='function'){add_mitb();}else{window.location.href='<?= base_url('member/mitb'); ?>';}">
-                            <div class="kvv-slip-icon-wrap icon-mitb">
-                                <i class="ri-money-rupee-circle-fill"></i>
+                            <div class="kvv-slip-top-row">
+                                <div class="kvv-slip-icon-wrap icon-mitb">
+                                    <i class="ri-money-rupee-circle-fill"></i>
+                                </div>
+                                <div class="kvv-action-slip-arrow">
+                                    <i class="ri-arrow-right-line"></i>
+                                </div>
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">MITB (Closed Business)</span>
                                 <span class="kvv-action-slip-sub">Report revenue</span>
-                            </div>
-                            <div class="kvv-action-slip-arrow">
-                                <i class="ri-arrow-right-line"></i>
                             </div>
                         </div>
                     </div>

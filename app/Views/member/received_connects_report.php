@@ -12,6 +12,8 @@
     <link href="<?= base_url(); ?>assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* =========================================================
@@ -1462,8 +1464,7 @@
 
 
                                 <!-- REFERRAL LIST -->
-
-                                <div class="crm-list-area" style="overflow-x: auto; width: 100%; padding-bottom: 10px; -webkit-overflow-scrolling: touch;">
+                                <div class="crm-list-area">
 
                                     <?php if (!empty($received)): ?>
 

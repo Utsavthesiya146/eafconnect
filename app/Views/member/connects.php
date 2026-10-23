@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=3.5" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
     <style>
      
 
@@ -756,22 +756,31 @@
         }
 
         @media (min-width: 992px) {
+            .referral-wrapper {
+                overflow-x: auto !important;
+                width: 100% !important;
+                padding-bottom: 12px !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
             .referral-card,
             .ref-header-row,
             .referral-item,
             .ref-card-col {
-                min-width: 1080px;
-                width: 100%;
+                min-width: 1200px;
+                width: 1200px;
             }
         }
 
-        /* Mobile Responsive Card UI */
+        /* Mobile Responsive Card UI (< 992px) - Zero Side Scrolling & Instant Action Buttons */
         @media (max-width: 991px) {
             .referral-wrapper {
                 overflow-x: visible !important;
+                width: 100% !important;
                 padding-bottom: 0 !important;
             }
-            .ref-header-row {
+            .ref-header-row,
+            .ref-grid-row,
+            .referral-card.d-none {
                 display: none !important;
             }
             .referral-item,
@@ -779,53 +788,216 @@
                 min-width: 100% !important;
                 width: 100% !important;
                 display: block !important;
-                margin-bottom: 12px !important;
+                margin-bottom: 0 !important;
             }
-            .referral-card,
-            .ref-grid-row {
+            .ref-mobile-card {
                 display: flex !important;
                 flex-direction: column !important;
-                height: auto !important;
-                min-height: 0 !important;
-                max-height: none !important;
-                min-width: 100% !important;
                 width: 100% !important;
-                padding: 16px !important;
-                gap: 12px !important;
-                white-space: normal !important;
-                border-radius: 16px !important;
+                background: #FFFFFF !important;
                 border: 1px solid #E2E8F0 !important;
-                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+                border-radius: 16px !important;
+                padding: 14px 14px !important;
+                margin-bottom: 14px !important;
+                box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05) !important;
+                box-sizing: border-box !important;
+                gap: 12px !important;
             }
-            .referral-card > div {
-                width: 100% !important;
+            .ref-mob-header {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 8px !important;
+                padding-bottom: 10px !important;
+                border-bottom: 1px solid #F1F5F9 !important;
+            }
+            .ref-mob-status-pill {
+                display: inline-flex !important;
+                align-items: center !important;
+                padding: 5px 12px !important;
+                border-radius: 50px !important;
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                cursor: pointer !important;
+                user-select: none !important;
+            }
+            .ref-mob-date {
+                font-size: 11px !important;
+                color: #64748B !important;
+                font-weight: 500 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                white-space: nowrap !important;
+            }
+            .ref-mob-flow-card {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                background: #F8FAFC !important;
+                border: 1px solid #E2E8F0 !important;
+                border-radius: 12px !important;
+                padding: 10px 12px !important;
+                gap: 8px !important;
+            }
+            .ref-mob-member-item {
+                display: flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+                flex: 1 !important;
                 min-width: 0 !important;
-                max-width: none !important;
             }
-            .ref-col.ref-business {
-                border-top: 1px solid #F1F5F9 !important;
-                padding-top: 10px !important;
-            }
-            .ref-col.ref-status {
-                text-align: left !important;
-                justify-content: flex-start !important;
-            }
-            .ref-col.ref-date {
-                text-align: left !important;
-                font-size: 12px !important;
-            }
-            .ref-col.ref-actions {
-                border-top: 1px dashed #E2E8F0 !important;
-                padding-top: 12px !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-            }
-            .ref-btn {
+            .ref-mob-avatar {
                 width: 36px !important;
                 height: 36px !important;
-                font-size: 15px !important;
-                border-radius: 9px !important;
+                min-width: 36px !important;
+                border-radius: 50% !important;
+                object-fit: cover !important;
+                object-position: top center !important;
+                flex-shrink: 0 !important;
             }
+            .from-avatar {
+                border: 2px solid #0F3B68 !important;
+            }
+            .to-avatar {
+                border: 2px solid #D97706 !important;
+            }
+            .ref-mob-member-text {
+                display: flex !important;
+                flex-direction: column !important;
+                min-width: 0 !important;
+                line-height: 1.2 !important;
+            }
+            .ref-mob-tag {
+                font-size: 8.5px !important;
+                font-weight: 800 !important;
+                letter-spacing: 0.5px !important;
+                text-transform: uppercase !important;
+            }
+            .tag-from {
+                color: #0F3B68 !important;
+            }
+            .tag-to {
+                color: #D97706 !important;
+            }
+            .ref-mob-member-name {
+                font-size: 12.5px !important;
+                font-weight: 700 !important;
+                color: #0F172A !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            .ref-mob-member-sub {
+                font-size: 10.5px !important;
+                color: #64748B !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            .ref-mob-flow-divider {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 24px !important;
+                height: 24px !important;
+                min-width: 24px !important;
+                border-radius: 50% !important;
+                background: #FFFFFF !important;
+                border: 1px solid #CBD5E1 !important;
+                color: #0F3B68 !important;
+                font-size: 12px !important;
+                flex-shrink: 0 !important;
+            }
+            .ref-mob-business-box {
+                background: #F8FAFC !important;
+                border-radius: 10px !important;
+                padding: 9px 12px !important;
+                border: 1px solid #E2E8F0 !important;
+                border-left: 3px solid #0F3B68 !important;
+            }
+            .ref-mob-business-label {
+                font-size: 9px !important;
+                font-weight: 700 !important;
+                color: #64748B !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.5px !important;
+                margin-bottom: 2px !important;
+            }
+            .ref-mob-business-desc {
+                font-size: 12.5px !important;
+                font-weight: 600 !important;
+                color: #0F172A !important;
+                line-height: 1.35 !important;
+                word-break: break-word !important;
+            }
+            .ref-mob-action-footer {
+                display: flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+                padding-top: 8px !important;
+                border-top: 1px dashed #E2E8F0 !important;
+            }
+            .ref-mob-btn {
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 3px !important;
+                min-height: 48px !important;
+                border-radius: 10px !important;
+                text-decoration: none !important;
+                font-size: 11px !important;
+                font-weight: 600 !important;
+                border: none !important;
+                cursor: pointer !important;
+                transition: all 0.2s ease !important;
+                padding: 6px 4px !important;
+            }
+            .ref-mob-btn i {
+                font-size: 16px !important;
+            }
+            .ref-mob-btn.btn-call {
+                background: rgba(2, 132, 199, 0.1) !important;
+                color: #0284C7 !important;
+                border: 1px solid rgba(2, 132, 199, 0.25) !important;
+            }
+            .ref-mob-btn.btn-call:hover,
+            .ref-mob-btn.btn-call:active {
+                background: #0284C7 !important;
+                color: #FFFFFF !important;
+            }
+            .ref-mob-btn.btn-wa {
+                background: rgba(37, 211, 102, 0.12) !important;
+                color: #16A34A !important;
+                border: 1px solid rgba(37, 211, 102, 0.3) !important;
+            }
+            .ref-mob-btn.btn-wa:hover,
+            .ref-mob-btn.btn-wa:active {
+                background: #25D366 !important;
+                color: #FFFFFF !important;
+            }
+            .ref-mob-btn.btn-details {
+                background: rgba(15, 59, 104, 0.1) !important;
+                color: #0F3B68 !important;
+                border: 1px solid rgba(15, 59, 104, 0.25) !important;
+            }
+            .ref-mob-btn.btn-details:hover,
+            .ref-mob-btn.btn-details:active {
+                background: #0F3B68 !important;
+                color: #FFFFFF !important;
+            }
+            .ref-mob-btn.btn-status {
+                background: rgba(217, 119, 6, 0.1) !important;
+                color: #D97706 !important;
+                border: 1px solid rgba(217, 119, 6, 0.25) !important;
+            }
+            .ref-mob-btn.btn-status:hover,
+            .ref-mob-btn.btn-status:active {
+                background: #D97706 !important;
+                color: #FFFFFF !important;
+            }
+        }
             .connect-tabs {
                 display: flex !important;
                 gap: 8px !important;
@@ -1327,10 +1499,10 @@
 
                                 <h5 class="fw-bold text-navy mb-3"><i class="ri-arrow-down-circle-line me-1 text-primary"></i> Received Connects</h5>
 
-                                <div class="referral-wrapper" style="overflow-x: auto; width: 100%; padding-bottom: 12px; -webkit-overflow-scrolling: touch;">
+                                <div class="referral-wrapper">
 
-                                    <!-- TABLE HEADER ROW (1200px fixed width) -->
-                                    <div class="ref-header-row" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; gap: 12px !important; padding: 10px 16px !important; font-size: 11px !important; font-weight: 700 !important; color: #64748B !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; border-bottom: 2px solid #E2E8F0 !important; margin-bottom: 12px !important; min-width: 1200px !important; width: 1200px !important; box-sizing: border-box !important;">
+                                    <!-- TABLE HEADER ROW (Desktop Only) -->
+                                    <div class="ref-header-row d-none d-lg-grid">
                                         <div>From Member</div>
                                         <div style="text-align: center;">Flow</div>
                                         <div>To Member</div>
@@ -1375,10 +1547,10 @@
 
                                 <h5 class="fw-bold text-navy mb-3"><i class="ri-arrow-up-circle-line me-1 text-warning"></i> Given Connects</h5>
 
-                                <div class="referral-wrapper" style="overflow-x: auto; width: 100%; padding-bottom: 14px; -webkit-overflow-scrolling: touch;">
+                                <div class="referral-wrapper">
 
-                                    <!-- TABLE HEADER ROW (1200px fixed width) -->
-                                    <div class="ref-header-row" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; gap: 12px !important; padding: 10px 16px !important; font-size: 11px !important; font-weight: 700 !important; color: #64748B !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; border-bottom: 2px solid #E2E8F0 !important; margin-bottom: 12px !important; min-width: 1200px !important; width: 1200px !important; box-sizing: border-box !important;">
+                                    <!-- TABLE HEADER ROW (Desktop Only) -->
+                                    <div class="ref-header-row d-none d-lg-grid">
                                         <div>From Member</div>
                                         <div style="text-align: center;">Flow</div>
                                         <div>To Member</div>
