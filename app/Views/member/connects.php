@@ -409,19 +409,25 @@
 
 
         /* ==========================================================================
-           PERFECT 1-LINE LUXURY REFERRAL CARD (KVV & BNI Benchmark)
+           DESKTOP VIEW (>= 992px) - 1-LINE LUXURY REFERRAL GRID
            ========================================================================== */
-        .referral-wrapper {
-            overflow-x: auto;
-            padding-bottom: 6px;
-        }
+        @media (min-width: 992px) {
+            .ref-mobile-card {
+                display: none !important;
+            }
+            .referral-wrapper {
+                overflow-x: auto !important;
+                width: 100% !important;
+                padding-bottom: 12px !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
 
-        .referral-card-row {
-            width: 100%;
-        }
+            .referral-card-row {
+                width: 100%;
+            }
 
-        .referral-card {
-            display: grid !important;
+            .referral-card {
+                display: grid !important;
             grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important;
             align-items: center !important;
             gap: 12px !important;
@@ -755,32 +761,19 @@
             box-sizing: border-box !important;
         }
 
-        @media (min-width: 992px) {
-            .referral-wrapper {
-                overflow-x: auto !important;
-                width: 100% !important;
-                padding-bottom: 12px !important;
-                -webkit-overflow-scrolling: touch !important;
-            }
-            .referral-card,
-            .ref-header-row,
-            .referral-item,
-            .ref-card-col {
-                min-width: 1200px;
-                width: 1200px;
-            }
         }
 
         /* Mobile Responsive Card UI (< 992px) - Zero Side Scrolling & Instant Action Buttons */
         @media (max-width: 991px) {
             .referral-wrapper {
-                overflow-x: visible !important;
+                overflow-x: hidden !important;
                 width: 100% !important;
                 padding-bottom: 0 !important;
             }
-            .ref-header-row,
+            .referral-card,
+            .ref-card-row,
             .ref-grid-row,
-            .referral-card.d-none {
+            .ref-header-row {
                 display: none !important;
             }
             .referral-item,
@@ -997,7 +990,7 @@
                 background: #D97706 !important;
                 color: #FFFFFF !important;
             }
-        }
+
             .connect-tabs {
                 display: flex !important;
                 gap: 8px !important;
