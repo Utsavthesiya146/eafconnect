@@ -2,6 +2,19 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+    // Live Backend Auto-Bridge: Route static preview hits into dynamic CodeIgniter backend
+    (function() {
+        if (window.location.protocol.startsWith("http")) {
+            var path = window.location.pathname;
+            var idx = path.indexOf("/preview/");
+            var base = idx !== -1 ? path.substring(0, idx) : "";
+            var p = path.split("/").pop().replace(".html", "");
+            if (!p || p === "index") p = "dashboard";
+            window.location.replace(base + "/preview/" + encodeURIComponent(p));
+        }
+    })();
+</script>
 
 
     <meta charset="utf-8">

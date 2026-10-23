@@ -323,6 +323,99 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
         }
 
+        /* Responsive Mobile Visitors Card Layout */
+        @media (max-width: 768px) {
+            .modern-table-wrapper {
+                background: transparent !important;
+                box-shadow: none !important;
+                overflow: visible !important;
+                border-radius: 0 !important;
+            }
+            .modern-table, 
+            .modern-table thead, 
+            .modern-table tbody, 
+            .modern-table tr, 
+            .modern-table td {
+                display: block !important;
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+            .modern-table thead {
+                display: none !important;
+            }
+            .modern-table tbody tr {
+                background: #FFFFFF !important;
+                border: 1px solid #E2E8F0 !important;
+                border-radius: 14px !important;
+                padding: 16px !important;
+                margin-bottom: 14px !important;
+                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+            }
+            .modern-table td {
+                padding: 6px 0 !important;
+                border: none !important;
+            }
+            .modern-table td:first-child {
+                display: none !important;
+            }
+            .modern-table td:nth-child(2) {
+                font-size: 15px !important;
+                border-bottom: 1px solid #F1F5F9 !important;
+                padding-bottom: 8px !important;
+                margin-bottom: 6px !important;
+            }
+            .modern-table td:nth-child(2) strong {
+                color: #101B35 !important;
+                font-size: 16px !important;
+            }
+            .modern-table td:nth-child(3)::before {
+                content: "Company: ";
+                font-weight: 700;
+                color: #64748B;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+            .modern-table td:nth-child(4)::before {
+                content: "Phone: ";
+                font-weight: 700;
+                color: #64748B;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+            .modern-table td:nth-child(5)::before {
+                content: "Visited Date: ";
+                font-weight: 700;
+                color: #64748B;
+                font-size: 11px;
+                text-transform: uppercase;
+            }
+            .modern-table td:nth-child(6) {
+                border-top: 1px dashed #E2E8F0 !important;
+                padding-top: 8px !important;
+                margin-top: 4px !important;
+            }
+            .modern-table td:nth-child(7) {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                margin-top: 10px !important;
+            }
+            .modern-table td:nth-child(8) {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                margin-top: 6px !important;
+                border-top: 1px solid #F1F5F9 !important;
+                padding-top: 8px !important;
+            }
+            .modern-table td:nth-child(7) .btn,
+            .modern-table td:nth-child(8) .btn {
+                padding: 6px 14px !important;
+                font-size: 13px !important;
+                border-radius: 8px !important;
+            }
+        }
+
 
         /* =========================================================
    SECTION HEADER

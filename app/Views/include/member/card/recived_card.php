@@ -15,8 +15,8 @@ if (strlen($waClean) === 10) {
     $waClean = '91' . $waClean;
 }
 ?>
-<div class="col-12 mb-2 p-0" style="min-width: 1200px; width: 1200px;">
-    <div class="referral-card shadow-sm" style="display: grid !important; grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important; align-items: center !important; gap: 12px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 12px !important; padding: 0 16px !important; height: 64px !important; min-height: 64px !important; max-height: 64px !important; white-space: nowrap !important; width: 1200px !important; min-width: 1200px !important; box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important; transition: all 0.2s ease !important; box-sizing: border-box !important; overflow: visible !important;">
+<div class="col-12 mb-2 p-0 ref-card-col">
+    <div class="referral-card shadow-sm ref-grid-row">
         
         <!-- 1. FROM SENDER (220px) -->
         <div style="display: flex; align-items: center; gap: 10px; width: 220px; overflow: hidden;">

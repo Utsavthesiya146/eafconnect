@@ -95,11 +95,17 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="eaf-btn eaf-btn-primary eaf-btn-lg w-100 justify-content-center mb-3">
+                                <button type="submit" class="eaf-btn eaf-btn-primary eaf-btn-lg w-100 justify-content-center mb-2">
                                     <span>Sign In to Member Portal</span>
                                     <i class="ri-arrow-right-line"></i>
                                 </button>
+
+                                <a href="<?= base_url('preview'); ?>" class="btn w-100 py-2 d-flex align-items-center justify-content-center mb-3" style="background: rgba(198, 166, 103, 0.12); color: #9A7728; border: 1.5px solid #C6A667; font-weight: 700; border-radius: 12px; font-size: 14px; text-decoration: none; transition: all 0.2s ease;">
+                                    <i class="ri-flashlight-line me-2 text-warning fs-5"></i>
+                                    <span>1-Click Live Demo (Harri Kumar - President)</span>
+                                </a>
                             </form>
+
 
                             <div class="text-center pt-3 border-top border-light">
                                 <p class="text-muted mb-0" style="font-size:13px;">

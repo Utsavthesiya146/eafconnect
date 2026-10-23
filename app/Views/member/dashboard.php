@@ -86,6 +86,32 @@
             gap: 14px;
         }
 
+        @media (max-width: 991px) {
+            .chapter-kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .chapter-kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .chapter-kpi-card {
+                padding: 10px 12px;
+            }
+            .chapter-kpi-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 15px;
+            }
+            .chapter-kpi-content strong {
+                font-size: 15px;
+            }
+        }
+
+
         .chapter-kpi-card {
             background: #F8FAFC;
             border: 1px solid #E2E8F0;

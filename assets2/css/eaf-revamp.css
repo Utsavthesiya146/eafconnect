@@ -2344,14 +2344,39 @@ body[data-topbar=colored] #page-topbar,
 @media (max-width: 992px) {
     .kvv-quick-actions-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 }
 
 @media (max-width: 576px) {
+    .kvv-banner-card {
+        padding: 6px 8px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+    }
+    .kvv-banner-img {
+        max-height: 160px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
     .kvv-quick-actions-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    .kvv-action-slip-card {
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+    .kvv-action-slip-title {
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .kvv-action-slip-arrow {
+        font-size: 14px;
     }
 }
+
 
 .kvv-action-slip-card {
     background: #FFFFFF;

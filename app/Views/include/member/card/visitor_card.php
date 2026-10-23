@@ -56,10 +56,8 @@
         <span
             class="<?= $statusClass2 ?>"
             style="cursor: pointer;"
-            onclick="<?= $isPresidentOrVP
-                            ? "status_v_a('" . esc($row['visitors_code']) . "')"
-                            : "edit_v('" . esc($row['visitors_code']) . "')"
-                        ?>">
+            onclick="status_v_a('<?= esc($row['visitors_code']) ?>')"
+            title="Click to change status">
             <?= ucfirst($status) ?>
             <i class="fa fa-edit"></i>
         </span>

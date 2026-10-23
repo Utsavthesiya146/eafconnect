@@ -473,37 +473,34 @@ class Connect extends BaseController
         $row = $user[0]; // CI4 returns array of objects
         $output = '
 <div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
-            <div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
-                      <form id="edit_refferral_status_action" method="post">
-                    <div class="modal-header" style="background-color:#1b4d8f; color:#fff; border-top-left-radius:12px; border-top-right-radius:12px;">
-                        <h6 class="modal-title mb-0" style="font-size:15px;color:#ffffff;">Change Refferral Status</h6>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-3">
-                        <input type="hidden" name="referral_code" value="' . $row->referral_code . '">
-                          <div class="row">
-                
-                        <div class="col-md-12">
-                            <label class="fw-bold">Referral status</label>
-                            <select name="status" class="form-control">
-                                <option value="' . $row->status . '">' . $row->status . '</option>
-                                   <option value="">Select Status</option>
-                                       <option value="Open For Discussion">Open For Discussion</option>
-                                        <option value="Contacted">Contacted</option>
-                                        <option value="Need Sometime">Need Sometime</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                        <option value="MITB">MITB</option>
-                            </select>
-                        </div>
-                             </div>
-                    </div>
-                    <div class="modal-footer justify-content-end border-0">
-                        <button type="button" class="btn btn-outline-secondary btn-sm px-3 m-1 p-1" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="status_c" class="btn btn-sm text-white px-3 m-1 p-1" style="background-color:#1b4d8f;">Update</button>
-                    </div>
-                </form>
+    <form id="edit_refferral_status_action" method="post">
+        <div class="modal-header" style="background-color:#1b4d8f; color:#fff; border-top-left-radius:12px; border-top-right-radius:12px;">
+            <h6 class="modal-title mb-0" style="font-size:15px;color:#ffffff;">Change Connect Status</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3">
+            <input type="hidden" name="referral_code" value="' . esc($row->referral_code) . '">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="fw-bold mb-1">Referral Status</label>
+                    <select name="status" class="form-select">
+                        <option value="' . esc($row->status) . '">Current: ' . esc($row->status) . '</option>
+                        <option value="Open For Discussion">Open For Discussion</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Need Sometime">Need Sometime</option>
+                        <option value="Cancelled">Cancelled</option>
+                        <option value="MITB">MITB</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
             </div>
-        </div>>';
+        </div>
+        <div class="modal-footer justify-content-end border-0">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3 m-1" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="status_c" class="btn btn-sm text-white px-3 m-1" style="background-color:#1b4d8f;">Update</button>
+        </div>
+    </form>
+</div>';
 
         return $this->response->setBody($output);
     }

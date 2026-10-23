@@ -725,13 +725,120 @@
             transform: translateY(-2px) !important;
         }
 
-        /* Horizontal Scroll on small screens */
-        @media (max-width: 1199px) {
+        /* Desktop & Tablet standard grid */
+        .ref-card-row,
+        .ref-grid-row {
+            display: grid !important;
+            grid-template-columns: 220px 32px 200px 230px 120px 160px 110px !important;
+            align-items: center !important;
+            gap: 12px !important;
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 12px !important;
+            padding: 0 16px !important;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            white-space: nowrap !important;
+            box-shadow: 0 2px 8px rgba(15, 59, 104, 0.04) !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (min-width: 992px) {
             .referral-card,
             .ref-header-row,
-            .referral-item {
-                min-width: 1200px !important;
-                width: 1200px !important;
+            .referral-item,
+            .ref-card-col {
+                min-width: 1080px;
+                width: 100%;
+            }
+        }
+
+        /* Mobile Responsive Card UI */
+        @media (max-width: 991px) {
+            .referral-wrapper {
+                overflow-x: visible !important;
+                padding-bottom: 0 !important;
+            }
+            .ref-header-row {
+                display: none !important;
+            }
+            .referral-item,
+            .ref-card-col {
+                min-width: 100% !important;
+                width: 100% !important;
+                display: block !important;
+                margin-bottom: 12px !important;
+            }
+            .referral-card,
+            .ref-grid-row {
+                display: flex !important;
+                flex-direction: column !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                min-width: 100% !important;
+                width: 100% !important;
+                padding: 16px !important;
+                gap: 12px !important;
+                white-space: normal !important;
+                border-radius: 16px !important;
+                border: 1px solid #E2E8F0 !important;
+                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+            }
+            .referral-card > div {
+                width: 100% !important;
+                min-width: 0 !important;
+                max-width: none !important;
+            }
+            .ref-col.ref-business {
+                border-top: 1px solid #F1F5F9 !important;
+                padding-top: 10px !important;
+            }
+            .ref-col.ref-status {
+                text-align: left !important;
+                justify-content: flex-start !important;
+            }
+            .ref-col.ref-date {
+                text-align: left !important;
+                font-size: 12px !important;
+            }
+            .ref-col.ref-actions {
+                border-top: 1px dashed #E2E8F0 !important;
+                padding-top: 12px !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+            }
+            .ref-btn {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 15px !important;
+                border-radius: 9px !important;
+            }
+            .connect-tabs {
+                display: flex !important;
+                gap: 8px !important;
+                margin-bottom: 12px !important;
+            }
+            .tab-btn {
+                flex: 1 !important;
+                text-align: center !important;
+                padding: 10px 14px !important;
+                font-size: 13.5px !important;
+            }
+            .filter-tabs {
+                display: flex !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                white-space: nowrap !important;
+                gap: 6px !important;
+                flex-wrap: nowrap !important;
+                padding-bottom: 8px !important;
+            }
+            .filter-btn {
+                flex-shrink: 0 !important;
+                font-size: 12px !important;
+                padding: 6px 12px !important;
             }
         }
     </style>
@@ -1226,7 +1333,7 @@
                                     <?php if (!empty($received)): ?>
                                         <?php foreach ($received as $row): ?>
                                             <div class="referral-item"
-                                                data-status="<?= strtolower(trim($row['status'])) ?>" style="width: 1200px; min-width: 1200px;">
+                                                data-status="<?= strtolower(trim($row['status'])) ?>">
                                                 <?= view('include/member/card/recived_card.php', ['row' => $row]) ?>
                                             </div>
                                         <?php endforeach; ?>
@@ -1261,7 +1368,7 @@
                                     <?php if (!empty($given)): ?>
                                         <?php foreach ($given as $row): ?>
                                             <div class="referral-item"
-                                                data-status="<?= strtolower(trim($row['status'])) ?>" style="width: 1200px; min-width: 1200px;">
+                                                data-status="<?= strtolower(trim($row['status'])) ?>">
                                                 <?= view('include/member/card/given_card.php', ['row' => $row]) ?>
                                             </div>
                                         <?php endforeach; ?>

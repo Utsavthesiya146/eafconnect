@@ -1269,12 +1269,13 @@ class Visitor extends BaseController
                    <div class="col-md-12">
                     <label class="fw-bold">status</label>
                     <select class="form-select" name="status">
-                        <option value="' . esc($row->status) . '">' . esc(ucfirst($row->status)) . '</option>
-                    <option value="Invited">Invited</option>
-                           <option value="Re-Invited">Re Invited</option>
-                                            <option value="Scheduled">Scheduled</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Cancelled">Cancelled</option>
+                        <option value="' . esc($row->status) . '">Current: ' . esc(ucfirst($row->status)) . '</option>
+                        <option value="Attended">Attended</option>
+                        <option value="Invited">Invited</option>
+                        <option value="Re-Invited">Re-Invited</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Cancelled">Cancelled</option>
                     </select>
                 </div>
                    <div class="col-md-12">
@@ -1671,9 +1672,13 @@ class Visitor extends BaseController
                    <div class="col-md-12">
                     <label class="fw-bold">status</label>
                     <select class="form-select" name="status">
-                        <option value="' . esc($row->status) . '">' . esc(ucfirst($row->status)) . '</option>
-                    <option value="Attended">Attended</option>
-                     <option value="Cancelled">Cancelled</option>
+                        <option value="' . esc($row->status) . '">Current: ' . esc(ucfirst($row->status)) . '</option>
+                        <option value="Attended">Attended</option>
+                        <option value="Invited">Invited</option>
+                        <option value="Re-Invited">Re-Invited</option>
+                        <option value="Scheduled">Scheduled</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Cancelled">Cancelled</option>
                     </select>
                 </div>
 

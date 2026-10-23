@@ -230,7 +230,7 @@ class Auth extends BaseController
     }
 
     /* ================= 1-CLICK LIVE PREVIEW (SHARE WITH CLIENT / SIR) ================= */
-    public function preview()
+    public function preview($target = '')
     {
         $db = \Config\Database::connect();
         $user = $db->table('users')->where('user_code', '5')->get()->getRow();
@@ -265,6 +265,44 @@ class Auth extends BaseController
             session()->set($sessionData);
         }
 
-        return redirect()->to('/member/dashboard');
+        $cleanTarget = strtolower(trim(str_replace(['.html', '.php'], '', (string)$target)));
+        $cleanTarget = ltrim($cleanTarget, '/');
+
+        // Route mapping for known aliases
+        $routesMap = [
+            'visitor'                 => 'member/visitor',
+            'visitors'                => 'member/visitor',
+            'meetings'                => 'member/meetings',
+            'meeting'                 => 'member/meetings',
+            'connect'                 => 'member/connect',
+            'connects'                => 'member/connect',
+            'profile'                 => 'member/profile',
+            'mychapter'               => 'member/mychapter',
+            'chapter'                 => 'member/chapter',
+            'chapter_attendance'      => 'member/chapter_attendance',
+            'f2f'                     => 'member/f2f',
+            'mitb'                    => 'member/mitb',
+            'topperformer'            => 'member/topperformer',
+            'search'                  => 'member/search',
+            'my_attendance'           => 'member/my_attendance',
+            'notifications'           => 'member/notifications',
+            'broadcast'               => 'member/broadcast',
+            'invitations'             => 'member/invitations',
+            'dashboard'               => 'member/dashboard',
+            'my_participation_report' => 'member/reports/my_participation_report',
+            'participation'           => 'member/reports/participation',
+            'received_connects_report'=> 'member/reports/received_connects_report',
+            'weekly_slips'            => 'member/reports/weekly_slips',
+        ];
+
+        if (!empty($cleanTarget) && isset($routesMap[$cleanTarget])) {
+            return redirect()->to(base_url($routesMap[$cleanTarget]));
+        }
+
+        if (!empty($cleanTarget) && $cleanTarget !== 'index') {
+            return redirect()->to(base_url('member/' . $cleanTarget));
+        }
+
+        return redirect()->to(base_url('member/dashboard'));
     }
 }

@@ -758,7 +758,7 @@
                         timer: 1200,
                         showConfirmButton: false
                     }).then(() => {
-                        $("#chapter_edit").modal("hide"); // ✅ FIXED
+                        $("#connect_edit").modal("hide");
                         location.reload();
                     });
 

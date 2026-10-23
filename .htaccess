@@ -56,11 +56,13 @@ Options -Indexes
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
-	# Redirect static .html requests under /member/ or /admin/ to /preview/
-	RewriteRule ^member/(.*\.html)$ /preview/$1 [L,NC,R=301]
-	RewriteRule ^admin/(.*\.html)$ /preview/admin/$1 [L,NC,R=301]
-	RewriteRule ^member_login\.html$ /preview/member_login.html [L,NC,R=301]
-	RewriteRule ^admin_login\.html$ /preview/admin_login.html [L,NC,R=301]
+	# Route any /preview/*.html or /preview to live CodeIgniter Auth::preview controller
+	RewriteRule ^preview/(.+)\.html$ index.php/preview/$1 [L,NC,QSA]
+	RewriteRule ^preview/?$ index.php/preview [L,NC,QSA]
+	RewriteRule ^member/(.*)\.html$ index.php/preview/$1 [L,NC,QSA]
+	RewriteRule ^admin/(.*)\.html$ index.php/admin/$1 [L,NC,QSA]
+	RewriteRule ^member_login\.html$ index.php/member_login [L,NC,QSA]
+	RewriteRule ^admin_login\.html$ index.php/admin [L,NC,QSA]
 
 	# Checks to see if the user is attempting to access a valid file,
 	# such as an image or css document, if this isn't true it sends the

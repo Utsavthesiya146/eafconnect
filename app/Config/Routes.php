@@ -33,6 +33,7 @@ $routes->post('loginCheckAdmin', 'Auth::loginCheckAdmin');
 $routes->get('dashboard', 'Auth::dashboard');
 $routes->get('logout', 'Auth::logout');
 $routes->get('preview', 'Auth::preview');
+$routes->get('preview/(:any)', 'Auth::preview/$1');
 
 $routes->group('admin', ['filter' => 'adminAuth'], function ($routes) {});
 // admin dashboard
