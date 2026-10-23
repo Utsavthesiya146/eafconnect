@@ -27,48 +27,62 @@ $unreadNotificationsCount = $db->table('notifications')
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
-<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-design-system.css') ?>?v=5.0">
-<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css') ?>?v=5.0">
+<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-design-system.css') ?>?v=6.0">
+<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css') ?>?v=6.0">
 
 <header id="page-topbar">
     <div class="navbar-header">
-        <!-- Left Side: Hamburger & Member Profile Info (KVV Benchmark) -->
-        <div class="d-flex align-items-center gap-3">
-            <button type="button" class="btn btn-sm px-2 font-size-22 header-item waves-effect vertical-menu-btn" id="vertical-menu-btn">
+        <!-- Left Side: Hamburger & Member Profile Info -->
+        <div class="d-flex align-items-center gap-2 gap-sm-3 min-w-0">
+            <!-- Sidebar toggle button (visible on both mobile and desktop) -->
+            <button type="button" class="btn btn-sm px-2 font-size-20 header-item waves-effect vertical-menu-btn" id="vertical-menu-btn" aria-label="Toggle Sidebar">
                 <i class="ri-menu-2-line align-middle" style="font-size:22px; color:#1E293B;"></i>
             </button>
 
-            <!-- KVV Member Profile Header Widget -->
+            <!-- Member Profile Header Widget -->
             <div class="kvv-header-user-block">
-                <a href="<?= base_url('member/profile'); ?>">
+                <a href="<?= base_url('member/profile'); ?>" class="position-relative d-inline-block">
                     <img src="<?= get_member_avatar($headerPhoto, $headerMember['gender'] ?? '', $headerUserCode); ?>" 
                          alt="<?= esc($headerName); ?>" 
                          class="kvv-header-avatar"
                          onerror="this.onerror=null; this.src='<?= base_url('images/empty.png'); ?>';">
+                    <span class="kvv-header-status-dot" title="Online Member"></span>
                 </a>
                 <div class="kvv-header-user-info">
                     <div class="kvv-header-name">
-                        <a href="<?= base_url('member/profile'); ?>" style="color:inherit;text-decoration:none;">
-                            <?= esc($headerName); ?> <span class="kvv-name-divider">|</span> <?= esc($headerChapterName); ?>
+                        <a href="<?= base_url('member/profile'); ?>" class="kvv-name-link" title="<?= esc($headerName); ?>">
+                            <?= esc($headerName); ?>
                         </a>
+                        <span class="kvv-header-chapter-pill" title="<?= esc($headerChapterName); ?>">
+                            <?= esc($headerChapterName); ?>
+                        </span>
                     </div>
-                    <div class="kvv-header-sub">
-                        <span><?= esc($headerIndustry); ?> • <?= esc($headerBusiness); ?></span>
-                        <span class="kvv-role-badge"><i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member</span>
+                    <!-- Desktop / Tablet Details -->
+                    <div class="kvv-header-sub d-none d-md-flex">
+                        <span class="kvv-sub-biz" title="<?= esc($headerIndustry); ?> • <?= esc($headerBusiness); ?>">
+                            <?= esc($headerIndustry); ?> • <?= esc($headerBusiness); ?>
+                        </span>
+                        <span class="kvv-role-badge">
+                            <i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member
+                        </span>
+                    </div>
+                    <!-- Mobile Compact Category (shown only on small mobile) -->
+                    <div class="kvv-header-sub-mobile d-flex d-md-none">
+                        <span class="kvv-mobile-biz"><?= esc($headerBusiness ?: $headerRole); ?></span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Right Side: Notifications & Settings Dropdown -->
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0">
             <!-- Notifications Dropdown -->
             <div class="dropdown d-inline-block">
-                <a href="<?= base_url('member/notifications'); ?>" class="btn header-item noti-icon waves-effect position-relative" style="display:inline-flex;align-items:center;justify-content:center;color:#475569;">
+                <a href="<?= base_url('member/notifications'); ?>" class="btn header-item noti-icon waves-effect position-relative kvv-header-icon-btn" aria-label="Notifications" title="Notifications">
                     <i class="ri-notification-3-line font-size-20"></i>
                     <?php if ($unreadNotificationsCount > 0): ?>
-                        <span class="badge rounded-pill bg-danger position-absolute top-0 end-0 mt-3 me-2" style="font-size:10px;">
-                            <?= $unreadNotificationsCount; ?>
+                        <span class="badge rounded-pill bg-danger position-absolute kvv-noti-badge">
+                            <?= $unreadNotificationsCount > 9 ? '9+' : $unreadNotificationsCount; ?>
                         </span>
                     <?php endif; ?>
                 </a>
@@ -76,10 +90,10 @@ $unreadNotificationsCount = $db->table('notifications')
 
             <!-- Profile Settings Dropdown -->
             <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown" aria-expanded="false" style="color:#475569;">
+                <button type="button" class="btn header-item noti-icon waves-effect kvv-header-icon-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account Menu" title="Settings">
                     <i class="ri-settings-3-line font-size-20"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px;">
+                <div class="dropdown-menu dropdown-menu-end p-0 border-0 shadow-lg rounded-4 overflow-hidden" style="min-width:260px; z-index: 1060;">
                     <div class="p-3 text-center text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border-bottom: 2px solid #C6A667;">
                         <img src="<?= get_member_avatar($headerPhoto, $headerMember['gender'] ?? '', $headerUserCode); ?>"
                              class="rounded-circle shadow-sm"

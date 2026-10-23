@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=3.7" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=6.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -532,12 +532,20 @@
                         ->getResultArray();
                     ?>
 
+                    <!-- ==========================================================================
+                         1. TOP PROMOTIONAL AD BANNER CAROUSEL (KVV BENCHMARK)
+                         ========================================================================== -->
                     <div class="kvv-banner-wrapper">
-                        <button class="kvv-carousel-arrow" type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide="prev" aria-label="Previous">
-                            ‹
-                        </button>
+                        <div id="kvvAdsCarousel" class="carousel slide kvv-carousel-container" data-bs-ride="carousel" data-bs-interval="5000" data-bs-touch="true">
+                            <?php if (!empty($active_ads) && count($active_ads) > 1): ?>
+                                <!-- Carousel Indicators -->
+                                <div class="carousel-indicators kvv-carousel-indicators">
+                                    <?php foreach ($active_ads as $k => $ad): ?>
+                                        <button type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide-to="<?= $k ?>" class="<?= $k === 0 ? 'active' : '' ?>" aria-current="<?= $k === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $k + 1 ?>"></button>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
 
-                        <div id="kvvAdsCarousel" class="carousel slide kvv-carousel-container" data-bs-ride="carousel" data-bs-interval="5000">
                             <div class="carousel-inner">
                                 <?php if (!empty($active_ads)): ?>
                                     <?php foreach ($active_ads as $k => $ad): ?>
@@ -545,6 +553,7 @@
                                             <div class="kvv-banner-card">
                                                 <img src="<?= base_url('uploads/ads/' . $ad['ads_image']); ?>" 
                                                      alt="<?= esc($ad['ads_title'] ?: 'Member Spotlight'); ?>" 
+                                                     class="kvv-banner-img"
                                                      onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.png'); ?>';">
                                             </div>
                                         </div>
@@ -554,16 +563,23 @@
                                         <div class="kvv-banner-card">
                                             <img src="<?= base_url('images/sample-banner.png'); ?>" 
                                                  alt="Member Spotlight"
+                                                 class="kvv-banner-img"
                                                  onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.jpg'); ?>';">
                                         </div>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                        </div>
 
-                        <button class="kvv-carousel-arrow" type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide="next" aria-label="Next">
-                            ›
-                        </button>
+                            <?php if (!empty($active_ads) && count($active_ads) > 1): ?>
+                                <!-- Floating In-Banner Nav Buttons -->
+                                <button class="carousel-control-prev kvv-carousel-arrow-btn" type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide="prev" aria-label="Previous">
+                                    <i class="ri-arrow-left-s-line"></i>
+                                </button>
+                                <button class="carousel-control-next kvv-carousel-arrow-btn" type="button" data-bs-target="#kvvAdsCarousel" data-bs-slide="next" aria-label="Next">
+                                    <i class="ri-arrow-right-s-line"></i>
+                                </button>
+                            <?php endif; ?>
+                        </div>
                     </div>
 
                     <!-- ==========================================================================
@@ -571,27 +587,59 @@
                          ========================================================================== -->
                     <div class="kvv-quick-actions-grid">
                         <!-- Action 1: Give Connect -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_new_connects==='function'){add_new_connects();}else{window.location.href='<?= base_url('member/connect'); ?>';}">
-                            <span class="kvv-action-slip-title">Give Connect</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
+                        <div class="kvv-action-slip-card action-give" onclick="if(typeof add_new_connects==='function'){add_new_connects();}else{window.location.href='<?= base_url('member/connect'); ?>';}">
+                            <div class="kvv-slip-icon-wrap icon-give">
+                                <i class="ri-send-plane-2-fill"></i>
+                            </div>
+                            <div class="kvv-slip-body">
+                                <span class="kvv-action-slip-title">Give Connect</span>
+                                <span class="kvv-action-slip-sub">New referral</span>
+                            </div>
+                            <div class="kvv-action-slip-arrow">
+                                <i class="ri-arrow-right-line"></i>
+                            </div>
                         </div>
 
                         <!-- Action 2: Received Connects -->
-                        <a href="<?= base_url('member/connect'); ?>" class="kvv-action-slip-card">
-                            <span class="kvv-action-slip-title">Received Connects</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
+                        <a href="<?= base_url('member/connect'); ?>" class="kvv-action-slip-card action-receive">
+                            <div class="kvv-slip-icon-wrap icon-receive">
+                                <i class="ri-inbox-archive-fill"></i>
+                            </div>
+                            <div class="kvv-slip-body">
+                                <span class="kvv-action-slip-title">Received Connects</span>
+                                <span class="kvv-action-slip-sub">Inbound leads</span>
+                            </div>
+                            <div class="kvv-action-slip-arrow">
+                                <i class="ri-arrow-right-line"></i>
+                            </div>
                         </a>
 
                         <!-- Action 3: F2F Meeting -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_f2f==='function'){add_f2f();}else{window.location.href='<?= base_url('member/f2f'); ?>';}">
-                            <span class="kvv-action-slip-title">F2F Meeting</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
+                        <div class="kvv-action-slip-card action-f2f" onclick="if(typeof add_f2f==='function'){add_f2f();}else{window.location.href='<?= base_url('member/f2f'); ?>';}">
+                            <div class="kvv-slip-icon-wrap icon-f2f">
+                                <i class="ri-user-voice-fill"></i>
+                            </div>
+                            <div class="kvv-slip-body">
+                                <span class="kvv-action-slip-title">F2F Meeting</span>
+                                <span class="kvv-action-slip-sub">1-to-1 meeting</span>
+                            </div>
+                            <div class="kvv-action-slip-arrow">
+                                <i class="ri-arrow-right-line"></i>
+                            </div>
                         </div>
 
                         <!-- Action 4: MITB (Closed Business) -->
-                        <div class="kvv-action-slip-card" onclick="if(typeof add_mitb==='function'){add_mitb();}else{window.location.href='<?= base_url('member/mitb'); ?>';}">
-                            <span class="kvv-action-slip-title">MITB (Closed Business)</span>
-                            <span class="kvv-action-slip-arrow">&rarr;</span>
+                        <div class="kvv-action-slip-card action-mitb" onclick="if(typeof add_mitb==='function'){add_mitb();}else{window.location.href='<?= base_url('member/mitb'); ?>';}">
+                            <div class="kvv-slip-icon-wrap icon-mitb">
+                                <i class="ri-money-rupee-circle-fill"></i>
+                            </div>
+                            <div class="kvv-slip-body">
+                                <span class="kvv-action-slip-title">MITB (Closed Business)</span>
+                                <span class="kvv-action-slip-sub">Report revenue</span>
+                            </div>
+                            <div class="kvv-action-slip-arrow">
+                                <i class="ri-arrow-right-line"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -602,40 +650,45 @@
                         <!-- Column 1: Your Business Progress This Week (2x2 Grid) -->
                         <div class="col-lg-6 col-md-12">
                             <div class="kvv-widget-box">
-                                <h5 class="kvv-widget-title">Your Business Progress This Week</h5>
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h5 class="kvv-widget-title mb-0">
+                                        <i class="ri-bar-chart-grouped-fill text-primary me-2"></i>Your Business Progress This Week
+                                    </h5>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill font-size-11 px-2 py-1">Current Week</span>
+                                </div>
                                 <div class="kvv-progress-2x2-grid">
                                     <!-- Connects Received -->
-                                    <div class="kvv-progress-cell">
+                                    <div class="kvv-progress-cell cell-inbound">
                                         <div class="kvv-progress-cell-top">
                                             <span class="kvv-progress-number"><?= (int)($weekly_f2f_receive ?? $r_r_c ?? 0); ?></span>
-                                            <span class="kvv-arrow-box arrow-inbound">↙</span>
+                                            <span class="kvv-arrow-box arrow-inbound" title="Inbound Connects"><i class="ri-arrow-left-down-line"></i></span>
                                         </div>
                                         <span class="kvv-progress-caption">Connects Received</span>
                                     </div>
 
                                     <!-- Connects Given -->
-                                    <div class="kvv-progress-cell">
+                                    <div class="kvv-progress-cell cell-outbound">
                                         <div class="kvv-progress-cell-top">
                                             <span class="kvv-progress-number"><?= (int)($weekly_ref_given ?? 0); ?></span>
-                                            <span class="kvv-arrow-box arrow-outbound">↗</span>
+                                            <span class="kvv-arrow-box arrow-outbound" title="Outbound Connects"><i class="ri-arrow-right-up-line"></i></span>
                                         </div>
                                         <span class="kvv-progress-caption">Connects Given</span>
                                     </div>
 
                                     <!-- Business Received -->
-                                    <div class="kvv-progress-cell">
+                                    <div class="kvv-progress-cell cell-inbound">
                                         <div class="kvv-progress-cell-top">
-                                            <span class="kvv-progress-number"><span style="color:#0F3B68;font-size:18px;margin-right:2px;font-weight:700;">₹</span><?= (int)($weekly_mitb_received ?? 0); ?></span>
-                                            <span class="kvv-arrow-box arrow-inbound">↙</span>
+                                            <span class="kvv-progress-number"><small class="kvv-currency">₹</small><?= number_format((float)($weekly_mitb_received ?? 0)); ?></span>
+                                            <span class="kvv-arrow-box arrow-inbound" title="Business Inbound"><i class="ri-arrow-left-down-line"></i></span>
                                         </div>
                                         <span class="kvv-progress-caption">Business Received</span>
                                     </div>
 
                                     <!-- Business Given -->
-                                    <div class="kvv-progress-cell">
+                                    <div class="kvv-progress-cell cell-outbound">
                                         <div class="kvv-progress-cell-top">
-                                            <span class="kvv-progress-number"><span style="color:#0F3B68;font-size:18px;margin-right:2px;font-weight:700;">₹</span><?= (int)($weekly_mitb_given ?? 0); ?></span>
-                                            <span class="kvv-arrow-box arrow-outbound">↗</span>
+                                            <span class="kvv-progress-number"><small class="kvv-currency">₹</small><?= number_format((float)($weekly_mitb_given ?? 0)); ?></span>
+                                            <span class="kvv-arrow-box arrow-outbound" title="Business Outbound"><i class="ri-arrow-right-up-line"></i></span>
                                         </div>
                                         <span class="kvv-progress-caption">Business Given</span>
                                     </div>
