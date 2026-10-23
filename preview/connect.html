@@ -1547,25 +1547,28 @@ stable, and efficient teams for organizations</p>
                             <div class="content-card">
 
                                                                 <div class="filter-tabs">
-                                                                            <button type="button" class="filter-btn " data-status="open for discussion">
+                                    <button type="button" class="filter-btn active" data-status="all">
+                                        All (5)
+                                    </button>
+                                                                            <button type="button" class="filter-btn" data-status="open for discussion">
                                             Open For Discussion (0)
                                         </button>
-                                                                            <button type="button" class="filter-btn active" data-status="contacted">
+                                                                            <button type="button" class="filter-btn" data-status="contacted">
                                             Contacted (2)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="pending">
+                                                                            <button type="button" class="filter-btn" data-status="pending">
                                             Pending (1)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="need sometime">
+                                                                            <button type="button" class="filter-btn" data-status="need sometime">
                                             Need Sometime (0)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="mitb">
+                                                                            <button type="button" class="filter-btn" data-status="mitb">
                                             MITB (1)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="completed">
+                                                                            <button type="button" class="filter-btn" data-status="completed">
                                             Completed (0)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="cancelled">
+                                                                            <button type="button" class="filter-btn" data-status="cancelled">
                                             Cancelled (1)
                                         </button>
                                                                     </div>
@@ -2023,26 +2026,29 @@ stable, and efficient teams for organizations</p>
                         <div class="tab-content-box" id="given">
                             <div class="content-card">
 
-                                                                <div class="filter-tabs">
-                                                                            <button type="button" class="filter-btn active" data-status="open for discussion">
+                                <div class="filter-tabs">
+                                    <button type="button" class="filter-btn active" data-status="all">
+                                        All (16)
+                                    </button>
+                                                                            <button type="button" class="filter-btn" data-status="open for discussion">
                                             Open For Discussion (4)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="contacted">
+                                                                            <button type="button" class="filter-btn" data-status="contacted">
                                             Contacted (1)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="pending">
+                                                                            <button type="button" class="filter-btn" data-status="pending">
                                             Pending (4)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="need sometime">
+                                                                            <button type="button" class="filter-btn" data-status="need sometime">
                                             Need Sometime (0)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="mitb">
+                                                                            <button type="button" class="filter-btn" data-status="mitb">
                                             MITB (0)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="completed">
+                                                                            <button type="button" class="filter-btn" data-status="completed">
                                             Completed (7)
                                         </button>
-                                                                            <button type="button" class="filter-btn " data-status="cancelled">
+                                                                            <button type="button" class="filter-btn" data-status="cancelled">
                                             Cancelled (0)
                                         </button>
                                                                     </div>
@@ -4695,15 +4701,20 @@ function handleQuickSlip(type) {
             var $items = $container.find('.referral-item');
             var visibleCount = 0;
 
-            $items.each(function() {
-                var itemStatus = $.trim(String($(this).attr('data-status') || '')).toLowerCase();
-                if (itemStatus === selectedStatus) {
-                    $(this).show();
-                    visibleCount++;
-                } else {
-                    $(this).hide();
-                }
-            });
+            if (selectedStatus === 'all' || selectedStatus === '') {
+                $items.show();
+                visibleCount = $items.length;
+            } else {
+                $items.each(function() {
+                    var itemStatus = $.trim(String($(this).attr('data-status') || '')).toLowerCase();
+                    if (itemStatus === selectedStatus) {
+                        $(this).show();
+                        visibleCount++;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
 
             var $emptyMsg = $container.find('.empty-filter-placeholder');
             if (visibleCount === 0) {

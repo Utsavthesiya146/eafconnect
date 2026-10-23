@@ -1311,20 +1311,15 @@
                                     'completed'           => 'Completed',
                                     'cancelled'           => 'Cancelled',
                                 ];
-                                $activeReceived = 'open for discussion';
-                                foreach (array_keys($statusList) as $k) {
-                                    if (($statusCountsReceived[$k] ?? 0) > 0) {
-                                        $activeReceived = $k;
-                                        break;
-                                    }
-                                }
                                 ?>
                                 <div class="filter-tabs">
+                                    <button type="button" class="filter-btn active" data-status="all">
+                                        All (<?= $receivedCount ?>)
+                                    </button>
                                     <?php foreach ($statusList as $key => $label):
-                                        $isActive = ($key === $activeReceived) ? 'active' : '';
                                         $cnt = $statusCountsReceived[$key] ?? 0;
                                     ?>
-                                        <button type="button" class="filter-btn <?= $isActive ?>" data-status="<?= $key ?>">
+                                        <button type="button" class="filter-btn" data-status="<?= $key ?>">
                                             <?= $label ?> (<?= $cnt ?>)
                                         </button>
                                     <?php endforeach; ?>
@@ -1365,21 +1360,14 @@
                         <div class="tab-content-box" id="given">
                             <div class="content-card">
 
-                                <?php
-                                $activeGiven = 'open for discussion';
-                                foreach (array_keys($statusList) as $k) {
-                                    if (($statusCountsGiven[$k] ?? 0) > 0) {
-                                        $activeGiven = $k;
-                                        break;
-                                    }
-                                }
-                                ?>
                                 <div class="filter-tabs">
+                                    <button type="button" class="filter-btn active" data-status="all">
+                                        All (<?= $givenCount ?>)
+                                    </button>
                                     <?php foreach ($statusList as $key => $label):
-                                        $isActive = ($key === $activeGiven) ? 'active' : '';
                                         $cnt = $statusCountsGiven[$key] ?? 0;
                                     ?>
-                                        <button type="button" class="filter-btn <?= $isActive ?>" data-status="<?= $key ?>">
+                                        <button type="button" class="filter-btn" data-status="<?= $key ?>">
                                             <?= $label ?> (<?= $cnt ?>)
                                         </button>
                                     <?php endforeach; ?>
@@ -1455,15 +1443,20 @@
             var $items = $container.find('.referral-item');
             var visibleCount = 0;
 
-            $items.each(function() {
-                var itemStatus = $.trim(String($(this).attr('data-status') || '')).toLowerCase();
-                if (itemStatus === selectedStatus) {
-                    $(this).show();
-                    visibleCount++;
-                } else {
-                    $(this).hide();
-                }
-            });
+            if (selectedStatus === 'all' || selectedStatus === '') {
+                $items.show();
+                visibleCount = $items.length;
+            } else {
+                $items.each(function() {
+                    var itemStatus = $.trim(String($(this).attr('data-status') || '')).toLowerCase();
+                    if (itemStatus === selectedStatus) {
+                        $(this).show();
+                        visibleCount++;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
 
             var $emptyMsg = $container.find('.empty-filter-placeholder');
             if (visibleCount === 0) {
