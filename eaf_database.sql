@@ -14,6 +14,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET SQL_MODE = '';
+
 
 --
 -- Table structure for table `ads`
@@ -372,7 +374,7 @@ CREATE TABLE `events` (
   `description` text DEFAULT NULL,
   `date` datetime NOT NULL,
   `time` varchar(100) NOT NULL,
-  `mode` enum('offline','online','hybrid') DEFAULT 'offline',
+  `mode` varchar(50) DEFAULT 'offline',
   `meeting_link` varchar(255) DEFAULT NULL,
   `chapter_code` varchar(100) DEFAULT NULL,
   `location` varchar(255) NOT NULL,
@@ -780,8 +782,8 @@ CREATE TABLE `users` (
   `verified` enum('1','2','3') NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `renewal_date` date DEFAULT '2027-04-01',
-  `member_role` enum('President','Vice President','Secretary Treasurer','Chapter Growth','Member') NOT NULL DEFAULT 'Member',
-  `member_type` enum('member','gold_member') NOT NULL DEFAULT 'member',
+  `member_role` varchar(100) NOT NULL DEFAULT 'Member',
+  `member_type` varchar(50) NOT NULL DEFAULT 'member',
   `join_date` date DEFAULT NULL,
   `token` varchar(300) NOT NULL,
   `last_active` varchar(100) NOT NULL,
