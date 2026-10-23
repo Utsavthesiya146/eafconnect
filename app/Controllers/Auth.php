@@ -222,6 +222,22 @@ class Auth extends BaseController
         return redirect()->to('/admin/dashboard');
     }
 
+    public function login()
+    {
+        return (new Home())->member_login();
+    }
+
+    public function dashboard()
+    {
+        if (session()->get('logged_in')) {
+            if (session()->get('is_admin')) {
+                return redirect()->to(base_url('admin/dashboard'));
+            }
+            return redirect()->to(base_url('member/dashboard'));
+        }
+        return redirect()->to(base_url('login'));
+    }
+
     /* ================= LOGOUT ================= */
     public function logout()
     {

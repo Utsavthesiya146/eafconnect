@@ -25,7 +25,8 @@ $routes->get('blogs', 'Blogs::index');
 $routes->get('blogs/details/(:any)', 'Blogs::details/$1');
 
 
-$routes->get('login', 'Auth::login');
+$routes->get('login', 'Home::member_login');
+$routes->get('admin_login', 'Home::admin_login');
 $routes->post('loginCheck', 'Auth::loginCheck');
 $routes->post('loginCheckAdmin', 'Auth::loginCheckAdmin');
 
