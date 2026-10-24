@@ -894,9 +894,25 @@ class Chapter extends BaseController
     |--------------------------------------------------------------------------
     */
 
-        $qry .= "
-        ORDER BY cm.member_code ASC
-    ";
+        if (!empty($search)) {
+            $searchEscaped = $db->escapeLikeString($search);
+            $qry .= "
+            ORDER BY 
+                CASE 
+                    WHEN u.name LIKE '{$searchEscaped}%' THEN 1
+                    WHEN u.name LIKE '%{$searchEscaped}%' THEN 2
+                    WHEN u.business_name LIKE '{$searchEscaped}%' THEN 3
+                    WHEN u.business_name LIKE '%{$searchEscaped}%' THEN 4
+                    WHEN u.industry LIKE '{$searchEscaped}%' THEN 5
+                    ELSE 6
+                END ASC,
+                u.name ASC
+            ";
+        } else {
+            $qry .= "
+            ORDER BY cm.member_code ASC
+            ";
+        }
 
 
         /*

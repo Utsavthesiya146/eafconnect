@@ -848,15 +848,22 @@
 
 
                     <br>
-                    <div class="row g-3">
+                    <div class="row g-3" id="memberCardsRow">
                         <?php if (!empty($users)) : ?>
-                            <?php foreach ($users as $row) : ?>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                            <?php foreach ($users as $index => $row) : ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4 member-search-card"
+                                     data-orig-index="<?= $index ?>"
+                                     data-name="<?= esc(strtolower($row['name'] ?? '')) ?>"
+                                     data-business="<?= esc(strtolower($row['business_name'] ?? '')) ?>"
+                                     data-industry="<?= esc(strtolower($row['industry'] ?? '')) ?>"
+                                     data-city="<?= esc(strtolower($row['city'] ?? '')) ?>"
+                                     data-phone="<?= esc(strtolower($row['phone'] ?? '')) ?>"
+                                     data-email="<?= esc(strtolower($row['email'] ?? '')) ?>">
                                     <?= view('include/member/card/member_card', ['row' => $row]) ?>
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <div class="col-12 text-center p-5">
+                            <div class="col-12 text-center p-5" id="noMembersFoundInitial">
                                 <h5>No Members Found</h5>
                             </div>
                         <?php endif; ?>
@@ -878,6 +885,100 @@
     <script src="<?= base_url(); ?>assets2/libs/jsvectormap/maps/world-merc.js"></script>
     <script src="<?= base_url(); ?>assets2/js/pages/dashboard.init.js"></script>
     <script src="<?= base_url(); ?>assets2/js/app.js"></script>
+
+    <!-- LIVE INSTANT SEARCH: MATCHING LETTERS APPEAR ON TOP -->
+    <script>
+    $(document).ready(function() {
+        const $searchInput = $('input[name="search"]');
+        const $container = $('#memberCardsRow');
+        const $cards = $container.children('.member-search-card');
+
+        $searchInput.on('input keyup', function() {
+            const query = $(this).val().trim().toLowerCase();
+
+            if (query === '') {
+                $cards.show();
+                const sortedOrig = $cards.get().sort((a, b) => {
+                    return parseInt($(a).data('orig-index')) - parseInt($(b).data('orig-index'));
+                });
+                $container.append(sortedOrig);
+                $('#noLiveSearchResults').remove();
+                return;
+            }
+
+            let matchCount = 0;
+
+            $cards.each(function() {
+                const $card = $(this);
+                const name = String($card.data('name') || '');
+                const business = String($card.data('business') || '');
+                const industry = String($card.data('industry') || '');
+                const city = String($card.data('city') || '');
+                const phone = String($card.data('phone') || '');
+                const email = String($card.data('email') || '');
+                const fullText = $card.text().toLowerCase();
+
+                // Match rank:
+                // Rank 1: Name STARTS WITH the typed letters (appears on top!)
+                // Rank 2: A word in Name starts with the typed letters
+                // Rank 3: Name contains the typed letters
+                // Rank 4: Business name starts with the typed letters
+                // Rank 5: Business name contains the typed letters
+                // Rank 6: Industry / City starts with or contains the typed letters
+                // Rank 7: Other details contain the typed letters
+                let rank = 9999;
+
+                if (name.startsWith(query)) {
+                    rank = 1;
+                } else if (name.split(/\s+/).some(part => part.startsWith(query))) {
+                    rank = 2;
+                } else if (name.indexOf(query) !== -1) {
+                    rank = 3;
+                } else if (business.startsWith(query)) {
+                    rank = 4;
+                } else if (business.indexOf(query) !== -1) {
+                    rank = 5;
+                } else if (industry.startsWith(query) || city.startsWith(query)) {
+                    rank = 6;
+                } else if (industry.indexOf(query) !== -1 || city.indexOf(query) !== -1 || phone.indexOf(query) !== -1 || email.indexOf(query) !== -1 || fullText.indexOf(query) !== -1) {
+                    rank = 7;
+                }
+
+                $card.data('match-rank', rank);
+
+                if (rank < 9999) {
+                    $card.show();
+                    matchCount++;
+                } else {
+                    $card.hide();
+                }
+            });
+
+            // Sort cards so matching letters immediately appear on top!
+            const sorted = $cards.get().sort((a, b) => {
+                const rankA = parseInt($(a).data('match-rank')) || 9999;
+                const rankB = parseInt($(b).data('match-rank')) || 9999;
+                if (rankA !== rankB) {
+                    return rankA - rankB; // Lower rank = on top
+                }
+                const nameA = String($(a).data('name') || '');
+                const nameB = String($(b).data('name') || '');
+                return nameA.localeCompare(nameB);
+            });
+
+            $container.append(sorted);
+
+            $('#noLiveSearchResults').remove();
+            if (matchCount === 0) {
+                $container.append('<div id="noLiveSearchResults" class="col-12 text-center p-5"><div class="alert alert-light border py-4"><h5><i class="ri-search-line me-2 text-warning"></i>No members found matching "' + $('<div>').text(query).html() + '"</h5><p class="text-muted mb-0">Try typing another letter, name or business keyword.</p></div></div>');
+            }
+        });
+
+        if ($searchInput.val().trim() !== '') {
+            $searchInput.trigger('input');
+        }
+    });
+    </script>
 
 </body>
 

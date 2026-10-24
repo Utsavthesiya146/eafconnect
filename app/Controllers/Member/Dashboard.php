@@ -1063,10 +1063,24 @@ class Dashboard extends BaseController
 
         $builder->where('u.status', '1');
 
-        $data['users'] = $builder->orderBy('cm.member_code', 'ASC')
-            ->get()
-            ->getResultArray();
+        if ($search != '') {
+            $searchEscaped = $db->escapeLikeString($search);
+            $builder->orderBy("
+                CASE 
+                    WHEN u.name LIKE '{$searchEscaped}%' THEN 1
+                    WHEN u.name LIKE '%{$searchEscaped}%' THEN 2
+                    WHEN u.business_name LIKE '{$searchEscaped}%' THEN 3
+                    WHEN u.business_name LIKE '%{$searchEscaped}%' THEN 4
+                    WHEN u.industry LIKE '{$searchEscaped}%' THEN 5
+                    ELSE 6
+                END
+            ", 'ASC');
+            $builder->orderBy('u.name', 'ASC');
+        } else {
+            $builder->orderBy('cm.member_code', 'ASC');
+        }
 
+        $data['users'] = $builder->get()->getResultArray();
         $data['search'] = $search;
 
 

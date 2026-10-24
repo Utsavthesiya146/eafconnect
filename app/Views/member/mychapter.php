@@ -1766,9 +1766,9 @@
                         $("#list_data").html('<div class="alert alert-danger">An error occurred. Please try again later.</div>');
                     }
                 });
-            }, 400);
+            }, 200);
 
-            $('#search, #status1').on('keyup change', loadUsers);
+            $('#search, #status1').on('input keyup change', loadUsers);
             $('#reset-btn').on('click', function() {
                 // Clear filter inputs
                 $('#search').val('');

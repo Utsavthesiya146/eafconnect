@@ -440,10 +440,31 @@
                 </a>
             </div>
 
-            <div class="row g-4">
+            <!-- CHAPTER SEARCH & INSTANT FILTER (MATCHING LETTERS APPEAR ON TOP) -->
+            <div class="row mb-4 align-items-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="position-relative">
+                        <i class="ri-search-line position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" style="font-size: 18px; pointer-events: none;"></i>
+                        <input type="text" id="homeChapterSearch" class="form-control rounded-3 py-2 ps-5 pe-4" placeholder="Search chapters by name, city or location..." autocomplete="off" style="border: 1px solid #E2E8F0; background:#F8FAFC; font-size:14px;">
+                        <button type="button" id="clearHomeChapterSearch" class="btn btn-link position-absolute top-50 end-0 translate-middle-y text-muted text-decoration-none pe-3 py-0" style="display:none;" onclick="$('#homeChapterSearch').val('').trigger('input');">
+                            <i class="ri-close-circle-fill"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-5 text-md-end mt-2 mt-md-0">
+                    <small class="text-muted" id="chapterCountNotice">Showing all <?= count($activeChapters ?? []); ?> active chapters</small>
+                </div>
+            </div>
+
+            <div class="row g-4" id="homeChaptersGrid">
                 <?php if (!empty($activeChapters)): ?>
-                    <?php foreach ($activeChapters as $ch): ?>
-                        <div class="col-md-6 col-lg-3">
+                    <?php foreach ($activeChapters as $index => $ch): ?>
+                        <div class="col-md-6 col-lg-3 home-chapter-card-item"
+                             data-orig-index="<?= $index ?>"
+                             data-name="<?= esc(strtolower($ch['chapter_name'] ?? '')) ?>"
+                             data-code="<?= esc(strtolower($ch['chapter_code'] ?? '')) ?>"
+                             data-location="<?= esc(strtolower($ch['location'] ?? '')) ?>"
+                             data-day="<?= esc(strtolower($ch['meeting_day'] ?? '')) ?>">
                             <div class="eaf-chapter-card h-100 d-flex flex-column">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <span class="badge" style="background:rgba(16,27,53,0.08); color:#101B35; font-size:11px; font-weight:700;">
@@ -681,6 +702,89 @@
                     heroForm.submit();
                 }
             });
+        });
+    });
+    </script>
+
+    <!-- Instant Chapter Live Search: Matching letters appear on top! -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const $chapterSearch = $('#homeChapterSearch');
+        const $chaptersContainer = $('#homeChaptersGrid');
+        if (!$chapterSearch.length || !$chaptersContainer.length) return;
+
+        const $chapterItems = $chaptersContainer.children('.home-chapter-card-item');
+
+        $chapterSearch.on('input keyup', function() {
+            const q = $(this).val().trim().toLowerCase();
+            const $clearBtn = $('#clearHomeChapterSearch');
+            const $notice = $('#chapterCountNotice');
+
+            if (q === '') {
+                $clearBtn.hide();
+                $chapterItems.show();
+                const origSorted = $chapterItems.get().sort((a, b) => parseInt($(a).data('orig-index')) - parseInt($(b).data('orig-index')));
+                $chaptersContainer.append(origSorted);
+                $notice.text('Showing all ' + $chapterItems.length + ' active chapters');
+                $('#noChapterMatches').remove();
+                return;
+            }
+
+            $clearBtn.show();
+            let matches = 0;
+
+            $chapterItems.each(function() {
+                const $item = $(this);
+                const name = String($item.data('name') || '');
+                const code = String($item.data('code') || '');
+                const loc = String($item.data('location') || '');
+                const day = String($item.data('day') || '');
+
+                // Match Rank:
+                // 1: Name STARTS WITH the typed letter(s) -> Appears on top!
+                // 2: Word in Name starts with the typed letter(s)
+                // 3: Name contains the typed letter(s)
+                // 4: Location starts with the typed letter(s)
+                // 5: Location / Code / Day contains the typed letter(s)
+                let rank = 9999;
+                if (name.startsWith(q)) {
+                    rank = 1;
+                } else if (name.split(/\s+/).some(w => w.startsWith(q))) {
+                    rank = 2;
+                } else if (name.indexOf(q) !== -1) {
+                    rank = 3;
+                } else if (loc.startsWith(q) || code.startsWith(q)) {
+                    rank = 4;
+                } else if (loc.indexOf(q) !== -1 || code.indexOf(q) !== -1 || day.indexOf(q) !== -1) {
+                    rank = 5;
+                }
+
+                $item.data('match-rank', rank);
+                if (rank < 9999) {
+                    $item.show();
+                    matches++;
+                } else {
+                    $item.hide();
+                }
+            });
+
+            // Sort matching chapters so matching letters appear on top!
+            const sorted = $chapterItems.get().sort((a, b) => {
+                const rA = parseInt($(a).data('match-rank')) || 9999;
+                const rB = parseInt($(b).data('match-rank')) || 9999;
+                if (rA !== rB) return rA - rB;
+                return String($(a).data('name')).localeCompare(String($(b).data('name')));
+            });
+
+            $chaptersContainer.append(sorted);
+
+            $('#noChapterMatches').remove();
+            if (matches === 0) {
+                $notice.text('0 chapters found');
+                $chaptersContainer.append('<div id="noChapterMatches" class="col-12 text-center py-5"><div class="alert alert-light border py-4"><h5><i class="ri-search-line me-2 text-warning"></i>No chapters found matching "' + $('<div>').text(q).html() + '"</h5><p class="text-muted mb-0">Try typing a different chapter name or location.</p></div></div>');
+            } else {
+                $notice.text(matches + ' chapter' + (matches > 1 ? 's' : '') + ' found');
+            }
         });
     });
     </script>
