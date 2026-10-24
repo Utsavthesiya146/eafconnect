@@ -503,7 +503,7 @@
                     ?>
 
                     <!-- ==========================================================================
-                         1. TOP PROMOTIONAL AD BANNER CAROUSEL (KVV BENCHMARK)
+                         1. TOP PROMOTIONAL AD BANNER CAROUSEL (EAF CONNECT)
                          ========================================================================== -->
                     <?php
                     $chapter_code = session()->get('chapter_code');
@@ -533,7 +533,7 @@
                     ?>
 
                     <!-- ==========================================================================
-                         1. TOP PROMOTIONAL AD BANNER CAROUSEL (KVV BENCHMARK)
+                         1. TOP PROMOTIONAL AD BANNER CAROUSEL (EAF CONNECT)
                          ========================================================================== -->
                     <div class="kvv-banner-wrapper">
                         <div id="kvvAdsCarousel" class="carousel slide kvv-carousel-container" data-bs-ride="carousel" data-bs-interval="5000" data-bs-touch="true">

@@ -13,7 +13,7 @@
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="<?= base_url(); ?>assets2/css/profile_details.css" id="app-style" rel="stylesheet" type="text/css" />
-    <!-- Google Fonts & Master KVV/BNI Revamp Theme -->
+    <!-- Google Fonts & Master EAF Connect Theme -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,9 +41,9 @@
 
                                     <div class="card-body text-center p-4 profile-gradient" style="background: linear-gradient(145deg, #091E36 0%, #0F3B68 60%, #152E4D 100%); color: #ffffff;">
 
-                                        <!-- Prestige BNI Gold Member Badge -->
+                                        <!-- EAF Connect Member Badge -->
                                         <div class="d-inline-flex align-items-center gap-1 px-3 py-1 mb-3 rounded-pill" style="background: rgba(217, 119, 6, 0.18); border: 1px solid rgba(245, 158, 11, 0.5); color: #F59E0B; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">
-                                            <i class="ri-vip-crown-fill text-warning"></i> GOLD MEMBER • BNI / KVV STANDARD
+                                            <i class="ri-vip-crown-fill text-warning"></i> <?= strtoupper(esc($row->member_role ?: 'MEMBER')); ?> • EAF CONNECT
                                         </div>
 
                                         <!-- Profile Image with Gold Ring -->

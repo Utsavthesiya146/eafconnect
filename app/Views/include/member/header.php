@@ -22,12 +22,12 @@ if (empty($headerMember) || empty($headerChapter)) {
     } catch (\Throwable $e) {}
 }
 
-$headerName = !empty($headerMember['name']) ? $headerMember['name'] : (session()->get('name') ?: 'Harri Kumar');
+$headerName = !empty($headerMember['name']) ? $headerMember['name'] : (session()->get('name') ?: 'EAF Member');
 $headerPhoto = !empty($headerMember['profile_photo']) ? $headerMember['profile_photo'] : (session()->get('profile_photo') ?: 'empty.png');
-$headerChapterName = !empty($headerChapter['chapter_name']) ? $headerChapter['chapter_name'] : (session()->get('chapter_name') ?: 'Pu Ti Na');
-$headerBusiness = !empty($headerMember['business_name']) ? $headerMember['business_name'] : (!empty($headerMember['company_name']) ? $headerMember['company_name'] : 'HOSTINGBABA');
-$headerIndustry = !empty($headerMember['industry']) ? $headerMember['industry'] : 'Web Development & Digital Marketing';
-$headerRole = !empty($headerMember['member_role']) ? $headerMember['member_role'] : (session()->get('member_role') ?: 'Sadasyaru');
+$headerChapterName = !empty($headerChapter['chapter_name']) ? $headerChapter['chapter_name'] : (session()->get('chapter_name') ?: 'Chapter 1');
+$headerBusiness = !empty($headerMember['business_name']) ? $headerMember['business_name'] : (!empty($headerMember['company_name']) ? $headerMember['company_name'] : 'EAF Connect');
+$headerIndustry = !empty($headerMember['industry']) ? $headerMember['industry'] : 'Business Networking';
+$headerRole = !empty($headerMember['member_role']) ? $headerMember['member_role'] : (session()->get('member_role') ?: 'Member');
 
 $unreadNotificationsCount = 0;
 if ($headerUserCode) {
@@ -41,7 +41,7 @@ if ($headerUserCode) {
 }
 ?>
 
-<!-- EAF Connect: Master Revamp Fonts & Stylesheet (KVV Benchmark) -->
+<!-- EAF Connect: Master Revamp Fonts & Stylesheet -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@ if ($headerUserCode) {
                             <?= esc($headerIndustry); ?> • <?= esc($headerBusiness); ?>
                         </span>
                         <span class="kvv-role-badge">
-                            <i class="ri-vip-crown-fill me-1 text-warning"></i>Gold Member
+                            <i class="ri-vip-crown-fill me-1 text-warning"></i><?= esc($headerRole ?: 'Member'); ?>
                         </span>
                     </div>
                     <!-- Mobile Compact Category (shown only on small mobile) -->
