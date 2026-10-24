@@ -51,7 +51,7 @@
             <div class="col-6 col-lg-2">
                 <h6 class="text-white fw-bold mb-3 text-uppercase letter-spacing-1" style="color:#C6A667 !important;">Portals</h6>
                 <ul class="list-unstyled d-flex flex-column gap-2 mb-0" style="font-size: 14px;">
-                    <li><a href="<?= base_url('member_login'); ?>" class="eaf-footer-link"><i class="ri-login-circle-line me-1 text-warning"></i>Member Login</a></li>
+                    <li><a href="<?= base_url('/#hero_email'); ?>" class="eaf-footer-link"><i class="ri-login-circle-line me-1 text-warning"></i>Member Login</a></li>
                     <li><a href="<?= base_url('member/dashboard'); ?>" class="eaf-footer-link"><i class="ri-dashboard-line me-1 text-warning"></i>My Dashboard</a></li>
                     <li><a href="<?= base_url('member/mychapter'); ?>" class="eaf-footer-link"><i class="ri-community-line me-1 text-warning"></i>My Chapter</a></li>
                     <li><a href="<?= base_url('member/search'); ?>" class="eaf-footer-link"><i class="ri-search-line me-1 text-warning"></i>Directory Search</a></li>

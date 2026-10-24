@@ -56,7 +56,7 @@ Options -Indexes
 	RewriteRule ^preview/(dashboard|visitor|meetings|connect|profile|mychapter|chapter|chapter_attendance|f2f|mitb|topperformer|search|my_attendance|notifications|broadcast|invitations|my_participation_report|participation|received_connects_report|weekly_slips)/?$ index.php/preview/$1 [L,NC,QSA]
 	RewriteRule ^member/(.*)\.html$ index.php/preview/$1 [L,NC,QSA]
 	RewriteRule ^admin/(.*)\.html$ index.php/admin/$1 [L,NC,QSA]
-	RewriteRule ^member_login\.html$ index.php/member_login [L,NC,QSA]
+	RewriteRule ^member_login\.html$ index.php/ [L,NC,QSA]
 	RewriteRule ^admin_login\.html$ index.php/admin [L,NC,QSA]
 
 	# Redirect Trailing Slashes...

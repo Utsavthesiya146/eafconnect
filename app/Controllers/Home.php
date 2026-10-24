@@ -86,40 +86,8 @@ class Home extends BaseController
             // Member redirect
             return redirect()->to('/member/dashboard');
         }
-        $db = \Config\Database::connect();
-
-        // Default values
-        $where  = '';
-        $params = [];
-
-        // Counts
-        $user = $db->query("SELECT COUNT(*) AS total FROM users as u inner join chapter_members cm ON u.user_code=cm.user_code WHERE u.status='1'")
-            ->getRow()->total ?? 0;
-
-        $chapters = $db->query("SELECT COUNT(*) AS total FROM chapters")
-            ->getRow()->total ?? 0;
-
-        $tyfcb = $db->query("SELECT COUNT(*) AS total FROM tyfcb")
-            ->getRow()->total ?? 0;
-
-        $MITB = $db->query("
-        SELECT COALESCE(SUM(amount),0) total 
-        FROM tyfcb $where
-    ", $params)->getRow()->total ?? 0;
-
-        // Rounded Average Member Value
-        $averageMemberValue = ($user > 0)
-            ? round($MITB / $user)
-            : 0;
-
-        $data = [
-            'user'               => $user,
-            'chapters'           => $chapters,
-            'tyfcb'              => $tyfcb,
-            'MITB'               => round($MITB),
-            'averageMemberValue' => $averageMemberValue,
-        ];
-        return view('member_login', $data);
+        // Direct unauthenticated users to Homepage where member sign-in is embedded in the hero section
+        return redirect()->to(base_url('/'));
     }
 
     public function admin_login()

@@ -209,7 +209,7 @@ $role = $session->get('role');
                     </a>
                 <?php endif; ?>
             <?php else: ?>
-                <a href="<?= base_url('member_login'); ?>" onclick="if(typeof openEafAuthModal === 'function'){ openEafAuthModal('signin'); return false; }" class="eaf-btn eaf-btn-gold">
+                <a href="<?= base_url('/#hero_email'); ?>" onclick="if(typeof openEafAuthModal === 'function'){ openEafAuthModal('signin'); return false; }" class="eaf-btn eaf-btn-gold">
                     <i class="ri-login-box-line"></i>
                     <span>Sign In</span>
                 </a>
@@ -267,7 +267,7 @@ $role = $session->get('role');
                     <i class="ri-logout-box-line"></i> Logout
                 </a>
             <?php else: ?>
-                <a href="<?= base_url('member_login'); ?>" onclick="if(typeof openEafAuthModal === 'function'){ openEafAuthModal('signin'); return false; }" data-bs-dismiss="offcanvas" class="eaf-btn eaf-btn-gold w-100 justify-content-center mb-2">
+                <a href="<?= base_url('/#hero_email'); ?>" onclick="if(typeof openEafAuthModal === 'function'){ openEafAuthModal('signin'); return false; }" data-bs-dismiss="offcanvas" class="eaf-btn eaf-btn-gold w-100 justify-content-center mb-2">
                     <i class="ri-login-box-line"></i> Member Sign In
                 </a>
                 <a href="#" onclick="if(typeof openEafAuthModal === 'function'){ openEafAuthModal('signup'); return false; }" data-bs-dismiss="offcanvas" class="eaf-btn eaf-btn-outline-gold w-100 justify-content-center mb-2">

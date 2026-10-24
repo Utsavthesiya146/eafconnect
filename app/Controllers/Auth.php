@@ -193,7 +193,7 @@ class Auth extends BaseController
     =====================================
     */
         if ($user->role != 'admin') {
-            return redirect()->to('/member_login')
+            return redirect()->to(base_url('/'))
                 ->with('error', 'Please login from Member Portal');
         }
 
@@ -224,7 +224,7 @@ class Auth extends BaseController
 
     public function login()
     {
-        return (new Home())->member_login();
+        return redirect()->to(base_url('/'));
     }
 
     public function dashboard()
@@ -235,7 +235,7 @@ class Auth extends BaseController
             }
             return redirect()->to(base_url('member/dashboard'));
         }
-        return redirect()->to(base_url('login'));
+        return redirect()->to(base_url('/'));
     }
 
     /* ================= LOGOUT ================= */

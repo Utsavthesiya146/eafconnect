@@ -81,6 +81,18 @@
                             </div>
 
                             <!-- Alert Box -->
+                            <?php if (session()->getFlashdata('error')) : ?>
+                                <div class="alert alert-danger border-0 rounded-3 py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size:13px; background:#FEF3F2; border-left:4px solid #F04438 !important; color:#B42318;">
+                                    <i class="ri-error-warning-fill text-danger fs-5"></i>
+                                    <span><?= session()->getFlashdata('error'); ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (session()->getFlashdata('success')) : ?>
+                                <div class="alert alert-success border-0 rounded-3 py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size:13px; background:#EFFCF6; border-left:4px solid #12B76A !important; color:#027A48;">
+                                    <i class="ri-checkbox-circle-fill text-success fs-5"></i>
+                                    <span><?= session()->getFlashdata('success'); ?></span>
+                                </div>
+                            <?php endif; ?>
                             <div id="heroSignInAlertContainer"></div>
 
                             <form id="eafHeroSignInForm" method="post" action="<?= base_url('loginCheck') ?>" autocomplete="on">

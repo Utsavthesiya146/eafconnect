@@ -12,7 +12,7 @@ class MemberAuth implements FilterInterface
     {
         // ❌ Not logged in member
         if (!session()->get('member_id') && !session()->get('is_member') && !session()->get('user_id')) {
-            return redirect()->to(base_url('member_login'));
+            return redirect()->to(base_url('/'));
         }
     }
 
