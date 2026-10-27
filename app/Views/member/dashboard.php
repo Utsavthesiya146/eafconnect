@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=9.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -448,6 +448,105 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+
+            /* 4 Quick Action Slips - Mobile 2x2 Grid (Proper and Perfect) */
+            .kvv-quick-actions-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+                margin-bottom: 20px !important;
+                width: 100% !important;
+            }
+
+            .kvv-action-slip-card {
+                background: #FFFFFF !important;
+                border: 1.5px solid #E2E8F0 !important;
+                border-radius: 14px !important;
+                padding: 12px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                min-height: 98px !important;
+                box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+                box-sizing: border-box !important;
+                transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+            }
+
+            .kvv-action-slip-card:active {
+                transform: scale(0.97) !important;
+            }
+
+            .kvv-slip-top-row {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                margin-bottom: 8px !important;
+            }
+
+            .kvv-slip-icon-wrap {
+                width: 36px !important;
+                height: 36px !important;
+                border-radius: 10px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 18px !important;
+                flex-shrink: 0 !important;
+            }
+
+            .kvv-action-slip-arrow {
+                width: 24px !important;
+                height: 24px !important;
+                border-radius: 50% !important;
+                background: #F8FAFC !important;
+                border: 1px solid #E2E8F0 !important;
+                color: #64748B !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 13px !important;
+                flex-shrink: 0 !important;
+            }
+
+            .kvv-slip-body {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                line-height: 1.25 !important;
+            }
+
+            .kvv-action-slip-title {
+                display: block !important;
+                font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif !important;
+                font-size: 13px !important;
+                font-weight: 700 !important;
+                color: #0F172A !important;
+                line-height: 1.25 !important;
+                white-space: normal !important;
+            }
+
+            .kvv-action-slip-sub {
+                display: block !important;
+                font-size: 10.5px !important;
+                color: #64748B !important;
+                font-weight: 500 !important;
+                line-height: 1.2 !important;
+                margin-top: 2px !important;
+                white-space: normal !important;
+            }
+        }
+
+        /* Desktop: 4 Quick Actions in 1 Row (Computer screen left untouched) */
+        @media (min-width: 992px) {
+            .kvv-quick-actions-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 16px !important;
+                margin-bottom: 22px !important;
             }
         }
     </style>

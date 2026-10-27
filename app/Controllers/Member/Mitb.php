@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use App\Models\TyfcbModel;
 
-class Mitb extends BaseController
+class Mitb extends BaseControlle
 {
     public function index()
     {
@@ -268,28 +268,33 @@ class Mitb extends BaseController
         }
 
         if (!empty($insert['to_user'])) {
-            // Generate Notification Code
-            $n_code = $commonModel->generateSerial(
-                'notifications',
-                'n_code',
-                'NOTI'
-            );
-            // Get Sender Details
             $fromUser = $commonModel->db->table('users')
                 ->select('name')
                 ->where('user_code', $user_code)
                 ->get()
                 ->getRow();
-            // Notification Insert Data
-            $notification = [
-                'n_code'       => $n_code,
-                'user_code'    => $data['to_user'],
-                'title'        => 'MITB Received',
-                'message'      => ($fromUser->name ?? 'Someone') . ' sent you a new MITB.',
-                'status'       => 'unread',
-            ];
-            // Insert Notification
-            $commonModel->insert_data('notifications', $notification);
+
+            $toUserObj = $commonModel->db->table('users')
+                ->select('name')
+                ->where('user_code', $insert['to_user'])
+                ->get()
+                ->getRow();
+
+            $amtStr = !empty($insert['amount']) ? '₹' . number_format((float)$insert['amount']) : 'business';
+
+            // Notify Receiver
+            create_system_notification(
+                $insert['to_user'],
+                'MITB Received (' . $amtStr . ')',
+                ($fromUser->name ?? 'A member') . ' recorded a Thank You Note (MITB) of ' . $amtStr . ' for you.'
+            );
+
+            // Notify Sender (Confirmation)
+            create_system_notification(
+                $user_code,
+                'MITB Submitted',
+                'You recorded a Thank You Note (MITB) of ' . $amtStr . ' for ' . ($toUserObj->name ?? 'member') . '.'
+            );
         }
 
         // ==============================
@@ -888,6 +893,9 @@ class Mitb extends BaseController
             'description' => $this->request->getPost('description'),
             'note' => $this->request->getPost('note'),
         ];
+        $db = \Config\Database::connect();
+        $mitb = $db->table('tyfcb')->where('mitb_code', $mitb_code)->get()->getRow();
+
         $model = new CommonModel();
         $update = $model->update_row(
             'tyfcb',
@@ -895,9 +903,22 @@ class Mitb extends BaseController
             ['mitb_code' => $mitb_code]
         );
         if ($update) {
+            if ($mitb) {
+                $currentUserId = session()->get('user_code');
+                $currentUserName = session()->get('name') ?: 'A member';
+                $amtStr = !empty($data['amount']) ? '₹' . number_format((float)$data['amount']) : 'business';
+                $partnerCode = ($currentUserId == $mitb->from_user) ? $mitb->to_user : $mitb->from_user;
+                if (!empty($partnerCode)) {
+                    create_system_notification(
+                        $partnerCode,
+                        'MITB Details Updated',
+                        $currentUserName . ' updated the Thank You Note details (' . $amtStr . ').'
+                    );
+                }
+            }
             return $this->response->setJSON([
                 'status' => 'success',
-                'message' => '✅ Business  updated successfully!'
+                'message' => '✅ Business updated successfully!'
             ]);
         }
         return $this->response->setJSON([

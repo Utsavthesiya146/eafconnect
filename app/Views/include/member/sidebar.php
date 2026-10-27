@@ -1,6 +1,6 @@
 <div class="vertical-menu">
     <!-- LOGO / BRAND (EAF Connect Official Logo) -->
-    <div class="navbar-brand-box" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
+    <div class="navbar-brand-box d-flex align-items-center justify-content-between" style="padding: 16px 20px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF;">
         <a href="<?= base_url('member/dashboard'); ?>" class="d-flex align-items-center gap-2" style="text-decoration:none;">
             <img src="<?= base_url('images/logo5.png'); ?>" alt="EAF Logo" height="42" style="object-fit:contain;" onerror="this.src='<?= base_url('images/logo6.png'); ?>'">
             <div style="display:flex; flex-direction:column; line-height:1.15;">
@@ -12,9 +12,14 @@
                 </span>
             </div>
         </a>
+        <!-- Mobile Sidebar Close Button -->
+        <button type="button" class="btn btn-sm d-lg-none text-muted p-1" onclick="document.body.classList.remove('sidebar-enable');" aria-label="Close Sidebar" style="font-size: 22px; line-height: 1; border: none; background: transparent;">
+            <i class="ri-close-line"></i>
+        </button>
     </div>
 
-    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn d-none" id="vertical-menu-btn">
+    <!-- Hidden fallback button (renamed id to avoid duplicate ID with header) -->
+    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn d-none" id="vertical-menu-btn-sidebar" style="display:none !important;">
         <i class="ri-menu-2-line align-middle"></i>
     </button>
 

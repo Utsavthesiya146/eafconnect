@@ -120,73 +120,75 @@ if (strlen($waClean) === 10) {
     </div>
 
     <!-- =========================================================================
-         2. MOBILE VIEW (< 992px) - 100% WIDTH NATIVE CARD (NO SIDE SCROLLING!)
+         2. MOBILE VIEW (< 992px) - 100% WIDTH NATIVE CARD (ZERO HORIZONTAL SCROLL)
          ========================================================================= -->
-    <div class="ref-mobile-card shadow-sm d-flex d-lg-none">
+    <div class="ref-mobile-card shadow-sm d-flex d-lg-none" style="width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; overflow: hidden !important;">
         <!-- Top Row: Status Badge on Left, Date & Time on Right -->
-        <div class="ref-mob-header">
-            <span class="ref-mob-status-pill" onclick="edit_refferral_status('<?= esc($row['referral_code']) ?>');" style="<?= $badgeStyle ?>" title="Tap to update status">
+        <div class="ref-mob-header" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; width: 100%; padding-bottom: 10px; border-bottom: 1px solid #F1F5F9;">
+            <span class="ref-mob-status-pill" onclick="edit_refferral_status('<?= esc($row['referral_code']) ?>');" style="display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 50px; font-size: 11.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; line-height: 1.3; <?= $badgeStyle ?>" title="Tap to update status">
                 <i class="ri-record-circle-line me-1"></i><?= esc($displayStatus) ?>
             </span>
-            <span class="ref-mob-date">
+            <span class="ref-mob-date" style="font-size: 11px; color: #64748B; font-weight: 500; display: inline-flex; align-items: center; white-space: nowrap; margin-left: auto; line-height: 1.3;">
                 <i class="ri-calendar-line me-1"></i><?= (new DateTime($row['created_at']))->format('d M Y, h:i A') ?>
             </span>
         </div>
 
         <!-- Middle Row: Connected Members (From -> To) -->
-        <div class="ref-mob-flow-card">
-            <div class="ref-mob-member-item">
+        <div class="ref-mob-flow-card" style="display: flex; align-items: center; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 10px 12px; gap: 8px; width: 100%; box-sizing: border-box;">
+            <div class="ref-mob-member-item" style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; overflow: hidden;">
                 <img src="<?= get_member_avatar($row['from_profile'] ?? '', '', $row['from_user_code'] ?? ($row['user_code'] ?? '')) ?>" 
                      class="ref-mob-avatar from-avatar" alt="<?= esc($row['from_name']) ?>"
+                     style="width: 36px; height: 36px; min-width: 36px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #0F3B68; flex-shrink: 0;"
                      onerror="this.onerror=null; this.src='<?= base_url('images/empty.png') ?>'">
-                <div class="ref-mob-member-text">
-                    <span class="ref-mob-tag tag-from">GIVEN BY</span>
-                    <strong class="ref-mob-member-name"><?= esc($row['from_name']) ?></strong>
-                    <small class="ref-mob-member-sub"><?= esc($row['from_email']) ?></small>
+                <div class="ref-mob-member-text" style="display: flex; flex-direction: column; min-width: 0; line-height: 1.25; overflow: hidden;">
+                    <span class="ref-mob-tag tag-from" style="font-size: 9px; font-weight: 800; color: #0F3B68; text-transform: uppercase; letter-spacing: 0.5px;">GIVEN BY</span>
+                    <strong class="ref-mob-member-name" style="font-size: 13px; font-weight: 700; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<?= esc($row['from_name']) ?>"><?= esc($row['from_name']) ?></strong>
+                    <small class="ref-mob-member-sub" style="font-size: 10.5px; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<?= esc($row['from_email']) ?>"><?= esc($row['from_email']) ?></small>
                 </div>
             </div>
 
-            <div class="ref-mob-flow-divider">
+            <div class="ref-mob-flow-divider" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; min-width: 24px; border-radius: 50%; background: #FFFFFF; border: 1px solid #CBD5E1; color: #0F3B68; font-size: 12px; flex-shrink: 0;">
                 <i class="ri-arrow-right-line"></i>
             </div>
 
-            <div class="ref-mob-member-item">
+            <div class="ref-mob-member-item" style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; overflow: hidden;">
                 <img src="<?= get_member_avatar($row['to_profile'] ?? '', '', $row['to_user_code'] ?? '') ?>" 
                      class="ref-mob-avatar to-avatar" alt="<?= esc($row['to_name']) ?>"
+                     style="width: 36px; height: 36px; min-width: 36px; border-radius: 50%; object-fit: cover; object-position: top center; border: 2px solid #D97706; flex-shrink: 0;"
                      onerror="this.onerror=null; this.src='<?= base_url('images/empty.png') ?>'">
-                <div class="ref-mob-member-text">
-                    <span class="ref-mob-tag tag-to">RECEIVED BY</span>
-                    <strong class="ref-mob-member-name"><?= esc($row['to_name']) ?></strong>
-                    <small class="ref-mob-member-sub"><?= esc($row['to_email']) ?></small>
+                <div class="ref-mob-member-text" style="display: flex; flex-direction: column; min-width: 0; line-height: 1.25; overflow: hidden;">
+                    <span class="ref-mob-tag tag-to" style="font-size: 9px; font-weight: 800; color: #D97706; text-transform: uppercase; letter-spacing: 0.5px;">RECEIVED BY</span>
+                    <strong class="ref-mob-member-name" style="font-size: 13px; font-weight: 700; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<?= esc($row['to_name']) ?>"><?= esc($row['to_name']) ?></strong>
+                    <small class="ref-mob-member-sub" style="font-size: 10.5px; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<?= esc($row['to_email']) ?>"><?= esc($row['to_email']) ?></small>
                 </div>
             </div>
         </div>
 
         <!-- Business Opportunity Box -->
-        <div class="ref-mob-business-box">
-            <div class="ref-mob-business-label"><i class="ri-briefcase-4-line text-primary me-1"></i>BUSINESS OPPORTUNITY</div>
-            <div class="ref-mob-business-desc"><?= esc($row['business'] ?: 'General Referral Opportunity') ?></div>
+        <div class="ref-mob-business-box" style="background: #F8FAFC; border-radius: 10px; padding: 10px 12px; border: 1px solid #E2E8F0; border-left: 3px solid #0F3B68; width: 100%; box-sizing: border-box;">
+            <div class="ref-mob-business-label" style="font-size: 9.5px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;"><i class="ri-briefcase-4-line text-primary me-1"></i>BUSINESS OPPORTUNITY</div>
+            <div class="ref-mob-business-desc" style="font-size: 12.5px; font-weight: 600; color: #0F172A; line-height: 1.35; word-break: break-word;"><?= esc($row['business'] ?: 'General Referral Opportunity') ?></div>
         </div>
 
         <!-- Action Buttons Footer (100% VISIBLE & ACCESSIBLE AT A GLANCE!) -->
-        <div class="ref-mob-action-footer">
+        <div class="ref-mob-action-footer" style="display: flex; align-items: center; gap: 8px; width: 100%; padding-top: 8px; border-top: 1px dashed #E2E8F0;">
             <?php if (!empty($phoneClean)): ?>
-                <a href="tel:<?= esc($phoneClean); ?>" class="ref-mob-btn btn-call" title="Call Member">
-                    <i class="ri-phone-fill"></i>
+                <a href="tel:<?= esc($phoneClean); ?>" class="ref-mob-btn btn-call" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 10px; text-decoration: none; font-size: 11px; font-weight: 600; background: rgba(2, 132, 199, 0.1); color: #0284C7; border: 1px solid rgba(2, 132, 199, 0.25);" title="Call Member">
+                    <i class="ri-phone-fill" style="font-size: 16px;"></i>
                     <span>Call</span>
                 </a>
                 <a href="https://wa.me/<?= esc($waClean); ?>?text=<?= urlencode('Hello, connecting via EAF Connect regarding referral: ' . $row['business']) ?>" 
-                   target="_blank" class="ref-mob-btn btn-wa" title="WhatsApp Member">
-                    <i class="ri-whatsapp-fill"></i>
+                   target="_blank" class="ref-mob-btn btn-wa" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 10px; text-decoration: none; font-size: 11px; font-weight: 600; background: rgba(37, 211, 102, 0.12); color: #16A34A; border: 1px solid rgba(37, 211, 102, 0.3);" title="WhatsApp Member">
+                    <i class="ri-whatsapp-fill" style="font-size: 16px;"></i>
                     <span>WhatsApp</span>
                 </a>
             <?php endif; ?>
-            <a href="<?= site_url('member/connect/details/' . $row['referral_code']) ?>" class="ref-mob-btn btn-details" title="View Details">
-                <i class="ri-eye-line"></i>
+            <a href="<?= site_url('member/connect/details/' . $row['referral_code']) ?>" class="ref-mob-btn btn-details" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 10px; text-decoration: none; font-size: 11px; font-weight: 600; background: rgba(15, 59, 104, 0.1); color: #0F3B68; border: 1px solid rgba(15, 59, 104, 0.25);" title="View Details">
+                <i class="ri-eye-line" style="font-size: 16px;"></i>
                 <span>Details</span>
             </a>
-            <button type="button" class="ref-mob-btn btn-status" onclick="edit_refferral_status('<?= esc($row['referral_code']) ?>');" title="Change Status">
-                <i class="ri-edit-2-line"></i>
+            <button type="button" class="ref-mob-btn btn-status" onclick="edit_refferral_status('<?= esc($row['referral_code']) ?>');" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 10px; font-size: 11px; font-weight: 600; background: rgba(217, 119, 6, 0.1); color: #D97706; border: 1px solid rgba(217, 119, 6, 0.25);" title="Change Status">
+                <i class="ri-edit-2-line" style="font-size: 16px;"></i>
                 <span>Status</span>
             </button>
         </div>

@@ -176,7 +176,7 @@ class Notifications extends BaseController
         <div class="modal-body text-center p-4">
             <input type="hidden" name="n_code" value="' . esc($row->n_code) . '">
             <p class="fw-bold text-dark mb-1" style="font-size:14px;"><span style="color:#05008D;">' . esc($row->message) . '</span></p>
-            <p class="mb-3 text-muted" style="font-size:13px;">This action cannot be undone. Are you sure you want to delete this Meeting?</p>
+            <p class="mb-3 text-muted" style="font-size:13px;">This action cannot be undone. Are you sure you want to delete this notification?</p>
         </div>
         <div class="modal-footer justify-content-center border-0 pb-3">
             <button type="button" class="btn btn-outline-secondary btn-sm m-1 px-3 p-2" data-bs-dismiss="modal">Cancel</button>
@@ -202,7 +202,7 @@ class Notifications extends BaseController
         if ($res) {
             return $this->response->setJSON([
                 "status" => "success",
-                "message" => "✅ Notifications removed successfully!"
+                "message" => "✅ Notification removed successfully!"
             ]);
         } else {
             return $this->response->setJSON([
@@ -215,42 +215,45 @@ class Notifications extends BaseController
     public function edi_notf($n_code)
     {
         $commonModel = new CommonModel();
-        $qry = "SELECT * FROM notifications  WHERE n_code='" . esc($n_code) . "'";
+        $qry = "SELECT * FROM notifications WHERE n_code='" . esc($n_code) . "'";
         $user = $commonModel->exe_query($qry)->getResult();
         if (empty($user)) {
-            return $this->response->setBody('<p class="text-center text-danger">User not found!</p>');
+            return $this->response->setBody('<p class="text-center text-danger">Notification not found!</p>');
         }
         $row = $user[0]; // CI4 returns array of objects
         $output = '
 <div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
-            <div class="modal-content" style="border-radius:12px; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:13px;">
-                      <form id="edit_not_status_action" method="post">
-                    <div class="modal-header" style="background-color:#1b4d8f; color:#fff; border-top-left-radius:12px; border-top-right-radius:12px;">
-                        <h6 class="modal-title mb-0" style="font-size:15px;color:#ffffff;">Change Refferral Status</h6>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-3">
-                        <input type="hidden" name="n_code" value="' . $row->n_code . '">
-                          <div class="row">
-                
-                        <div class="col-md-12">
-                            <label class="fw-bold">Referral status</label>
-                            <select name="status" class="form-control">
-                                <option value="' . $row->status . '">' . $row->status . '</option>
-                                   <option value="">Select Status</option>
-                                        <option value="read">read</option>
-                                        <option value="unread">unread</option>
-                            </select>
-                        </div>
-                             </div>
-                    </div>
-                    <div class="modal-footer justify-content-end border-0">
-                        <button type="button" class="btn btn-outline-secondary btn-sm px-3 m-1 p-1" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="status_c" class="btn btn-sm text-white px-3 m-1 p-1" style="background-color:#1b4d8f;">Update</button>
-                    </div>
-                </form>
+    <form id="edit_not_status_action" method="post">
+        <div class="modal-header" style="background-color:#1b4d8f; color:#fff; border-top-left-radius:12px; border-top-right-radius:12px;">
+            <h6 class="modal-title mb-0" style="font-size:15px;color:#ffffff;">Update Notification Status</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3">
+            <input type="hidden" name="n_code" value="' . esc($row->n_code) . '">
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <label class="fw-bold mb-1">Notification Title</label>
+                    <p class="text-dark fw-semibold mb-2">' . esc($row->title) . '</p>
+                </div>
+                <div class="col-md-12 mb-2">
+                    <label class="fw-bold mb-1">Message</label>
+                    <p class="text-muted small mb-3">' . esc($row->message) . '</p>
+                </div>
+                <div class="col-md-12">
+                    <label class="fw-bold mb-1">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="unread"' . ($row->status === 'unread' ? ' selected' : '') . '>Unread</option>
+                        <option value="read"' . ($row->status === 'read' ? ' selected' : '') . '>Read</option>
+                    </select>
+                </div>
             </div>
-        </div>>';
+        </div>
+        <div class="modal-footer justify-content-end border-0">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="status_c" class="btn btn-sm text-white px-3" style="background-color:#1b4d8f;">Save Changes</button>
+        </div>
+    </form>
+</div>';
 
         return $this->response->setBody($output);
     }
@@ -312,24 +315,18 @@ class Notifications extends BaseController
         $title        = $data['title'];
         $message      = $data['message'];
 
-        /* ================= NOTIFICATION CODE ================= */
-        $n_code = $commonModel->get_serial3('notifications', 'NT', 'n_code');
+        /* ================= DISPATCH NOTIFICATIONS TO TARGET MEMBERS ================= */
+        $count = create_system_notification(
+            $user_codes,
+            $title,
+            $message,
+            $chapter_code
+        );
 
-        $insert = [
-            'n_code'       => $n_code,
-            'chapter_code' => $chapter_code,
-            'user_code'    => is_array($user_codes) ? implode(',', $user_codes) : $user_codes,
-            'title'        => $title,
-            'message'      => $message,
-            'created_at'   => date('Y-m-d H:i:s')
-        ];
-
-        $insertId = $commonModel->insert_data('notifications', $insert);
-
-        if (!$insertId) {
+        if ($count === 0) {
             return $this->response->setJSON([
                 'status'  => 'error',
-                'message' => 'Failed to create notification'
+                'message' => 'No active recipients found to notify'
             ]);
         }
 

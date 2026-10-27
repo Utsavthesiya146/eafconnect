@@ -111,6 +111,19 @@ class Meetings extends BaseController
 
         $commonModel->insert_data('events', $insert);
 
+        // Notify chapter members
+        $chapterCode = $insert['chapter_code'] ?? '';
+        $meetingTitle = !empty($insert['title']) ? $insert['title'] : 'Chapter Meeting';
+        $meetingTimeStr = !empty($insert['date']) ? date('d M Y, h:i A', strtotime($insert['date'])) : '';
+        $venueStr = !empty($insert['venue']) ? $insert['venue'] : (!empty($insert['location']) ? $insert['location'] : '');
+
+        create_system_notification(
+            'all',
+            'New Meeting: ' . $meetingTitle,
+            'A new meeting "' . $meetingTitle . '" has been scheduled for ' . $meetingTimeStr . ($venueStr ? ' at ' . $venueStr : '') . '.',
+            $chapterCode
+        );
+
         return $this->response->setJSON([
             'status'  => 'success',
             'message' => '✅ Meeting Created Successfully'
@@ -368,6 +381,18 @@ class Meetings extends BaseController
         );
 
         if ($update) {
+            $evt = $commonModel->db->table('events')->where('event_code', $event_code)->get()->getRow();
+            $statusVal = (string)($data['status'] ?? '');
+            $statusMap = ['1' => 'Scheduled', '2' => 'Ongoing', '3' => 'Completed'];
+            $stText = $statusMap[$statusVal] ?? $statusVal;
+            $evtTitle = !empty($data['title']) ? $data['title'] : ($evt->title ?? 'Chapter Meeting');
+
+            create_system_notification(
+                'all',
+                'Meeting Updated: ' . $evtTitle . ($stText ? ' (' . $stText . ')' : ''),
+                'Meeting "' . $evtTitle . '" details have been updated. Status: ' . ($stText ?: 'Updated') . '.',
+                $evt->chapter_code ?? null
+            );
 
             return $this->response->setJSON([
                 'status' => 'success',

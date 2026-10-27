@@ -491,28 +491,33 @@ class F2f extends BaseController
         }
 
         if (!empty($insert['to_user'])) {
-            // Generate Notification Code
-            $n_code = $commonModel->generateSerial(
-                'notifications',
-                'n_code',
-                'NOTI'
-            );
+            // Get Receiver Details
+            $toUser = $commonModel->db->table('users')
+                ->select('name,email')
+                ->where('user_code', $insert['to_user'])
+                ->get()
+                ->getRow();
+
             // Get Sender Details
             $fromUser = $commonModel->db->table('users')
                 ->select('name')
                 ->where('user_code', $user_code)
                 ->get()
                 ->getRow();
-            // Notification Insert Data
-            $notification = [
-                'n_code'       => $n_code,
-                'user_code'    => $data['to_user'],
-                'title'        => 'New 121 Received',
-                'message'      => ($fromUser->name ?? 'Someone') . ' sent you a new 121 .',
-                'status'       => 'unread',
-            ];
-            // Insert Notification
-            $commonModel->insert_data('notifications', $notification);
+
+            // Notify Receiver
+            create_system_notification(
+                $insert['to_user'],
+                'New 1-to-1 Scheduled',
+                ($fromUser->name ?? 'A member') . ' scheduled a 1-to-1 meeting with you for ' . ($date ? date('d M Y', strtotime($date)) : 'an upcoming date') . '.'
+            );
+
+            // Notify Sender (Confirmation)
+            create_system_notification(
+                $user_code,
+                '1-to-1 Meeting Scheduled',
+                'You scheduled a 1-to-1 meeting with ' . ($toUser->name ?? 'member') . ' for ' . ($date ? date('d M Y', strtotime($date)) : 'an upcoming date') . '.'
+            );
         }
 
         // ==============================
@@ -701,11 +706,26 @@ class F2f extends BaseController
         if (!$f2f_code) {
             return $this->response->setJSON([
                 'status' => 'error',
-                'message' => 'Referral code missing'
+                'message' => 'F2F meeting code missing'
             ]);
         }
+
+        $db = \Config\Database::connect();
+        $f2f = $db->table('one_to_ones')
+            ->where('f2f_code', $f2f_code)
+            ->get()
+            ->getRow();
+
+        if (!$f2f) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'F2F meeting not found'
+            ]);
+        }
+
+        $newStatus = trim((string)$this->request->getPost('status'));
         $data = [
-            'status' => $this->request->getPost('status'),
+            'status'  => $newStatus,
             'summary' => $this->request->getPost('summary'),
         ];
         $model = new CommonModel();
@@ -714,7 +734,38 @@ class F2f extends BaseController
             $data,
             ['f2f_code' => $f2f_code]
         );
+
         if ($update) {
+            $currentUserId = session()->get('user_code');
+            $currentUserName = session()->get('name') ?: 'A member';
+            $fromUser = (string)($f2f->from_user ?? '');
+            $toUser = (string)($f2f->to_user ?? '');
+            $meetingDate = !empty($f2f->date) ? date('d M Y', strtotime($f2f->date)) : '';
+
+            $partnerCode = ($currentUserId == $fromUser) ? $toUser : $fromUser;
+
+            // Fetch partner name
+            $partnerRow = $db->table('users')->select('name')->where('user_code', $partnerCode)->get()->getRow();
+            $partnerName = $partnerRow->name ?? 'Member';
+
+            // Notify partner
+            if (!empty($partnerCode)) {
+                create_system_notification(
+                    $partnerCode,
+                    '1-to-1 Status: ' . ucfirst($newStatus),
+                    $currentUserName . ' updated the status of your 1-to-1 meeting' . ($meetingDate ? " ({$meetingDate})" : "") . ' to "' . ucfirst($newStatus) . '".'
+                );
+            }
+
+            // Confirm to current user
+            if (!empty($currentUserId)) {
+                create_system_notification(
+                    $currentUserId,
+                    '1-to-1 Status Updated',
+                    'You updated the 1-to-1 meeting status with ' . $partnerName . ($meetingDate ? " ({$meetingDate})" : "") . ' to "' . ucfirst($newStatus) . '".'
+                );
+            }
+
             return $this->response->setJSON([
                 'status' => 'success',
                 'message' => '✅ F2F updated successfully!'

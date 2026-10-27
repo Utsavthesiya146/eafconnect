@@ -266,30 +266,30 @@ class Connect extends BaseController
         }
 
         $output = '
-<div class="modal-content" style="border-radius:14px; border:none; box-shadow:0 8px 24px rgba(15,59,104,0.18); font-size:13px; overflow:hidden;">
+<div class="modal-content" style="border-radius:16px; border:none; box-shadow:0 12px 32px rgba(15,59,104,0.22); font-size:14px; overflow:hidden;">
     <form id="edit_refferral_status_action" method="post">
-        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); padding:14px 18px;">
-            <h6 class="modal-title mb-0" style="font-size:15px; font-weight:700; color:#ffffff;">Change Referral Status</h6>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.12); padding:16px 20px;">
+            <h6 class="modal-title mb-0" style="font-size:16px; font-weight:700; color:#ffffff; line-height:1.4;">Change Referral Status</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity:0.85;"></button>
         </div>
-        <div class="modal-body p-3">
+        <div class="modal-body" style="padding:20px;">
             <input type="hidden" name="referral_code" value="' . esc($row->referral_code ?? $referral_code) . '">
             <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label class="fw-bold mb-1" style="color:#334155;">Referral Status</label>
-                    <select name="status" class="form-select" style="font-weight:600; font-size:13.5px; height:42px; border-radius:8px;">
+                <div class="col-12 mb-3">
+                    <label class="fw-bold mb-2 d-block" style="color:#1E293B; font-size:13.5px; line-height:1.4;">Referral Status</label>
+                    <select name="status" class="form-select" style="font-weight:600; font-size:14px; line-height:1.5; min-height:48px; height:auto; padding:10px 14px; border-radius:10px; border:1.5px solid #CBD5E1; color:#0F172A; background-color:#FFFFFF;">
                         ' . $optionsHtml . '
                     </select>
                 </div>
-                <div class="col-md-12">
-                    <label class="fw-bold mb-1" style="color:#334155;">Admin Note</label>
-                    <textarea name="admin_note" class="form-control" rows="3">' . esc($row->admin_note ?? '') . '</textarea>
+                <div class="col-12">
+                    <label class="fw-bold mb-2 d-block" style="color:#1E293B; font-size:13.5px; line-height:1.4;">Admin Note</label>
+                    <textarea name="admin_note" class="form-control" rows="3" style="font-size:13.5px; line-height:1.4; border-radius:10px; border:1.5px solid #CBD5E1;">' . esc($row->admin_note ?? '') . '</textarea>
                 </div>
             </div>
         </div>
-        <div class="modal-footer justify-content-end border-0 pt-0 pb-3 px-3">
-            <button type="button" class="btn btn-outline-secondary btn-sm px-3 rounded-pill" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 rounded-pill fw-bold" style="background:#0F3B68; box-shadow:0 2px 6px rgba(15,59,104,0.25);">Update Status</button>
+        <div class="modal-footer justify-content-end border-0 pt-0 pb-4 px-4 gap-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill" data-bs-dismiss="modal" style="font-size:13px; font-weight:600; min-height:38px;">Cancel</button>
+            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 py-2 rounded-pill fw-bold" style="background:#0F3B68; font-size:13px; font-weight:700; min-height:38px; box-shadow:0 3px 8px rgba(15,59,104,0.3);">Update Status</button>
         </div>
     </form>
 </div>';

@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
-    <title>Notifications</title>
+    <title>Notifications Center | EAF Connect</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?= base_url(); ?>images/logo5.png">
     <link href="<?= base_url(); ?>assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
@@ -13,468 +12,481 @@
     <link href="<?= base_url(); ?>assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
     <style>
-        /* ========================================================= MAIN ROW SPACING ========================================================= */
-        .notification-row {
-            --bs-gutter-x: 14px;
-            --bs-gutter-y: 14px;
+        :root {
+            --eaf-navy: #0F3B68;
+            --eaf-navy-dark: #0A2544;
+            --eaf-gold: #C6A667;
+            --eaf-gold-light: #FBF8F2;
+            --eaf-border: #E2E8F0;
+            --eaf-surface: #FFFFFF;
+            --eaf-bg-muted: #F8FAFC;
         }
 
-        /* ========================================================= NOTIFICATION SECTION ========================================================= */
-        .notification-section {
-            height: 100%;
-            padding: 12px;
-            background: #ffffff;
-            border: 1px solid #e8edf0;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, .04);
+        body {
+            background-color: #F8FAFC;
+            color: #334155;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* ========================================================= SECTION TITLE ========================================================= */
-        .section-title {
-            display: flex;
+        /* Hero Header */
+        .notif-hero-card {
+            background: linear-gradient(135deg, #0F3B68 0%, #172B50 100%);
+            border-radius: 18px;
+            padding: 24px 28px;
+            color: #ffffff;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(15, 59, 104, 0.25);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(198, 166, 103, 0.25);
+        }
+
+        .notif-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(198, 166, 103, 0.22) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+        }
+
+        .notif-hero-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+        }
+
+        .notif-hero-sub {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 13.5px;
+            margin-bottom: 0;
+            max-width: 580px;
+        }
+
+        /* Stat Pills */
+        .notif-stat-pill {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 10px 18px;
+            display: inline-flex;
             align-items: center;
-            gap: 7px;
-            margin: 0 0 10px;
-            padding: 0 2px 8px;
-            border-bottom: 1px solid #edf0f2;
-            color: #34414b;
-            font-size: 15px;
-            font-weight: 700;
+            gap: 12px;
+        }
+
+        .notif-stat-num {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1;
+            color: #FFD700;
+        }
+
+        .notif-stat-label {
+            font-size: 11.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.8);
             line-height: 1.2;
         }
 
-        .section-title i {
-            font-size: 14px;
+        /* Action Buttons */
+        .btn-notif-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            text-decoration: none;
         }
 
-        /* UNREAD TITLE */
-        .unread-title {
-            color: #c2291c;
+        .btn-notif-primary {
+            background: #C6A667;
+            color: #101B35;
+            border: none;
+            box-shadow: 0 4px 12px rgba(198, 166, 103, 0.35);
         }
 
-        /* READ TITLE */
-        .read-title {
-            color: #5f6b74;
+        .btn-notif-primary:hover {
+            background: #b59556;
+            color: #101B35;
+            transform: translateY(-1px);
         }
 
-        /* ========================================================= NOTIFICATION CONTAINER ========================================================= */
+        .btn-notif-outline-light {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-notif-outline-light:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* Section Container */
+        .notification-section {
+            background: #ffffff;
+            border: 1px solid var(--eaf-border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .section-header-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-header-title.unread {
+            color: #0F3B68;
+        }
+
+        .section-header-title.read {
+            color: #64748B;
+        }
+
+        .section-count-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+        }
+
+        .section-count-badge.unread {
+            background: #FEF2F2;
+            color: #DC2626;
+            border: 1px solid #FECACA;
+        }
+
+        .section-count-badge.read {
+            background: #F1F5F9;
+            color: #475569;
+            border: 1px solid #E2E8F0;
+        }
+
+        /* Container list */
         .notification-container {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 12px;
+            flex-grow: 1;
         }
 
-        /* ========================================================= NOTIFICATION CARD ========================================================= */
+        /* Card Styles */
         .notification-card {
             display: flex;
             align-items: center;
-            width: 100%;
-            min-height: 64px;
-            padding: 7px 8px;
+            gap: 14px;
+            padding: 14px 16px;
             background: #ffffff;
-            border: 1px solid #e9eef1;
-            border-left: 3px solid transparent;
-            border-radius: 8px;
-            box-shadow: none;
-            transition: transform .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
         }
 
-        /* CARD HOVER */
         .notification-card:hover {
-            transform: translateX(2px);
-            background: #fafcfd;
-            border-color: #dfe6ea;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 59, 104, 0.08);
+            border-color: #CBD5E1;
         }
 
-        /* ========================================================= UNREAD CARD ========================================================= */
+        /* Unread accent */
         .notification-card.unread {
-            background: #fffafa;
-            border-left: 3px solid #fac532;
+            background: #F8FAFC;
+            border-left: 4px solid #C6A667;
+            border-color: #E2E8F0 #E2E8F0 #E2E8F0 #C6A667;
         }
 
-        .notification-card.unread:hover {
-            background: #fff7f7;
-            border-left-color: #fac532;
+        .notification-card.unread::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #DC2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
         }
 
-        /* ========================================================= DATE SECTION ========================================================= */
+        .notification-card.is-read {
+            background: #FFFFFF;
+            opacity: 0.94;
+        }
+
+        .notification-card.is-read:hover {
+            opacity: 1;
+        }
+
+        /* Icon Column */
+        .notif-category-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .notification-card:hover .notif-category-icon {
+            transform: scale(1.06);
+        }
+
+        /* Date Column */
         .notif-date {
-            width: 58px;
-            min-width: 58px;
-            margin-right: 10px;
-            padding-right: 9px;
+            width: 60px;
+            min-width: 60px;
             text-align: center;
-            border-right: 1px solid #e8edef;
+            padding-right: 12px;
+            border-right: 1px solid #E2E8F0;
+            flex-shrink: 0;
         }
 
-        /* DAY */
         .notif-date .day {
             display: block;
-            color: #29343d;
-            font-size: 21px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 800;
+            color: #0F3B68;
             line-height: 1;
         }
 
-        /* MONTH */
         .notif-date .month {
             display: block;
-            margin-top: 4px;
-            color: #7f8b94;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1;
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
-        }
-
-        /* YEAR / SMALL TEXT */
-        .notif-date small {
-            display: block;
+            color: #64748B;
             margin-top: 3px;
-            color: #a8b0b6;
-            font-size: 9px;
             line-height: 1;
         }
 
-        /* ========================================================= NOTIFICATION CONTENT ========================================================= */
+        .notif-date .year {
+            display: block;
+            font-size: 9.5px;
+            color: #94A3B8;
+            margin-top: 2px;
+            line-height: 1;
+        }
+
+        .notif-date .time {
+            display: block;
+            font-size: 9px;
+            color: #94A3B8;
+            margin-top: 4px;
+            line-height: 1;
+        }
+
+        /* Content Column */
         .notif-content {
-            flex: 1;
+            flex-grow: 1;
             min-width: 0;
         }
 
-        /* ========================================================= NOTIFICATION MESSAGE ========================================================= */
-        .notif-message {
-            margin: 0;
-            color: #3c474f;
+        .notif-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #1E293B;
+            line-height: 1.3;
+        }
+
+        .notif-type-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .notif-rel-time {
+            font-size: 11.5px;
+            color: #64748B;
+            white-space: nowrap;
+        }
+
+        .notif-message-text {
             font-size: 13px;
-            font-weight: 500;
-            line-height: 1.45;
+            color: #475569;
+            line-height: 1.5;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            margin-top: 4px;
         }
 
-        /* ========================================================= STATUS BADGE ========================================================= */
-        .status-badge {
+        /* Action Column */
+        .notif-action-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .btn-status-toggle {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 11px;
+            border-radius: 20px;
+            border: 1px solid transparent;
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            margin-top: 4px;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        /* UNREAD BADGE */
-        .status-badge.unread {
-            background: rgba(194, 41, 28, .09);
-            color: #c2291c;
-        }
-
-        /* READ BADGE */
-        .status-badge.read {
-            background: #f0f2f4;
-            color: #68737c;
-        }
-
-        /* ========================================================= ACTION AREA ========================================================= */
-        .notif-action {
-            flex: 0 0 auto;
-            margin-left: 8px;
-        }
-
-        /* ========================================================= DELETE BUTTON ========================================================= */
-        .btn-delete {
-            width: 29px;
-            height: 29px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            border: 0;
-            border-radius: 7px;
-            background: #fff1f1;
-            color: #e74c3c;
-            font-size: 11px;
+            transition: all 0.18s ease;
             cursor: pointer;
-            transition: background .2s ease, color .2s ease, transform .2s ease;
+            background: #F1F5F9;
+            color: #475569;
         }
 
-        /* DELETE HOVER */
-        .btn-delete:hover {
-            background: #e74c3c;
-            color: #ffffff;
-            transform: scale(1.04);
+        .btn-status-toggle.unread {
+            background: #FEF2F2;
+            color: #DC2626;
+            border-color: #FECACA;
         }
 
-        /* ========================================================= READ SECTION ========================================================= */
-        .read-section .notification-card {
-            opacity: .92;
-            border-left-color: #dfe4e7;
+        .btn-status-toggle.unread:hover {
+            background: #DC2626;
+            color: #FFFFFF;
         }
 
-        .read-section .notification-card:hover {
-            opacity: 1;
-            border-left-color: #9ca8b0;
+        .btn-status-toggle.is-read {
+            background: #F1F5F9;
+            color: #64748B;
+            border-color: #E2E8F0;
         }
 
-        /* ========================================================= SMALL EMPTY MESSAGE ========================================================= */
+        .btn-status-toggle.is-read:hover {
+            background: #0F3B68;
+            color: #FFFFFF;
+        }
+
+        .btn-delete-notif {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #FEE2E2;
+            background: #FEF2F2;
+            color: #DC2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .btn-delete-notif:hover {
+            background: #DC2626;
+            color: #FFFFFF;
+            border-color: #DC2626;
+            transform: scale(1.05);
+        }
+
+        /* Empty state */
         .empty-mini {
-            padding: 20px 10px;
-            border: 1px dashed #dfe5e8;
-            border-radius: 7px;
-            color: #98a2a9;
-            font-size: 12px;
+            padding: 36px 16px;
             text-align: center;
+            color: #94A3B8;
+            font-size: 13.5px;
+            background: #F8FAFC;
+            border: 2px dashed #E2E8F0;
+            border-radius: 12px;
+            margin: auto 0;
         }
 
-        /* ========================================================= PAGINATION ========================================================= */
-        .notification-section nav {
-            margin-top: 8px !important;
+        .empty-global {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 50px 24px;
+            text-align: center;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
         }
 
-        .notification-section .pagination {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-            margin: 0;
-        }
-
-        /* PAGINATION ITEM */
-        .notification-section .page-item {
-            margin: 0;
-        }
-
-        /* PAGINATION LINK */
-        .notification-section .page-link {
-            min-width: 27px;
-            height: 27px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2px 7px;
-            border: 1px solid #e1e6e9;
-            border-radius: 5px !important;
-            background: #ffffff;
-            color: #68737c;
-            font-size: 10px;
+        /* Pagination */
+        .pagination-eaf .page-link {
+            color: #0F3B68;
+            font-size: 12.5px;
             font-weight: 600;
-            line-height: 1;
-            box-shadow: none;
-            transition: background .2s ease, color .2s ease, border-color .2s ease;
+            padding: 6px 12px;
+            border-color: #E2E8F0;
+            border-radius: 8px !important;
+            margin: 0 2px;
         }
 
-        /* PAGE HOVER */
-        .notification-section .page-link:hover {
-            background: #f2f6f8;
-            border-color: #cfd8de;
-            color: #0a3d61;
+        .pagination-eaf .page-item.active .page-link {
+            background-color: #0F3B68;
+            border-color: #0F3B68;
+            color: #FFFFFF;
         }
 
-        /* ACTIVE */
-        .notification-section .page-item.active .page-link {
-            background: #0a3d61;
-            border-color: #0a3d61;
-            color: #ffffff;
+        .pagination-eaf .page-item.disabled .page-link {
+            color: #CBD5E1;
+            background-color: #F8FAFC;
         }
 
-        /* DISABLED */
-        .notification-section .page-item.disabled .page-link {
-            background: #f7f8f9;
-            border-color: #e8ecee;
-            color: #b3bbc0;
-            pointer-events: none;
-        }
-
-        /* ========================================================= GLOBAL EMPTY STATE ========================================================= */
-        .empty-state {
-            padding: 35px 15px;
-            color: #9aa4ab;
-            text-align: center;
-        }
-
-        .empty-state i {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 32px;
-        }
-
-        .empty-state p {
-            margin: 0;
-            font-size: 12px;
-        }
-
-        /* ========================================================= BOOTSTRAP ROW GAP OVERRIDE ========================================================= */
-        .row.g-4.align-items-stretch {
-            --bs-gutter-x: 14px;
-            --bs-gutter-y: 14px;
-        }
-
-        /* ========================================================= TABLET ========================================================= */
-        @media (max-width: 991px) {
-            .notification-section {
-                padding: 10px;
-            }
-
-            .notification-container {
-                gap: 5px;
-            }
-
-            .section-title {
-                margin-bottom: 8px;
-            }
-
+        /* Responsive */
+        @media (max-width: 768px) {
             .notification-card {
-                min-height: 61px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px;
             }
-        }
-
-        /* ========================================================= MOBILE ========================================================= */
-        @media (max-width: 575px) {
-            .notification-section {
-                padding: 9px;
-                border-radius: 8px;
-            }
-
-            /* TITLE */
-            .section-title {
-                gap: 6px;
-                margin-bottom: 8px;
-                padding-bottom: 7px;
-                font-size: 14px;
-            }
-
-            .section-title i {
-                font-size: 13px;
-            }
-
-            /* CARD */
-            .notification-card {
-                min-height: 57px;
-                padding: 6px;
-                border-radius: 7px;
-            }
-
-            /* DATE */
             .notif-date {
-                width: 48px;
-                min-width: 48px;
-                margin-right: 8px;
-                padding-right: 7px;
+                border-right: none;
+                border-bottom: 1px solid #E2E8F0;
+                width: 100%;
+                text-align: left;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding-bottom: 6px;
+                padding-right: 0;
             }
-
-            .notif-date .day {
-                font-size: 18px;
-            }
-
-            .notif-date .month {
-                font-size: 9px;
-            }
-
-            .notif-date small {
-                font-size: 8px;
-            }
-
-            /* MESSAGE */
-            .notif-message {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-
-            /* BADGE */
-            .status-badge {
-                margin-top: 3px;
-                padding: 3px 7px;
-                font-size: 9px;
-            }
-
-            /* ACTION */
-            .notif-action {
-                margin-left: 6px;
-            }
-
-            /* DELETE */
-            .btn-delete {
-                width: 26px;
-                height: 26px;
-                font-size: 10px;
-            }
-
-            /* EMPTY */
-            .empty-mini {
-                padding: 16px 8px;
-                font-size: 11px;
-            }
-
-            /* PAGINATION */
-            .notification-section .page-link {
-                min-width: 25px;
-                height: 25px;
-                padding: 2px 6px;
-                font-size: 9px;
-            }
-
-            /* GLOBAL EMPTY */
-            .empty-state {
-                padding: 30px 10px;
-            }
-
-            .empty-state i {
-                font-size: 28px;
-            }
-
-            .empty-state p {
-                font-size: 11px;
-            }
-        }
-
-        /* ========================================================= SMALL MOBILE ========================================================= */
-        @media (max-width: 380px) {
-            .notification-section {
-                padding: 8px;
-            }
-
-            .section-title {
-                font-size: 13px;
-            }
-
-            .notification-card {
-                min-height: 54px;
-                padding: 5px;
-            }
-
-            .notif-date {
-                width: 43px;
-                min-width: 43px;
-                margin-right: 7px;
-                padding-right: 6px;
-            }
-
-            .notif-date .day {
-                font-size: 17px;
-            }
-
-            .notif-date .month {
-                font-size: 8px;
-            }
-
-            .notif-message {
-                font-size: 11px;
-            }
-
-            .status-badge {
-                font-size: 8px;
-            }
-
-            .btn-delete {
-                width: 24px;
-                height: 24px;
+            .notif-date .day { font-size: 15px; }
+            .notif-date .month, .notif-date .year, .notif-date .time { margin: 0; }
+            .notif-action-group {
+                width: 100%;
+                justify-content: flex-end;
+                padding-top: 6px;
+                border-top: 1px dashed #F1F5F9;
             }
         }
     </style>
@@ -484,152 +496,199 @@
 
     <!-- Begin page -->
     <div id="layout-wrapper">
-        <?php echo view('include/member/header.php') ?>
-        <?php echo view('include/member/sidebar.php') ?>
+        <?= view('include/member/header.php') ?>
+        <?= view('include/member/sidebar.php') ?>
+        
         <div class="main-content">
             <div class="page-content">
+                <div class="container-fluid px-2 px-md-3">
 
-                <h4 class="title pt-2 mb-4">Notifications</h4>
-
-                <div class="notification-wrapper">
-
-                    <div class="row g-4 align-items-stretch">
-
-                        <!-- ================= UNREAD ================= -->
-                        <div class="col-lg-6 col-md-12">
-
-                            <div class="notification-section">
-
-                                <h5 class="section-title unread-title">
-                                    <i class="fa fa-bell"></i> Unread Notifications
-                                </h5>
-
-                                <div class="notification-container">
-                                    <?php if (!empty($unread_notifications)): ?>
-                                        <?php foreach ($unread_notifications as $row): ?>
-                                            <?= view('include/member/card/notification_card', ['row' => $row]); ?>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <div class="empty-mini">No unread notifications</div>
-                                    <?php endif; ?>
-                                    <?php if ($unreadTotalPages > 1): ?>
-                                        <nav class="mt-3">
-                                            <ul class="pagination pagination-sm justify-content-center">
-
-                                                <li class="page-item <?= ($unreadPage <= 1) ? 'disabled' : '' ?>">
-                                                    <a class="page-link"
-                                                        href="?unread_page=<?= $unreadPage - 1 ?>&read_page=<?= $readPage ?>">
-                                                        Prev
-                                                    </a>
-                                                </li>
-
-                                                <?php for ($i = 1; $i <= $unreadTotalPages; $i++): ?>
-                                                    <li class="page-item <?= ($i == $unreadPage) ? 'active' : '' ?>">
-                                                        <a class="page-link"
-                                                            href="?unread_page=<?= $i ?>&read_page=<?= $readPage ?>">
-                                                            <?= $i ?>
-                                                        </a>
-                                                    </li>
-                                                <?php endfor; ?>
-
-                                                <li class="page-item <?= ($unreadPage >= $unreadTotalPages) ? 'disabled' : '' ?>">
-                                                    <a class="page-link"
-                                                        href="?unread_page=<?= $unreadPage + 1 ?>&read_page=<?= $readPage ?>">
-                                                        Next
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-                                        </nav>
-                                    <?php endif; ?>
+                    <!-- Executive Hero Banner -->
+                    <div class="notif-hero-card">
+                        <div class="row align-items-center g-3">
+                            <div class="col-lg-6">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="badge rounded-pill" style="background: rgba(198, 166, 103, 0.25); color: #FFD700; font-weight: 700; font-size: 11px; padding: 5px 12px; border: 1px solid rgba(198,166,103,0.4);">
+                                        <i class="ri-notification-3-fill me-1"></i> Notification Center
+                                    </span>
                                 </div>
-
+                                <h1 class="notif-hero-title">Stay Connected & Updated</h1>
+                                <p class="notif-hero-sub">
+                                    Real-time alerts for referrals, 1-to-1 meetings, meeting schedules, MITB notes, and chapter activity.
+                                </p>
                             </div>
 
-                        </div>
+                            <div class="col-lg-6">
+                                <div class="d-flex flex-wrap align-items-center justify-content-lg-end gap-2 gap-sm-3">
+                                    <!-- Stats -->
+                                    <div class="notif-stat-pill">
+                                        <div class="notif-stat-num" id="hero-unread-count"><?= $unreadTotal ?? 0 ?></div>
+                                        <div class="notif-stat-label">Unread<br>Alerts</div>
+                                    </div>
+                                    <div class="notif-stat-pill">
+                                        <div class="notif-stat-num text-white"><?= $readTotal ?? 0 ?></div>
+                                        <div class="notif-stat-label">Read<br>History</div>
+                                    </div>
 
-
-                        <!-- ================= READ ================= -->
-                        <div class="col-lg-6 col-md-12">
-                            <div class="notification-section">
-                                <h5 class="section-title read-title">
-                                    <i class="fa fa-check-circle"></i> Read Notifications
-                                </h5>
-                                <div class="notification-container read-section">
-                                    <?php if (!empty($read_notifications)): ?>
-                                        <?php foreach ($read_notifications as $row): ?>
-                                            <?= view('include/member/card/notification_card', ['row' => $row]); ?>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <div class="empty-mini">No read notifications</div>
-                                    <?php endif; ?>
+                                    <!-- Quick Actions -->
+                                    <div class="d-flex gap-2 w-100 w-sm-auto justify-content-lg-end mt-1 mt-sm-0">
+                                        <?php if (!empty($unreadTotal) && $unreadTotal > 0): ?>
+                                            <button type="button" class="btn-notif-action btn-notif-primary" onclick="markAllNotificationsRead()">
+                                                <i class="ri-check-double-line"></i> Mark All Read
+                                            </button>
+                                        <?php endif; ?>
+                                        <?php if (!empty($readTotal) && $readTotal > 0): ?>
+                                            <button type="button" class="btn-notif-action btn-notif-outline-light" onclick="clearAllReadNotifications()">
+                                                <i class="ri-delete-bin-line"></i> Clear Read
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                                <?php if ($readTotalPages > 1): ?>
-                                    <nav class="mt-3">
-                                        <ul class="pagination pagination-sm justify-content-center">
-
-                                            <li class="page-item <?= ($readPage <= 1) ? 'disabled' : '' ?>">
-                                                <a class="page-link"
-                                                    href="?read_page=<?= $readPage - 1 ?>&unread_page=<?= $unreadPage ?>">
-                                                    Prev
-                                                </a>
-                                            </li>
-
-                                            <?php for ($i = 1; $i <= $readTotalPages; $i++): ?>
-                                                <li class="page-item <?= ($i == $readPage) ? 'active' : '' ?>">
-                                                    <a class="page-link"
-                                                        href="?read_page=<?= $i ?>&unread_page=<?= $unreadPage ?>">
-                                                        <?= $i ?>
-                                                    </a>
-                                                </li>
-                                            <?php endfor; ?>
-
-                                            <li class="page-item <?= ($readPage >= $readTotalPages) ? 'disabled' : '' ?>">
-                                                <a class="page-link"
-                                                    href="?read_page=<?= $readPage + 1 ?>&unread_page=<?= $unreadPage ?>">
-                                                    Next
-                                                </a>
-                                            </li>
-
-                                        </ul>
-                                    </nav>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
 
-                    <!-- GLOBAL EMPTY -->
-                    <?php if (empty($unread_notifications) && empty($read_notifications)): ?>
-                        <div class="empty-state">
-                            <i class="bi bi-bell-slash"></i>
-                            <p>No notifications available</p>
+                    <!-- Notification Dual Feed -->
+                    <div class="notification-wrapper">
+                        <div class="row g-4 align-items-stretch">
+
+                            <!-- ================= UNREAD NOTIFICATIONS ================= -->
+                            <div class="col-lg-6 col-md-12">
+                                <div class="notification-section">
+                                    <div class="section-header-bar">
+                                        <h5 class="section-header-title unread">
+                                            <i class="ri-notification-3-line text-warning fs-5"></i>
+                                            <span>Unread Notifications</span>
+                                        </h5>
+                                        <span class="section-count-badge unread">
+                                            <?= $unreadTotal ?? 0 ?> New
+                                        </span>
+                                    </div>
+
+                                    <div class="notification-container unread-container">
+                                        <?php if (!empty($unread_notifications)): ?>
+                                            <?php foreach ($unread_notifications as $row): ?>
+                                                <?= view('include/member/card/notification_card', ['row' => $row]); ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <div class="empty-mini">
+                                                <i class="ri-checkbox-circle-line fs-3 d-block mb-1 text-success opacity-75"></i>
+                                                <span class="fw-semibold">All caught up!</span>
+                                                <p class="small text-muted mb-0 mt-1">No unread notifications at the moment.</p>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <?php if (!empty($unreadTotalPages) && $unreadTotalPages > 1): ?>
+                                        <nav class="mt-4 pt-2 border-top">
+                                            <ul class="pagination pagination-sm pagination-eaf justify-content-center mb-0">
+                                                <li class="page-item <?= ($unreadPage <= 1) ? 'disabled' : '' ?>">
+                                                    <a class="page-link" href="?unread_page=<?= $unreadPage - 1 ?>&read_page=<?= $readPage ?>">
+                                                        <i class="ri-arrow-left-s-line"></i> Prev
+                                                    </a>
+                                                </li>
+                                                <?php for ($i = 1; $i <= $unreadTotalPages; $i++): ?>
+                                                    <li class="page-item <?= ($i == $unreadPage) ? 'active' : '' ?>">
+                                                        <a class="page-link" href="?unread_page=<?= $i ?>&read_page=<?= $readPage ?>">
+                                                            <?= $i ?>
+                                                        </a>
+                                                    </li>
+                                                <?php endfor; ?>
+                                                <li class="page-item <?= ($unreadPage >= $unreadTotalPages) ? 'disabled' : '' ?>">
+                                                    <a class="page-link" href="?unread_page=<?= $unreadPage + 1 ?>&read_page=<?= $readPage ?>">
+                                                        Next <i class="ri-arrow-right-s-line"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <!-- ================= READ NOTIFICATIONS ================= -->
+                            <div class="col-lg-6 col-md-12">
+                                <div class="notification-section">
+                                    <div class="section-header-bar">
+                                        <h5 class="section-header-title read">
+                                            <i class="ri-checkbox-circle-line text-secondary fs-5"></i>
+                                            <span>Read History</span>
+                                        </h5>
+                                        <span class="section-count-badge read">
+                                            <?= $readTotal ?? 0 ?> Total
+                                        </span>
+                                    </div>
+
+                                    <div class="notification-container read-container">
+                                        <?php if (!empty($read_notifications)): ?>
+                                            <?php foreach ($read_notifications as $row): ?>
+                                                <?= view('include/member/card/notification_card', ['row' => $row]); ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <div class="empty-mini">
+                                                <i class="ri-inbox-line fs-3 d-block mb-1 text-secondary opacity-50"></i>
+                                                <span class="fw-semibold">No read history</span>
+                                                <p class="small text-muted mb-0 mt-1">Notifications you have reviewed will appear here.</p>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <?php if (!empty($readTotalPages) && $readTotalPages > 1): ?>
+                                        <nav class="mt-4 pt-2 border-top">
+                                            <ul class="pagination pagination-sm pagination-eaf justify-content-center mb-0">
+                                                <li class="page-item <?= ($readPage <= 1) ? 'disabled' : '' ?>">
+                                                    <a class="page-link" href="?read_page=<?= $readPage - 1 ?>&unread_page=<?= $unreadPage ?>">
+                                                        <i class="ri-arrow-left-s-line"></i> Prev
+                                                    </a>
+                                                </li>
+                                                <?php for ($i = 1; $i <= $readTotalPages; $i++): ?>
+                                                    <li class="page-item <?= ($i == $readPage) ? 'active' : '' ?>">
+                                                        <a class="page-link" href="?read_page=<?= $i ?>&unread_page=<?= $unreadPage ?>">
+                                                            <?= $i ?>
+                                                        </a>
+                                                    </li>
+                                                <?php endfor; ?>
+                                                <li class="page-item <?= ($readPage >= $readTotalPages) ? 'disabled' : '' ?>">
+                                                    <a class="page-link" href="?read_page=<?= $readPage + 1 ?>&unread_page=<?= $unreadPage ?>">
+                                                        Next <i class="ri-arrow-right-s-line"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
-                    <?php endif; ?>
+
+                        <!-- GLOBAL EMPTY STATE -->
+                        <?php if (empty($unread_notifications) && empty($read_notifications)): ?>
+                            <div class="empty-global mt-4">
+                                <div style="width:64px; height:64px; border-radius:50%; background:#F1F5F9; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; color:#64748B; font-size:28px;">
+                                    <i class="ri-notification-off-line"></i>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-1">No Notifications Available</h5>
+                                <p class="text-muted small mb-0 max-w-sm mx-auto">
+                                    You're completely up to date! When members schedule 1-to-1s, give referrals, or chapter meetings are announced, they will be listed here.
+                                </p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
                 </div>
-
             </div>
             <!-- End Page-content -->
-            <?php echo view('include/member/footer.php') ?>
+            <?= view('include/member/footer.php') ?>
         </div>
-        <!-- end main content-->
     </div>
-    <div class="rightbar-overlay"></div>
+
     <!-- JAVASCRIPT -->
     <script src="<?= base_url(); ?>assets2/libs/jquery/jquery.min.js"></script>
     <script src="<?= base_url(); ?>assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url(); ?>assets2/libs/metismenu/metisMenu.min.js"></script>
     <script src="<?= base_url(); ?>assets2/libs/simplebar/simplebar.min.js"></script>
     <script src="<?= base_url(); ?>assets2/libs/node-waves/waves.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/apexcharts/apexcharts.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/jsvectormap/jsvectormap.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/jsvectormap/maps/world-merc.js"></script>
-    <script src="<?= base_url(); ?>assets2/js/pages/dashboard.init.js"></script>
     <script src="<?= base_url(); ?>assets2/js/app.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <?php echo view('include/member/popup/notification.php'); ?>
+    <?= view('include/member/popup/notification.php'); ?>
 </body>
 
 </html>

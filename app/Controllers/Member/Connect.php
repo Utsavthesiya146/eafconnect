@@ -412,30 +412,25 @@ class Connect extends BaseController
         if (!empty($insert['to_user'])) {
 
             // Generate Notification Code
-            $n_code = $commonModel->generateSerial(
-                'notifications',
-                'n_code',
-                'NOTI'
-            );
-
-            // Get Sender Details
-            $fromUser = $commonModel->db->table('users')
+            $toUserObj = $commonModel->db->table('users')
                 ->select('name')
-                ->where('user_code', $user_code)
+                ->where('user_code', $data['to_user'])
                 ->get()
                 ->getRow();
 
-            // Notification Insert Data
-            $notification = [
-                'n_code'       => $n_code,
-                'user_code'    => $data['to_user'],
-                'title'        => 'New Referral Received',
-                'message'      => ($fromUser->name ?? 'Someone') . ' sent you a new referral.',
-                'status'       => 'unread',
-            ];
+            // Notify Receiver
+            create_system_notification(
+                $data['to_user'],
+                'New Referral Received',
+                ($fromUser->name ?? 'Someone') . ' sent you a new referral: "' . ($insert['business'] ?? 'Business') . '".'
+            );
 
-            // Insert Notification
-            $commonModel->insert_data('notifications', $notification);
+            // Notify Sender (Confirmation)
+            create_system_notification(
+                $user_code,
+                'Referral Sent',
+                'You sent a new referral: "' . ($insert['business'] ?? 'Business') . '" to ' . ($toUserObj->name ?? 'member') . '.'
+            );
         }
         // ==============================
         // ✅ SEND EMAIL NOTIFICATION
@@ -537,26 +532,26 @@ class Connect extends BaseController
         }
 
         $output = '
-<div class="modal-content" style="border-radius:14px; border:none; box-shadow:0 8px 24px rgba(15,59,104,0.18); font-size:13px; overflow:hidden;">
+<div class="modal-content" style="border-radius:16px; border:none; box-shadow:0 12px 32px rgba(15,59,104,0.22); font-size:14px; overflow:hidden;">
     <form id="edit_refferral_status_action" method="post">
-        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); padding:14px 18px;">
-            <h6 class="modal-title mb-0" style="font-size:15px; font-weight:700; color:#ffffff;">Change Connect Status</h6>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.12); padding:16px 20px;">
+            <h6 class="modal-title mb-0" style="font-size:16px; font-weight:700; color:#ffffff; line-height:1.4;">Change Connect Status</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity:0.85;"></button>
         </div>
-        <div class="modal-body p-3">
+        <div class="modal-body" style="padding:20px;">
             <input type="hidden" name="referral_code" value="' . esc($row->referral_code ?? $referral_code) . '">
             <div class="row">
-                <div class="col-md-12 mb-2">
-                    <label class="fw-bold mb-1" style="color:#334155; font-size:13px;">Referral Status</label>
-                    <select name="status" class="form-select" style="font-weight:600; font-size:13.5px; height:42px; border-radius:8px;">
+                <div class="col-12 mb-2">
+                    <label class="fw-bold mb-2 d-block" style="color:#1E293B; font-size:13.5px; line-height:1.4;">Referral Status</label>
+                    <select name="status" class="form-select" style="font-weight:600; font-size:14px; line-height:1.5; min-height:48px; height:auto; padding:10px 14px; border-radius:10px; border:1.5px solid #CBD5E1; color:#0F172A; background-color:#FFFFFF;">
                         ' . $optionsHtml . '
                     </select>
                 </div>
             </div>
         </div>
-        <div class="modal-footer justify-content-end border-0 pt-0 pb-3 px-3">
-            <button type="button" class="btn btn-outline-secondary btn-sm px-3 rounded-pill" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 rounded-pill fw-bold" style="background:#0F3B68; box-shadow:0 2px 6px rgba(15,59,104,0.25);">Update Status</button>
+        <div class="modal-footer justify-content-end border-0 pt-0 pb-4 px-4 gap-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill" data-bs-dismiss="modal" style="font-size:13px; font-weight:600; min-height:38px;">Cancel</button>
+            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 py-2 rounded-pill fw-bold" style="background:#0F3B68; font-size:13px; font-weight:700; min-height:38px; box-shadow:0 3px 8px rgba(15,59,104,0.3);">Update Status</button>
         </div>
     </form>
 </div>';
@@ -579,12 +574,51 @@ class Connect extends BaseController
 
         try {
             $db = \Config\Database::connect();
-            $db->table('referrals')
+            $referral = $db->table('referrals')
                 ->groupStart()
                     ->where('referral_code', $referral_code)
                     ->orWhere('referral_id', $referral_code)
                 ->groupEnd()
+                ->get()
+                ->getRow();
+
+            if (!$referral) {
+                return $this->response->setJSON([
+                    'status'  => 'error',
+                    'message' => 'Referral not found'
+                ]);
+            }
+
+            $db->table('referrals')
+                ->where('referral_id', $referral->referral_id)
                 ->update(['status' => $status]);
+
+            // Notify both users
+            $currentUserId = session()->get('user_code');
+            $currentUserName = session()->get('name') ?: 'A member';
+            $business = !empty($referral->business) ? $referral->business : 'Referral';
+
+            $fromUser = (string)($referral->from_user ?? '');
+            $toUser = (string)($referral->to_user ?? '');
+
+            // Notify partner
+            $partnerCode = ($currentUserId == $fromUser) ? $toUser : $fromUser;
+            if (!empty($partnerCode)) {
+                create_system_notification(
+                    $partnerCode,
+                    'Connect Status: ' . $status,
+                    $currentUserName . ' updated the status of referral "' . $business . '" to ' . $status . '.'
+                );
+            }
+
+            // Confirm to current user
+            if (!empty($currentUserId)) {
+                create_system_notification(
+                    $currentUserId,
+                    'Connect Status Updated',
+                    'You updated the status of referral "' . $business . '" to ' . $status . '.'
+                );
+            }
 
             return $this->response->setJSON([
                 'status'  => 'success',
@@ -699,12 +733,51 @@ class Connect extends BaseController
 
         try {
             $db = \Config\Database::connect();
-            $db->table('referrals')
+            $referral = $db->table('referrals')
                 ->groupStart()
                     ->where('referral_code', $referral_code)
                     ->orWhere('referral_id', $referral_code)
                 ->groupEnd()
+                ->get()
+                ->getRow();
+
+            if (!$referral) {
+                return $this->response->setJSON([
+                    'status'  => 'error',
+                    'message' => 'Referral not found'
+                ]);
+            }
+
+            $db->table('referrals')
+                ->where('referral_id', $referral->referral_id)
                 ->update($data);
+
+            // Notify both users
+            $currentUserId = session()->get('user_code');
+            $currentUserName = session()->get('name') ?: 'A member';
+            $business = !empty($data['business']) ? $data['business'] : (!empty($referral->business) ? $referral->business : 'Referral');
+
+            $fromUser = (string)($referral->from_user ?? '');
+            $toUser = (string)($referral->to_user ?? '');
+
+            // Notify partner
+            $partnerCode = ($currentUserId == $fromUser) ? $toUser : $fromUser;
+            if (!empty($partnerCode)) {
+                create_system_notification(
+                    $partnerCode,
+                    'Connect Updated: ' . $data['status'],
+                    $currentUserName . ' updated referral "' . $business . '" (Status: ' . $data['status'] . ').'
+                );
+            }
+
+            // Confirm to current user
+            if (!empty($currentUserId)) {
+                create_system_notification(
+                    $currentUserId,
+                    'Connect Updated',
+                    'You updated referral "' . $business . '" (Status: ' . $data['status'] . ').'
+                );
+            }
 
             return $this->response->setJSON([
                 'status'  => 'success',

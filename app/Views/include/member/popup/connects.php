@@ -1,7 +1,7 @@
 <!-- edit start-->
 <!-- edit start-->
 <div class="modal fade" id="connect_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" id="connect_edit_data" style="max-width:600px;">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="connect_edit_data" style="max-width:440px; width:92%; margin:1.5rem auto;">
         <!-- Content will be loaded here via AJAX -->
     </div>
 </div>

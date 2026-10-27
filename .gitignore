@@ -34,3 +34,11 @@ preview/assets2
 preview/images
 preview/uploads
 
+# Apple Certificates and Secret Keys
+*.p12
+*.mobileprovision
+*.p8
+*.cer
+*.key
+*.base64.txt
+EAF_CONNECT_SECRETS.txt

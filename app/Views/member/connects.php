@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
     <style>
      
 
@@ -790,28 +790,60 @@
 
         /* Mobile Responsive Card UI (< 992px) - Zero Side Scrolling & Instant Action Buttons */
         @media (max-width: 991px) {
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+                width: 100% !important;
+            }
+            #layout-wrapper,
+            .main-content,
+            .page-content,
+            .container-fluid,
+            .content-card,
             .referral-wrapper {
                 overflow-x: hidden !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
                 width: 100% !important;
+            }
+            .referral-wrapper {
                 padding-bottom: 0 !important;
             }
             .referral-card,
+            .referral-card-row,
+            .referral-card-row .referral-card,
+            .referral-wrapper .referral-card,
+            .crm-list-area .referral-card,
+            .referral-item > .referral-card,
             .ref-card-row,
             .ref-grid-row,
             .ref-header-row {
                 display: none !important;
+                width: 0 !important;
+                height: 0 !important;
+                min-width: 0 !important;
+                max-width: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                overflow: hidden !important;
+                visibility: hidden !important;
             }
             .referral-item,
             .ref-card-col {
-                min-width: 100% !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
                 width: 100% !important;
                 display: block !important;
-                margin-bottom: 0 !important;
+                margin-bottom: 12px !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
             }
             .ref-mobile-card {
                 display: flex !important;
                 flex-direction: column !important;
                 width: 100% !important;
+                max-width: 100% !important;
                 background: #FFFFFF !important;
                 border: 1px solid #E2E8F0 !important;
                 border-radius: 16px !important;
