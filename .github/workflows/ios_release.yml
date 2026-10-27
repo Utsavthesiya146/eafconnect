@@ -153,6 +153,11 @@ jobs:
           echo "CODE_SIGN_IDENTITY = Apple Distribution" >> ios/Flutter/Release.xcconfig
           echo "✅ Release.xcconfig updated with Team ID: $APPLE_TEAM_ID and Profile: ${PROFILE_NAME:-EAF Connect AppStore}"
 
+      - name: 🎨 Ensure Official EAF App Icons
+        working-directory: eaf_mobile
+        run: |
+          dart run flutter_launcher_icons || true
+
       - name: 📱 Build iOS IPA (Signed)
         if: env.APPLE_CERTIFICATE_BASE64 != ''
         env:
