@@ -166,36 +166,6 @@ jobs:
           flutter build ios --release --no-codesign
           echo "✅ Verification build succeeded!"
 
-      - name: 🚀 Upload IPA to App Store Connect / TestFlight
-        if: env.APPLE_CERTIFICATE_BASE64 != '' && env.APP_STORE_CONNECT_KEY_ID != '' && (github.event.inputs.upload_to_app_store != 'false')
-        env:
-          APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
-          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
-        run: |
-          echo "Configuring App Store Connect API Key..."
-          mkdir -p ~/.appstoreconnect/private_keys
-          if echo "$APP_STORE_CONNECT_PRIVATE_KEY" | grep -q "BEGIN PRIVATE KEY"; then
-            echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8
-          else
-            echo "$APP_STORE_CONNECT_PRIVATE_KEY" | base64 --decode > ~/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8
-          fi
-
-          IPA_PATH=$(find eaf_mobile/build/ios/ipa -name "*.ipa" | head -n 1)
-          if [ -f "$IPA_PATH" ]; then
-            echo "Uploading $IPA_PATH to App Store Connect..."
-            xcrun altool --upload-app \
-              --type ios \
-              --file "$IPA_PATH" \
-              --apiKey "$APP_STORE_CONNECT_KEY_ID" \
-              --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
-            echo "🎉 Successfully uploaded IPA to App Store Connect / TestFlight!"
-          else
-            echo "❌ No .ipa file found in eaf_mobile/build/ios/ipa"
-            exit 1
-          fi
-
       - name: 💾 Upload IPA Artifact
         if: env.APPLE_CERTIFICATE_BASE64 != ''
         env:
@@ -205,6 +175,60 @@ jobs:
           name: EAF_Connect_iOS_Release
           path: eaf_mobile/build/ios/ipa/*.ipa
           retention-days: 14
+
+      - name: 🚀 Upload IPA to App Store Connect / TestFlight
+        if: env.APPLE_CERTIFICATE_BASE64 != '' && env.APP_STORE_CONNECT_KEY_ID != '' && (github.event.inputs.upload_to_app_store != 'false')
+        env:
+          APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          KEY_ID=$(echo -n "${APP_STORE_CONNECT_KEY_ID}" | tr -d '[:space:]')
+          ISSUER_ID=$(echo -n "${APP_STORE_CONNECT_ISSUER_ID}" | tr -d '[:space:]')
+
+          echo "Configuring App Store Connect API Key for Key ID: $KEY_ID..."
+
+          python3 -c "
+          import os
+          key_content = os.environ.get('APP_STORE_CONNECT_PRIVATE_KEY', '').strip()
+          if 'BEGIN PRIVATE KEY' not in key_content:
+              import base64
+              key_content = base64.b64decode(key_content).decode('utf-8')
+          # Normalize line endings to strict UNIX LF
+          key_content = '\n'.join([line.strip() for line in key_content.splitlines() if line.strip()]) + '\n'
+
+          key_id = '$KEY_ID'
+          paths = [
+              os.path.expanduser(f'~/.appstoreconnect/private_keys/AuthKey_{key_id}.p8'),
+              os.path.expanduser(f'~/.private_keys/AuthKey_{key_id}.p8'),
+              os.path.expanduser(f'~/private_keys/AuthKey_{key_id}.p8'),
+          ]
+          for p in paths:
+              os.makedirs(os.path.dirname(p), exist_ok=True)
+              with open(p, 'w', newline='\n') as f:
+                  f.write(key_content)
+              os.chmod(p, 0o600)
+              print(f'Configured key file: {p} ({len(key_content)} bytes)')
+          "
+
+          echo "Verifying EC private key with OpenSSL..."
+          openssl ec -in ~/.appstoreconnect/private_keys/AuthKey_${KEY_ID}.p8 -check -noout
+
+          IPA_PATH=$(find eaf_mobile/build/ios/ipa -name "*.ipa" | head -n 1)
+          if [ -f "$IPA_PATH" ]; then
+            echo "Uploading $IPA_PATH to App Store Connect (Issuer: $ISSUER_ID, Key: $KEY_ID)..."
+            xcrun altool --upload-app \
+              --type ios \
+              --file "$IPA_PATH" \
+              --apiKey "$KEY_ID" \
+              --apiIssuer "$ISSUER_ID" \
+              --show-progress
+            echo "🎉 Successfully uploaded IPA to App Store Connect / TestFlight!"
+          else
+            echo "❌ No .ipa file found in eaf_mobile/build/ios/ipa"
+            exit 1
+          fi
 
       - name: 💾 Upload Build Artifact (Unsigned Fallback)
         if: env.APPLE_CERTIFICATE_BASE64 == ''
