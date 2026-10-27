@@ -187,6 +187,7 @@ class VisitorModel {
   final String name;
   final String? email;
   final String? phone;
+  final String? company;
   final String? business;
   final String? purpose;
   final String status;
@@ -196,7 +197,7 @@ class VisitorModel {
     required this.visitorCode,
     required this.userCode,
     required this.name,
-    this.email, this.phone, this.business, this.purpose,
+    this.email, this.phone, this.company, this.business, this.purpose,
     this.status = 'Pending', this.createdAt,
   });
 
@@ -206,6 +207,7 @@ class VisitorModel {
     name:        j['name']?.toString()         ?? '',
     email:       j['email']?.toString(),
     phone:       j['phone']?.toString(),
+    company:     j['company']?.toString() ?? j['company_name']?.toString(),
     business:    j['business']?.toString(),
     purpose:     j['purpose']?.toString(),
     status:      j['status']?.toString() ?? 'Pending',
