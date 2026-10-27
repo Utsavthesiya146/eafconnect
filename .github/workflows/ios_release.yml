@@ -42,10 +42,24 @@ jobs:
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
 
+      - name: 🍎 Select Xcode 16 (iOS 18 SDK Required by Apple)
+        run: |
+          echo "Available Xcode installations on runner:"
+          ls -d /Applications/Xcode* 2>/dev/null || true
+          XCODE_TARGET=$(ls -d /Applications/Xcode_16*.app 2>/dev/null | sort -V | tail -n 1)
+          if [ -z "$XCODE_TARGET" ]; then
+            XCODE_TARGET=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | tail -n 1)
+          fi
+          echo "Activating Xcode: $XCODE_TARGET"
+          sudo xcode-select -s "$XCODE_TARGET/Contents/Developer"
+          echo "DEVELOPER_DIR=$XCODE_TARGET/Contents/Developer" >> $GITHUB_ENV
+          xcodebuild -version
+
       - name: 🔍 Verify Flutter & Xcode Environment
         run: |
           flutter --version
           xcodebuild -version
+
 
       - name: 📦 Install Flutter Dependencies
         working-directory: eaf_mobile
