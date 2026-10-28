@@ -158,7 +158,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               // Filter tabs
               SliverToBoxAdapter(child: _buildFilterRow()),
 
-              // 4 Hero Quick Actions (KVV Benchmark)
+              // 4 Hero Quick Actions (EAF Standard)
               SliverToBoxAdapter(child: _buildHeroQuickActions()),
 
               // Stats grid
@@ -167,7 +167,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 sliver: SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisSpacing: 12, crossAxisSpacing: 12,
-                    childAspectRatio: 1.35,
+                    childAspectRatio: 1.30,
                   ),
                   delegate: SliverChildListDelegate(_buildStatCards()),
                 ),
@@ -264,7 +264,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Text(
-                  'KVV Benchmark',
+                  'EAF Standard',
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -298,8 +298,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onTap: () => context.go('/connect'),
               ),
               QuickActionCard(
-                title: 'Mukha-Mukhi',
-                subtitle: '1-to-1 Meet slip',
+                title: '1-to-1 Meeting',
+                subtitle: 'Face to face slip',
                 icon: Icons.people_alt_rounded,
                 color: const Color(0xFF8B5CF6),
                 onTap: () => context.go('/f2f'),

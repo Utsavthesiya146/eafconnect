@@ -163,7 +163,7 @@ class _ChapterScreenState extends State<ChapterScreen> {
                     color: Colors.white.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Text('KVV Chapter Standard', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Color(0xFFCBD5E1))),
+                  child: const Text('EAF Chapter Standard', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Color(0xFFCBD5E1))),
                 ),
               ],
             ),

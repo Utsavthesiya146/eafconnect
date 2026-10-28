@@ -87,7 +87,7 @@ class ApiClient {
         em.contains('demo') ||
         em.contains('reviewer')) {
       _isDemoMode = true;
-      _cachedToken = 'demo_reviewer_session_token_kvv_998877';
+      _cachedToken = 'demo_reviewer_session_token_eaf_998877';
       return DemoMockData.loginResponse();
     }
 
@@ -99,7 +99,7 @@ class ApiClient {
     } catch (_) {
       // Graceful fallback for video recording and testing
       _isDemoMode = true;
-      _cachedToken = 'demo_reviewer_session_token_kvv_998877';
+      _cachedToken = 'demo_reviewer_session_token_eaf_998877';
       return DemoMockData.loginResponse();
     }
   }

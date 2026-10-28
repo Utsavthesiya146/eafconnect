@@ -7,7 +7,7 @@ class DemoMockData {
   static Map<String, dynamic> loginResponse() => {
     'status': 'success',
     'message': 'Login successful.',
-    'token': 'demo_reviewer_session_token_kvv_998877',
+    'token': 'demo_reviewer_session_token_eaf_998877',
     'user': {
       'user_id': '5',
       'user_code': '5',
@@ -248,22 +248,28 @@ class DemoMockData {
 
   static Map<String, dynamic> notificationsResponse() => {
     'status': 'success',
-    'data': [
-      {
-        'notification_id': 'N001',
-        'title': 'New Business Referral',
-        'message': 'Swaroop S passed a new referral for Web Portal Development',
-        'status': '1',
-        'created_at': '2 hours ago'
-      },
-      {
-        'notification_id': 'N002',
-        'title': 'Upcoming Meeting',
-        'message': 'Weekly Chapter Meeting scheduled for Saturday 7:30 AM',
-        'status': '1',
-        'created_at': '1 day ago'
-      }
-    ]
+    'data': {
+      'notifications': [
+        {
+          'notification_id': 'N001',
+          'user_code': '5',
+          'title': 'New Business Referral',
+          'message': 'Swaroop S passed a new referral for Web Portal Development',
+          'status': '1',
+          'created_at': '2 hours ago',
+        },
+        {
+          'notification_id': 'N002',
+          'user_code': '5',
+          'title': 'Weekly Chapter Meeting',
+          'message': 'Weekly Chapter Meeting scheduled for Saturday 7:30 AM',
+          'status': '1',
+          'created_at': '1 day ago',
+        },
+      ],
+      'unread_count': 2,
+      'total': 2,
+    },
   };
 
   static Map<String, dynamic> successResponse([String msg = 'Action completed successfully']) => {

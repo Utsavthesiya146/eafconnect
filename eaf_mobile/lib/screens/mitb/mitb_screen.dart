@@ -75,7 +75,7 @@ class _MitbScreenState extends State<MitbScreen> with SingleTickerProviderStateM
       ),
       body: Column(
         children: [
-          // Summary bar (KVV Benchmark)
+          // Summary bar (EAF Standard)
           if (!_loading && _error == null)
             Container(
               margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),

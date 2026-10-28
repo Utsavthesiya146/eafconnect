@@ -25,11 +25,27 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     try {
       final resp = await context.read<ApiClient>().getNotifications();
       if (resp['status'] == 'success') {
-        final data = resp['data'] as Map<String, dynamic>;
+        final dynamic rawData = resp['data'];
+        List<dynamic> notifList = [];
+        int unreadCount = 0;
+        if (rawData is Map<String, dynamic>) {
+          notifList = rawData['notifications'] as List? ?? [];
+          unreadCount = (rawData['unread_count'] as num? ?? 0).toInt();
+        } else if (rawData is List) {
+          notifList = rawData;
+          unreadCount = notifList.where((n) {
+            if (n is Map) {
+              final s = n['status']?.toString();
+              return s == '1' || s == 'unread';
+            }
+            return false;
+          }).length;
+        }
         setState(() {
-          _notifications = (data['notifications'] as List? ?? [])
-              .map((e) => NotificationModel.fromJson(e as Map<String, dynamic>)).toList();
-          _unread = (data['unread_count'] as num? ?? 0).toInt();
+          _notifications = notifList
+              .map((e) => NotificationModel.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList();
+          _unread = unreadCount;
         });
       }
     } catch (e) { setState(() => _error = e.toString().replaceAll('Exception: ', '')); }

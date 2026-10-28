@@ -51,7 +51,7 @@ class _F2fScreenState extends State<F2fScreen> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mukha-Mukhi – 1-to-1 Meets'),
+        title: const Text('1-to-1 Meetings (F2F)'),
         bottom: TabBar(
           controller: _tabs,
           labelColor: Colors.white,
@@ -65,7 +65,7 @@ class _F2fScreenState extends State<F2fScreen> with SingleTickerProviderStateMix
         onPressed: _showAddSheet,
         backgroundColor: const Color(0xFF8B5CF6),
         icon: const Icon(Icons.people_alt_rounded, color: Colors.white),
-        label: const Text('Record Mukha-Mukhi', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+        label: const Text('Record 1-to-1 Meeting', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -90,7 +90,7 @@ class _F2fScreenState extends State<F2fScreen> with SingleTickerProviderStateMix
       return Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         const Icon(Icons.people_outline, size: 54, color: AppTheme.textLight),
         const SizedBox(height: 12),
-        Text(isSent ? 'No Mukha-Mukhi meetings sent yet' : 'No Mukha-Mukhi meetings received yet',
+        Text(isSent ? 'No 1-to-1 meetings sent yet' : 'No 1-to-1 meetings received yet',
             style: const TextStyle(color: AppTheme.textSecondary)),
       ]));
     }

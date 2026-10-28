@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.6)),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: const Text('Gold Member Portal • KVV Standard',
+                          child: const Text('Gold Member Portal • EAF Connect',
                               style: TextStyle(
                                 color: Color(0xFFFDE68A),
                                 fontSize: 11,
@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(height: 12),
 
-                          // Biometric Quick Access button (KVV Benchmark)
+                          // Biometric Quick Access button (EAF Connect)
                           SizedBox(
                             width: double.infinity,
                             height: 48,
