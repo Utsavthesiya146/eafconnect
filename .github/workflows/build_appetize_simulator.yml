@@ -1,0 +1,55 @@
+name: Build Simulator App for Appetize
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build_appetize_simulator.yml'
+
+jobs:
+  build-simulator:
+    name: Build iOS Simulator App
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🎯 Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: 🍎 Select Latest Xcode
+        run: |
+          XCODE_TARGET=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | tail -n 1)
+          echo "Activating Xcode: $XCODE_TARGET"
+          sudo xcode-select -s "$XCODE_TARGET/Contents/Developer"
+          xcodebuild -version
+
+      - name: 📦 Install Flutter Dependencies
+        working-directory: eaf_mobile
+        run: |
+          flutter pub get
+
+      - name: 📱 Build iOS Simulator App
+        working-directory: eaf_mobile
+        run: |
+          flutter build ios --simulator --no-codesign
+
+      - name: 🗜️ Zip Simulator App for Appetize
+        working-directory: eaf_mobile/build/ios/iphonesimulator
+        run: |
+          zip -r -y Runner.app.zip Runner.app
+          ls -lh Runner.app.zip
+
+      - name: 💾 Upload Appetize ZIP Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EAF_Connect_Appetize_Simulator
+          path: eaf_mobile/build/ios/iphonesimulator/Runner.app.zip
+          retention-days: 7
