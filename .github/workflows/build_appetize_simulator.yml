@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - '.github/workflows/build_appetize_simulator.yml'
+      - 'eaf_mobile/**'
 
 jobs:
   build-simulator:
@@ -41,9 +42,15 @@ jobs:
         run: |
           flutter build ios --simulator --no-codesign
 
+      - name: 🗜️ Zip Runner.app for Appetize
+        working-directory: eaf_mobile/build/ios/iphonesimulator
+        run: |
+          zip -r -y appetize.zip Runner.app
+          ls -lh appetize.zip
+
       - name: 💾 Upload Appetize ZIP Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Runner.app
-          path: eaf_mobile/build/ios/iphonesimulator/Runner.app
+          name: appetize_ios_app
+          path: eaf_mobile/build/ios/iphonesimulator/appetize.zip
           retention-days: 7
