@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="<?= base_url(); ?>images/logo5.png">
-    
+
     <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=9.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -98,14 +98,17 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
             }
+
             .chapter-kpi-card {
                 padding: 10px 12px;
             }
+
             .chapter-kpi-icon {
                 width: 36px;
                 height: 36px;
                 font-size: 15px;
             }
+
             .chapter-kpi-content strong {
                 font-size: 15px;
             }
@@ -141,11 +144,30 @@
             flex-shrink: 0;
         }
 
-        .members-kpi .chapter-kpi-icon { background: rgba(37, 99, 235, 0.1); color: #2563EB; }
-        .connects-kpi .chapter-kpi-icon { background: rgba(217, 119, 6, 0.1); color: #D97706; }
-        .referral-kpi .chapter-kpi-icon { background: rgba(5, 150, 105, 0.1); color: #059669; }
-        .meeting-kpi .chapter-kpi-icon { background: rgba(124, 58, 237, 0.1); color: #7C3AED; }
-        .visitor-kpi .chapter-kpi-icon { background: rgba(13, 148, 136, 0.1); color: #0D9488; }
+        .members-kpi .chapter-kpi-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563EB;
+        }
+
+        .connects-kpi .chapter-kpi-icon {
+            background: rgba(217, 119, 6, 0.1);
+            color: #D97706;
+        }
+
+        .referral-kpi .chapter-kpi-icon {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+
+        .meeting-kpi .chapter-kpi-icon {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7C3AED;
+        }
+
+        .visitor-kpi .chapter-kpi-icon {
+            background: rgba(13, 148, 136, 0.1);
+            color: #0D9488;
+        }
 
         .chapter-kpi-content span {
             display: block;
@@ -261,9 +283,20 @@
         }
 
         @keyframes pulse-dot {
-            0% { transform: scale(0.95); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.5; }
-            100% { transform: scale(0.95); opacity: 1; }
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
         }
 
         .ads-banner {
@@ -338,8 +371,13 @@
             transition: all 0.2s ease;
         }
 
-        .ads-carousel .carousel-control-prev { left: 14px; }
-        .ads-carousel .carousel-control-next { right: 14px; }
+        .ads-carousel .carousel-control-prev {
+            left: 14px;
+        }
+
+        .ads-carousel .carousel-control-next {
+            right: 14px;
+        }
 
         .ads-carousel .carousel-control-prev:hover,
         .ads-carousel .carousel-control-next:hover {
@@ -449,105 +487,6 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-
-            /* 4 Quick Action Slips - Mobile 2x2 Grid (Proper and Perfect) */
-            .kvv-quick-actions-grid {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px !important;
-                margin-bottom: 20px !important;
-                width: 100% !important;
-            }
-
-            .kvv-action-slip-card {
-                background: #FFFFFF !important;
-                border: 1.5px solid #E2E8F0 !important;
-                border-radius: 14px !important;
-                padding: 12px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: space-between !important;
-                min-height: 98px !important;
-                box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
-                text-decoration: none !important;
-                cursor: pointer !important;
-                box-sizing: border-box !important;
-                transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-            }
-
-            .kvv-action-slip-card:active {
-                transform: scale(0.97) !important;
-            }
-
-            .kvv-slip-top-row {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                width: 100% !important;
-                margin-bottom: 8px !important;
-            }
-
-            .kvv-slip-icon-wrap {
-                width: 36px !important;
-                height: 36px !important;
-                border-radius: 10px !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 18px !important;
-                flex-shrink: 0 !important;
-            }
-
-            .kvv-action-slip-arrow {
-                width: 24px !important;
-                height: 24px !important;
-                border-radius: 50% !important;
-                background: #F8FAFC !important;
-                border: 1px solid #E2E8F0 !important;
-                color: #64748B !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 13px !important;
-                flex-shrink: 0 !important;
-            }
-
-            .kvv-slip-body {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
-                line-height: 1.25 !important;
-            }
-
-            .kvv-action-slip-title {
-                display: block !important;
-                font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif !important;
-                font-size: 13px !important;
-                font-weight: 700 !important;
-                color: #0F172A !important;
-                line-height: 1.25 !important;
-                white-space: normal !important;
-            }
-
-            .kvv-action-slip-sub {
-                display: block !important;
-                font-size: 10.5px !important;
-                color: #64748B !important;
-                font-weight: 500 !important;
-                line-height: 1.2 !important;
-                margin-top: 2px !important;
-                white-space: normal !important;
-            }
-        }
-
-        /* Desktop: 4 Quick Actions in 1 Row (Computer screen left untouched) */
-        @media (min-width: 992px) {
-            .kvv-quick-actions-grid {
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-                gap: 16px !important;
-                margin-bottom: 22px !important;
-            }
         }
     </style>
 </head>
@@ -557,7 +496,7 @@
     <div id="layout-wrapper">
         <?php echo view('include/member/header.php') ?>
         <?php echo view('include/member/sidebar.php') ?>
-        
+
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid py-2">
@@ -596,7 +535,7 @@
                     $profilePhoto = !empty($currentMember['profile_photo']) ? $currentMember['profile_photo'] : (session()->get('profile_photo') ?: 'empty.png');
                     $memberName = !empty($currentMember['name']) ? $currentMember['name'] : session()->get('name');
 
-                    $formatInr = function($amount) {
+                    $formatInr = function ($amount) {
                         return number_format((float)($amount ?? 0), 2);
                     };
                     ?>
@@ -651,22 +590,22 @@
                                         <?php $adImageUrl = base_url('uploads/ads/' . $ad['ads_image']); ?>
                                         <div class="carousel-item <?= $k === 0 ? 'active' : '' ?>">
                                             <div class="kvv-banner-card" style="height: auto !important; max-height: none !important;">
-                                                <img src="<?= $adImageUrl; ?>" 
-                                                     alt="<?= esc($ad['ads_title'] ?: 'Member Spotlight'); ?>" 
-                                                     class="kvv-banner-img"
-                                                     style="width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block !important;"
-                                                     onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.png'); ?>';">
+                                                <img src="<?= $adImageUrl; ?>"
+                                                    alt="<?= esc($ad['ads_title'] ?: 'Member Spotlight'); ?>"
+                                                    class="kvv-banner-img"
+                                                    style="width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block !important;"
+                                                    onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.png'); ?>';">
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <div class="carousel-item active">
                                         <div class="kvv-banner-card" style="height: auto !important; max-height: none !important;">
-                                            <img src="<?= base_url('images/sample-banner.png'); ?>" 
-                                                 alt="Member Spotlight"
-                                                 class="kvv-banner-img"
-                                                 style="width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block !important;"
-                                                 onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.jpg'); ?>';">
+                                            <img src="<?= base_url('images/sample-banner.png'); ?>"
+                                                alt="Member Spotlight"
+                                                class="kvv-banner-img"
+                                                style="width: 100% !important; height: auto !important; max-height: none !important; object-fit: contain !important; display: block !important;"
+                                                onerror="this.onerror=null; this.src='<?= base_url('images/sample-banner.jpg'); ?>';">
                                         </div>
                                     </div>
                                 <?php endif; ?>
@@ -700,7 +639,7 @@
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">Give Connect</span>
-                                <span class="kvv-action-slip-sub">New referral</span>
+                                <!-- <span class="kvv-action-slip-sub">New referral</span> -->
                             </div>
                         </div>
 
@@ -716,7 +655,7 @@
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">Received Connects</span>
-                                <span class="kvv-action-slip-sub">Inbound leads</span>
+                                <!-- <span class="kvv-action-slip-sub">Inbound leads</span> -->
                             </div>
                         </a>
 
@@ -732,7 +671,7 @@
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">F2F Meeting</span>
-                                <span class="kvv-action-slip-sub">1-to-1 meeting</span>
+                                <!-- <span class="kvv-action-slip-sub">1-to-1 meeting</span> -->
                             </div>
                         </div>
 
@@ -748,7 +687,7 @@
                             </div>
                             <div class="kvv-slip-body">
                                 <span class="kvv-action-slip-title">MITB (Closed Business)</span>
-                                <span class="kvv-action-slip-sub">Report revenue</span>
+                                <!-- <span class="kvv-action-slip-sub">Report revenue</span> -->
                             </div>
                         </div>
                     </div>
@@ -758,7 +697,7 @@
                          ========================================================================== -->
                     <div class="row g-3 mb-4">
                         <!-- Column 1: Your Business Progress This Week (2x2 Grid) -->
-                        <div class="col-lg-6 col-md-12">
+                         <div class="col-lg-6 col-md-12">
                             <div class="kvv-widget-box">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h5 class="kvv-widget-title mb-0">
@@ -811,404 +750,808 @@
                             <div class="kvv-widget-box d-flex flex-column justify-content-between">
                                 <div>
                                     <div class="kvv-next-meeting-badge">Next Meeting</div>
-                                    <?php
-                                    $nextMeetingDateStr = 'Wednesday, 21 October';
-                                    $nextMeetingLocStr = 'Kings Club, Nagarbhavi';
-                                    $nextMeetingTimeStr = '8:00 AM to 9:30 AM';
 
-                                    if (!empty($events)) {
-                                        $m = $events[0];
-                                        $ts = !empty($m['date']) ? strtotime($m['date']) : time();
-                                        $nextMeetingDateStr = date('l, d F', $ts);
-                                        $nextMeetingLocStr = !empty($m['venue']) ? $m['venue'] : (!empty($m['location']) ? $m['location'] : 'Kings Club, Nagarbhavi');
-                                        if (strtolower($nextMeetingLocStr) === 'nagarbhavi') {
-                                            $nextMeetingLocStr = 'Kings Club, Nagarbhavi';
+
+                                    <div class="card meeting-details-card p-3">
+                                        <h4 class="mb-3">Upcoming Meeting Details</h4>
+
+                                        <?php if (!empty($events)): ?>
+
+                                            <?php $i = 1; ?>
+
+                                            <?php foreach ($events as $row): ?>
+
+                                                <?php
+                                                $meetingTimestamp = !empty($row['date'])
+                                                    ? strtotime($row['date'])
+                                                    : false;
+
+                                                $mode = strtolower(trim($row['mode'] ?? ''));
+
+                                                $modeClass = match ($mode) {
+                                                    'online'  => 'badge bg-success',
+                                                    'offline' => 'badge bg-warning text-dark',
+                                                    'hybrid'  => 'badge bg-primary',
+                                                    default   => 'badge bg-secondary'
+                                                };
+
+                                                $meetingTitle = $row['title'] ?? 'Untitled Meeting';
+                                                $chapterName  = $row['chapter_name'] ?? 'N/A';
+                                                $location     = $row['location'] ?? $row['venue'] ?? 'Location not specified';
+                                                $regCount     = (int) ($row['reg_count'] ?? 0);
+                                                $meetingLink  = $row['meeting_link'] ?? '';
+                                                ?>
+
+                                                <div class="meeting-row">
+
+                                                    <!-- Meeting Number -->
+                                                    <div class="meeting-number">
+                                                        #<?= $i ?>
+                                                    </div>
+
+                                                    <!-- Date and Time -->
+                                                    <div class="meeting-date">
+                                                        <b>
+                                                            <?= $meetingTimestamp
+                                                                ? date('d M Y', $meetingTimestamp)
+                                                                : 'Date unavailable' ?>
+                                                        </b>
+
+                                                        <small class="d-block text-muted">
+                                                            <?= $meetingTimestamp
+                                                                ? date('h:i A', $meetingTimestamp)
+                                                                : '--:--' ?>
+                                                        </small>
+                                                    </div>
+
+                                                    <!-- Meeting Title and Chapter -->
+                                                    <div class="meeting-event">
+                                                        <div class="fw-semibold meeting-title">
+                                                            <?= esc($meetingTitle) ?>
+                                                        </div>
+
+                                                        <small class="text-muted meeting-chapter">
+                                                            <?= esc($chapterName) ?>
+                                                        </small>
+                                                    </div>
+
+                                                    <!-- Location -->
+                                                    <div class="meeting-location">
+                                                        <i class="bi bi-geo-alt-fill me-1"></i>
+                                                        <span><?= esc($location) ?></span>
+                                                    </div>
+
+                                                    <!-- Meeting Mode -->
+                                                    <div class="meeting-mode">
+                                                        <span class="<?= $modeClass ?>">
+                                                            <?= esc(ucfirst($mode ?: 'Unknown')) ?>
+                                                        </span>
+                                                    </div>
+                                                    <!-- Join Meeting -->
+                                                    <div class="meeting-action">
+                                                        <?php if (
+                                                            in_array($mode, ['online', 'hybrid'], true)
+                                                            && !empty($meetingLink)
+                                                        ): ?>
+                                                            <a href="<?= esc($meetingLink) ?>"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                class="btn btn-success btn-sm rounded-pill px-3">
+                                                                <i class="bi bi-camera-video me-1"></i>
+                                                                Join
+                                                            </a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">—</span>
+                                                        <?php endif; ?>
+                                                    </div>
+
+                                                </div>
+
+                                                <?php $i++; ?>
+
+                                            <?php endforeach; ?>
+
+                                        <?php else: ?>
+
+                                            <div class="text-center p-4">
+                                                <i class="bi bi-calendar-x fs-2 text-muted"></i>
+                                                <p class="mb-0 mt-2">No Upcoming Meeting Found</p>
+                                            </div>
+
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <style>
+                                        /* ==========================================
+   MEETING CARD - PREVENT OVERFLOW
+========================================== */
+
+                                        .meeting-details-card {
+                                            width: 100%;
+                                            max-width: 100%;
+                                            min-width: 0;
+                                            box-sizing: border-box;
+                                            overflow: hidden;
                                         }
-                                        $nextMeetingTimeStr = !empty($m['time']) ? $m['time'] . ' to 9:30 AM' : '8:00 AM to 9:30 AM';
-                                    }
-                                    ?>
-                                    <div class="kvv-meeting-rows">
-                                        <div class="kvv-meeting-row-inline">
-                                            <div class="kvv-meeting-point">
-                                                <i class="ri-calendar-2-fill"></i>
-                                                <span><?= esc($nextMeetingDateStr); ?></span>
-                                            </div>
-                                            <div class="kvv-meeting-point">
-                                                <i class="ri-map-pin-2-fill"></i>
-                                                <span><?= esc($nextMeetingLocStr); ?></span>
-                                            </div>
-                                        </div>
-                                        <div class="kvv-meeting-row-inline">
-                                            <div class="kvv-meeting-point">
-                                                <i class="ri-time-fill"></i>
-                                                <span><?= esc($nextMeetingTimeStr); ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                        /* All elements calculate width including padding */
+                                        .meeting-details-card *,
+                                        .meeting-details-card *::before,
+                                        .meeting-details-card *::after {
+                                            box-sizing: border-box;
+                                        }
+
+                                        .meeting-details-card>h4 {
+                                            overflow-wrap: anywhere;
+                                        }
+
+                                        /* ==========================================
+   MEETING ROW - RESPONSIVE GRID
+========================================== */
+
+                                        .meeting-details-card .meeting-row {
+                                            display: grid;
+
+                                            /* Columns automatically fit inside the card */
+                                            grid-template-columns:
+                                                35px minmax(90px, 0.8fr) minmax(120px, 1.5fr) minmax(100px, 1.2fr) minmax(65px, auto) 45px 65px;
+
+                                            align-items: center;
+                                            gap: 12px;
+
+                                            width: 100%;
+                                            max-width: 100%;
+                                            min-width: 0;
+
+                                            padding: 12px;
+                                            margin-bottom: 10px;
+
+                                            border: 1px solid #edf0f5;
+                                            border-radius: 10px;
+                                            background: #fff;
+
+                                            transition: background .2s ease, box-shadow .2s ease;
+                                        }
+
+                                        .meeting-details-card .meeting-row:last-child {
+                                            margin-bottom: 0;
+                                        }
+
+                                        .meeting-details-card .meeting-row:hover {
+                                            background: #f8fafc;
+                                            box-shadow: 0 3px 12px rgba(15, 23, 42, .05);
+                                        }
+
+                                        /* ==========================================
+   PREVENT CHILD ELEMENTS FROM EXPANDING
+========================================== */
+
+                                        .meeting-details-card .meeting-row>div {
+                                            min-width: 0;
+                                            max-width: 100%;
+                                        }
+
+                                        /* Number */
+                                        .meeting-details-card .meeting-number {
+                                            width: 35px;
+                                            height: 35px;
+
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+
+                                            background: #e8f5ee;
+                                            color: #087f5b;
+
+                                            border-radius: 8px;
+                                            font-weight: 700;
+                                            font-size: 13px;
+                                        }
+
+                                        /* Date */
+                                        .meeting-details-card .meeting-date {
+                                            font-size: 12px;
+                                            line-height: 1.5;
+                                            overflow-wrap: anywhere;
+                                        }
+
+                                        .meeting-details-card .meeting-date b {
+                                            display: block;
+                                        }
+
+                                        /* Meeting title and chapter */
+                                        .meeting-details-card .meeting-event {
+                                            min-width: 0;
+                                            overflow-wrap: anywhere;
+                                            word-break: normal;
+                                        }
+
+                                        .meeting-details-card .meeting-title {
+                                            font-size: 13px;
+                                            line-height: 1.5;
+                                            white-space: normal;
+                                            overflow-wrap: anywhere;
+                                        }
+
+                                        .meeting-details-card .meeting-chapter {
+                                            display: block;
+                                            margin-top: 3px;
+                                            font-size: 11px;
+                                            line-height: 1.5;
+                                            white-space: normal;
+                                            overflow-wrap: anywhere;
+                                        }
+
+                                        /* Location */
+                                        .meeting-details-card .meeting-location {
+                                            display: flex;
+                                            align-items: flex-start;
+                                            min-width: 0;
+
+                                            font-size: 12px;
+                                            line-height: 1.5;
+
+                                            white-space: normal;
+                                            overflow-wrap: anywhere;
+                                            word-break: normal;
+                                        }
+
+                                        .meeting-details-card .meeting-location i {
+                                            flex-shrink: 0;
+                                            margin-top: 3px;
+                                        }
+
+                                        /* Mode */
+                                        .meeting-details-card .meeting-mode {
+                                            min-width: 0;
+                                        }
+
+                                        .meeting-details-card .meeting-mode .badge {
+                                            display: inline-block;
+                                            max-width: 100%;
+                                            white-space: normal;
+                                            overflow-wrap: anywhere;
+
+                                            padding: 5px 7px;
+                                            font-size: 10px;
+                                            font-weight: 600;
+                                        }
+
+                                        /* Registration count */
+                                        .meeting-details-card .meeting-registration {
+                                            text-align: center;
+                                            white-space: nowrap;
+                                            font-size: 12px;
+                                        }
+
+                                        /* Join button */
+                                        .meeting-details-card .meeting-action {
+                                            text-align: center;
+                                        }
+
+                                        .meeting-details-card .meeting-action .btn {
+                                            max-width: 100%;
+                                            white-space: normal;
+                                            padding-left: 8px !important;
+                                            padding-right: 8px !important;
+                                            font-size: 12px;
+                                        }
+
+                                        /* ==========================================
+   LAPTOP / TABLET
+========================================== */
+
+                                        @media (max-width: 1199.98px) {
+                                            .meeting-details-card .meeting-row {
+                                                grid-template-columns:
+                                                    32px minmax(85px, 0.8fr) minmax(110px, 1.3fr) minmax(95px, 1fr) minmax(60px, auto) 40px 60px;
+
+                                                gap: 8px;
+                                                padding: 10px;
+                                            }
+
+                                            .meeting-details-card .meeting-number {
+                                                width: 32px;
+                                                height: 32px;
+                                            }
+                                        }
+
+                                        /* ==========================================
+   SMALLER TABLETS
+   Wrap fields into multiple rows inside card
+========================================== */
+
+                                        @media (max-width: 991.98px) {
+                                            .meeting-details-card .meeting-row {
+                                                grid-template-columns: 35px minmax(0, 1fr) minmax(0, 1.5fr);
+                                                gap: 10px;
+                                                padding: 12px;
+                                            }
+
+                                            .meeting-details-card .meeting-number {
+                                                grid-column: 1;
+                                                grid-row: 1;
+                                            }
+
+                                            .meeting-details-card .meeting-date {
+                                                grid-column: 2;
+                                                grid-row: 1;
+                                            }
+
+                                            .meeting-details-card .meeting-event {
+                                                grid-column: 3;
+                                                grid-row: 1;
+                                            }
+
+                                            .meeting-details-card .meeting-location {
+                                                grid-column: 1 / 3;
+                                                grid-row: 2;
+                                            }
+
+                                            .meeting-details-card .meeting-mode {
+                                                grid-column: 3;
+                                                grid-row: 2;
+                                            }
+
+                                            .meeting-details-card .meeting-registration {
+                                                grid-column: 2;
+                                                grid-row: 3;
+                                                text-align: left;
+                                            }
+
+                                            .meeting-details-card .meeting-action {
+                                                grid-column: 3;
+                                                grid-row: 3;
+                                                text-align: right;
+                                            }
+                                        }
+
+                                        /* ==========================================
+   MOBILE
+========================================== */
+
+                                        @media (max-width: 575.98px) {
+                                            .meeting-details-card {
+                                                padding: 12px !important;
+                                            }
+
+                                            .meeting-details-card>h4 {
+                                                font-size: 17px;
+                                            }
+
+                                            .meeting-details-card .meeting-row {
+                                                grid-template-columns: 30px minmax(0, 1fr);
+                                                gap: 10px;
+                                                padding: 12px;
+                                            }
+
+                                            .meeting-details-card .meeting-number {
+                                                grid-column: 1;
+                                                grid-row: 1;
+                                                width: 30px;
+                                                height: 30px;
+                                            }
+
+                                            .meeting-details-card .meeting-date {
+                                                grid-column: 2;
+                                                grid-row: 1;
+                                            }
+
+                                            .meeting-details-card .meeting-event {
+                                                grid-column: 1 / -1;
+                                                grid-row: 2;
+                                            }
+
+                                            .meeting-details-card .meeting-location {
+                                                grid-column: 1 / -1;
+                                                grid-row: 3;
+                                            }
+
+                                            .meeting-details-card .meeting-mode {
+                                                grid-column: 1;
+                                                grid-row: 4;
+                                                align-self: center;
+                                            }
+
+                                            .meeting-details-card .meeting-registration {
+                                                grid-column: 2;
+                                                grid-row: 4;
+                                                text-align: right;
+                                                align-self: center;
+                                            }
+
+                                            .meeting-details-card .meeting-action {
+                                                grid-column: 1 / -1;
+                                                grid-row: 5;
+                                                text-align: left;
+                                            }
+                                        }
+
+                                        /* Extra narrow phones */
+                                        @media (max-width: 360px) {
+                                            .meeting-details-card {
+                                                padding: 8px !important;
+                                            }
+
+                                            .meeting-details-card .meeting-row {
+                                                padding: 9px;
+                                                gap: 8px;
+                                            }
+                                        }
+                                    </style>
+
                                 </div>
-                                <?php if (!empty($events) && !empty($events[0]['meeting_link']) && ($events[0]['mode'] ?? '') !== 'offline'): ?>
-                                    <div class="mt-3 pt-2 border-top">
-                                        <a href="<?= esc($events[0]['meeting_link']); ?>" target="_blank" class="btn btn-sm btn-outline-warning rounded-pill px-3">
-                                            <i class="ri-video-line me-1"></i> Join Online
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- ==========================================================================
+                        <!-- ==========================================================================
                          4. BNI CONNECT BENCHMARK: INTERACTIVE SPLINE GROWTH CHART & METRICS
                          ========================================================================== -->
-                    <div class="eaf-growth-card">
-                        <div class="eaf-growth-header">
-                            <h5>
-                                <i class="ri-line-chart-line text-warning"></i>
-                                Networking Revenue Growth & Business Exchanged
-                            </h5>
-                            <div class="eaf-time-filter-wrap">
-                                <a href="<?= current_url() . '?filter=15' ?>" class="eaf-time-chip <?= ($filter == '15') ? 'active' : '' ?>">15D</a>
-                                <a href="<?= current_url() . '?filter=30' ?>" class="eaf-time-chip <?= ($filter == '30') ? 'active' : '' ?>">1M</a>
-                                <a href="<?= current_url() . '?filter=180' ?>" class="eaf-time-chip <?= ($filter == '180') ? 'active' : '' ?>">6M</a>
-                                <a href="<?= current_url() . '?filter=all' ?>" class="eaf-time-chip <?= ($filter == 'all') ? 'active' : '' ?>">All</a>
+                        <div class="eaf-growth-card">
+                            <div class="eaf-growth-header">
+                                <h5>
+                                    <i class="ri-line-chart-line text-warning"></i>
+                                    Networking Revenue Growth & Business Exchanged
+                                </h5>
+                                <div class="eaf-time-filter-wrap">
+                                    <a href="<?= current_url() . '?filter=15' ?>" class="eaf-time-chip <?= ($filter == '15') ? 'active' : '' ?>">15D</a>
+                                    <a href="<?= current_url() . '?filter=30' ?>" class="eaf-time-chip <?= ($filter == '30') ? 'active' : '' ?>">1M</a>
+                                    <a href="<?= current_url() . '?filter=180' ?>" class="eaf-time-chip <?= ($filter == '180') ? 'active' : '' ?>">6M</a>
+                                    <a href="<?= current_url() . '?filter=all' ?>" class="eaf-time-chip <?= ($filter == 'all') ? 'active' : '' ?>">All</a>
+                                </div>
+                            </div>
+
+                            <!-- Canvas for Spline Curve -->
+                            <div class="eaf-chart-container mb-3">
+                                <canvas id="eafSplineGrowthChart" height="95"></canvas>
+                            </div>
+
+                            <!-- BNI Linked Metric Selector Cards -->
+                            <div class="row g-2 pt-2 border-top border-light eaf-growth-metrics-row">
+                                <!-- Revenue Received -->
+                                <div class="col-xl-3 col-md-6 col-6">
+                                    <div class="eaf-chart-metric-tile">
+                                        <div class="eaf-chart-metric-header">
+                                            <span class="eaf-chart-metric-title">Business Received</span>
+                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill eaf-chart-metric-badge">↙ Inbound</span>
+                                        </div>
+                                        <div class="eaf-chart-metric-value text-success">
+                                            ₹ <?= $formatInr($totalMITBReceived ?? 0); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Revenue Given -->
+                                <div class="col-xl-3 col-md-6 col-6">
+                                    <div class="eaf-chart-metric-tile">
+                                        <div class="eaf-chart-metric-header">
+                                            <span class="eaf-chart-metric-title">Business Given</span>
+                                            <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill eaf-chart-metric-badge">↗ Outbound</span>
+                                        </div>
+                                        <div class="eaf-chart-metric-value" style="color:#0F3B68;">
+                                            ₹ <?= $formatInr($totalMITBGiven ?? 0); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Referrals Given -->
+                                <div class="col-xl-3 col-md-6 col-6">
+                                    <div class="eaf-chart-metric-tile">
+                                        <div class="eaf-chart-metric-header">
+                                            <span class="eaf-chart-metric-title">Referrals Given</span>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill eaf-chart-metric-badge">↗ Connects</span>
+                                        </div>
+                                        <div class="eaf-chart-metric-value text-primary">
+                                            <?= (int)($r_g_c ?? 0); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 1-to-1 Meetings -->
+                                <div class="col-xl-3 col-md-6 col-6">
+                                    <div class="eaf-chart-metric-tile">
+                                        <div class="eaf-chart-metric-header">
+                                            <span class="eaf-chart-metric-title">1-to-1 Conducted</span>
+                                            <span class="badge bg-purple bg-opacity-10 text-purple rounded-pill eaf-chart-metric-badge" style="background:rgba(124,58,237,.1);color:#7C3AED;">🤝 F2F</span>
+                                        </div>
+                                        <div class="eaf-chart-metric-value" style="color:#7C3AED;">
+                                            <?= (int)($f2f__sc ?? 0); ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Canvas for Spline Curve -->
-                        <div class="eaf-chart-container mb-3">
-                            <canvas id="eafSplineGrowthChart" height="95"></canvas>
-                        </div>
-
-                        <!-- BNI Linked Metric Selector Cards -->
-                        <div class="row g-2 pt-2 border-top border-light eaf-growth-metrics-row">
-                            <!-- Revenue Received -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">Business Received</span>
-                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill eaf-chart-metric-badge">↙ Inbound</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value text-success">
-                                        ₹ <?= $formatInr($totalMITBReceived ?? 0); ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Revenue Given -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">Business Given</span>
-                                        <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill eaf-chart-metric-badge">↗ Outbound</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value" style="color:#0F3B68;">
-                                        ₹ <?= $formatInr($totalMITBGiven ?? 0); ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Referrals Given -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">Referrals Given</span>
-                                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill eaf-chart-metric-badge">↗ Connects</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value text-primary">
-                                        <?= (int)($r_g_c ?? 0); ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 1-to-1 Meetings -->
-                            <div class="col-xl-3 col-md-6 col-6">
-                                <div class="eaf-chart-metric-tile">
-                                    <div class="eaf-chart-metric-header">
-                                        <span class="eaf-chart-metric-title">1-to-1 Conducted</span>
-                                        <span class="badge bg-purple bg-opacity-10 text-purple rounded-pill eaf-chart-metric-badge" style="background:rgba(124,58,237,.1);color:#7C3AED;">🤝 F2F</span>
-                                    </div>
-                                    <div class="eaf-chart-metric-value" style="color:#7C3AED;">
-                                        <?= (int)($f2f__sc ?? 0); ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ==========================================================================
+                        <!-- ==========================================================================
                          5. CHAPTER OVERVIEW & QUICK REPORTS
                          ========================================================================== -->
-                    <div class="chapter-performance">
-                        <div class="chapter-performance-header">
-                            <div class="chapter-heading">
-                                <div class="chapter-heading-icon">
-                                    <i class="ri-community-line"></i>
-                                </div>
-                                <div>
-                                    <h4>My Chapter Performance: <?= esc($chapterName); ?></h4>
-                                    <span>Live activity overview across chapter members</span>
-                                </div>
-                            </div>
-                            <a href="<?= base_url('member/mychapter'); ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                                View Chapter Directory <i class="ri-arrow-right-s-line"></i>
-                            </a>
-                        </div>
-
-                        <!-- KPI Grid -->
-                        <div class="chapter-kpi-grid mb-3">
-                            <div class="chapter-kpi-card members-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-group-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Total Members</span>
-                                    <strong><?= (int)($totalMembers ?? 0); ?></strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card connects-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-money-rupee-circle-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Chapter MITB</span>
-                                    <strong>₹<?= $formatInr($mitb ?? 0); ?></strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card referral-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-shake-hands-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Total Connects</span>
-                                    <strong><?= (int)($connects ?? 0); ?></strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card meeting-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-user-voice-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>F2F Initiated</span>
-                                    <strong><?= (int)($meetings ?? 0); ?></strong>
-                                </div>
-                            </div>
-
-                            <div class="chapter-kpi-card visitor-kpi">
-                                <div class="chapter-kpi-icon"><i class="ri-user-add-line"></i></div>
-                                <div class="chapter-kpi-content">
-                                    <span>Total Visitors</span>
-                                    <strong><?= (int)($visitors ?? 0); ?></strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Reports Shortcuts -->
-                        <div class="row g-2 pt-2 border-top border-light">
-                            <div class="col-md-4">
-                                <a href="<?= base_url('member/reports/weekly_slips'); ?>" class="eaf-report-tile">
-                                    <div class="eaf-report-tile-left">
-                                        <div class="eaf-report-tile-icon bg-primary bg-opacity-10 text-primary">
-                                            <i class="ri-printer-line"></i>
-                                        </div>
-                                        <div>
-                                            <h6>Print Weekly Slips</h6>
-                                            <span>Export physical slip summary</span>
-                                        </div>
+                        <div class="chapter-performance">
+                            <div class="chapter-performance-header">
+                                <div class="chapter-heading">
+                                    <div class="chapter-heading-icon">
+                                        <i class="ri-community-line"></i>
                                     </div>
-                                    <i class="ri-arrow-right-s-line text-muted"></i>
+                                    <div>
+                                        <h4>My Chapter Performance: <?= esc($chapterName); ?></h4>
+                                        <span>Live activity overview across chapter members</span>
+                                    </div>
+                                </div>
+                                <a href="<?= base_url('member/mychapter'); ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                    View Chapter Directory <i class="ri-arrow-right-s-line"></i>
                                 </a>
                             </div>
 
-                            <div class="col-md-4">
-                                <a href="<?= base_url('member/received_connects_report'); ?>" class="eaf-report-tile">
-                                    <div class="eaf-report-tile-left">
-                                        <div class="eaf-report-tile-icon bg-success bg-opacity-10 text-success">
-                                            <i class="ri-file-list-3-line"></i>
-                                        </div>
-                                        <div>
-                                            <h6>Received Connects Report</h6>
-                                            <span>Conversion tracking & history</span>
-                                        </div>
+                            <!-- KPI Grid -->
+                            <div class="chapter-kpi-grid mb-3">
+                                <div class="chapter-kpi-card members-kpi">
+                                    <div class="chapter-kpi-icon"><i class="ri-group-line"></i></div>
+                                    <div class="chapter-kpi-content">
+                                        <span>Total Members</span>
+                                        <strong><?= (int)($totalMembers ?? 0); ?></strong>
                                     </div>
-                                    <i class="ri-arrow-right-s-line text-muted"></i>
-                                </a>
+                                </div>
+
+                                <div class="chapter-kpi-card connects-kpi">
+                                    <div class="chapter-kpi-icon"><i class="ri-money-rupee-circle-line"></i></div>
+                                    <div class="chapter-kpi-content">
+                                        <span>Chapter MITB</span>
+                                        <strong>₹<?= $formatInr($mitb ?? 0); ?></strong>
+                                    </div>
+                                </div>
+
+                                <div class="chapter-kpi-card referral-kpi">
+                                    <div class="chapter-kpi-icon"><i class="ri-shake-hands-line"></i></div>
+                                    <div class="chapter-kpi-content">
+                                        <span>Total Connects</span>
+                                        <strong><?= (int)($connects ?? 0); ?></strong>
+                                    </div>
+                                </div>
+
+                                <div class="chapter-kpi-card meeting-kpi">
+                                    <div class="chapter-kpi-icon"><i class="ri-user-voice-line"></i></div>
+                                    <div class="chapter-kpi-content">
+                                        <span>F2F Initiated</span>
+                                        <strong><?= (int)($meetings ?? 0); ?></strong>
+                                    </div>
+                                </div>
+
+                                <div class="chapter-kpi-card visitor-kpi">
+                                    <div class="chapter-kpi-icon"><i class="ri-user-add-line"></i></div>
+                                    <div class="chapter-kpi-content">
+                                        <span>Total Visitors</span>
+                                        <strong><?= (int)($visitors ?? 0); ?></strong>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <a href="<?= base_url('member/my_participation_report'); ?>" class="eaf-report-tile">
-                                    <div class="eaf-report-tile-left">
-                                        <div class="eaf-report-tile-icon bg-warning bg-opacity-10 text-warning">
-                                            <i class="ri-pie-chart-2-line"></i>
+                            <!-- Quick Reports Shortcuts -->
+                            <div class="row g-2 pt-2 border-top border-light">
+                                <div class="col-md-4">
+                                    <a href="<?= base_url('member/reports/weekly_slips'); ?>" class="eaf-report-tile">
+                                        <div class="eaf-report-tile-left">
+                                            <div class="eaf-report-tile-icon bg-primary bg-opacity-10 text-primary">
+                                                <i class="ri-printer-line"></i>
+                                            </div>
+                                            <div>
+                                                <h6>Print Weekly Slips</h6>
+                                                <span>Export physical slip summary</span>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h6>Participation Report</h6>
-                                            <span>Attendance & slip compliance</span>
+                                        <i class="ri-arrow-right-s-line text-muted"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <a href="<?= base_url('member/received_connects_report'); ?>" class="eaf-report-tile">
+                                        <div class="eaf-report-tile-left">
+                                            <div class="eaf-report-tile-icon bg-success bg-opacity-10 text-success">
+                                                <i class="ri-file-list-3-line"></i>
+                                            </div>
+                                            <div>
+                                                <h6>Received Connects Report</h6>
+                                                <span>Conversion tracking & history</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <i class="ri-arrow-right-s-line text-muted"></i>
-                                </a>
+                                        <i class="ri-arrow-right-s-line text-muted"></i>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <a href="<?= base_url('member/my_participation_report'); ?>" class="eaf-report-tile">
+                                        <div class="eaf-report-tile-left">
+                                            <div class="eaf-report-tile-icon bg-warning bg-opacity-10 text-warning">
+                                                <i class="ri-pie-chart-2-line"></i>
+                                            </div>
+                                            <div>
+                                                <h6>Participation Report</h6>
+                                                <span>Attendance & slip compliance</span>
+                                            </div>
+                                        </div>
+                                        <i class="ri-arrow-right-s-line text-muted"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
+
+
+
                     </div>
-
-
-
                 </div>
+
+                <!-- Footer (Includes Mobile Bottom Navigation Bar) -->
+                <?php echo view('include/member/footer.php') ?>
             </div>
-
-            <!-- Footer (Includes Mobile Bottom Navigation Bar) -->
-            <?php echo view('include/member/footer.php') ?>
         </div>
-    </div>
 
-    <!-- Modals for Native Quick Slips -->
-    <?php echo view('include/member/popup/connects.php'); ?>
-    <?php echo view('include/member/popup/mitb.php'); ?>
-    <?php
-    $f2f_members = $db->table('chapter_members cm')
-        ->select('u.user_code, u.name, c.chapter_name')
-        ->join('users u', 'u.user_code = cm.user_code', 'left')
-        ->join('chapters c', 'c.chapter_code = cm.chapter_code', 'left')
-        ->where('cm.members_status', '1')
-        ->where('u.status', '1')
-        ->groupBy(['u.user_code', 'u.name', 'c.chapter_name'])
-        ->get()
-        ->getResultArray();
-    echo view('include/member/popup/f2f.php', ['member' => $f2f_members]);
-    ?>
-    <?php echo view('include/member/popup/visitor.php', ['events' => $events ?? []]); ?>
+        <!-- Modals for Native Quick Slips -->
+        <?php echo view('include/member/popup/connects.php'); ?>
+        <?php echo view('include/member/popup/mitb.php'); ?>
+        <?php
+        $f2f_members = $db->table('chapter_members cm')
+            ->select('u.user_code, u.name, c.chapter_name')
+            ->join('users u', 'u.user_code = cm.user_code', 'left')
+            ->join('chapters c', 'c.chapter_code = cm.chapter_code', 'left')
+            ->where('cm.members_status', '1')
+            ->where('u.status', '1')
+            ->groupBy(['u.user_code', 'u.name', 'c.chapter_name'])
+            ->get()
+            ->getResultArray();
+        echo view('include/member/popup/f2f.php', ['member' => $f2f_members]);
+        ?>
+        <?php echo view('include/member/popup/visitor.php', ['events' => $events ?? []]); ?>
 
-    <!-- JAVASCRIPT LIBRARIES -->
-    <script src="<?= base_url(); ?>assets2/libs/jquery/jquery.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/metismenu/metisMenu.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/simplebar/simplebar.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/libs/node-waves/waves.min.js"></script>
-    <script src="<?= base_url(); ?>assets2/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- JAVASCRIPT LIBRARIES -->
+        <script src="<?= base_url(); ?>assets2/libs/jquery/jquery.min.js"></script>
+        <script src="<?= base_url(); ?>assets2/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= base_url(); ?>assets2/libs/metismenu/metisMenu.min.js"></script>
+        <script src="<?= base_url(); ?>assets2/libs/simplebar/simplebar.min.js"></script>
+        <script src="<?= base_url(); ?>assets2/libs/node-waves/waves.min.js"></script>
+        <script src="<?= base_url(); ?>assets2/js/app.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Interactive Spline Growth Chart (BNI Connect Standard) -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Toggle Current / Previous Progress
-        window.switchProgressTab = function(type) {
-            const curBtn = document.getElementById('tabBtnCurrent');
-            const prevBtn = document.getElementById('tabBtnPrevious');
-            const curContent = document.getElementById('progressCurrentContent');
-            const prevContent = document.getElementById('progressPreviousContent');
+        <!-- Interactive Spline Growth Chart (BNI Connect Standard) -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Toggle Current / Previous Progress
+                window.switchProgressTab = function(type) {
+                    const curBtn = document.getElementById('tabBtnCurrent');
+                    const prevBtn = document.getElementById('tabBtnPrevious');
+                    const curContent = document.getElementById('progressCurrentContent');
+                    const prevContent = document.getElementById('progressPreviousContent');
 
-            if (type === 'current') {
-                curBtn.classList.add('active');
-                prevBtn.classList.remove('active');
-                curContent.style.display = 'block';
-                prevContent.style.display = 'none';
-            } else {
-                prevBtn.classList.add('active');
-                curBtn.classList.remove('active');
-                curContent.style.display = 'none';
-                prevContent.style.display = 'block';
-            }
-        };
-
-        // BNI Connect Spline Chart Init
-        const chartCanvas = document.getElementById('eafSplineGrowthChart');
-        if (chartCanvas) {
-            const ctx = chartCanvas.getContext('2d');
-            const labels = <?= !empty($dates) ? $dates : '[]' ?>;
-            const givenData = <?= !empty($givenData) ? $givenData : '[]' ?>;
-            const receivedData = <?= !empty($receivedData) ? $receivedData : '[]' ?>;
-
-            // Gradient fills
-            const gradientReceived = ctx.createLinearGradient(0, 0, 0, 200);
-            gradientReceived.addColorStop(0, 'rgba(5, 150, 105, 0.22)');
-            gradientReceived.addColorStop(1, 'rgba(5, 150, 105, 0.00)');
-
-            const gradientGiven = ctx.createLinearGradient(0, 0, 0, 200);
-            gradientGiven.addColorStop(0, 'rgba(15, 59, 104, 0.22)');
-            gradientGiven.addColorStop(1, 'rgba(15, 59, 104, 0.00)');
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels.length ? labels : ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [
-                        {
-                            label: 'Business Received (₹)',
-                            data: receivedData.length ? receivedData : [0, 0, 0, 0],
-                            borderColor: '#059669',
-                            backgroundColor: gradientReceived,
-                            fill: true,
-                            tension: 0.45,
-                            borderWidth: 2.5,
-                            pointRadius: 3,
-                            pointHoverRadius: 6,
-                            pointBackgroundColor: '#059669'
-                        },
-                        {
-                            label: 'Business Given (₹)',
-                            data: givenData.length ? givenData : [0, 0, 0, 0],
-                            borderColor: '#0F3B68',
-                            backgroundColor: gradientGiven,
-                            fill: true,
-                            tension: 0.45,
-                            borderWidth: 2.5,
-                            pointRadius: 3,
-                            pointHoverRadius: 6,
-                            pointBackgroundColor: '#0F3B68'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
-                    layout: {
-                        padding: {
-                            top: 14,
-                            right: 8,
-                            bottom: 4,
-                            left: 0
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                usePointStyle: true,
-                                font: { family: 'Outfit', size: 12, weight: '600' }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) label += ': ';
-                                    if (context.parsed.y !== null) {
-                                        label += '₹' + new Intl.NumberFormat('en-IN').format(context.parsed.y);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: 'rgba(226, 232, 240, 0.6)' },
-                            ticks: {
-                                font: { family: 'Outfit', size: 11 },
-                                callback: function(value) {
-                                    return '₹' + (value >= 1000 ? (value / 1000) + 'k' : value);
-                                }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { family: 'Outfit', size: 11 } }
-                        }
+                    if (type === 'current') {
+                        curBtn.classList.add('active');
+                        prevBtn.classList.remove('active');
+                        curContent.style.display = 'block';
+                        prevContent.style.display = 'none';
+                    } else {
+                        prevBtn.classList.add('active');
+                        curBtn.classList.remove('active');
+                        curContent.style.display = 'none';
+                        prevContent.style.display = 'block';
                     }
+                };
+
+                // BNI Connect Spline Chart Init
+                const chartCanvas = document.getElementById('eafSplineGrowthChart');
+                if (chartCanvas) {
+                    const ctx = chartCanvas.getContext('2d');
+                    const labels = <?= !empty($dates) ? $dates : '[]' ?>;
+                    const givenData = <?= !empty($givenData) ? $givenData : '[]' ?>;
+                    const receivedData = <?= !empty($receivedData) ? $receivedData : '[]' ?>;
+
+                    // Gradient fills
+                    const gradientReceived = ctx.createLinearGradient(0, 0, 0, 200);
+                    gradientReceived.addColorStop(0, 'rgba(5, 150, 105, 0.22)');
+                    gradientReceived.addColorStop(1, 'rgba(5, 150, 105, 0.00)');
+
+                    const gradientGiven = ctx.createLinearGradient(0, 0, 0, 200);
+                    gradientGiven.addColorStop(0, 'rgba(15, 59, 104, 0.22)');
+                    gradientGiven.addColorStop(1, 'rgba(15, 59, 104, 0.00)');
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels.length ? labels : ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                            datasets: [{
+                                    label: 'Business Received (₹)',
+                                    data: receivedData.length ? receivedData : [0, 0, 0, 0],
+                                    borderColor: '#059669',
+                                    backgroundColor: gradientReceived,
+                                    fill: true,
+                                    tension: 0.45,
+                                    borderWidth: 2.5,
+                                    pointRadius: 3,
+                                    pointHoverRadius: 6,
+                                    pointBackgroundColor: '#059669'
+                                },
+                                {
+                                    label: 'Business Given (₹)',
+                                    data: givenData.length ? givenData : [0, 0, 0, 0],
+                                    borderColor: '#0F3B68',
+                                    backgroundColor: gradientGiven,
+                                    fill: true,
+                                    tension: 0.45,
+                                    borderWidth: 2.5,
+                                    pointRadius: 3,
+                                    pointHoverRadius: 6,
+                                    pointBackgroundColor: '#0F3B68'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            interaction: {
+                                intersect: false,
+                                mode: 'index'
+                            },
+                            layout: {
+                                padding: {
+                                    top: 14,
+                                    right: 8,
+                                    bottom: 4,
+                                    left: 0
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        usePointStyle: true,
+                                        font: {
+                                            family: 'Outfit',
+                                            size: 12,
+                                            weight: '600'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            let label = context.dataset.label || '';
+                                            if (label) label += ': ';
+                                            if (context.parsed.y !== null) {
+                                                label += '₹' + new Intl.NumberFormat('en-IN').format(context.parsed.y);
+                                            }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        color: 'rgba(226, 232, 240, 0.6)'
+                                    },
+                                    ticks: {
+                                        font: {
+                                            family: 'Outfit',
+                                            size: 11
+                                        },
+                                        callback: function(value) {
+                                            return '₹' + (value >= 1000 ? (value / 1000) + 'k' : value);
+                                        }
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        font: {
+                                            family: 'Outfit',
+                                            size: 11
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
             });
-        }
-    });
-    </script>
+        </script>
 </body>
+
 </html>

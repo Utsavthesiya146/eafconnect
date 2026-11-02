@@ -8,6 +8,9 @@
         $('#add_new_mitb').modal('show');
     }
 </script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- edit end -->
 <!-- ADD MEMBER MODAL -->
 <div class="modal fade" id="add_new_mitb" tabindex="-1">
@@ -34,26 +37,29 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="fw-bold">Select Member Who Gave Business 👤</label>
-                            <select name="to_user" id="member_list" class="form-select">
-                                <option value="">-- Select Member --</option>
+                            <label for="member_list" class="fw-bold">
+                                Select Member Who Gave Business 👤
+                            </label>
+
+                            <select name="to_user" id="member_list" class="form-select" required>
+                                <option value="">-- Search & Select Member --</option>
                             </select>
                         </div>
                         <div class="col-md-12">
                             <label class="fw-bold">Business Closed Amount (INR) 💰</label>
-                            <input type="text" name="amount" class="form-control">
+                            <input type="text" name="amount" class="form-control" required>
                         </div>
 
                         <div class="col-md-6">
                             <label class="fw-bold">Business Type 📈</label>
-                            <select class="form-control" name="business_type" id="">
+                            <select class="form-control" name="business_type" id="" required>
                                 <option value="New">New Business</option>
                                 <option value="Repeat">Repeat Business</option>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label class="fw-bold">Date of Business </label>
-                            <input type="date" name="created_at" class="form-control">
+                            <input type="date" name="created_at" class="form-control" required>
                         </div>
                         <div class="col-md-12">
                             <label class="fw-bold">Description of Business ✨</label>
@@ -70,7 +76,58 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#member_list').select2({
+            placeholder: '-- Search & Select Member --',
+            allowClear: true,
+            width: '100%',
+            minimumResultsForSearch: 0,
+            dropdownParent: $('#member_list').closest('.modal').length ?
+                $('#member_list').closest('.modal') :
+                $(document.body),
+            language: {
+                noResults: function() {
+                    return 'No members found';
+                },
+                searching: function() {
+                    return 'Searching members...';
+                }
+            }
+        });
+    });
+</script>
+<style>
+    #member_list+.select2-container {
+        width: 100% !important;
+    }
 
+    .select2-container .select2-selection--single {
+        height: 38px;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 36px;
+        padding-left: 12px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
+    }
+
+    .select2-dropdown {
+        border-color: #dee2e6;
+        border-radius: 6px;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--single {
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    }
+</style>
 <script>
     $(document).ready(function() {
 

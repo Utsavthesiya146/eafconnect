@@ -353,7 +353,7 @@ class Profile extends BaseController
         $visitors = $visitorBuilder
             ->select('visitors.*')
             ->where('user_code', $user_code)
-            ->where('status', 'Accepted')
+            ->where('status', 'Attended')
             ->orderBy('visitors_id', 'DESC')
             ->get()
             ->getResultArray();
@@ -401,7 +401,7 @@ class Profile extends BaseController
     SELECT COUNT(*) AS total
     FROM visitors
     WHERE user_code = ?
-    AND LOWER(status) = 'accepted'
+    AND LOWER(status) = 'Attended'
 ", [$user_code])
             ->getRow()->total ?? 0;
         /*

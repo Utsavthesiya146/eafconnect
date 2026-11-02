@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-        'username'     => '2aYCrmPsLfuPrXJ.root',
-        'password'     => 'djhrUT9SMAlIObri',
-        'database'     => 'test',
+        'hostname'     => 'localhost',
+                'username'     => 'u594406910_eafv2',
+        'password'     => 'o=f5xPZ8',
+        'database'     => 'u594406910_eafv2',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -37,13 +37,11 @@ class Database extends Config
         'charset'      => 'utf8mb4',
         'DBCollat'     => 'utf8mb4_general_ci',
         'swapPre'      => '',
-        'encrypt'      => [
-            'ssl_verify' => false,
-        ],
+        'encrypt'      => false,
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => 4000,
+        'port'         => 3306,
         'numberNative' => false,
         'foundRows'    => false,
         'dateFormat'   => [
@@ -195,33 +193,6 @@ class Database extends Config
     public function __construct()
     {
         parent::__construct();
-
-        // Support direct environment variables (e.g. Render / TiDB Cloud)
-        $dbHost = env('DB_HOST', env('database.default.hostname'));
-        if (!empty($dbHost)) {
-            $this->default['hostname'] = $dbHost;
-        }
-        $dbUser = env('DB_USER', env('database.default.username'));
-        if (!empty($dbUser)) {
-            $this->default['username'] = $dbUser;
-        }
-        $dbPass = env('DB_PASSWORD', env('database.default.password'));
-        if ($dbPass !== null) {
-            $this->default['password'] = $dbPass;
-        }
-        $dbName = env('DB_NAME', env('database.default.database'));
-        if (!empty($dbName)) {
-            $this->default['database'] = $dbName;
-        }
-        $dbPort = env('DB_PORT', env('database.default.port'));
-        if (!empty($dbPort)) {
-            $this->default['port'] = (int) $dbPort;
-        }
-        $dbEncrypt = env('DB_ENCRYPT', env('database.default.encrypt'));
-        if ($dbEncrypt === true || $dbEncrypt === 'true' || $dbEncrypt === '1') {
-            $this->default['encrypt'] = true;
-        }
-
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that

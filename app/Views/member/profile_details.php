@@ -19,6 +19,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css'); ?>?v=2.3">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body data-sidebar="colored">
@@ -45,7 +47,7 @@
                                         <div class="d-inline-flex align-items-center gap-1 px-3 py-1 mb-3 rounded-pill" style="background: rgba(217, 119, 6, 0.18); border: 1px solid rgba(245, 158, 11, 0.5); color: #F59E0B; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">
                                             <i class="ri-vip-crown-fill text-warning"></i> <?= strtoupper(esc($row->member_role ?: 'MEMBER')); ?> • EAF CONNECT
                                         </div>
-
+                                        <br>
                                         <!-- Profile Image with Gold Ring -->
                                         <?php $mAvatar = get_member_avatar($row->profile_photo ?? '', $row->gender ?? '', $row->user_code ?? '', true); ?>
                                         <div class="position-relative d-inline-block mb-3">
@@ -83,7 +85,7 @@
                                                     <i class="ri-phone-fill text-success me-1"></i> Call
                                                 </a>
                                             <?php endif; ?>
-                                            <?php if (!empty($row->whatsapp) || !empty($row->phone)): 
+                                            <?php if (!empty($row->whatsapp) || !empty($row->phone)):
                                                 $wa_number = preg_replace('/[^0-9]/', '', $row->whatsapp ?: $row->phone);
                                             ?>
                                                 <a href="https://wa.me/<?= $wa_number ?>?text=<?= urlencode('Hello ' . $row->name . ', connecting with you via EAF Connect.') ?>" target="_blank" class="btn btn-sm text-white px-3 py-1 rounded-pill" style="background: #25D366; font-weight: 600; font-size: 12px; box-shadow: 0 4px 12px rgba(37,211,102,0.3);" title="Direct WhatsApp">
@@ -168,39 +170,51 @@
 
                                             <div class="social-icons-row mt-2">
 
-                                                <?php if ($row->linkedin): ?>
-                                                    <a href="<?= esc($row->linkedin) ?>" target="_blank" class="social-icon linkedin">
-                                                        <i class="fa fa-linkedin"></i>
+                                                <?php if (!empty($row->linkedin)): ?>
+                                                    <a href="<?= esc($row->linkedin) ?>"
+                                                        target="_blank" rel="noopener noreferrer"
+                                                        class="social-icon linkedin" title="LinkedIn">
+                                                        <i class="fa-brands fa-linkedin-in"></i>
                                                     </a>
                                                 <?php endif; ?>
 
-                                                <?php if ($row->facebook): ?>
-                                                    <a href="<?= esc($row->facebook) ?>" target="_blank" class="social-icon facebook">
-                                                        <i class="fa fa-facebook"></i>
+                                                <?php if (!empty($row->facebook)): ?>
+                                                    <a href="<?= esc($row->facebook) ?>"
+                                                        target="_blank" rel="noopener noreferrer"
+                                                        class="social-icon facebook" title="Facebook">
+                                                        <i class="fa-brands fa-facebook-f"></i>
                                                     </a>
                                                 <?php endif; ?>
 
-                                                <?php if ($row->instagram): ?>
-                                                    <a href="<?= esc($row->instagram) ?>" target="_blank" class="social-icon instagram">
-                                                        <i class="fa fa-instagram"></i>
+                                                <?php if (!empty($row->instagram)): ?>
+                                                    <a href="<?= esc($row->instagram) ?>"
+                                                        target="_blank" rel="noopener noreferrer"
+                                                        class="social-icon instagram" title="Instagram">
+                                                        <i class="fa-brands fa-instagram"></i>
                                                     </a>
                                                 <?php endif; ?>
 
-                                                <?php if ($row->twitter): ?>
-                                                    <a href="<?= esc($row->twitter) ?>" target="_blank" class="social-icon twitter">
-                                                        <i class="fa fa-twitter"></i>
+                                                <?php if (!empty($row->twitter)): ?>
+                                                    <a href="<?= esc($row->twitter) ?>"
+                                                        target="_blank" rel="noopener noreferrer"
+                                                        class="social-icon twitter" title="X / Twitter">
+                                                        <i class="fa-brands fa-x-twitter"></i>
                                                     </a>
                                                 <?php endif; ?>
 
-                                                <?php if ($row->youtube): ?>
-                                                    <a href="<?= esc($row->youtube) ?>" target="_blank" class="social-icon youtube">
-                                                        <i class="fa fa-youtube"></i>
+                                                <?php if (!empty($row->youtube)): ?>
+                                                    <a href="<?= esc($row->youtube) ?>"
+                                                        target="_blank" rel="noopener noreferrer"
+                                                        class="social-icon youtube" title="YouTube">
+                                                        <i class="fa-brands fa-youtube"></i>
                                                     </a>
                                                 <?php endif; ?>
 
-                                                <?php if ($row->google_business): ?>
-                                                    <a href="<?= esc($row->google_business) ?>" target="_blank" class="social-icon google">
-                                                        <i class="fa fa-google"></i>
+                                                <?php if (!empty($row->google_business)): ?>
+                                                    <a href="<?= esc($row->google_business) ?>"
+                                                        target="_blank" rel="noopener noreferrer"
+                                                        class="social-icon google" title="Google">
+                                                        <i class="fa-brands fa-google"></i>
                                                     </a>
                                                 <?php endif; ?>
 
@@ -208,28 +222,28 @@
                                         </div>
 
                                         <hr class="profile-divider" style="border-color: rgba(255, 255, 255, 0.15); margin: 16px 0;">
-                                        
+
                                         <!-- Digital Collateral / Share Actions -->
                                         <div class="d-flex flex-wrap gap-2 justify-content-center">
                                             <?php if (!empty($row->business_card)): ?>
                                                 <a href="<?= base_url('uploads/business_cards/' . $row->business_card) ?>"
                                                     target="_blank"
                                                     class="btn btn-sm" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color:#ffffff; font-size:11px; font-weight:600; border-radius:8px;">
-                                                    <i class="fas fa-id-card me-1 text-warning"></i> Business Card
+                                                    <i class="fa fa-id-card me-1 text-warning"></i> Business Card
                                                 </a>
-                                            <?php endif; ?> 
+                                            <?php endif; ?>
                                             <?php if (!empty($row->brochure)): ?>
                                                 <a href="<?= base_url('uploads/brochures/' . $row->brochure) ?>"
                                                     target="_blank"
                                                     class="btn btn-sm" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color:#ffffff; font-size:11px; font-weight:600; border-radius:8px;">
-                                                    <i class="fas fa-file-pdf me-1 text-warning"></i> Brochure
+                                                    <i class="fa fa-file-pdf me-1 text-warning"></i> Brochure
                                                 </a>
-                                            <?php endif; ?> 
+                                            <?php endif; ?>
                                             <?php if (!empty($row->portfolio)): ?>
                                                 <a href="<?= base_url('uploads/portfolios/' . $row->portfolio) ?>"
                                                     target="_blank"
                                                     class="btn btn-sm" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color:#ffffff; font-size:11px; font-weight:600; border-radius:8px;">
-                                                    <i class="fas fa-briefcase me-1 text-warning"></i> Portfolio
+                                                    <i class="fa fa-briefcase me-1 text-warning"></i> Portfolio
                                                 </a>
                                             <?php endif; ?>
                                         </div>
@@ -556,7 +570,7 @@
                                             class="tab-pane fade show active"
                                             id="given"
                                             role="tabpanel"
-                                            aria-labelledby="given-tab">
+                                            aria-labelledby="given-tab" style="height:600px;overflow-y:scroll;">
 
                                             <?php if (!empty($given)): ?>
 
@@ -714,7 +728,7 @@
                                             class="tab-pane fade"
                                             id="mitb"
                                             role="tabpanel"
-                                            aria-labelledby="mitb-tab">
+                                            aria-labelledby="mitb-tab" style="height:600px;overflow-y:scroll;">
 
                                             <?php if (!empty($mitb_received)): ?>
 
@@ -833,7 +847,7 @@
                                             class="tab-pane fade"
                                             id="sponsored2"
                                             role="tabpanel"
-                                            aria-labelledby="sponsored-tab2">
+                                            aria-labelledby="sponsored-tab2" style="height:600px;overflow-y:scroll;">
 
                                             <div class="table-responsive">
 
@@ -921,7 +935,7 @@
                                             class="tab-pane fade"
                                             id="sponsored"
                                             role="tabpanel"
-                                            aria-labelledby="sponsored-tab">
+                                            aria-labelledby="sponsored-tab" style="height:600px;overflow-y:scroll;">
                                             <table>
                                                 <!-- Sponsored By Content -->
 
@@ -2162,10 +2176,11 @@
                     <?php endforeach; ?>
                 </div>
             </div>
-            <!-- End Page-content -->
-            <?php echo view('include/member/footer.php') ?>
         </div>
-        <!-- end main content-->
+        <!-- End Page-content -->
+        <?php echo view('include/member/footer.php') ?>
+    </div>
+    <!-- end main content-->
     </div>
     <div class="rightbar-overlay"></div>
     <!-- JAVASCRIPT -->

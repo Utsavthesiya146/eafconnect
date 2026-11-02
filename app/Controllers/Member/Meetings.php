@@ -338,19 +338,6 @@ class Meetings extends BaseController
 
         $commonModel->insert_data('events', $insert);
 
-        // Notify chapter members
-        $chapterCode = $insert['chapter_code'] ?? '';
-        $meetingTitle = !empty($insert['title']) ? $insert['title'] : 'Chapter Meeting';
-        $meetingTimeStr = !empty($insert['date']) ? date('d M Y, h:i A', strtotime($insert['date'])) : '';
-        $venueStr = !empty($insert['venue']) ? $insert['venue'] : (!empty($insert['location']) ? $insert['location'] : '');
-
-        create_system_notification(
-            'all',
-            'New Meeting: ' . $meetingTitle,
-            'A new chapter meeting "' . $meetingTitle . '" has been scheduled for ' . $meetingTimeStr . ($venueStr ? ' at ' . $venueStr : '') . '.',
-            $chapterCode
-        );
-
         return $this->response->setJSON([
             'status'  => 'success',
             'message' => '✅ Meeting Created Successfully'
@@ -705,7 +692,7 @@ class Meetings extends BaseController
      * Check meeting exists
      */
         $existing = $db->table('events')
-            ->select('event_id,event_code,status,chapter_code,title,date')
+            ->select('event_id,event_code,status')
             ->where('event_code', $event_code)
             ->get()
             ->getRow();
@@ -767,16 +754,6 @@ class Meetings extends BaseController
                 ]
             ]);
         }
-
-        // Notify chapter members of meeting status update
-        $statusMap = ['1' => 'Scheduled', '2' => 'Ongoing', '3' => 'Completed'];
-        $stText = $statusMap[$savedStatus] ?? $savedStatus;
-        create_system_notification(
-            'all',
-            'Meeting Updated: ' . $title . ' (' . $stText . ')',
-            'Meeting "' . $title . '" status has been updated to ' . $stText . '.',
-            $existing->chapter_code ?? null
-        );
 
         return $this->response->setJSON([
             'status'       => 'success',
@@ -931,16 +908,6 @@ Team</textarea>
 
             if ($emailService->send()) {
                 $success++;
-                // In-app notification for member
-                $uRow = $commonModel->db->table('users')->select('user_code')->where('email', $email)->get()->getRow();
-                if ($uRow && !empty($uRow->user_code)) {
-                    create_system_notification(
-                        $uRow->user_code,
-                        $subject ?: ('Meeting Notice: ' . ($event->title ?? 'Meeting')),
-                        'You have a meeting notice regarding "' . ($event->title ?? 'Meeting') . '" scheduled for ' . (!empty($event->date) ? date('d M Y, h:i A', strtotime($event->date)) : '') . '.',
-                        $event->chapter_code ?? null
-                    );
-                }
             } else {
                 $failed++;
                 log_message('error', $emailService->printDebugger(['headers']));

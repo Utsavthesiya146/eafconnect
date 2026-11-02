@@ -640,6 +640,155 @@
             color: #f9b309;
         }
     </style>
+    <style>
+        /* ================= SEARCH HEADER ================= */
+        .search-header {
+            background: #fff;
+            border: 1px solid #e8edf3;
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(15, 61, 92, 0.05);
+        }
+
+        /* Title */
+        .search-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .title-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a3d61, #176b9c);
+            color: #fff;
+            border-radius: 10px;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(10, 61, 97, 0.18);
+        }
+
+        .search-title h4 {
+            color: #173b56;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .search-title span {
+            display: block;
+            margin-top: 3px;
+            color: #8a98a7;
+            font-size: 12px;
+        }
+
+        /* Search Box */
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 46px;
+            background: #f7f9fb;
+            border: 1px solid #e1e7ed;
+            border-radius: 10px;
+            padding-left: 42px;
+            transition: all 0.25s ease;
+        }
+
+        .search-box:focus-within {
+            background: #fff;
+            border-color: #0a3d61;
+            box-shadow: 0 0 0 3px rgba(10, 61, 97, 0.08);
+        }
+
+        /* Search Icon */
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            color: #82909e;
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        /* Input */
+        .search-box .form-control {
+            height: 44px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            box-shadow: none !important;
+            padding: 0 10px 0 0;
+            font-size: 13px;
+            color: #34495e;
+        }
+
+        .search-box .form-control::placeholder {
+            color: #9aa7b3;
+        }
+
+        /* Button */
+        .search-btn {
+            height: 36px;
+            margin-right: 5px;
+            padding: 0 15px;
+            border: 0;
+            border-radius: 7px;
+            background: #0a3d61;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .search-btn i {
+            font-size: 15px;
+        }
+
+        .search-btn:hover {
+            background: #072f4b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(10, 61, 97, 0.18);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 767px) {
+
+            .search-header {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .search-title {
+                margin-bottom: 2px;
+            }
+
+            .search-title h4 {
+                font-size: 16px;
+            }
+
+            .search-box {
+                height: 44px;
+            }
+
+            .search-btn {
+                padding: 0 12px;
+            }
+
+            .search-btn span {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body data-sidebar="colored">
@@ -652,6 +801,7 @@
                 <div class="container">
 
                     <!-- ================= SEARCH HEADER ================= -->
+
                     <div class="search-header">
                         <div class="row align-items-center g-3">
 
@@ -669,9 +819,9 @@
                                 </div>
                             </div>
 
-                            <!-- Search -->
+                            <!-- Live Search -->
                             <div class="col-lg-6 col-md-7">
-                                <form action="<?= site_url('member/search') ?>" method="post">
+                                <form id="memberSearchForm" action="<?= site_url('member/search') ?>" method="post">
                                     <?= csrf_field() ?>
 
                                     <div class="search-box">
@@ -680,194 +830,42 @@
                                         <input
                                             type="text"
                                             name="search"
+                                            id="search"
                                             class="form-control"
                                             placeholder="Search members..."
                                             value="<?= esc($search ?? '') ?>"
                                             autocomplete="off">
 
-                                        <button type="submit" class="search-btn">
-                                            <i class="ri-search-line"></i>
-                                            <span>Search</span>
+                                        <button type="button" class="search-btn" id="reset-btn">
+                                            <i class="ri-refresh-line"></i>
+                                            <span>Reset</span>
                                         </button>
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
 
-                    <style>
-                        /* ================= SEARCH HEADER ================= */
-                        .search-header {
-                            background: #fff;
-                            border: 1px solid #e8edf3;
-                            border-radius: 14px;
-                            padding: 18px 20px;
-                            margin-bottom: 20px;
-                            box-shadow: 0 3px 12px rgba(15, 61, 92, 0.05);
-                        }
-
-                        /* Title */
-                        .search-title {
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                        }
-
-                        .title-icon {
-                            width: 42px;
-                            height: 42px;
-                            flex-shrink: 0;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            background: linear-gradient(135deg, #0a3d61, #176b9c);
-                            color: #fff;
-                            border-radius: 10px;
-                            font-size: 20px;
-                            box-shadow: 0 4px 10px rgba(10, 61, 97, 0.18);
-                        }
-
-                        .search-title h4 {
-                            color: #173b56;
-                            font-size: 18px;
-                            font-weight: 700;
-                            line-height: 1.2;
-                        }
-
-                        .search-title span {
-                            display: block;
-                            margin-top: 3px;
-                            color: #8a98a7;
-                            font-size: 12px;
-                        }
-
-                        /* Search Box */
-                        .search-box {
-                            position: relative;
-                            display: flex;
-                            align-items: center;
-                            width: 100%;
-                            height: 46px;
-                            background: #f7f9fb;
-                            border: 1px solid #e1e7ed;
-                            border-radius: 10px;
-                            padding-left: 42px;
-                            transition: all 0.25s ease;
-                        }
-
-                        .search-box:focus-within {
-                            background: #fff;
-                            border-color: #0a3d61;
-                            box-shadow: 0 0 0 3px rgba(10, 61, 97, 0.08);
-                        }
-
-                        /* Search Icon */
-                        .search-icon {
-                            position: absolute;
-                            left: 15px;
-                            color: #82909e;
-                            font-size: 18px;
-                            pointer-events: none;
-                        }
-
-                        /* Input */
-                        .search-box .form-control {
-                            height: 44px;
-                            border: 0;
-                            outline: 0;
-                            background: transparent;
-                            box-shadow: none !important;
-                            padding: 0 10px 0 0;
-                            font-size: 13px;
-                            color: #34495e;
-                        }
-
-                        .search-box .form-control::placeholder {
-                            color: #9aa7b3;
-                        }
-
-                        /* Button */
-                        .search-btn {
-                            height: 36px;
-                            margin-right: 5px;
-                            padding: 0 15px;
-                            border: 0;
-                            border-radius: 7px;
-                            background: #0a3d61;
-                            color: #fff;
-                            display: inline-flex;
-                            align-items: center;
-                            justify-content: center;
-                            gap: 6px;
-                            font-size: 12px;
-                            font-weight: 600;
-                            cursor: pointer;
-                            transition: all 0.25s ease;
-                        }
-
-                        .search-btn i {
-                            font-size: 15px;
-                        }
-
-                        .search-btn:hover {
-                            background: #072f4b;
-                            transform: translateY(-1px);
-                            box-shadow: 0 4px 10px rgba(10, 61, 97, 0.18);
-                        }
-
-                        /* ================= RESPONSIVE ================= */
-                        @media (max-width: 767px) {
-
-                            .search-header {
-                                padding: 15px;
-                                border-radius: 12px;
-                            }
-
-                            .search-title {
-                                margin-bottom: 2px;
-                            }
-
-                            .search-title h4 {
-                                font-size: 16px;
-                            }
-
-                            .search-box {
-                                height: 44px;
-                            }
-
-                            .search-btn {
-                                padding: 0 12px;
-                            }
-
-                            .search-btn span {
-                                display: none;
-                            }
-                        }
-                    </style>
-
-
-                    <br>
-                    <div class="row g-3" id="memberCardsRow">
-                        <?php if (!empty($users)) : ?>
-                            <?php foreach ($users as $index => $row) : ?>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-4 member-search-card"
-                                     data-orig-index="<?= $index ?>"
-                                     data-name="<?= esc(strtolower($row['name'] ?? '')) ?>"
-                                     data-business="<?= esc(strtolower($row['business_name'] ?? '')) ?>"
-                                     data-industry="<?= esc(strtolower($row['industry'] ?? '')) ?>"
-                                     data-city="<?= esc(strtolower($row['city'] ?? '')) ?>"
-                                     data-phone="<?= esc(strtolower($row['phone'] ?? '')) ?>"
-                                     data-email="<?= esc(strtolower($row['email'] ?? '')) ?>">
-                                    <?= view('include/member/card/member_card', ['row' => $row]) ?>
+                    <!-- Original Results -->
+                    <div id="old_results">
+                        <div class="row g-3">
+                            <?php if (!empty($users)) : ?>
+                                <?php foreach ($users as $row) : ?>
+                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                        <?= view('include/member/card/member_card', ['row' => $row]) ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <div class="col-12 text-center p-5">
+                                    <h5>No Members Found</h5>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <div class="col-12 text-center p-5" id="noMembersFoundInitial">
-                                <h5>No Members Found</h5>
-                            </div>
-                        <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
                     </div>
+
+                    <!-- AJAX Live Search Results -->
+                    <div id="list_data" style="display: none;"></div>
+
                 </div>
             </div>
         </div>
@@ -886,98 +884,199 @@
     <script src="<?= base_url(); ?>assets2/js/pages/dashboard.init.js"></script>
     <script src="<?= base_url(); ?>assets2/js/app.js"></script>
 
-    <!-- LIVE INSTANT SEARCH: MATCHING LETTERS APPEAR ON TOP -->
     <script>
-    $(document).ready(function() {
-        const $searchInput = $('input[name="search"]');
-        const $container = $('#memberCardsRow');
-        const $cards = $container.children('.member-search-card');
+        $(document).ready(function() {
+            let searchRequest = null;
 
-        $searchInput.on('input keyup', function() {
-            const query = $(this).val().trim().toLowerCase();
+            // Debounce helper
+            function debounce(fn, delay) {
+                let timer;
 
-            if (query === '') {
-                $cards.show();
-                const sortedOrig = $cards.get().sort((a, b) => {
-                    return parseInt($(a).data('orig-index')) - parseInt($(b).data('orig-index'));
-                });
-                $container.append(sortedOrig);
-                $('#noLiveSearchResults').remove();
-                return;
+                return function() {
+                    const args = arguments;
+                    const context = this;
+
+                    clearTimeout(timer);
+
+                    timer = setTimeout(function() {
+                        fn.apply(context, args);
+                    }, delay);
+                };
             }
 
-            let matchCount = 0;
+            function collectFilters() {
+                return {
+                    search: $('#search').val().trim(),
+                    status: $('#status1').length ? $('#status1').val() : ''
+                };
+            }
 
-            $cards.each(function() {
-                const $card = $(this);
-                const name = String($card.data('name') || '');
-                const business = String($card.data('business') || '');
-                const industry = String($card.data('industry') || '');
-                const city = String($card.data('city') || '');
-                const phone = String($card.data('phone') || '');
-                const email = String($card.data('email') || '');
-                const fullText = $card.text().toLowerCase();
+            function saveFiltersToStorage() {
+                const filters = collectFilters();
 
-                // Match rank:
-                // Rank 1: Name STARTS WITH the typed letters (appears on top!)
-                // Rank 2: A word in Name starts with the typed letters
-                // Rank 3: Name contains the typed letters
-                // Rank 4: Business name starts with the typed letters
-                // Rank 5: Business name contains the typed letters
-                // Rank 6: Industry / City starts with or contains the typed letters
-                // Rank 7: Other details contain the typed letters
-                let rank = 9999;
-
-                if (name.startsWith(query)) {
-                    rank = 1;
-                } else if (name.split(/\s+/).some(part => part.startsWith(query))) {
-                    rank = 2;
-                } else if (name.indexOf(query) !== -1) {
-                    rank = 3;
-                } else if (business.startsWith(query)) {
-                    rank = 4;
-                } else if (business.indexOf(query) !== -1) {
-                    rank = 5;
-                } else if (industry.startsWith(query) || city.startsWith(query)) {
-                    rank = 6;
-                } else if (industry.indexOf(query) !== -1 || city.indexOf(query) !== -1 || phone.indexOf(query) !== -1 || email.indexOf(query) !== -1 || fullText.indexOf(query) !== -1) {
-                    rank = 7;
-                }
-
-                $card.data('match-rank', rank);
-
-                if (rank < 9999) {
-                    $card.show();
-                    matchCount++;
+                if (filters.search || filters.status) {
+                    localStorage.setItem('userFilters', JSON.stringify(filters));
                 } else {
-                    $card.hide();
+                    localStorage.removeItem('userFilters');
                 }
+            }
+
+            function loadFiltersFromStorage() {
+                try {
+                    const stored = localStorage.getItem('userFilters');
+
+                    if (!stored) {
+                        return null;
+                    }
+
+                    const filters = JSON.parse(stored);
+
+                    if (!filters || typeof filters !== 'object') {
+                        return null;
+                    }
+
+                    $('#search').val(filters.search || '');
+
+                    if ($('#status1').length) {
+                        $('#status1').val(filters.status || '');
+                    }
+
+                    return filters;
+                } catch (error) {
+                    localStorage.removeItem('userFilters');
+                    return null;
+                }
+            }
+
+            function loadUsers() {
+                const formData = collectFilters();
+
+                saveFiltersToStorage();
+
+                const anyFilter = Object.values(formData).some(function(value) {
+                    return value !== '' && value !== null && value !== undefined;
+                });
+
+                // If all filters are cleared, restore original results
+                if (!anyFilter) {
+                    if (searchRequest) {
+                        searchRequest.abort();
+                        searchRequest = null;
+                    }
+
+                    $('#list_data').hide().empty();
+                    $('#old_results').show();
+                    return;
+                }
+
+                // Cancel the previous request if it is still running
+                if (searchRequest) {
+                    searchRequest.abort();
+                }
+
+                searchRequest = $.ajax({
+                    type: 'POST',
+                    url: '<?= site_url("member/chapter/get_filtered_data2") ?>',
+                    data: formData,
+                    dataType: 'html',
+
+                    beforeSend: function() {
+                        $('#list_data')
+                            .show()
+                            .html(
+                                '<div class="text-center py-4">' +
+                                '<div class="spinner-border text-primary" role="status">' +
+                                '<span class="visually-hidden">Loading...</span>' +
+                                '</div>' +
+                                '<div class="mt-2">Searching members...</div>' +
+                                '</div>'
+                            );
+
+                        $('#old_results').hide();
+                    },
+
+                    success: function(response) {
+                        $('#list_data').html(response).show();
+                        $('#old_results').hide();
+                    },
+
+                    error: function(xhr, status, error) {
+                        if (status === 'abort') {
+                            return;
+                        }
+
+                        console.error('Live search error:', error);
+
+                        $('#list_data')
+                            .html(
+                                '<div class="alert alert-danger">' +
+                                'Unable to load members. Please try again.' +
+                                '</div>'
+                            )
+                            .show();
+
+                        $('#old_results').hide();
+                    },
+
+                    complete: function() {
+                        searchRequest = null;
+                    }
+                });
+            }
+
+            // Wait 400 ms after typing before sending the request
+            const debouncedLoadUsers = debounce(loadUsers, 400);
+
+            // Live search while typing
+            $('#search').on('input', debouncedLoadUsers);
+
+            // Optional status filter, if present on the page
+            $('#status1').on('change', debouncedLoadUsers);
+
+            // Prevent normal form submission
+            $('#memberSearchForm').on('submit', function(e) {
+                e.preventDefault();
+                loadUsers();
             });
 
-            // Sort cards so matching letters immediately appear on top!
-            const sorted = $cards.get().sort((a, b) => {
-                const rankA = parseInt($(a).data('match-rank')) || 9999;
-                const rankB = parseInt($(b).data('match-rank')) || 9999;
-                if (rankA !== rankB) {
-                    return rankA - rankB; // Lower rank = on top
+            // Reset filters
+            $('#reset-btn').on('click', function() {
+                $('#search').val('');
+
+                if ($('#status1').length) {
+                    $('#status1').val('');
                 }
-                const nameA = String($(a).data('name') || '');
-                const nameB = String($(b).data('name') || '');
-                return nameA.localeCompare(nameB);
+
+                if (searchRequest) {
+                    searchRequest.abort();
+                    searchRequest = null;
+                }
+
+                localStorage.removeItem('userFilters');
+
+                $('#list_data').hide().empty();
+                $('#old_results').show();
             });
 
-            $container.append(sorted);
+            // Restore saved filters
+            const savedFilters = loadFiltersFromStorage();
 
-            $('#noLiveSearchResults').remove();
-            if (matchCount === 0) {
-                $container.append('<div id="noLiveSearchResults" class="col-12 text-center p-5"><div class="alert alert-light border py-4"><h5><i class="ri-search-line me-2 text-warning"></i>No members found matching "' + $('<div>').text(query).html() + '"</h5><p class="text-muted mb-0">Try typing another letter, name or business keyword.</p></div></div>');
+            if (savedFilters) {
+                const hasFilters = Object.values(savedFilters).some(function(value) {
+                    return value !== '' && value !== null && value !== undefined;
+                });
+
+                if (hasFilters) {
+                    loadUsers();
+                } else {
+                    $('#list_data').hide().empty();
+                    $('#old_results').show();
+                }
+            } else {
+                $('#list_data').hide().empty();
+                $('#old_results').show();
             }
         });
-
-        if ($searchInput.val().trim() !== '') {
-            $searchInput.trigger('input');
-        }
-    });
     </script>
 
 </body>

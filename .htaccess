@@ -2,45 +2,11 @@
 Options -Indexes
 
 # ----------------------------------------------------------------------
-# Security: Block Sensitive Files & Hidden Files (.env, .sql, git, etc.)
-# ----------------------------------------------------------------------
-<FilesMatch "^\.">
-    <IfModule authz_core_module>
-        Require all denied
-    </IfModule>
-    <IfModule !authz_core_module>
-        Deny from all
-    </IfModule>
-</FilesMatch>
-
-<FilesMatch "(?i)\.(env.*|sql|sqlite|sqlite3|db|log|lock|dist|git.*|sh|bat|bak|old|yml|yaml|ini|zip|apk|tar|gz|7z|rar)$">
-    <IfModule authz_core_module>
-        Require all denied
-    </IfModule>
-    <IfModule !authz_core_module>
-        Deny from all
-    </IfModule>
-</FilesMatch>
-
-<FilesMatch "^(composer\.json|composer\.lock|spark|phpunit\.xml.*)$">
-    <IfModule authz_core_module>
-        Require all denied
-    </IfModule>
-    <IfModule !authz_core_module>
-        Deny from all
-    </IfModule>
-</FilesMatch>
-
-# ----------------------------------------------------------------------
 # Rewrite engine
 # ----------------------------------------------------------------------
 
 # Turning on the rewrite engine is necessary for the following rules and features.
 # FollowSymLinks must be enabled for this to work.
-<IfModule mod_dir.c>
-	DirectorySlash Off
-</IfModule>
-
 <IfModule mod_rewrite.c>
 	Options +FollowSymlinks
 	RewriteEngine On
@@ -50,24 +16,15 @@ Options -Indexes
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
 	# RewriteBase /
 
-	# Route any /preview or /preview/*.html to live CodeIgniter Auth::preview controller immediately
-	RewriteRule ^preview/?$ index.php/preview [L,NC,QSA]
-	RewriteRule ^preview/(.+)\.html$ index.php/preview/$1 [L,NC,QSA]
-	RewriteRule ^preview/(dashboard|visitor|meetings|connect|profile|mychapter|chapter|chapter_attendance|f2f|mitb|topperformer|search|my_attendance|notifications|broadcast|invitations|my_participation_report|participation|received_connects_report|weekly_slips)/?$ index.php/preview/$1 [L,NC,QSA]
-	RewriteRule ^member/(.*)\.html$ index.php/preview/$1 [L,NC,QSA]
-	RewriteRule ^admin/(.*)\.html$ index.php/admin/$1 [L,NC,QSA]
-	RewriteRule ^member_login\.html$ index.php/ [L,NC,QSA]
-	RewriteRule ^admin_login\.html$ index.php/admin [L,NC,QSA]
-
 	# Redirect Trailing Slashes...
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteCond %{REQUEST_URI} (.+)/$
 	RewriteRule ^ %1 [L,R=301]
 
 	# Rewrite "www.example.com -> example.com"
+	RewriteCond %{HTTPS} !=on
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-	RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
-
+	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
 	# Checks to see if the user is attempting to access a valid file,
 	# such as an image or css document, if this isn't true it sends the

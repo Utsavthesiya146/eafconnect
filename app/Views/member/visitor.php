@@ -1327,343 +1327,94 @@
 
                 <div class="container-fluid mt-2">
 
-                    <!-- HEADER -->
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-
-                        <div>
-
-                            <h4 class="mb-0">
-                                My Visitors
-                            </h4>
-
-                            <small class="text-muted">
-                                Visitors added by you
-                            </small>
-
-                        </div>
-
-                        <?php if (($myTotal ?? 0) > 0): ?>
-
-                            <span class="badge bg-light text-dark">
-                                <?= (int) $myTotal ?> Visitors
-                            </span>
-
-                        <?php endif; ?>
-
-                    </div>
-
-
-                    <!-- TABLE -->
-                    <div class="modern-table-wrapper">
-
-                        <table class="modern-table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>#</th>
-
-                                    <th>Visitor</th>
-
-                                    <th>Company</th>
-
-                                    <th>Phone</th>
-
-                                    <th>Visited Date</th>
-
-                                    <th>Added By</th>
-
-                                    <th>Status</th>
-
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody id="list_data">
-                            </tbody>
-                            <tbody id="my_visitors_results">
-
-                                <?php if (!empty($visitor)): ?>
-
-                                    <?php
-
-                                    $i = 1 + (
-                                        (int) $perPage *
-                                        ((int) $myPage - 1)
-                                    );
-
-                                    ?>
-
-                                    <?php foreach ($visitor as $row): ?>
-
-                                        <?= view(
-                                            'include/member/card/visitor_card.php',
-                                            [
-                                                'row' => $row,
-                                                'i'   => $i
-                                            ]
-                                        ) ?>
-
-                                        <?php $i++; ?>
-
-                                    <?php endforeach; ?>
-
-                                <?php else: ?>
-
-                                    <tr>
-
-                                        <td
-                                            colspan="8"
-                                            class="text-center p-4">
-
-                                            <i class="fa fa-users-slash me-2"></i>
-
-                                            No Visitors Found
-
-                                        </td>
-
-                                    </tr>
-
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <?php if (($myTotal ?? 0) > 0): ?>
-
-                        <?php
-
-                        $myPage =
-                            max(1, (int) ($myPage ?? 1));
-
-                        $myTotalPages =
-                            max(1, (int) ($myTotalPages ?? 1));
-
-                        $perPage =
-                            max(1, (int) ($perPage ?? 10));
-
-                        $myStartPage =
-                            max(1, $myPage - 2);
-
-                        $myEndPage =
-                            min(
-                                $myTotalPages,
-                                $myPage + 2
-                            );
-
-                        ?>
-
-
-                        <div class="row mt-3 align-items-center">
-
-                            <!-- INFO -->
-                            <div class="col-md-6">
-
-                                <div class="pagination-info">
-
-                                    Showing page
-
-                                    <strong>
-                                        <?= $myPage ?>
-                                    </strong>
-
-                                    of
-
-                                    <strong>
-                                        <?= $myTotalPages ?>
-                                    </strong>
-
-                                    <span class="ms-1">
-                                        (<?= (int) $myTotal ?> visitors)
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-                            <!-- PAGINATION -->
-                            <div class="col-md-6">
-
-                                <div class="d-flex justify-content-md-end justify-content-center">
-
-                                    <ul class="pagination mb-0">
-
-
-                                        <!-- PREVIOUS -->
-
-                                        <?php if ($myPage > 1): ?>
-
-                                            <li class="page-item">
-
-                                                <a
-                                                    class="page-link"
-                                                    href="<?= current_url() ?>?<?= http_build_query([
-                                                                                    'search'       => $search ?? '',
-                                                                                    'status'       => $status ?? '',
-                                                                                    'date'         => $date ?? '',
-                                                                                    'perPage'      => $perPage,
-                                                                                    'my_page'      => $myPage - 1,
-                                                                                    'chapter_page' => $chapterPage ?? 1
-                                                                                ]) ?>">
-
-                                                    <i class="fa fa-chevron-left"></i>
-
-                                                </a>
-
-                                            </li>
-
-                                        <?php endif; ?>
-
-
-                                        <!-- FIRST PAGE -->
-
-                                        <?php if ($myStartPage > 1): ?>
-
-                                            <li class="page-item">
-
-                                                <a
-                                                    class="page-link"
-                                                    href="<?= current_url() ?>?<?= http_build_query([
-                                                                                    'search'       => $search ?? '',
-                                                                                    'status'       => $status ?? '',
-                                                                                    'date'         => $date ?? '',
-                                                                                    'perPage'      => $perPage,
-                                                                                    'my_page'      => 1,
-                                                                                    'chapter_page' => $chapterPage ?? 1
-                                                                                ]) ?>">
-                                                    1
-                                                </a>
-
-                                            </li>
-
-                                            <?php if ($myStartPage > 2): ?>
-
-                                                <li class="page-item disabled">
-
-                                                    <span class="page-link">
-                                                        ...
-                                                    </span>
-
-                                                </li>
-
-                                            <?php endif; ?>
-
-                                        <?php endif; ?>
-
-
-                                        <!-- PAGE NUMBERS -->
-
-                                        <?php for (
-                                            $p = $myStartPage;
-                                            $p <= $myEndPage;
-                                            $p++
-                                        ): ?>
-
-                                            <li
-                                                class="page-item <?= ($p == $myPage) ? 'active' : '' ?>">
-
-                                                <a
-                                                    class="page-link"
-                                                    href="<?= current_url() ?>?<?= http_build_query([
-                                                                                    'search'       => $search ?? '',
-                                                                                    'status'       => $status ?? '',
-                                                                                    'date'         => $date ?? '',
-                                                                                    'perPage'      => $perPage,
-                                                                                    'my_page'      => $p,
-                                                                                    'chapter_page' => $chapterPage ?? 1
-                                                                                ]) ?>">
-
-                                                    <?= $p ?>
-
-                                                </a>
-
-                                            </li>
-
-                                        <?php endfor; ?>
-
-
-                                        <!-- LAST PAGE -->
-
-                                        <?php if ($myEndPage < $myTotalPages): ?>
-
-                                            <?php if (
-                                                $myEndPage <
-                                                $myTotalPages - 1
-                                            ): ?>
-
-                                                <li class="page-item disabled">
-
-                                                    <span class="page-link">
-                                                        ...
-                                                    </span>
-
-                                                </li>
-
-                                            <?php endif; ?>
-
-
-                                            <li class="page-item">
-
-                                                <a
-                                                    class="page-link"
-                                                    href="<?= current_url() ?>?<?= http_build_query([
-                                                                                    'search'       => $search ?? '',
-                                                                                    'status'       => $status ?? '',
-                                                                                    'date'         => $date ?? '',
-                                                                                    'perPage'      => $perPage,
-                                                                                    'my_page'      => $myTotalPages,
-                                                                                    'chapter_page' => $chapterPage ?? 1
-                                                                                ]) ?>">
-
-                                                    <?= $myTotalPages ?>
-
-                                                </a>
-
-                                            </li>
-
-                                        <?php endif; ?>
-
-
-                                        <!-- NEXT -->
-
-                                        <?php if ($myPage < $myTotalPages): ?>
-
-                                            <li class="page-item">
-
-                                                <a
-                                                    class="page-link"
-                                                    href="<?= current_url() ?>?<?= http_build_query([
-                                                                                    'search'       => $search ?? '',
-                                                                                    'status'       => $status ?? '',
-                                                                                    'date'         => $date ?? '',
-                                                                                    'perPage'      => $perPage,
-                                                                                    'my_page'      => $myPage + 1,
-                                                                                    'chapter_page' => $chapterPage ?? 1
-                                                                                ]) ?>">
-
-                                                    <i class="fa fa-chevron-right"></i>
-
-                                                </a>
-
-                                            </li>
-
-                                        <?php endif; ?>
-
-
-                                    </ul>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    <?php endif; ?>
-
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div>
+            <h4 class="mb-1">My Visitors</h4>
+            <small class="text-muted">Visitors added by you</small>
+        </div>
+
+        <span class="badge bg-primary rounded-pill px-3 py-2"
+              id="visitor_total_badge">
+            Total: 0
+        </span>
+    </div>
+
+ 
+
+    <!-- Visitor list -->
+    <div class="card border-0 shadow-sm">
+
+        <div id="visitor_loading"
+             class="text-center py-3 d-none">
+            <div class="spinner-border spinner-border-sm text-primary"
+                 role="status"></div>
+            <span class="ms-2 text-muted">Loading visitors...</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Visitor Name</th>
+                        <th>Company</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Member</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="my_visitors_results">
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            Loading visitors...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <!-- Pagination footer -->
+        <div class="card-footer bg-white">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="small text-muted">Show</span>
+
+                    <select id="visitor_per_page"
+                            class="form-select form-select-sm"
+                            style="width:85px;">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+
+                    <span class="small text-muted">entries</span>
                 </div>
 
+                <div id="visitor_pagination_info"
+                     class="small text-muted">
+                    Showing 0 to 0 of 0 visitors
+                </div>
+
+                <nav id="visitor_pagination_wrapper"
+                     aria-label="Visitor pagination"
+                     style="display:block;">
+                    <ul id="visitor_pagination"
+                        class="pagination pagination-sm flex-wrap mb-0">
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
                 <!-- ============================================================
      MY CHAPTER MEMBERS VISITORS
@@ -2136,271 +1887,359 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?php echo view('include/member/popup/visitor.php') ?>
 
-    <script>
-        $(document).ready(function() {
+    
+<script>
+$(document).ready(function () {
+    'use strict';
 
-            let ajaxRequest = null;
+    const ajaxUrl = "<?= site_url('member/visitor/get_filtered_data') ?>";
 
-            function debounce(fn, delay) {
-                let timer;
+    const $search       = $('#search');
+    const $status       = $('#status1');
+    const $date         = $('#date');
+    const $perPage      = $('#visitor_per_page');
+    const $tbody        = $('#my_visitors_results');
+    const $loading      = $('#visitor_loading');
+    const $totalBadge   = $('#visitor_total_badge');
+    const $pagination   = $('#visitor_pagination');
+    const $paginationInfo = $('#visitor_pagination_info');
 
-                return function() {
-                    const context = this;
-                    const args = arguments;
+    let currentPage = 1;
+    let totalPages = 0;
+    let activeRequest = null;
+    let requestNumber = 0;
+    let searchTimer = null;
 
-                    clearTimeout(timer);
+    const storageKey = 'userFilters';
 
-                    timer = setTimeout(function() {
-                        fn.apply(context, args);
-                    }, delay);
-                };
+    // Restore saved filters
+    function restoreFilters() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+
+            $search.val(saved.search || '');
+            $status.val(saved.status || '');
+            $perPage.val(saved.perPage || '10');
+
+            // Restore date after Flatpickr has initialized.
+            if (saved.date) {
+                if ($date[0] && $date[0]._flatpickr) {
+                    $date[0]._flatpickr.setDate(saved.date, false, 'Y-m-d');
+                } else {
+                    $date.val(saved.date);
+                }
+            }
+        } catch (error) {
+            console.warn('Unable to restore visitor filters.', error);
+        }
+    }
+
+    function saveFilters() {
+        const data = {
+            search: $search.val(),
+            status: $status.val(),
+            date: getDateValue(),
+            perPage: $perPage.val()
+        };
+
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(data));
+        } catch (error) {
+            console.warn('Unable to save visitor filters.', error);
+        }
+    }
+
+    // Use the canonical Y-m-d date value, not the displayed d-m-Y text.
+    function getDateValue() {
+        const element = $date[0];
+
+        if (element && element._flatpickr) {
+            return element._flatpickr.input.value || '';
+        }
+
+        return $date.val() || '';
+    }
+
+    function showLoading() {
+        $loading.removeClass('d-none');
+    }
+
+    function hideLoading() {
+        $loading.addClass('d-none');
+    }
+
+    function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, function (char) {
+            const replacements = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+
+            return replacements[char];
+        });
+    }
+
+    function renderPagination(page, pages) {
+        $pagination.empty();
+
+        if (!pages || pages <= 1) {
+            return;
+        }
+
+        function addPage(label, targetPage, disabled, active) {
+            const $item = $('<li>').addClass('page-item');
+
+            if (disabled) {
+                $item.addClass('disabled');
             }
 
-            function collectFilters() {
-
-                return {
-                    search: $.trim($('#search').val()),
-                    status: $('#status1').val(),
-                    date: $('#date').val()
-                };
+            if (active) {
+                $item.addClass('active');
             }
 
-            function saveFilters() {
+            const $button = $('<button>', {
+                type: 'button',
+                class: 'page-link',
+                text: label,
+                'aria-label': 'Page ' + targetPage
+            });
 
-                const filters = collectFilters();
+            if (!disabled && !active) {
+                $button.on('click', function () {
+                    loadUsers(targetPage);
+                });
+            } else {
+                $button.prop('disabled', true);
+            }
 
-                localStorage.setItem(
-                    'userFilters',
-                    JSON.stringify(filters)
+            $item.append($button);
+            $pagination.append($item);
+        }
+
+        addPage('Previous', page - 1, page <= 1, false);
+
+        // Show a compact range around the current page.
+        let start = Math.max(1, page - 2);
+        let end = Math.min(pages, page + 2);
+
+        if (start > 1) {
+            addPage('1', 1, false, page === 1);
+
+            if (start > 2) {
+                $pagination.append(
+                    $('<li>', {
+                        class: 'page-item disabled'
+                    }).append(
+                        $('<span>', {
+                            class: 'page-link',
+                            text: '...'
+                        })
+                    )
+                );
+            }
+        }
+
+        for (let p = start; p <= end; p++) {
+            addPage(String(p), p, false, p === page);
+        }
+
+        if (end < pages) {
+            if (end < pages - 1) {
+                $pagination.append(
+                    $('<li>', {
+                        class: 'page-item disabled'
+                    }).append(
+                        $('<span>', {
+                            class: 'page-link',
+                            text: '...'
+                        })
+                    )
                 );
             }
 
-            function loadFilters() {
+            addPage(String(pages), pages, false, page === pages);
+        }
 
-                const saved = localStorage.getItem('userFilters');
+        addPage('Next', page + 1, page >= pages, false);
+    }
 
-                if (!saved) {
-                    return false;
-                }
+    function renderError(message) {
+        $tbody.html(
+            '<tr><td colspan="7" class="text-center text-danger py-4">' +
+            escapeHtml(message) +
+            '</td></tr>'
+        );
 
-                try {
+        $totalBadge.text('Total: 0');
+        $paginationInfo.text('Unable to load visitors');
+        $pagination.empty();
+    }
 
-                    const filters = JSON.parse(saved);
+    function loadUsers(page = 1) {
+        page = Math.max(1, parseInt(page, 10) || 1);
 
-                    $('#search').val(filters.search || '');
-                    $('#status1').val(filters.status || '');
-                    $('#date').val(filters.date || '');
+        currentPage = page;
 
-                    return true;
+        // Save only the latest request as active.
+        if (activeRequest) {
+            activeRequest.abort();
+        }
 
-                } catch (e) {
+        const thisRequest = ++requestNumber;
 
-                    console.error('Invalid localStorage data:', e);
+        showLoading();
+        saveFilters();
 
-                    localStorage.removeItem('userFilters');
+        activeRequest = $.ajax({
+            url: ajaxUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                search: $.trim($search.val()),
+                status: $status.val(),
+                date: getDateValue(),
+                page: currentPage,
+                per_page: parseInt($perPage.val(), 10) || 10
+            },
 
-                    return false;
-                }
-            }
-
-            function clearResults() {
-
-                $('#list_data')
-                    .hide()
-                    .html('');
-
-                $('#my_visitors_results')
-                    .show();
-            }
-
-            function loadUsers() {
-
-                const formData = collectFilters();
-
-                console.log('Sending filters:', formData);
-
-                saveFilters();
-
-                const hasFilter =
-                    formData.search !== '' ||
-                    formData.status !== '' ||
-                    formData.date !== '';
-
-                /*
-                 * No filters
-                 */
-                if (!hasFilter) {
-
-                    localStorage.removeItem('userFilters');
-
-                    clearResults();
-
+            success: function (response) {
+                // Ignore any stale response.
+                if (thisRequest !== requestNumber) {
                     return;
                 }
 
-                /*
-                 * Abort previous AJAX request
-                 */
-                if (ajaxRequest !== null) {
-                    ajaxRequest.abort();
+                if (!response || response.success !== true) {
+                    renderError(
+                        response && response.message
+                            ? response.message
+                            : 'Unable to load visitors.'
+                    );
+                    return;
                 }
 
-                ajaxRequest = $.ajax({
+                const total = Number(response.total) || 0;
+                const pageValue = Number(response.page) || 1;
+                const pages = Number(response.totalPages) || 0;
+                const from = Number(response.from) || 0;
+                const to = Number(response.to) || 0;
 
-                    type: 'POST',
+                currentPage = pageValue;
+                totalPages = pages;
 
-                    url: '<?= base_url("member/visitor/get_filtered_data") ?>',
+                $tbody.html(response.html || '');
 
-                    data: {
-                        search: formData.search,
-                        status: formData.status,
-                        date: formData.date
-                    },
+                $totalBadge.text('Total: ' + total);
 
-                    dataType: 'html',
+                $paginationInfo.text(
+                    'Showing ' + from + ' to ' + to +
+                    ' of ' + total + ' visitors'
+                );
 
-                    beforeSend: function() {
+                renderPagination(currentPage, totalPages);
+            },
 
-                        $('#my_visitors_results').hide();
-
-                        $('#list_data')
-                            .show()
-                            .html(
-                                '<div class="text-center py-4">' +
-                                '<span class="spinner-border spinner-border-sm"></span>' +
-                                ' Loading...' +
-                                '</div>'
-                            );
-                    },
-
-                    success: function(response) {
-
-                        console.log('AJAX response:', response);
-
-                        if ($.trim(response) === '') {
-
-                            $('#list_data')
-                                .html(
-                                    '<div class="alert alert-warning text-center">' +
-                                    'No visitors found.' +
-                                    '</div>'
-                                )
-                                .show();
-
-                            return;
-                        }
-
-                        $('#list_data')
-                            .html(response)
-                            .show();
-                    },
-
-                    error: function(xhr, status, error) {
-
-                        if (status === 'abort') {
-                            return;
-                        }
-
-                        console.error('AJAX Error:', error);
-
-                        console.error(
-                            'Server Response:',
-                            xhr.responseText
-                        );
-
-                        $('#list_data')
-                            .html(
-                                '<div class="alert alert-danger">' +
-                                '<strong>Server Error</strong><br>' +
-                                'Please check the browser console.' +
-                                '</div>'
-                            )
-                            .show();
-                    },
-
-                    complete: function() {
-                        ajaxRequest = null;
-                    }
-
-                });
-            }
-
-            /*
-             * Debounced search
-             */
-            const searchVisitors = debounce(function() {
-                loadUsers();
-            }, 400);
-
-
-            /*
-             * SEARCH
-             */
-            $('#search').on('keyup', function() {
-                searchVisitors();
-            });
-
-
-            /*
-             * STATUS
-             */
-            $('#status1').on('change', function() {
-                loadUsers();
-            });
-
-
-            /*
-             * DATE
-             */
-            $('#date').on('change', function() {
-                loadUsers();
-            });
-
-
-            /*
-             * RESET
-             */
-            $('#reset-btn').on('click', function() {
-
-                $('#search').val('');
-
-                $('#status1').val('');
-
-                $('#date').val('');
-
-                localStorage.removeItem('userFilters');
-
-                clearResults();
-            });
-
-
-            /*
-             * LOAD SAVED FILTERS
-             */
-            const hasSavedFilters = loadFilters();
-
-            if (hasSavedFilters) {
-
-                const filters = collectFilters();
-
-                const hasFilter =
-                    filters.search !== '' ||
-                    filters.status !== '' ||
-                    filters.date !== '';
-
-                if (hasFilter) {
-                    loadUsers();
-                } else {
-                    clearResults();
+            error: function (xhr, textStatus) {
+                if (
+                    thisRequest !== requestNumber ||
+                    textStatus === 'abort'
+                ) {
+                    return;
                 }
 
-            } else {
+                console.error(
+                    'Visitor AJAX error:',
+                    xhr.status,
+                    xhr.responseText
+                );
 
-                clearResults();
+                renderError(
+                    xhr.status === 401
+                        ? 'Your session has expired. Please log in again.'
+                        : 'Failed to load visitors. Check the console and server logs.'
+                );
+            },
+
+            complete: function () {
+                if (thisRequest === requestNumber) {
+                    hideLoading();
+                    activeRequest = null;
+                }
             }
-
         });
-    </script>
+    }
+
+    // Live search with debounce
+    $search.on('input', function () {
+        clearTimeout(searchTimer);
+
+        searchTimer = setTimeout(function () {
+            loadUsers(1);
+        }, 350);
+    });
+
+    // Immediate filtering for select and date
+    $status.on('change', function () {
+        loadUsers(1);
+    });
+
+    $perPage.on('change', function () {
+        loadUsers(1);
+    });
+
+    $date.on('change', function () {
+        loadUsers(1);
+    });
+
+    // Reset filters
+    $('#reset-btn').on('click', function () {
+        clearTimeout(searchTimer);
+
+        $search.val('');
+        $status.val('');
+        $perPage.val('10');
+
+        if ($date[0] && $date[0]._flatpickr) {
+            $date[0]._flatpickr.clear();
+        } else {
+            $date.val('');
+        }
+
+        try {
+            localStorage.removeItem(storageKey);
+        } catch (error) {
+            console.warn('Unable to clear saved filters.', error);
+        }
+
+        loadUsers(1);
+    });
+
+    // Initialize Flatpickr if it is available and not already initialized.
+    if (
+        typeof flatpickr !== 'undefined' &&
+        $date.length &&
+        !$date[0]._flatpickr
+    ) {
+        flatpickr('#date', {
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd-m-Y',
+            allowInput: false,
+            onChange: function () {
+                loadUsers(1);
+            }
+        });
+    }
+
+    restoreFilters();
+
+    // Load visitor data on page load.
+    loadUsers(1);
+});
+</script>
+
 
 
 

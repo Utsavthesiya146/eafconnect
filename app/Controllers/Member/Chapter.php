@@ -859,6 +859,7 @@ class Chapter extends BaseController
                 OR u.services LIKE ?
                 OR u.products LIKE ?
                 OR u.bio LIKE ?
+                
                 OR u.business_name LIKE ?
                 OR u.industry LIKE ?
                 OR u.subcategory LIKE ?
@@ -894,25 +895,9 @@ class Chapter extends BaseController
     |--------------------------------------------------------------------------
     */
 
-        if (!empty($search)) {
-            $searchEscaped = $db->escapeLikeString($search);
-            $qry .= "
-            ORDER BY 
-                CASE 
-                    WHEN u.name LIKE '{$searchEscaped}%' THEN 1
-                    WHEN u.name LIKE '%{$searchEscaped}%' THEN 2
-                    WHEN u.business_name LIKE '{$searchEscaped}%' THEN 3
-                    WHEN u.business_name LIKE '%{$searchEscaped}%' THEN 4
-                    WHEN u.industry LIKE '{$searchEscaped}%' THEN 5
-                    ELSE 6
-                END ASC,
-                u.name ASC
-            ";
-        } else {
-            $qry .= "
-            ORDER BY cm.member_code ASC
-            ";
-        }
+        $qry .= "
+        ORDER BY cm.member_code ASC
+    ";
 
 
         /*

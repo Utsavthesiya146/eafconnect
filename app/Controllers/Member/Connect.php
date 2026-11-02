@@ -75,7 +75,7 @@ class Connect extends BaseController
     ";
         $user = $commonModel->exe_query($qry)->getResult();
         $qry = "
-        SELECT 
+        SELECT DISTINCT
             r.*,
 
             fu.name  AS from_name,
@@ -242,23 +242,29 @@ class Connect extends BaseController
         $data['member'] = $member;
         return view('member/connects_details', $data);
     }
-   public function getMembers()
-{
-    $db = \Config\Database::connect();
+    public function getMembers()
+    {
+        $db = \Config\Database::connect();
 
-    $type = $this->request->getPost('type');
-    $user_code = trim((string) session()->get('user_code'));
+        $type = $this->request->getPost('type');
+        $user_code = trim((string) session()->get('user_code'));
 
-    // =========================================================
-    // SAME CHAPTER MEMBERS
-    // =========================================================
-    if ($type == 'chapter') {
+        // =========================================================
+        // SAME CHAPTER MEMBERS
+        // =========================================================
+        if ($type == 'chapter') {
 
-        $qry = "
-            SELECT 
+            $qry = "
+            SELECT DISTINCT
                 u.user_code,
                 u.name,
                 u.phone,
+                u.email,
+                u.profile_photo,
+                u.business_name,
+                u.industry,
+                cm.chapter_code,
+                c.chapter_name,
 
                 CASE 
                     WHEN u.user_code = ? THEN 1
@@ -269,6 +275,9 @@ class Connect extends BaseController
 
             INNER JOIN chapter_members cm
                 ON u.user_code = cm.user_code
+
+            LEFT JOIN chapters c
+                ON c.chapter_code = cm.chapter_code
 
             WHERE cm.chapter_code = (
                 SELECT chapter_code
@@ -290,211 +299,760 @@ class Connect extends BaseController
                 u.name ASC
         ";
 
-        $members = $db->query(
-            $qry,
-            [
-                $user_code,
-                $user_code,
-                $user_code
-            ]
-        )->getResultArray();
-    }
+            $members = $db->query(
+                $qry,
+                [
+                    $user_code,
+                    $user_code,
+                    $user_code
+                ]
+            )->getResultArray();
+        }
 
 
-    // =========================================================
-    // ALL MEMBERS
-    // =========================================================
-    else {
+        // =========================================================
+        // ALL MEMBERS
+        // =========================================================
+        else {
 
-        $qry = "
+            $qry = "
             SELECT 
-                user_code,
-                name,
-                phone,
+                u.user_code,
+                u.name,
+                u.phone,
+                u.email,
+                u.profile_photo,
+                u.business_name,
+                u.industry,
+                chapter_data.chapter_code,
+                chapter.chapter_name,
 
                 CASE 
-                    WHEN user_code = ? THEN 1
+                    WHEN u.user_code = ? THEN 1
                     ELSE 0
                 END AS is_self
 
-            FROM users
+            FROM users u
 
-            WHERE status = '1'
-              AND role = 'member'
+            LEFT JOIN (
+                SELECT
+                    cm.user_code,
+                    MIN(cm.chapter_code) AS chapter_code
+                FROM chapter_members cm
+                WHERE cm.members_status = '1'
+                GROUP BY cm.user_code
+            ) chapter_data
+                ON chapter_data.user_code = u.user_code
+            LEFT JOIN chapters chapter
+                ON chapter.chapter_code = chapter_data.chapter_code
+
+            WHERE u.status = '1'
+              AND u.role = 'member'
 
             ORDER BY 
                 CASE 
-                    WHEN user_code = ? THEN 0
+                    WHEN u.user_code = ? THEN 0
                     ELSE 1
                 END ASC,
-                name ASC
+                u.name ASC
         ";
 
-        $members = $db->query(
-            $qry,
-            [
-                $user_code,
-                $user_code
-            ]
-        )->getResultArray();
-    }
-
-
-    // =========================================================
-    // RETURN JSON
-    // =========================================================
-    return $this->response->setJSON($members);
-}
-    public function AddNewReferralData()
-    {
-        helper(['form']);
-
-        $session     = \Config\Services::session();
-        $commonModel = new \App\Models\CommonModel();
-
-        // ==============================
-        // ✅ CHECK LOGIN SESSION
-        // ==============================
-        $user_code = $session->get('user_code');
-
-        if (empty($user_code)) {
-            return $this->response->setJSON([
-                'status'  => 'error',
-                'message' => 'Session expired. Please login again.'
-            ]);
+            $members = $db->query(
+                $qry,
+                [
+                    $user_code,
+                    $user_code
+                ]
+            )->getResultArray();
         }
 
-        // ==============================
-        // ✅ GET POST DATA
-        // ==============================
+
+        // =========================================================
+        // RETURN JSON
+        // =========================================================
+        return $this->response->setJSON($members);
+    }
+public function getMembers2()
+{
+    $db = \Config\Database::connect();
+
+    try {
+        $userCode = trim((string) session()->get('user_code'));
+
+        if ($userCode === '') {
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON([
+                    'status'  => false,
+                    'message' => 'Session expired. Please login again.',
+                    'csrfHash' => csrf_hash()
+                ]);
+        }
+
+        // -----------------------------------------
+        // FILTER INPUTS
+        // -----------------------------------------
+        $userName    = trim((string) $this->request->getPost('user_name'));
+        $business    = trim((string) $this->request->getPost('business_name'));
+        $category     = trim((string) $this->request->getPost('category'));
+        $chapterCode  = trim((string) $this->request->getPost('chapter'));
+        $type         = trim((string) $this->request->getPost('type'));
+
+        $page = max(1, (int) $this->request->getPost('page'));
+
+        $allowedPerPage = [12, 24, 36, 48];
+        $perPage = (int) $this->request->getPost('per_page');
+
+        if (!in_array($perPage, $allowedPerPage, true)) {
+            $perPage = 12;
+        }
+
+        $offset = ($page - 1) * $perPage;
+
+        // -----------------------------------------
+        // ACTIVE CHAPTER SUBQUERY
+        // One active chapter per user
+        // -----------------------------------------
+        $chapterSubQuery = $db->table('chapter_members')
+            ->select('user_code, MIN(chapter_code) AS chapter_code')
+            ->where('members_status', '1')
+            ->groupBy('user_code')
+            ->getCompiledSelect();
+
+        // -----------------------------------------
+        // BASE QUERY
+        // -----------------------------------------
+        $builder = $db->table('users u');
+
+        $builder->select([
+            'u.user_code',
+            'u.name',
+            'u.phone',
+            'u.email',
+            'u.profile_photo',
+            'u.business_name AS company_name',
+            'u.industry',
+            'cm.chapter_code',
+            'c.chapter_name'
+        ]);
+
+        $builder->select(
+            "CASE WHEN u.user_code = " . $db->escape($userCode) .
+            " THEN 1 ELSE 0 END AS is_self",
+            false
+        );
+
+        $builder->join(
+            "($chapterSubQuery) cm",
+            'cm.user_code = u.user_code',
+            'left',
+            false
+        );
+
+        $builder->join(
+            'chapters c',
+            'c.chapter_code = cm.chapter_code',
+            'left'
+        );
+
+        $builder->where('u.status', '1');
+        $builder->where('u.role', 'member');
+
+        // -----------------------------------------
+        // NAME FILTER
+        // -----------------------------------------
+        if ($userName !== '') {
+            $builder->groupStart()
+                ->like('u.name', $userName)
+                ->orLike('u.user_code', $userName)
+                ->groupEnd();
+        }
+
+        // -----------------------------------------
+        // BUSINESS FILTER
+        // -----------------------------------------
+        if ($business !== '') {
+            $builder->groupStart()
+                ->like('u.business_name', $business)
+                ->orLike('u.industry', $business)
+                ->groupEnd();
+        }
+
+        // -----------------------------------------
+        // CATEGORY / INDUSTRY FILTER
+        // -----------------------------------------
+        if ($category !== '') {
+            $builder->where('u.industry', $category);
+        }
+
+        // -----------------------------------------
+        // CHAPTER FILTER
+        // -----------------------------------------
+        if ($chapterCode !== '') {
+            $builder->where('cm.chapter_code', $chapterCode);
+        }
+
+        // -----------------------------------------
+        // CURRENT USER'S CHAPTER FILTER
+        // -----------------------------------------
+        if ($type === 'chapter') {
+            $builder->whereIn(
+                'u.user_code',
+                function ($subBuilder) use ($userCode) {
+                    $subBuilder->select('user_code')
+                        ->from('chapter_members')
+                        ->where(
+                            'chapter_code',
+                            function ($chapterBuilder) use ($userCode) {
+                                $chapterBuilder->select('chapter_code')
+                                    ->from('chapter_members')
+                                    ->where('user_code', $userCode)
+                                    ->where('members_status', '1')
+                                    ->limit(1);
+                            }
+                        )
+                        ->where('members_status', '1');
+                }
+            );
+        }
+
+        // -----------------------------------------
+        // TOTAL RECORDS
+        // -----------------------------------------
+        $countBuilder = clone $builder;
+        $totalRecords = $countBuilder->countAllResults();
+
+        $totalPages = (int) ceil($totalRecords / $perPage);
+
+        // Keep requested page within available pages
+        if ($totalPages > 0 && $page > $totalPages) {
+            $page = $totalPages;
+            $offset = ($page - 1) * $perPage;
+        }
+
+        // -----------------------------------------
+        // FETCH MEMBERS
+        // -----------------------------------------
+        $builder->orderBy(
+            "CASE WHEN u.user_code = " . $db->escape($userCode) .
+            " THEN 0 ELSE 1 END",
+            '',
+            false
+        );
+
+        $builder->orderBy('u.name', 'ASC');
+        $builder->limit($perPage, $offset);
+
+        $members = $builder->get()->getResultArray();
+
+        $selfContact = $db->table('users')
+            ->select('name, business_name, phone, email')
+            ->where('user_code', $userCode)
+            ->get()
+            ->getRowArray();
+
+        // -----------------------------------------
+        // RENDER MEMBER CARDS
+        // -----------------------------------------
+        $html = view(
+            'include/member/card/referral_member_card',
+            [
+                'members'         => $members,
+                'currentUserCode' => $userCode
+            ]
+        );
+
+        return $this->response->setJSON([
+            'status'      => true,
+            'message'     => 'Members loaded successfully.',
+            'html'        => $html,
+            'total'       => $totalRecords,
+            'count'       => $totalRecords,
+            'page'        => $page,
+            'per_page'    => $perPage,
+            'total_pages' => $totalPages,
+            'self_contact' => $selfContact,
+            'csrfHash'    => csrf_hash()
+        ]);
+
+    } catch (\Throwable $e) {
+
+        log_message(
+            'error',
+            'getMembers2 Error: ' . $e->getMessage() .
+            ' | File: ' . $e->getFile() .
+            ' | Line: ' . $e->getLine()
+        );
+
+        return $this->response
+            ->setStatusCode(500)
+            ->setJSON([
+                'status'  => false,
+                'message' => ENVIRONMENT === 'development'
+                    ? $e->getMessage()
+                    : 'Unable to load members. Please try again.',
+                'csrfHash' => csrf_hash()
+            ]);
+    }
+}
+
+   
+public function AddNewReferralData()
+{
+    helper(['form']);
+
+    $db = \Config\Database::connect();
+
+    $session = \Config\Services::session();
+
+    $commonModel = new \App\Models\CommonModel();
+
+    // =========================================
+    // JSON RESPONSE HELPER
+    // =========================================
+
+    $jsonResponse = function ($status, $message, $extra = []) {
+
+        return $this->response->setJSON(array_merge([
+            'status'   => $status,
+            'message'  => $message,
+            'csrfHash' => csrf_hash()
+        ], $extra));
+
+    };
+
+    try {
+
+        // =========================================
+        // LOGGED-IN USER
+        // =========================================
+
+        $user_code = trim((string) $session->get('user_code'));
+
+        if ($user_code === '') {
+
+            return $jsonResponse(
+                'error',
+                'Session expired. Please login again.'
+            );
+        }
+
+        // =========================================
+        // FORM DATA
+        // =========================================
+
         $data = $this->request->getPost();
 
-        // ==============================
-        // ✅ GENERATE REFERRAL CODE
-        // ==============================
-        $referral_code = $commonModel->generateSerial(
+        $to_user = trim((string) ($data['to_user'] ?? ''));
+
+        $type = trim((string) ($data['referral_type'] ?? 'other'));
+
+        // =========================================
+        // VALIDATE RECIPIENT
+        // =========================================
+
+        if ($to_user === '') {
+
+            return $jsonResponse(
+                'error',
+                'Please select a referral member.'
+            );
+        }
+
+        if ($to_user === $user_code) {
+
+            return $jsonResponse(
+                'error',
+                'You cannot refer yourself as the receiving member.'
+            );
+        }
+
+        if (!in_array($type, ['self', 'other'], true)) {
+
+            return $jsonResponse(
+                'error',
+                'Invalid referral type.'
+            );
+        }
+
+        // =========================================
+        // VERIFY RECIPIENT
+        // =========================================
+
+        $toUser = $db->table('users')
+            ->select('user_code, name')
+            ->where('user_code', $to_user)
+            ->where('status', '1')
+            ->where('role', 'member')
+            ->get()
+            ->getRow();
+
+        if (!$toUser) {
+
+            return $jsonResponse(
+                'error',
+                'Selected member is not available.'
+            );
+        }
+
+        if ($type === 'self') {
+            $selfContact = $db->table('users')
+                ->select('name, business_name, phone, email')
+                ->where('user_code', $user_code)
+                ->get()
+                ->getRowArray();
+
+            if (!$selfContact) {
+                return $jsonResponse(
+                    'error',
+                    'Your contact details could not be found.'
+                );
+            }
+
+            $data['referral_name'] = $selfContact['name'] ?? '';
+            $data['referral_company'] = $selfContact['business_name'] ?? '';
+            $data['referral_mobile'] = $selfContact['phone'] ?? '';
+            $data['referral_email'] = $selfContact['email'] ?? '';
+        }
+
+        // =========================================
+        // REFERRAL PERSON DETAILS
+        // =========================================
+
+        $referralName = trim(
+            (string) ($data['referral_name'] ?? '')
+        );
+
+        $referralCompany = trim(
+            (string) ($data['referral_company'] ?? '')
+        );
+
+        $referralMobile = preg_replace(
+            '/\D/',
+            '',
+            (string) ($data['referral_mobile'] ?? '')
+        );
+
+        if (strlen($referralMobile) === 12 && substr($referralMobile, 0, 2) === '91') {
+            $referralMobile = substr($referralMobile, 2);
+        } elseif (strlen($referralMobile) === 11 && $referralMobile[0] === '0') {
+            $referralMobile = substr($referralMobile, 1);
+        }
+
+        $referralEmail = trim(
+            (string) ($data['referral_email'] ?? '')
+        );
+
+        $remarks = trim(
+            (string) ($data['remarks'] ?? '')
+        );
+
+        // =========================================
+        // VALIDATE NAME
+        // =========================================
+
+        if ($referralName === '') {
+
+            return $jsonResponse(
+                'error',
+                'Please enter referral person name.'
+            );
+        }
+
+        // =========================================
+        // VALIDATE BUSINESS
+        // =========================================
+
+        if ($referralCompany === '') {
+
+            return $jsonResponse(
+                'error',
+                'Please enter business or company name.'
+            );
+        }
+
+        // =========================================
+        // VALIDATE MOBILE
+        // =========================================
+
+        if (!preg_match('/^[6-9][0-9]{9}$/', $referralMobile)) {
+
+            return $jsonResponse(
+                'error',
+                'Please enter a valid 10-digit Indian mobile number.'
+            );
+        }
+
+        // =========================================
+        // VALIDATE EMAIL
+        // =========================================
+
+        if (
+            $referralEmail !== '' &&
+            !filter_var($referralEmail, FILTER_VALIDATE_EMAIL)
+        ) {
+
+            return $jsonResponse(
+                'error',
+                'Please enter a valid email address.'
+            );
+        }
+
+        // =========================================
+        // VALIDATE REMARKS
+        // =========================================
+
+        if ($remarks === '') {
+
+            return $jsonResponse(
+                'error',
+                'Please enter referral remarks.'
+            );
+        }
+
+        // =========================================
+        // PRIORITY
+        // =========================================
+
+        $priority = (int) ($data['priority'] ?? 3);
+
+        if ($priority < 1 || $priority > 5) {
+            $priority = 3;
+        }
+
+        // =========================================
+        // GET SENDER DETAILS
+        // =========================================
+
+        $fromUser = $db->table('users')
+            ->select('user_code, name, phone, email, business_name')
+            ->where('user_code', $user_code)
+            ->get()
+            ->getRow();
+
+        if (!$fromUser) {
+
+            return $jsonResponse(
+                'error',
+                'Your account details could not be found.'
+            );
+        }
+
+        // =========================================
+        // GENERATE REFERRAL CODE
+        // =========================================
+
+        $referralCode = $commonModel->generateSerial(
             'referrals',
             'referral_code',
             'REFF'
         );
 
-        // ==============================
-        // ✅ PREPARE INSERT DATA
-        // ==============================
+        if (empty($referralCode)) {
+
+            return $jsonResponse(
+                'error',
+                'Unable to generate referral code.'
+            );
+        }
+
+        // =========================================
+        // REFERRAL INSERT DATA
+        // =========================================
+
         $insert = [
-            'referral_code'  => $referral_code,
-            'from_user'      => (string)$user_code,
-            'to_user'        => $data['to_user'] ?? null,
-            'business'       => $data['business'] ?? '',
-            'contact_number' => $data['contact_number'] ?? '',
-            'temperature'    => $data['temperature'] ?? '',
-            'status'         => $data['status'] ?? 'pending',
-            'description'    => $data['description'] ?? '',
+
+            'referral_code'  => $referralCode,
+
+            'from_user'      => $user_code,
+
+            'to_user'        => $to_user,
+
+            'business'       => $referralCompany,
+
+            'contact_number' => $referralMobile,
+
+            'status'         => 'pending',
+
+            'description'    => $remarks,
+
             'created_at'     => date('Y-m-d H:i:s')
+
         ];
 
-        // ==============================
-        // ✅ INSERT DATA
-        // ==============================
-        $insertId = $commonModel->insert_data('referrals', $insert);
+        // =========================================
+        // OPTIONAL DATABASE COLUMNS
+        // =========================================
 
-        if (!$insertId) {
-            return $this->response->setJSON([
-                'status'  => 'error',
-                'message' => 'Failed to add referral'
-            ]);
-        }
+        $optionalColumns = [
 
+            'referral_type'    => $type,
 
-        // ==============================
-        // ✅ ADD NOTIFICATION
-        // ==============================
-        if (!empty($insert['to_user'])) {
+            'referral_name'    => $referralName,
 
-            // Generate Notification Code
-            $toUserObj = $commonModel->db->table('users')
-                ->select('name')
-                ->where('user_code', $data['to_user'])
-                ->get()
-                ->getRow();
+            'referral_mobile'  => $referralMobile,
 
-            // Notify Receiver
-            create_system_notification(
-                $data['to_user'],
-                'New Referral Received',
-                ($fromUser->name ?? 'Someone') . ' sent you a new referral: "' . ($insert['business'] ?? 'Business') . '".'
-            );
+            'referral_email'   => $referralEmail,
 
-            // Notify Sender (Confirmation)
-            create_system_notification(
-                $user_code,
-                'Referral Sent',
-                'You sent a new referral: "' . ($insert['business'] ?? 'Business') . '" to ' . ($toUserObj->name ?? 'member') . '.'
-            );
-        }
-        // ==============================
-        // ✅ SEND EMAIL NOTIFICATION
-        // ==============================
-        if (!empty($data['to_user'])) {
+            'referral_company' => $referralCompany,
 
-            $toUser = $commonModel->db->table('users')
-                ->select('email, name')
-                ->where('user_code', $data['to_user'])
-                ->get()
-                ->getRow();
+            'priority'         => $priority,
 
-            if ($toUser && !empty($toUser->email)) {
+            'temperature'      => $data['temperature'] ?? ''
 
-                $emailService = \Config\Services::email();
+        ];
 
-                $config = [
-                    'protocol'   => 'smtp',
-                    'SMTPHost'   => 'smtp.hostinger.com',
-                    'SMTPUser'   => 'mail@eafconnect.com',
-                    'SMTPPass'   => 'mail@WHB26',
-                    'SMTPPort'   => 465,
-                    'SMTPCrypto' => 'ssl',
-                    'mailType'   => 'html',
-                    'charset'    => 'utf-8',
-                    'newline'    => "\r\n"
-                ];
+        foreach ($optionalColumns as $column => $value) {
 
-                // ✅ Initialize first
-                $emailService->initialize($config);
+            if ($db->fieldExists($column, 'referrals')) {
 
-                // ✅ Then clear
-                $emailService->clear(true);
-
-                $emailService->setFrom('mail@eafconnect.com', 'Web Hosting Baba');
-                $emailService->setTo($toUser->email);
-                $emailService->setSubject('New Referral Received');
-
-                // ✅ IMPORTANT: correct view path
-                $message = view('mail/referral', [
-                    'name'        => $toUser->name ?? 'User',
-                    'business'    => $insert['business'],
-                    'contact'     => $insert['contact_number'],
-                    'description' => $insert['description'],
-                    'temperature' => $insert['temperature']
-                ]);
-
-                $emailService->setMessage($message);
-
-                // ✅ Send mail
-                if (!$emailService->send()) {
-                    log_message('error', $emailService->printDebugger(['headers']));
-                }
+                $insert[$column] = $value;
             }
         }
 
-        // ==============================
-        // ✅ SUCCESS RESPONSE
-        // ==============================
-        return $this->response->setJSON([
-            'status'  => 'success',
-            'message' => 'Referral Added Successfully'
-        ]);
+        // =========================================
+        // DATABASE TRANSACTION
+        // =========================================
+
+        $db->transBegin();
+
+        // =========================================
+        // INSERT REFERRAL
+        // =========================================
+
+        $insertStatus = $db->table('referrals')->insert($insert);
+
+        if (!$insertStatus) {
+
+            $db->transRollback();
+
+            log_message(
+                'error',
+                'Referral insert failed: ' .
+                json_encode($db->error())
+            );
+
+            return $jsonResponse(
+                'error',
+                'Failed to save referral. Please try again.'
+            );
+        }
+
+        $insertId = $db->insertID();
+
+        // =========================================
+        // GENERATE NOTIFICATION CODE
+        // =========================================
+
+        $notificationCode = $commonModel->generateSerial(
+            'notifications',
+            'n_code',
+            'NOTI'
+        );
+
+        if (empty($notificationCode)) {
+
+            $db->transRollback();
+
+            return $jsonResponse(
+                'error',
+                'Unable to generate notification code.'
+            );
+        }
+
+        // =========================================
+        // NOTIFICATION DATA
+        // =========================================
+
+        $notification = [
+
+            'n_code'    => $notificationCode,
+
+            'user_code' => $to_user,
+
+            'title'     => 'New Referral Received',
+
+            'message'   => ($fromUser->name ?? 'Someone') .
+                           ' sent you a new referral.',
+
+            'status'    => 'unread'
+
+        ];
+
+        // =========================================
+        // INSERT NOTIFICATION
+        // =========================================
+
+        $notificationStatus = $db->table('notifications')
+            ->insert($notification);
+
+        if (!$notificationStatus) {
+
+            $db->transRollback();
+
+            log_message(
+                'error',
+                'Referral notification insert failed: ' .
+                json_encode($db->error())
+            );
+
+            return $jsonResponse(
+                'error',
+                'Referral notification could not be created.'
+            );
+        }
+
+        // =========================================
+        // COMMIT TRANSACTION
+        // =========================================
+
+        if ($db->transStatus() === false) {
+
+            $db->transRollback();
+
+            return $jsonResponse(
+                'error',
+                'Unable to complete referral transaction.'
+            );
+        }
+
+        $db->transCommit();
+
+        // =========================================
+        // SUCCESS RESPONSE
+        // =========================================
+
+        return $jsonResponse(
+            'success',
+            'Referral Added Successfully',
+            [
+                'referral_code' => $referralCode,
+                'insert_id'     => $insertId
+            ]
+        );
+
+    } catch (\Throwable $e) {
+
+        if ($db->transStatus() !== false) {
+            $db->transRollback();
+        }
+
+        log_message(
+            'error',
+            'AddNewReferralData Error: ' .
+            $e->getMessage() .
+            ' | File: ' . $e->getFile() .
+            ' | Line: ' . $e->getLine()
+        );
+
+        return $jsonResponse(
+            'error',
+            ENVIRONMENT === 'development'
+                ? $e->getMessage()
+                : 'Unable to submit referral. Please try again.'
+        );
     }
+}
 
 
 
@@ -504,8 +1062,8 @@ class Connect extends BaseController
         $referral_code = trim((string)$referral_code);
         $row = $db->table('referrals')
             ->groupStart()
-                ->where('referral_code', $referral_code)
-                ->orWhere('referral_id', $referral_code)
+            ->where('referral_code', $referral_code)
+            ->orWhere('referral_id', $referral_code)
             ->groupEnd()
             ->get()
             ->getRow();
@@ -532,26 +1090,26 @@ class Connect extends BaseController
         }
 
         $output = '
-<div class="modal-content" style="border-radius:16px; border:none; box-shadow:0 12px 32px rgba(15,59,104,0.22); font-size:14px; overflow:hidden;">
+<div class="modal-content" style="border-radius:14px; border:none; box-shadow:0 8px 24px rgba(15,59,104,0.18); font-size:13px; overflow:hidden;">
     <form id="edit_refferral_status_action" method="post">
-        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.12); padding:16px 20px;">
-            <h6 class="modal-title mb-0" style="font-size:16px; font-weight:700; color:#ffffff; line-height:1.4;">Change Connect Status</h6>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity:0.85;"></button>
+        <div class="modal-header" style="background:#0F3B68; color:#fff; border-bottom:1px solid rgba(255,255,255,0.1); padding:14px 18px;">
+            <h6 class="modal-title mb-0" style="font-size:15px; font-weight:700; color:#ffffff;">Change Connect Status</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" style="padding:20px;">
+        <div class="modal-body p-3">
             <input type="hidden" name="referral_code" value="' . esc($row->referral_code ?? $referral_code) . '">
             <div class="row">
-                <div class="col-12 mb-2">
-                    <label class="fw-bold mb-2 d-block" style="color:#1E293B; font-size:13.5px; line-height:1.4;">Referral Status</label>
-                    <select name="status" class="form-select" style="font-weight:600; font-size:14px; line-height:1.5; min-height:48px; height:auto; padding:10px 14px; border-radius:10px; border:1.5px solid #CBD5E1; color:#0F172A; background-color:#FFFFFF;">
+                <div class="col-md-12 mb-2">
+                    <label class="fw-bold mb-1" style="color:#334155; font-size:13px;">Referral Status</label>
+                    <select name="status" class="form-select" style="font-weight:600; font-size:13.5px; height:42px; border-radius:8px;">
                         ' . $optionsHtml . '
                     </select>
                 </div>
             </div>
         </div>
-        <div class="modal-footer justify-content-end border-0 pt-0 pb-4 px-4 gap-2">
-            <button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-pill" data-bs-dismiss="modal" style="font-size:13px; font-weight:600; min-height:38px;">Cancel</button>
-            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 py-2 rounded-pill fw-bold" style="background:#0F3B68; font-size:13px; font-weight:700; min-height:38px; box-shadow:0 3px 8px rgba(15,59,104,0.3);">Update Status</button>
+        <div class="modal-footer justify-content-end border-0 pt-0 pb-3 px-3">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-3 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" name="status_c" class="btn btn-sm text-white px-4 rounded-pill fw-bold" style="background:#0F3B68; box-shadow:0 2px 6px rgba(15,59,104,0.25);">Update Status</button>
         </div>
     </form>
 </div>';
@@ -574,51 +1132,12 @@ class Connect extends BaseController
 
         try {
             $db = \Config\Database::connect();
-            $referral = $db->table('referrals')
-                ->groupStart()
-                    ->where('referral_code', $referral_code)
-                    ->orWhere('referral_id', $referral_code)
-                ->groupEnd()
-                ->get()
-                ->getRow();
-
-            if (!$referral) {
-                return $this->response->setJSON([
-                    'status'  => 'error',
-                    'message' => 'Referral not found'
-                ]);
-            }
-
             $db->table('referrals')
-                ->where('referral_id', $referral->referral_id)
+                ->groupStart()
+                ->where('referral_code', $referral_code)
+                ->orWhere('referral_id', $referral_code)
+                ->groupEnd()
                 ->update(['status' => $status]);
-
-            // Notify both users
-            $currentUserId = session()->get('user_code');
-            $currentUserName = session()->get('name') ?: 'A member';
-            $business = !empty($referral->business) ? $referral->business : 'Referral';
-
-            $fromUser = (string)($referral->from_user ?? '');
-            $toUser = (string)($referral->to_user ?? '');
-
-            // Notify partner
-            $partnerCode = ($currentUserId == $fromUser) ? $toUser : $fromUser;
-            if (!empty($partnerCode)) {
-                create_system_notification(
-                    $partnerCode,
-                    'Connect Status: ' . $status,
-                    $currentUserName . ' updated the status of referral "' . $business . '" to ' . $status . '.'
-                );
-            }
-
-            // Confirm to current user
-            if (!empty($currentUserId)) {
-                create_system_notification(
-                    $currentUserId,
-                    'Connect Status Updated',
-                    'You updated the status of referral "' . $business . '" to ' . $status . '.'
-                );
-            }
 
             return $this->response->setJSON([
                 'status'  => 'success',
@@ -639,8 +1158,8 @@ class Connect extends BaseController
         $referral_code = trim((string)$referral_code);
         $row = $db->table('referrals')
             ->groupStart()
-                ->where('referral_code', $referral_code)
-                ->orWhere('referral_id', $referral_code)
+            ->where('referral_code', $referral_code)
+            ->orWhere('referral_id', $referral_code)
             ->groupEnd()
             ->get()
             ->getRow();
@@ -733,51 +1252,12 @@ class Connect extends BaseController
 
         try {
             $db = \Config\Database::connect();
-            $referral = $db->table('referrals')
-                ->groupStart()
-                    ->where('referral_code', $referral_code)
-                    ->orWhere('referral_id', $referral_code)
-                ->groupEnd()
-                ->get()
-                ->getRow();
-
-            if (!$referral) {
-                return $this->response->setJSON([
-                    'status'  => 'error',
-                    'message' => 'Referral not found'
-                ]);
-            }
-
             $db->table('referrals')
-                ->where('referral_id', $referral->referral_id)
+                ->groupStart()
+                ->where('referral_code', $referral_code)
+                ->orWhere('referral_id', $referral_code)
+                ->groupEnd()
                 ->update($data);
-
-            // Notify both users
-            $currentUserId = session()->get('user_code');
-            $currentUserName = session()->get('name') ?: 'A member';
-            $business = !empty($data['business']) ? $data['business'] : (!empty($referral->business) ? $referral->business : 'Referral');
-
-            $fromUser = (string)($referral->from_user ?? '');
-            $toUser = (string)($referral->to_user ?? '');
-
-            // Notify partner
-            $partnerCode = ($currentUserId == $fromUser) ? $toUser : $fromUser;
-            if (!empty($partnerCode)) {
-                create_system_notification(
-                    $partnerCode,
-                    'Connect Updated: ' . $data['status'],
-                    $currentUserName . ' updated referral "' . $business . '" (Status: ' . $data['status'] . ').'
-                );
-            }
-
-            // Confirm to current user
-            if (!empty($currentUserId)) {
-                create_system_notification(
-                    $currentUserId,
-                    'Connect Updated',
-                    'You updated referral "' . $business . '" (Status: ' . $data['status'] . ').'
-                );
-            }
 
             return $this->response->setJSON([
                 'status'  => 'success',

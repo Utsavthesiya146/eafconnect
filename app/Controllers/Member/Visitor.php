@@ -1331,23 +1331,42 @@ class Visitor extends BaseController
         ]);
     }
 
+public function get_filtered_data()
+{
+    $request = \Config\Services::request();
 
-    public function get_filtered_data()
-    {
-        $request  = \Config\Services::request();
+    $userCode = session()->get('user_code');
+    $role = strtolower(trim((string) (
+        session()->get('role') ?? ''
+    )));
 
-        $user_code = session()->get('user_code');
+    if (empty($userCode)) {
+        return $this->response
+            ->setStatusCode(401)
+            ->setJSON([
+                'success' => false,
+                'message' => 'Session expired. Please log in again.'
+            ]);
+    }
 
-        // Change this session key if your project uses another name
-        $role = strtolower(trim(session()->get('role') ?? ''));
+    $search = trim((string) ($request->getPost('search') ?? ''));
+    $date   = trim((string) ($request->getPost('date') ?? ''));
+    $status = trim((string) ($request->getPost('status') ?? ''));
 
-        $search = trim($request->getPost('search') ?? '');
-        $date   = trim($request->getPost('date') ?? '');
-        $status = trim($request->getPost('status') ?? '');
+    $page = max(
+        1,
+        (int) ($request->getPost('page') ?? 1)
+    );
 
-        $model = new \App\Models\VisitorModel();
+    $perPage = (int) ($request->getPost('perPage') ?? 10);
 
-        $model->select("
+    if (!in_array($perPage, [10, 25, 50, 100], true)) {
+        $perPage = 10;
+    }
+
+    $model = new \App\Models\VisitorModel();
+
+    $model->select("
         visitors.*,
         u.name AS member_name,
         u.email AS member_email,
@@ -1355,148 +1374,132 @@ class Visitor extends BaseController
         c.chapter_name
     ");
 
-        $model->join(
-            'users AS u',
-            'u.user_code = visitors.user_code',
-            'left'
-        );
+    $model->join(
+        'users AS u',
+        'u.user_code = visitors.user_code',
+        'left'
+    );
 
-        $model->join(
-            'chapters AS c',
-            'c.chapter_code = visitors.chapter_code',
-            'left'
-        );
+    $model->join(
+        'chapters AS c',
+        'c.chapter_code = visitors.chapter_code',
+        'left'
+    );
 
+    /*
+    |--------------------------------------------------------------------------
+    | LIVE SEARCH
+    |--------------------------------------------------------------------------
+    */
 
-        /* =====================================================
-       SEARCH
-       ===================================================== */
+    if ($search !== '') {
+        $model->groupStart()
+            ->like('visitors.visitor_name', $search)
+            ->orLike('visitors.company', $search)
+            ->orLike('visitors.phone', $search)
+            ->orLike('visitors.email', $search)
+            ->orLike('visitors.note', $search)
+            ->orLike('u.name', $search)
+            ->orLike('u.email', $search)
+            ->orLike('c.chapter_name', $search)
+            ->groupEnd();
+    }
 
-        if ($search !== '') {
+    /*
+    |--------------------------------------------------------------------------
+    | STATUS FILTER
+    |--------------------------------------------------------------------------
+    */
 
-            $model->groupStart()
-                ->like('visitors.visitor_name', $search)
-                ->orLike('visitors.company', $search)
-                ->orLike('visitors.phone', $search)
-                ->orLike('visitors.email', $search)
-                ->orLike('visitors.note', $search)
-                ->orLike('u.name', $search)
-                ->orLike('u.email', $search)
-                ->orLike('c.chapter_name', $search)
-                ->groupEnd();
+    if ($status !== '') {
+        $model->where('visitors.status', $status);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DATE FILTER
+    |--------------------------------------------------------------------------
+    */
+
+    if ($date !== '') {
+        $formattedDate = '';
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+            $formattedDate = $date;
+        } elseif (preg_match('/^\d{2}-\d{2}-\d{4}$/', $date)) {
+            $parts = explode('-', $date);
+
+            $formattedDate = $parts[2] . '-'
+                . $parts[1] . '-'
+                . $parts[0];
         }
 
-
-        /* =====================================================
-       STATUS
-       ===================================================== */
-
-        if ($status !== '') {
-
-            $model->where(
-                'visitors.status',
-                $status
+        if ($formattedDate !== '') {
+            $dateObject = \DateTime::createFromFormat(
+                '!Y-m-d',
+                $formattedDate
             );
-        }
 
-
-        /* =====================================================
-       DATE
-       ===================================================== */
-
-        if ($date !== '') {
-
-            /*
-         * If date input is dd-mm-yyyy
-         * convert it to yyyy-mm-dd
-         */
-
-            $dateParts = explode('-', $date);
-
-            if (count($dateParts) === 3) {
-
-                $formattedDate =
-                    $dateParts[2] . '-' .
-                    $dateParts[1] . '-' .
-                    $dateParts[0];
-
+            if (
+                $dateObject &&
+                $dateObject->format('Y-m-d') === $formattedDate
+            ) {
                 $model->where(
                     'visitors.date_visited',
                     $formattedDate
                 );
             }
         }
+    }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ROLE FILTER
+    |--------------------------------------------------------------------------
+    */
 
-        /* =====================================================
-       ROLE BASED FILTER
-       ===================================================== */
+    if ($role !== 'president') {
+        $model->where('visitors.user_code', $userCode);
+    }
 
-        if ($role === 'president') {
+    /*
+    |--------------------------------------------------------------------------
+    | COUNT FILTERED RECORDS
+    |--------------------------------------------------------------------------
+    */
 
-            /*
-         * PRESIDENT
-         *
-         * Do NOT filter by user_code.
-         *
-         * President can see all visitor records.
-         */
-        } else {
+    $total = (int) $model->countAllResults(false);
 
-            /*
-         * MEMBER
-         *
-         * Only visitors added by the logged-in member.
-         */
+    $totalPages = max(
+        1,
+        (int) ceil($total / $perPage)
+    );
 
-            $model->where(
-                'visitors.user_code',
-                $user_code
-            );
-        }
+    $page = min($page, $totalPages);
+    $offset = ($page - 1) * $perPage;
 
+    /*
+    |--------------------------------------------------------------------------
+    | FETCH PAGINATED VISITORS
+    |--------------------------------------------------------------------------
+    */
 
-        /* =====================================================
-       ORDER
-       ===================================================== */
+    $model->orderBy('visitors.visitors_id', 'DESC');
 
-        $model->orderBy(
-            'visitors.visitors_id',
-            'DESC'
-        );
+    $visitors = $model->findAll($perPage, $offset);
 
+    /*
+    |--------------------------------------------------------------------------
+    | BUILD TABLE ROWS
+    |--------------------------------------------------------------------------
+    */
 
-        /* =====================================================
-       GET DATA
-       ===================================================== */
+    $output = '';
 
-        $users = $model->findAll();
+    if (!empty($visitors)) {
+        $i = $offset + 1;
 
-
-        /* =====================================================
-       NO DATA
-       ===================================================== */
-
-        if (empty($users)) {
-
-            return '
-            <div class="alert alert-warning text-center">
-                No Visitor Found
-            </div>
-        ';
-        }
-
-
-        /* =====================================================
-       BUILD HTML
-       ===================================================== */
-
-        $output = '';
-
-        $i = 1;
-
-        foreach ($users as $row) {
-
+        foreach ($visitors as $row) {
             $output .= view(
                 'include/member/card/visitor_card',
                 [
@@ -1505,10 +1508,34 @@ class Visitor extends BaseController
                 ]
             );
         }
-
-
-        return $output;
+    } else {
+        $output = '
+            <tr>
+                <td colspan="8" class="text-center p-4">
+                    <i class="fa fa-users-slash me-2"></i>
+                    No Visitors Found
+                </td>
+            </tr>
+        ';
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | JSON RESPONSE
+    |--------------------------------------------------------------------------
+    */
+
+    return $this->response->setJSON([
+        'success'    => true,
+        'html'       => $output,
+        'total'      => $total,
+        'page'       => $page,
+        'perPage'    => $perPage,
+        'totalPages' => $totalPages,
+        'from'       => $total > 0 ? $offset + 1 : 0,
+        'to'         => min($offset + $perPage, $total)
+    ]);
+}
 
 
 
