@@ -98,23 +98,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 child: Text(user.name, maxLines: 1, overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700)),
                               ),
-                              const SizedBox(width: 8),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF59E0B).withValues(alpha: 0.25),
-                                  border: Border.all(color: const Color(0xFFF59E0B)),
-                                  borderRadius: BorderRadius.circular(20),
+                              if (user.memberType.isNotEmpty || user.memberRole.isNotEmpty) ...[
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFF59E0B).withValues(alpha: 0.25),
+                                    border: Border.all(color: const Color(0xFFF59E0B)),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 12),
+                                      const SizedBox(width: 3),
+                                      Text(
+                                        user.memberType.isNotEmpty
+                                            ? user.memberType
+                                            : (user.memberRole.isNotEmpty ? user.memberRole : 'Member'),
+                                        style: const TextStyle(color: Color(0xFFFDE68A), fontSize: 10, fontWeight: FontWeight.w700),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 12),
-                                    SizedBox(width: 3),
-                                    Text('Gold Member', style: TextStyle(color: Color(0xFFFDE68A), fontSize: 10, fontWeight: FontWeight.w700)),
-                                  ],
-                                ),
-                              ),
+                              ],
                             ],
                           ),
                           if (user.chapterName != null)

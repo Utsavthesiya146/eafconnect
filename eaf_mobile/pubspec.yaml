@@ -2,7 +2,7 @@ name: eaf_connect
 description: "EAF Connect - Business Networking App"
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.13.3
@@ -48,6 +48,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/icon/
 
 flutter_launcher_icons:
   android: true

@@ -83,46 +83,41 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 76,
-                          height: 76,
+                          width: 82,
+                          height: 82,
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.12),
-                            shape: BoxShape.circle,
-                            border: Border.all(color: const Color(0xFFF59E0B), width: 2),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFFF59E0B).withValues(alpha: 0.3),
+                                color: Colors.black.withValues(alpha: 0.25),
                                 blurRadius: 18,
-                                spreadRadius: 2,
+                                offset: const Offset(0, 6),
                               ),
                             ],
                           ),
-                          child: const Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 40),
+                          child: Image.asset(
+                            'assets/icon/eaf_logo.png',
+                            fit: BoxFit.contain,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         const Text('EAF Connect',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 28,
+                              fontSize: 26,
                               fontWeight: FontWeight.w800,
                               letterSpacing: 0.5,
                             )),
-                        const SizedBox(height: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF59E0B).withValues(alpha: 0.2),
-                            border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.6)),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Text('Gold Member Portal • EAF Connect',
-                              style: TextStyle(
-                                color: Color(0xFFFDE68A),
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.3,
-                              )),
-                        ),
+                        const SizedBox(height: 4),
+                        Text('Member Portal Access',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.85),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.3,
+                            )),
                       ],
                     ),
                   ),
@@ -199,61 +194,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             loading: _loading,
                             icon: Icons.login_rounded,
                           ),
-                          const SizedBox(height: 12),
-
-                          // Biometric Quick Access button (EAF Connect)
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: OutlinedButton.icon(
-                              onPressed: () {
-                                HapticFeedback.mediumImpact();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Biometrics verified. Authenticating session...'),
-                                    backgroundColor: Color(0xFF0F3B68),
-                                    duration: Duration(seconds: 2),
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                                if (_emailCtrl.text.isNotEmpty && _passwordCtrl.text.isNotEmpty) {
-                                  _submit();
-                                }
-                              },
-                              icon: const Icon(Icons.fingerprint_rounded, color: Color(0xFFD97706), size: 22),
-                              label: const Text(
-                                'Fingerprint / Face ID Quick Access',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF0F3B68),
-                                ),
-                              ),
-                              style: OutlinedButton.styleFrom(
-                                side: BorderSide(color: const Color(0xFFD97706).withValues(alpha: 0.4), width: 1.5),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                backgroundColor: const Color(0xFFFFFBEB),
-                              ),
-                            ),
-                          ),
                           const SizedBox(height: 24),
 
-                          // Info text
-                          Container(
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                              color: AppTheme.primary.withValues(alpha: 0.06),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: AppTheme.primary.withValues(alpha: 0.15)),
-                            ),
-                            child: const Row(
+                          // Clean helper footer
+                          Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.info_outline, size: 16, color: AppTheme.primary),
-                                SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    'Use your EAF Connect member credentials. Contact your admin if you cannot log in.',
-                                    style: TextStyle(fontSize: 12, color: AppTheme.textSecondary),
+                                Icon(Icons.help_outline_rounded,
+                                    size: 15,
+                                    color: AppTheme.textSecondary.withValues(alpha: 0.7)),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'Need help? Contact your chapter administrator',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppTheme.textSecondary.withValues(alpha: 0.85),
                                   ),
                                 ),
                               ],

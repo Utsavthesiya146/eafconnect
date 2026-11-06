@@ -224,23 +224,30 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                         maxLines: 1, overflow: TextOverflow.ellipsis,
                         style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
                   ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF59E0B).withValues(alpha: 0.25),
-                      border: Border.all(color: const Color(0xFFF59E0B)),
-                      borderRadius: BorderRadius.circular(20),
+                  if (_user?.memberType.isNotEmpty == true || _user?.memberRole.isNotEmpty == true) ...[
+                    const SizedBox(width: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF59E0B).withValues(alpha: 0.25),
+                        border: Border.all(color: const Color(0xFFF59E0B)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 11),
+                          const SizedBox(width: 3),
+                          Text(
+                            _user!.memberType.isNotEmpty
+                                ? _user!.memberType
+                                : (_user!.memberRole.isNotEmpty ? _user!.memberRole : 'Member'),
+                            style: const TextStyle(color: Color(0xFFFDE68A), fontSize: 9, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 11),
-                        SizedBox(width: 3),
-                        Text('Gold Member', style: TextStyle(color: Color(0xFFFDE68A), fontSize: 9, fontWeight: FontWeight.w700)),
-                      ],
-                    ),
-                  ),
+                  ],
                 ],
               ),
               const SizedBox(height: 3),

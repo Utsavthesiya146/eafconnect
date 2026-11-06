@@ -67,17 +67,26 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Logo placeholder — replace with actual EAF logo asset
+                      // Official EAF Logo
                       Container(
-                        width: 110,
-                        height: 110,
+                        width: 104,
+                        height: 104,
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(28),
-                          border: Border.all(color: Colors.white24, width: 1.5),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.25),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                        child: const Icon(Icons.handshake_rounded,
-                            color: Colors.white, size: 58),
+                        child: Image.asset(
+                          'assets/icon/eaf_logo.png',
+                          fit: BoxFit.contain,
+                        ),
                       ),
                       const SizedBox(height: 28),
                       const Text('EAF Connect',
