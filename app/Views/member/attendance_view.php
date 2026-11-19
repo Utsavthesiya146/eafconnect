@@ -9,31 +9,36 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Chapter Attendance Report</title>
+    <title>Chapter Attendance Report | EAF Connect</title>
+    <link rel="shortcut icon" href="<?= base_url(); ?>images/logo5.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
 
     <style>
         :root {
-            --crm-primary: #0d6efd;
-            --crm-dark: #1f2937;
-            --crm-muted: #6b7280;
-            --crm-border: #e5e7eb;
-            --crm-bg: #f5f7fb;
+            --crm-primary: #101B35;
+            --crm-dark: #101B35;
+            --crm-muted: #64748B;
+            --crm-border: #E2E8F0;
+            --crm-bg: #FAF9F6;
+            --crm-gold: #C6A667;
 
-            --present: #16a34a;
-            --absent: #dc2626;
-            --medical: #d97706;
-            --late: #ea580c;
-            --substitute: #7c3aed;
+            --present: #0D9488;
+            --absent: #E11D48;
+            --medical: #D97706;
+            --late: #EA580C;
+            --substitute: #7C3AED;
         }
 
 

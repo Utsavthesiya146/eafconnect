@@ -355,7 +355,8 @@
         align-items: center;
         justify-content: space-between;
         padding: 18px 22px;
-        background: #091938;
+        background: linear-gradient(135deg, #101B35, #172B50);
+        border-bottom: 2px solid #C6A667;
         color: #fff;
         position: sticky;
         top: 0;
@@ -1426,7 +1427,8 @@
         gap: 15px;
         padding: 18px 22px;
         color: #fff;
-        background: #091938;
+        background: linear-gradient(135deg, #101B35, #172B50);
+        border-bottom: 2px solid #C6A667;
     }
 
     .referral-modal-header h5 {

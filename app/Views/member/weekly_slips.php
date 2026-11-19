@@ -4,15 +4,25 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Weekly Slips</title>
+    <title>Weekly Slips & Reports | EAF Connect</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?= base_url(); ?>images/logo5.png">
+
+    <!-- Google Fonts & Remix Icon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     <link href="<?= base_url(); ?>assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
     <script src="<?= base_url(); ?>assets2/js/layout.js"></script>
     <link href="<?= base_url(); ?>assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
 </head>
 
 <body data-sidebar="colored">
@@ -22,7 +32,7 @@
         <?php echo view('include/member/sidebar.php') ?>
         <div class="main-content">
             <div class="page-content">
-                <div class="page-content py-4">
+                <div class="container-fluid py-2">
 
                     <!-- =========================================================
      WEEKLY REPORT CARD

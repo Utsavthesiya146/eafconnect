@@ -476,6 +476,5 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   Future<void> _logout() async {
     await context.read<AuthProvider>().logout();
-    if (mounted) context.go('/login');
   }
 }

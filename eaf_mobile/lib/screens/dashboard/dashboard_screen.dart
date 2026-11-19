@@ -521,7 +521,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ));
     if (ok == true && mounted) {
       await context.read<AuthProvider>().logout();
-      if (mounted) context.go('/login');
     }
   }
 }

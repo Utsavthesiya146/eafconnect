@@ -471,8 +471,8 @@ $routes->match(['GET', 'POST'], 'member/search', 'Member\Dashboard::search');
 // These routes do NOT use PHP sessions — they use Bearer tokens.
 
 // Public API routes (no auth required)
-$routes->post('api/v1/login',  '\App\Controllers4\Api\Auth::login');
-$routes->post('api/v1/logout', '\App\Controllers4\Api\Auth::logout');
+$routes->post('api/v1/login',  '\App\Controllers\Api\Auth::login');
+$routes->post('api/v1/logout', '\App\Controllers\Api\Auth::logout');
 
 // OPTIONS preflight for CORS (mobile clients)
 $routes->options('api/v1/(:any)', static function () {
@@ -487,58 +487,58 @@ $routes->options('api/v1/(:any)', static function () {
 $routes->group('api/v1', ['filter' => 'apiAuth'], static function ($routes) {
 
     // Dashboard
-    $routes->get('dashboard', '\App\Controllers4\Api\Dashboard::index');
+    $routes->get('dashboard', '\App\Controllers\Api\Dashboard::index');
 
     // Profile
-    $routes->get('profile',                   '\App\Controllers4\Api\Profile::index');
-    $routes->post('profile/update',           '\App\Controllers4\Api\Profile::update');
-    $routes->post('profile/skills',           '\App\Controllers4\Api\Profile::updateSkills');
-    $routes->post('profile/business',         '\App\Controllers4\Api\Profile::updateBusiness');
-    $routes->post('profile/social',           '\App\Controllers4\Api\Profile::updateSocial');
-    $routes->post('profile/photo',            '\App\Controllers4\Api\Profile::uploadPhoto');
-    $routes->post('profile/password',         '\App\Controllers4\Api\Profile::changePassword');
-    $routes->get('profile/details/(:any)',    '\App\Controllers4\Api\Profile::details/$1');
+    $routes->get('profile',                   '\App\Controllers\Api\Profile::index');
+    $routes->post('profile/update',           '\App\Controllers\Api\Profile::update');
+    $routes->post('profile/skills',           '\App\Controllers\Api\Profile::updateSkills');
+    $routes->post('profile/business',         '\App\Controllers\Api\Profile::updateBusiness');
+    $routes->post('profile/social',           '\App\Controllers\Api\Profile::updateSocial');
+    $routes->post('profile/photo',            '\App\Controllers\Api\Profile::uploadPhoto');
+    $routes->post('profile/password',         '\App\Controllers\Api\Profile::changePassword');
+    $routes->get('profile/details/(:any)',    '\App\Controllers\Api\Profile::details/$1');
 
     // Referrals (Connects)
-    $routes->get('connect',         '\App\Controllers4\Api\Connect::index');
-    $routes->post('connect/add',    '\App\Controllers4\Api\Connect::add');
-    $routes->get('connect/members', '\App\Controllers4\Api\Connect::members');
+    $routes->get('connect',         '\App\Controllers\Api\Connect::index');
+    $routes->post('connect/add',    '\App\Controllers\Api\Connect::add');
+    $routes->get('connect/members', '\App\Controllers\Api\Connect::members');
 
     // MITB
-    $routes->get('mitb',        '\App\Controllers4\Api\Mitb::index');
-    $routes->post('mitb/add',   '\App\Controllers4\Api\Mitb::add');
+    $routes->get('mitb',        '\App\Controllers\Api\Mitb::index');
+    $routes->post('mitb/add',   '\App\Controllers\Api\Mitb::add');
 
     // F2F (One-to-One Meetings)
-    $routes->get('f2f',       '\App\Controllers4\Api\F2f::index');
-    $routes->post('f2f/add',  '\App\Controllers4\Api\F2f::add');
+    $routes->get('f2f',       '\App\Controllers\Api\F2f::index');
+    $routes->post('f2f/add',  '\App\Controllers\Api\F2f::add');
 
     // Meetings / Events
-    $routes->get('meetings', '\App\Controllers4\Api\Meetings::index');
+    $routes->get('meetings', '\App\Controllers\Api\Meetings::index');
 
     // Visitors
-    $routes->get('visitors',       '\App\Controllers4\Api\Visitors::index');
-    $routes->post('visitors/add',  '\App\Controllers4\Api\Visitors::add');
+    $routes->get('visitors',       '\App\Controllers\Api\Visitors::index');
+    $routes->post('visitors/add',  '\App\Controllers\Api\Visitors::add');
 
     // Invitations
-    $routes->get('invitations',       '\App\Controllers4\Api\Invitations::index');
-    $routes->post('invitations/add',  '\App\Controllers4\Api\Invitations::add');
+    $routes->get('invitations',       '\App\Controllers\Api\Invitations::index');
+    $routes->post('invitations/add',  '\App\Controllers\Api\Invitations::add');
 
     // Notifications
-    $routes->get('notifications',            '\App\Controllers4\Api\Notifications::index');
-    $routes->post('notifications/read',      '\App\Controllers4\Api\Notifications::markRead');
-    $routes->post('notifications/read_all',  '\App\Controllers4\Api\Notifications::markAllRead');
+    $routes->get('notifications',            '\App\Controllers\Api\Notifications::index');
+    $routes->post('notifications/read',      '\App\Controllers\Api\Notifications::markRead');
+    $routes->post('notifications/read_all',  '\App\Controllers\Api\Notifications::markAllRead');
 
     // Chapter
-    $routes->get('chapter', '\App\Controllers4\Api\Chapter::index');
+    $routes->get('chapter', '\App\Controllers\Api\Chapter::index');
 
     // Broadcasts
-    $routes->get('broadcasts', '\App\Controllers4\Api\Broadcast::index');
+    $routes->get('broadcasts', '\App\Controllers\Api\Broadcast::index');
 
     // Reports
-    $routes->get('reports/weekly',        '\App\Controllers4\Api\Reports::weekly');
-    $routes->get('reports/participation', '\App\Controllers4\Api\Reports::participation');
+    $routes->get('reports/weekly',        '\App\Controllers\Api\Reports::weekly');
+    $routes->get('reports/participation', '\App\Controllers\Api\Reports::participation');
 
     // Members search
-    $routes->get('members/search', '\App\Controllers4\Api\Members::search');
+    $routes->get('members/search', '\App\Controllers\Api\Members::search');
 });
 

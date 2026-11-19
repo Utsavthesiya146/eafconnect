@@ -17,7 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css'); ?>?v=3.0">
+    <link rel="stylesheet" href="<?= base_url('assets2/css/eaf-design-system.css'); ?>?v=10.0">
+    <link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css'); ?>?v=10.0">
     <style>
         .profile-banner {
             background: linear-gradient(135deg, #101B35 0%, #172B50 55%, #0B1325 100%);

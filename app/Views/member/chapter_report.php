@@ -3,13 +3,22 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Chapter Report</title>
+    <title>Chapter Report | EAF Connect</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?= base_url(); ?>images/logo5.png">
+
+    <!-- Google Fonts & Remix Icon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
     <link href="<?= base_url(); ?>assets2/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets2/css/icons.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets2/css/app.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
 
     <style>
         body {

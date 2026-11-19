@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'core/auth/auth_provider.dart';
 import 'core/theme/app_theme.dart';
@@ -29,29 +30,30 @@ void main() async {
   // Restore session from secure storage
   await authProvider.tryAutoLogin();
 
+  final router = createRouter(authProvider);
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: authProvider),
         Provider.value(value: apiClient),
       ],
-      child: const EafConnectApp(),
+      child: EafConnectApp(router: router),
     ),
   );
 }
 
 class EafConnectApp extends StatelessWidget {
-  const EafConnectApp({super.key});
+  final GoRouter router;
+  const EafConnectApp({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = context.watch<AuthProvider>();
-
     return MaterialApp.router(
       title: 'EAF Connect',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
-      routerConfig: createRouter(authProvider),
+      routerConfig: router,
     );
   }
 }

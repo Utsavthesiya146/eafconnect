@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
     <style>
      
 
@@ -311,8 +312,9 @@
         }
 
         .tab-btn.active {
-            background: #fac532;
-            color: #fff;
+            background: linear-gradient(135deg, #101B35 0%, #172B50 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(16, 27, 53, 0.15);
         }
 
         /* ===== CONTENT AREA ===== */
@@ -501,8 +503,8 @@
         .arrow-badge {
             width: 28px !important;
             height: 28px !important;
-            background: rgba(15, 59, 104, 0.06) !important;
-            color: #0F3B68 !important;
+            background: rgba(16, 27, 53, 0.08) !important;
+            color: #101B35 !important;
             border-radius: 50% !important;
             display: inline-flex !important;
             align-items: center !important;
@@ -512,8 +514,8 @@
         }
 
         .referral-card:hover .arrow-badge {
-            background: #0F3B68 !important;
-            color: #FDE68A !important;
+            background: #101B35 !important;
+            color: #C6A667 !important;
             transform: scale(1.08) !important;
         }
 
@@ -540,11 +542,11 @@
         }
 
         .border-navy {
-            border: 2px solid #0F3B68 !important;
+            border: 2px solid #101B35 !important;
         }
 
         .border-gold {
-            border: 2px solid #D97706 !important;
+            border: 2px solid #C6A667 !important;
         }
 
         .member-meta {

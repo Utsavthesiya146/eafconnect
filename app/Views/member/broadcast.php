@@ -4,28 +4,33 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>broadcast</title>
+    <title>Broadcast Announcements | EAF Connect</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="<?= base_url(); ?>images/logo5.png">
+
+    <!-- Google Fonts & Remix Icon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
     <link href="<?= base_url(); ?>assets2/libs/jsvectormap/jsvectormap.min.css" rel="stylesheet" type="text/css" />
     <script src="<?= base_url(); ?>assets2/js/layout.js"></script>
     <link href="<?= base_url(); ?>assets2/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets2/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
     <style>
-        /* =========================================================
-   THEME
-========================================================= */
-
         :root {
-            --theme-blue: #0a3d61;
-            --theme-blue-dark: #072f4a;
-            --theme-blue-light: #0d527f;
+            --theme-blue: #101B35;
+            --theme-blue-dark: #0B1325;
+            --theme-blue-light: #172B50;
 
-            --theme-gold: #fac532;
-            --theme-gold-light: #ffd85f;
+            --theme-gold: #C6A667;
+            --theme-gold-light: #E4D4AE;
 
             --white: #ffffff;
 

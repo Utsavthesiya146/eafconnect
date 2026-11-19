@@ -13,16 +13,14 @@
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=8.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
 
     <style>
-        /* =========================================================
-   REFERRAL CRM CARD UI
-   Theme: #c31a20
-========================================================= */
-
         :root {
-            --theme: #0d4769;
+            --theme: #101B35;
+            --theme-light: #F4F6F9;
+            --theme-gold: #C6A667;
             --theme-dark: #0d4769;
             --theme-light: #fff2f3;
             --theme-soft: #fff8f8;

@@ -25,10 +25,19 @@ GoRouter createRouter(AuthProvider authProvider) {
       final isLoading  = authProvider.isLoading;
       final path       = state.uri.path;
 
-      if (isLoading && path == '/splash') return null;
-      if (path == '/splash') return null;
-      if (!isLoggedIn && path != '/login') return '/login';
-      if (isLoggedIn  && path == '/login') return '/dashboard';
+      if (path == '/splash') {
+        if (isLoading) return null;
+        return isLoggedIn ? '/dashboard' : '/login';
+      }
+
+      if (!isLoggedIn && path != '/login') {
+        return '/login';
+      }
+
+      if (isLoggedIn && path == '/login') {
+        return '/dashboard';
+      }
+
       return null;
     },
     routes: [

@@ -124,9 +124,8 @@
     .f2f-modal-header {
         align-items: flex-start;
         padding: 20px 22px;
-        color: #fff;
-        background: linear-gradient(120deg, #12396a, #1b5799);
-        border: 0;
+        background: linear-gradient(135deg, #101B35, #172B50);
+        border-bottom: 2px solid #C6A667;
     }
 
     .f2f-modal-header h5 {
@@ -355,8 +354,10 @@
     }
 
     .f2f-modal-footer .btn-primary {
-        background: #1b4e8f;
-        border-color: #1b4e8f;
+        background: linear-gradient(135deg, #101B35, #172B50);
+        border: 1px solid rgba(198, 166, 103, 0.35);
+        color: #FFFFFF;
+        font-weight: 700;
     }
 
     #f2fMemberPicker[hidden],

@@ -18,8 +18,8 @@
         <div class="modal-content" style="border-radius:12px;border:none;box-shadow:0 4px 12px rgba(0,0,0,.1);font-size:13px;">
             <form id="addNewmitbData" enctype="multipart/form-data">
                 <!-- HEADER -->
-                <div class="modal-header" style="background:#1b4e8f;color:#fff;">
-                    <h6 class="mb-0" style="color:#ffffff;">Reported Closed MITB 💸 </h6>
+                <div class="modal-header" style="background: linear-gradient(135deg, #101B35, #172B50); color:#fff; border-bottom: 2px solid #C6A667;">
+                    <h6 class="mb-0 fw-bold" style="color:#ffffff; font-family:'Outfit', sans-serif;">Reported Closed MITB 💸 </h6>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <!-- BODY -->
@@ -70,7 +70,7 @@
                 <!-- FOOTER -->
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sm text-white" style="background:#1b4e8f;">Add</button>
+                    <button type="submit" class="btn btn-sm text-white" style="background: linear-gradient(135deg, #101B35, #172B50); border: 1px solid rgba(198, 166, 103, 0.35); font-weight:700;">Add</button>
                 </div>
             </form>
         </div>

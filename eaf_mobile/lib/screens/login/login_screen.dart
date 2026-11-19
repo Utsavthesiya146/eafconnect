@@ -63,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
+        backgroundColor: AppTheme.primaryDark,
         body: Container(
           height: size.height,
           decoration: const BoxDecoration(

@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Master UI/UX Revamp Stylesheet (Phase 1) -->
-    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=9.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
 
     <style>
         /* Legacy backward compatibility helpers */
@@ -59,8 +59,9 @@
         .chapter-heading-icon {
             width: 44px;
             height: 44px;
-            background: rgba(15, 59, 104, 0.08);
-            color: #0F3B68;
+            background: rgba(198, 166, 103, 0.14);
+            color: #C6A667;
+            border: 1px solid rgba(198, 166, 103, 0.25);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -72,7 +73,8 @@
             margin: 0;
             font-size: 17px;
             font-weight: 700;
-            color: #0F3B68;
+            color: #101B35;
+            font-family: 'Outfit', sans-serif !important;
         }
 
         .chapter-heading span {
@@ -201,8 +203,8 @@
 
         .eaf-report-tile:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(15, 59, 104, 0.08);
-            border-color: #0F3B68;
+            box-shadow: 0 4px 14px rgba(16, 27, 53, 0.08);
+            border-color: #172B50;
         }
 
         .eaf-report-tile-left {
@@ -255,7 +257,8 @@
             margin: 0;
             font-size: 15px;
             font-weight: 700;
-            color: #0F3B68;
+            color: #101B35;
+            font-family: 'Outfit', sans-serif !important;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -381,7 +384,7 @@
 
         .ads-carousel .carousel-control-prev:hover,
         .ads-carousel .carousel-control-next:hover {
-            background: #0F3B68;
+            background: #101B35;
             opacity: 1;
             transform: translateY(-50%) scale(1.08);
         }
@@ -752,8 +755,10 @@
                                     <div class="kvv-next-meeting-badge">Next Meeting</div>
 
 
-                                    <div class="card meeting-details-card p-3">
-                                        <h4 class="mb-3">Upcoming Meeting Details</h4>
+                                    <div class="meeting-details-card mt-3">
+                                        <h5 class="mb-3 fw-bold" style="font-family:'Outfit', sans-serif; font-size:16px; color:#101B35;">
+                                            <i class="ri-calendar-check-line text-primary me-2"></i>Upcoming Meeting Details
+                                        </h5>
 
                                         <?php if (!empty($events)): ?>
 
@@ -1228,7 +1233,7 @@
                                             <span class="eaf-chart-metric-title">Business Given</span>
                                             <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill eaf-chart-metric-badge">↗ Outbound</span>
                                         </div>
-                                        <div class="eaf-chart-metric-value" style="color:#0F3B68;">
+                                        <div class="eaf-chart-metric-value" style="color:#101B35;">
                                             ₹ <?= $formatInr($totalMITBGiven ?? 0); ?>
                                         </div>
                                     </div>
@@ -1468,14 +1473,14 @@
                                 {
                                     label: 'Business Given (₹)',
                                     data: givenData.length ? givenData : [0, 0, 0, 0],
-                                    borderColor: '#0F3B68',
+                                    borderColor: '#172B50',
                                     backgroundColor: gradientGiven,
                                     fill: true,
                                     tension: 0.45,
                                     borderWidth: 2.5,
                                     pointRadius: 3,
                                     pointHoverRadius: 6,
-                                    pointBackgroundColor: '#0F3B68'
+                                    pointBackgroundColor: '#172B50'
                                 }
                             ]
                         },

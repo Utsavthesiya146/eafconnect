@@ -13,6 +13,12 @@
     <link href="<?= base_url(); ?>assets2/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>assets2/css/eaf-design-system.css?v=10.0" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets2/css/eaf-revamp.css?v=10.0" rel="stylesheet" type="text/css" />
     <style>
         /* ===============================
    MEMBER CARD - THEME STYLE
@@ -27,7 +33,7 @@
             transition: all .3s ease;
             height: 100%;
             position: relative;
-            border-top: 4px solid #114466;
+            border-top: 4px solid #C6A667;
         }
 
         .member-card:hover {
@@ -42,20 +48,21 @@
             border-radius: 14px;
             object-fit: cover;
             margin-bottom: 10px;
-            border: 3px solid #f9b309;
+            border: 3px solid #C6A667;
         }
 
         /* ===== NAME ===== */
         .member-name {
             font-weight: 700;
-            color: #114466;
+            color: #101B35;
+            font-family: 'Outfit', sans-serif !important;
             margin-bottom: 6px;
         }
 
         /* ===== CHAPTER BADGE ===== */
         .chapter-badge {
-            background: rgba(249, 179, 9, .15);
-            color: #114466;
+            background: rgba(198, 166, 103, 0.15);
+            color: #101B35;
             padding: 5px 14px;
             border-radius: 20px;
             font-size: 12px;
@@ -103,12 +110,12 @@
 
         .stat-box strong {
             font-size: 15px;
-            color: #114466;
+            color: #101B35;
         }
 
         /* ===== CONTACT ===== */
         .member-contact {
-            color: #114466;
+            color: #101B35;
             font-weight: 600;
             font-size: 14px;
             margin-top: 10px;
@@ -129,7 +136,7 @@
         }
 
         .member-actions .btn-warning {
-            background: #114466;
+            background: #172B50;
             border: none;
             color: #fff;
         }
@@ -141,7 +148,7 @@
 
         /* ===== HOVER GLOW ===== */
         .member-card:hover .member-name {
-            color: #f9b309;
+            color: #C6A667;
         }
     </style>
 </head>

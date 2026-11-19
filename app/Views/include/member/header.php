@@ -46,8 +46,8 @@ if ($headerUserCode) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
-<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-design-system.css') ?>?v=7.0">
-<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css') ?>?v=9.0">
+<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-design-system.css') ?>?v=10.0">
+<link rel="stylesheet" href="<?= base_url('assets2/css/eaf-revamp.css') ?>?v=10.0">
 
 <header id="page-topbar">
     <div class="navbar-header">
