@@ -65,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         backgroundColor: AppTheme.primaryDark,
         body: Container(
-          height: size.height,
+          width: double.infinity,
+          height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           child: SafeArea(
             child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               child: Column(
                 children: [
                   // ── Header ──────────────────────────────────

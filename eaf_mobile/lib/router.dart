@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'core/auth/auth_provider.dart';
+import 'core/theme/app_theme.dart';
 import 'screens/splash/splash_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/dashboard/dashboard_screen.dart';
@@ -16,36 +17,48 @@ import 'screens/broadcast/broadcast_screen.dart';
 import 'screens/invitations/invitations_screen.dart';
 import 'screens/reports/reports_screen.dart';
 
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
+
 GoRouter createRouter(AuthProvider authProvider) {
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation: '/splash',
     refreshListenable: authProvider,
     redirect: (context, state) {
       final isLoggedIn = authProvider.isLoggedIn;
-      final isLoading  = authProvider.isLoading;
-      final path       = state.uri.path;
+      final matched    = state.matchedLocation;
 
-      if (path == '/splash') {
-        if (isLoading) return null;
-        return isLoggedIn ? '/dashboard' : '/login';
+      // Allow splash screen to display its animation
+      if (matched == '/splash') return null;
+
+      // If not logged in and not already on login, redirect to login
+      if (!isLoggedIn) {
+        return matched == '/login' ? null : '/login';
       }
 
-      if (!isLoggedIn && path != '/login') {
-        return '/login';
-      }
-
-      if (isLoggedIn && path == '/login') {
+      // If logged in and on login, redirect to dashboard
+      if (isLoggedIn && matched == '/login') {
         return '/dashboard';
       }
 
       return null;
     },
     routes: [
-      GoRoute(path: '/splash', builder: (_, s) => const SplashScreen()),
-      GoRoute(path: '/login',  builder: (_, s) => const LoginScreen()),
+      GoRoute(
+        path: '/splash',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (_, s) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/login',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (_, s) => const LoginScreen(),
+      ),
 
       // All authenticated screens use the bottom nav shell
       ShellRoute(
+        navigatorKey: shellNavigatorKey,
         builder: (context, state, child) => _AppShell(state: state, child: child),
         routes: [
           GoRoute(path: '/dashboard',     builder: (_, s) => const DashboardScreen()),
@@ -89,10 +102,11 @@ class _AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentPath = state.uri.path;
+    final currentPath = state.matchedLocation;
     final idx = _selectedIndex(currentPath);
 
     return Scaffold(
+      backgroundColor: AppTheme.background,
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: idx,

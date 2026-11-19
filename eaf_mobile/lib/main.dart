@@ -53,6 +53,7 @@ class EafConnectApp extends StatelessWidget {
       title: 'EAF Connect',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
+      color: AppTheme.primaryDark,
       routerConfig: router,
     );
   }

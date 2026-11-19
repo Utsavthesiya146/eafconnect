@@ -475,6 +475,33 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   }
 
   Future<void> _logout() async {
-    await context.read<AuthProvider>().logout();
+    final ok = await showDialog<bool>(
+      context: context,
+      useRootNavigator: true,
+      builder: (dialogCtx) => AlertDialog(
+        title: const Text('Logout'),
+        content: const Text('Are you sure you want to logout?'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogCtx).pop(false),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(dialogCtx).pop(true),
+            style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
+            child: const Text('Logout'),
+          ),
+        ],
+      ),
+    );
+    if (ok == true && mounted) {
+      await Future.delayed(const Duration(milliseconds: 150));
+      if (!mounted) return;
+      await context.read<AuthProvider>().logout();
+      if (mounted) {
+        context.go('/login');
+      }
+    }
   }
 }
