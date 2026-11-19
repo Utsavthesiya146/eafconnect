@@ -113,9 +113,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       const Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 12),
                                       const SizedBox(width: 3),
                                       Text(
-                                        user.memberType.isNotEmpty
+                                        (user.memberType.isNotEmpty && !user.memberType.toLowerCase().contains('gold'))
                                             ? user.memberType
-                                            : (user.memberRole.isNotEmpty ? user.memberRole : 'Member'),
+                                            : (user.memberRole.isNotEmpty ? user.memberRole : 'Active Member'),
                                         style: const TextStyle(color: Color(0xFFFDE68A), fontSize: 10, fontWeight: FontWeight.w700),
                                       ),
                                     ],

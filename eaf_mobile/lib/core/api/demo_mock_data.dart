@@ -17,7 +17,7 @@ class DemoMockData {
       'phone': '9341873532',
       'role': 'member',
       'member_role': 'President',
-      'member_type': 'Gold Member',
+      'member_type': 'Active Member',
       'status': '1',
       'profile_photo': 'empty.png',
       'gender': 'Male',

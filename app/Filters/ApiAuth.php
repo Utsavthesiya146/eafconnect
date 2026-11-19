@@ -13,56 +13,63 @@ use App\Models\ApiTokenModel;
  * Validates Bearer tokens for mobile API requests.
  * Attaches the authenticated user object to the request
  * as a custom property for controllers to access.
- *
- * Usage in Routes.php:
- *   $routes->group('api/v1', ['filter' => 'apiAuth'], function($routes) { ... });
  */
 class ApiAuth implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $authHeader = $request->getHeaderLine('Authorization');
+        try {
+            $authHeader = $request->getHeaderLine('Authorization');
 
-        // Expect: "Bearer <token>"
-        if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+            // Expect: "Bearer <token>"
+            if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+                return service('response')
+                    ->setStatusCode(401)
+                    ->setJSON([
+                        'status'  => 'error',
+                        'message' => 'Missing or invalid Authorization header',
+                        'code'    => 401,
+                    ]);
+            }
+
+            $token = substr($authHeader, 7); // strip "Bearer "
+
+            $tokenModel = new ApiTokenModel();
+            $user       = $tokenModel->validateToken(trim($token));
+
+            if (!$user) {
+                return service('response')
+                    ->setStatusCode(401)
+                    ->setJSON([
+                        'status'  => 'error',
+                        'message' => 'Token expired or invalid. Please login again.',
+                        'code'    => 401,
+                    ]);
+            }
+
+            // Check user active status
+            if (isset($user->status) && $user->status != '1') {
+                return service('response')
+                    ->setStatusCode(403)
+                    ->setJSON([
+                        'status'  => 'error',
+                        'message' => 'Account is not active.',
+                        'code'    => 403,
+                    ]);
+            }
+
+            // Attach authenticated user to request globals so controllers can read it
+            \Config\Services::request()->setGlobal('auth_user', $user);
+        } catch (\Throwable $e) {
+            log_message('error', 'ApiAuth Filter Exception: ' . $e->getMessage());
             return service('response')
                 ->setStatusCode(401)
                 ->setJSON([
                     'status'  => 'error',
-                    'message' => 'Missing or invalid Authorization header',
+                    'message' => 'Authentication failed. Please login again.',
                     'code'    => 401,
                 ]);
         }
-
-        $token = substr($authHeader, 7); // strip "Bearer "
-
-        $tokenModel = new ApiTokenModel();
-        $user       = $tokenModel->validateToken(trim($token));
-
-        if (!$user) {
-            return service('response')
-                ->setStatusCode(401)
-                ->setJSON([
-                    'status'  => 'error',
-                    'message' => 'Token expired or invalid. Please login again.',
-                    'code'    => 401,
-                ]);
-        }
-
-        // Check user active status
-        if ($user->status != '1') {
-            return service('response')
-                ->setStatusCode(403)
-                ->setJSON([
-                    'status'  => 'error',
-                    'message' => 'Account is not active.',
-                    'code'    => 403,
-                ]);
-        }
-
-        // Attach authenticated user to request globals so controllers can read it
-        // We use a singleton pattern via a global helper-style approach
-        \Config\Services::request()->setGlobal('auth_user', $user);
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

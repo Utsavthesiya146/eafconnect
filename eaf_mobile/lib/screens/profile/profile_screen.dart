@@ -239,9 +239,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                           const Icon(Icons.workspace_premium_rounded, color: Color(0xFFFDE68A), size: 11),
                           const SizedBox(width: 3),
                           Text(
-                            _user!.memberType.isNotEmpty
+                            (_user!.memberType.isNotEmpty && !_user!.memberType.toLowerCase().contains('gold'))
                                 ? _user!.memberType
-                                : (_user!.memberRole.isNotEmpty ? _user!.memberRole : 'Member'),
+                                : (_user!.memberRole.isNotEmpty ? _user!.memberRole : 'Active Member'),
                             style: const TextStyle(color: Color(0xFFFDE68A), fontSize: 9, fontWeight: FontWeight.w700),
                           ),
                         ],

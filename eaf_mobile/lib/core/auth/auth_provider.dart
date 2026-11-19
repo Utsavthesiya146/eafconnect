@@ -64,6 +64,11 @@ class AuthProvider extends ChangeNotifier {
         _user   = UserModel.fromJson(json);
         _status = AuthStatus.authenticated;
         apiClient.setCachedToken(token);
+
+        final isDemo = prefs.getBool('eaf_is_demo_mode') ?? false;
+        if (isDemo || token.startsWith('demo_') || token.contains('mock')) {
+          apiClient.setDemoMode(true);
+        }
       } else {
         _status = AuthStatus.unauthenticated;
       }
@@ -104,12 +109,16 @@ class AuthProvider extends ChangeNotifier {
         await prefs.setString(AppConfig.tokenKey,    token);
         await prefs.setString(AppConfig.userDataKey, jsonEncode(userJson));
 
+        final isDemo = apiClient.isDemoMode || token.startsWith('demo_') || token.contains('mock');
+        await prefs.setBool('eaf_is_demo_mode', isDemo);
+
         try {
           await _storage.write(key: AppConfig.tokenKey,    value: token);
           await _storage.write(key: AppConfig.userDataKey, value: jsonEncode(userJson));
         } catch (_) {}
 
         apiClient.setCachedToken(token);
+        if (isDemo) apiClient.setDemoMode(true);
 
         notifyListeners();
         return true;
@@ -135,6 +144,7 @@ class AuthProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(AppConfig.tokenKey);
     await prefs.remove(AppConfig.userDataKey);
+    await prefs.remove('eaf_is_demo_mode');
 
     try {
       await _storage.delete(key: AppConfig.tokenKey);
