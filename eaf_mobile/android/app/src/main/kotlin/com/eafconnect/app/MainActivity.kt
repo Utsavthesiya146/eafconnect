@@ -1,4 +1,4 @@
-package com.eafconnect.eaf_connect
+﻿package com.eafconnect.app
 
 import io.flutter.embedding.android.FlutterActivity
 
