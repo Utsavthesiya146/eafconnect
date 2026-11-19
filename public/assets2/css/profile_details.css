@@ -14,8 +14,7 @@
    .activity-breakdown h6 {
        margin-top: 0.25rem;
        font-weight: 600;
-       color: #0d4769;
-       /* highlight red */
+       color: #101B35;
    }
 
    /* ======= GIVEN / RECEIVED LIST ======= */
@@ -32,7 +31,7 @@
    .given-list .card:hover {
        transform: translateY(-2px);
        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-       border-left: 4px solid #f9b309;
+       border-left: 4px solid #C6A667;
        /* gold highlight on hover */
    }
 
@@ -61,11 +60,11 @@
    }
 
    .profile-banner {
-       background: linear-gradient(135deg, #0d4769, #0d4769);
+       background: linear-gradient(135deg, #101B35, #172B50);
        padding: 20px 25px;
-       /* ↓ reduced from 40px */
        border-radius: 16px;
-       box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+       box-shadow: 0 6px 18px rgba(16, 27, 53, .12);
+       border: 1px solid rgba(198, 166, 103, 0.3);
    }
 
    /* PROFILE IMAGE */

@@ -26,25 +26,25 @@
 ========================================================= */
 
     :root {
-        --meeting-primary: #174F70;
-        --meeting-primary-dark: #123F59;
-        --meeting-primary-light: #EAF3F7;
+        --meeting-primary: #101B35;
+        --meeting-primary-dark: #0B1325;
+        --meeting-primary-light: #F4F6F9;
 
-        --meeting-blue: #1769E0;
-        --meeting-yellow: #FFB900;
-        --meeting-yellow-dark: #F2A900;
+        --meeting-blue: #172B50;
+        --meeting-yellow: #C6A667;
+        --meeting-yellow-dark: #A88849;
 
-        --meeting-green: #15965E;
-        --meeting-green-dark: #107E4D;
+        --meeting-green: #0D9488;
+        --meeting-green-dark: #0F766E;
 
-        --meeting-red: #E53935;
+        --meeting-red: #E11D48;
 
-        --meeting-text: #26343D;
-        --meeting-muted: #68757F;
-        --meeting-light-text: #929DA5;
+        --meeting-text: #101B35;
+        --meeting-muted: #64748B;
+        --meeting-light-text: #94A3B8;
 
-        --meeting-border: #E2E8EC;
-        --meeting-bg: #F5F8FA;
+        --meeting-border: #E2E8F0;
+        --meeting-bg: #FAF9F6;
     }
 
 
@@ -54,12 +54,23 @@
 
     .meeting-card-grid {
         display: grid;
-
         grid-template-columns: repeat(3, minmax(0, 1fr));
-
         gap: 15px;
-
         align-items: stretch;
+    }
+
+    @media (max-width: 991px) {
+        .meeting-card-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 14px !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .meeting-card-grid {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+        }
     }
 
 
