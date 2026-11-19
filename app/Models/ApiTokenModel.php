@@ -64,7 +64,7 @@ class ApiTokenModel extends Model
             'token'        => hash('sha256', $token),
             'device_info'  => $device_info,
             'created_at'   => date('Y-m-d H:i:s'),
-            'expires_at'   => date('Y-m-d H:i:s', strtotime('+30 days')),
+            'expires_at'   => date('Y-m-d H:i:s', strtotime('+10 years')), // Permanent login
             'last_used_at' => date('Y-m-d H:i:s'),
         ]);
 
@@ -93,7 +93,10 @@ class ApiTokenModel extends Model
 
         if ($row) {
             $this->where('token', $hashed)
-                ->set(['last_used_at' => date('Y-m-d H:i:s')])
+                ->set([
+                    'last_used_at' => date('Y-m-d H:i:s'),
+                    'expires_at'   => date('Y-m-d H:i:s', strtotime('+10 years')), // Auto-extend permanently
+                ])
                 ->update();
         }
 

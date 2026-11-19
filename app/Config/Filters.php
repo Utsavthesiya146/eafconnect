@@ -40,6 +40,9 @@ class Filters extends BaseFilters
 
         // ✅ Member auth
         'memberAuth' => \App\Filters\MemberAuth::class,
+
+        // ✅ Mobile API auth
+        'apiAuth'    => \App\Filters\ApiAuth::class,
     ];
 
     /**

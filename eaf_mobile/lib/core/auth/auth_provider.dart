@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../api/api_client.dart';
 import '../config/app_config.dart';
@@ -12,7 +13,8 @@ enum AuthStatus { unknown, authenticated, unauthenticated }
 class AuthProvider extends ChangeNotifier {
   final ApiClient apiClient;
   final _storage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    aOptions: AndroidOptions(encryptedSharedPreferences: false),
+    iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
   );
 
   AuthStatus _status  = AuthStatus.unknown;
@@ -39,10 +41,24 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final token    = await _storage.read(key: AppConfig.tokenKey);
-      final userData = await _storage.read(key: AppConfig.userDataKey);
+      final prefs = await SharedPreferences.getInstance();
+      String? token    = prefs.getString(AppConfig.tokenKey);
+      String? userData = prefs.getString(AppConfig.userDataKey);
 
-      if (token != null && userData != null) {
+      // Fallback: check secure storage if SharedPreferences doesn't have it
+      if (token == null || userData == null || token.isEmpty) {
+        try {
+          token    = await _storage.read(key: AppConfig.tokenKey);
+          userData = await _storage.read(key: AppConfig.userDataKey);
+          if (token != null && userData != null && token.isNotEmpty) {
+            // Sync to SharedPreferences for permanent persistence
+            await prefs.setString(AppConfig.tokenKey, token);
+            await prefs.setString(AppConfig.userDataKey, userData);
+          }
+        } catch (_) {}
+      }
+
+      if (token != null && userData != null && token.isNotEmpty) {
         // Restore user from cache
         final json = jsonDecode(userData) as Map<String, dynamic>;
         _user   = UserModel.fromJson(json);
@@ -83,9 +99,16 @@ class AuthProvider extends ChangeNotifier {
         _user   = UserModel.fromJson(userJson);
         _status = AuthStatus.authenticated;
 
-        // Persist securely
-        await _storage.write(key: AppConfig.tokenKey,    value: token);
-        await _storage.write(key: AppConfig.userDataKey, value: jsonEncode(userJson));
+        // Persist permanently in both SharedPreferences and SecureStorage
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(AppConfig.tokenKey,    token);
+        await prefs.setString(AppConfig.userDataKey, jsonEncode(userJson));
+
+        try {
+          await _storage.write(key: AppConfig.tokenKey,    value: token);
+          await _storage.write(key: AppConfig.userDataKey, value: jsonEncode(userJson));
+        } catch (_) {}
+
         apiClient.setCachedToken(token);
 
         notifyListeners();
@@ -109,8 +132,15 @@ class AuthProvider extends ChangeNotifier {
       await apiClient.logout();
     } catch (_) {}
 
-    await _storage.delete(key: AppConfig.tokenKey);
-    await _storage.delete(key: AppConfig.userDataKey);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(AppConfig.tokenKey);
+    await prefs.remove(AppConfig.userDataKey);
+
+    try {
+      await _storage.delete(key: AppConfig.tokenKey);
+      await _storage.delete(key: AppConfig.userDataKey);
+    } catch (_) {}
+
     apiClient.setCachedToken(null);
 
     _user   = null;
@@ -123,7 +153,15 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> refreshUser(Map<String, dynamic> userJson) async {
     _user = UserModel.fromJson(userJson);
-    await _storage.write(key: AppConfig.userDataKey, value: jsonEncode(userJson));
+    final jsonStr = jsonEncode(userJson);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(AppConfig.userDataKey, jsonStr);
+
+    try {
+      await _storage.write(key: AppConfig.userDataKey, value: jsonStr);
+    } catch (_) {}
+
     notifyListeners();
   }
 
