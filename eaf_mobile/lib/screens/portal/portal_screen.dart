@@ -13,7 +13,7 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 /// • Sleek top loading progress indicator
 /// • Android back button web history navigation
 /// • Deep link routing for WhatsApp, phone calls (tel:), and emails (mailto:)
-/// • Native bottom navigation bar with active tab sync
+/// • Full-screen responsive viewport respecting website's own bottom navigation
 /// • Clean native offline fallback screen
 class PortalScreen extends StatefulWidget {
   final String initialUrl;
@@ -32,26 +32,11 @@ class _PortalScreenState extends State<PortalScreen> {
   bool _isLoading = true;
   bool _hasError = false;
   String _errorMessage = '';
-  String _currentUrl = '';
-  int _currentTabIndex = 0;
   DateTime? _lastBackPress;
-
-  // Primary live portal tabs
-  static const String _dashboardUrl = 'https://eafconnect.com/member/dashboard';
-  static const String _connectsUrl  = 'https://eafconnect.com/member/connect';
-  static const String _mitbUrl      = 'https://eafconnect.com/member/mitb';
-  static const String _f2fUrl       = 'https://eafconnect.com/member/f2f';
-  static const String _profileUrl   = 'https://eafconnect.com/member/profile';
-
-  bool get _isMemberPortal {
-    final lower = _currentUrl.toLowerCase();
-    return lower.contains('/member/') && !lower.contains('login');
-  }
 
   @override
   void initState() {
     super.initState();
-    _currentUrl = widget.initialUrl;
     _initWebViewController();
   }
 
@@ -90,7 +75,6 @@ class _PortalScreenState extends State<PortalScreen> {
           onPageStarted: (String url) {
             if (mounted) {
               setState(() {
-                _currentUrl = url;
                 _isLoading = true;
                 _hasError = false;
               });
@@ -99,10 +83,8 @@ class _PortalScreenState extends State<PortalScreen> {
           onPageFinished: (String url) {
             if (mounted) {
               setState(() {
-                _currentUrl = url;
                 _isLoading = false;
               });
-              _syncCurrentTab(url);
             }
           },
           onWebResourceError: (WebResourceError error) {
@@ -139,35 +121,6 @@ class _PortalScreenState extends State<PortalScreen> {
       ..loadRequest(Uri.parse(widget.initialUrl));
 
     _controller = controller;
-  }
-
-  void _syncCurrentTab(String url) {
-    final lower = url.toLowerCase();
-    int newIndex = _currentTabIndex;
-
-    if (lower.contains('/member/dashboard')) {
-      newIndex = 0;
-    } else if (lower.contains('/member/connect')) {
-      newIndex = 1;
-    } else if (lower.contains('/member/mitb')) {
-      newIndex = 2;
-    } else if (lower.contains('/member/f2f') || lower.contains('/member/chapter_meetings')) {
-      newIndex = 3;
-    } else if (lower.contains('/member/profile')) {
-      newIndex = 4;
-    }
-
-    if (newIndex != _currentTabIndex && mounted) {
-      setState(() => _currentTabIndex = newIndex);
-    }
-  }
-
-  void _onTabTapped(int index) {
-    setState(() => _currentTabIndex = index);
-    const urls = [_dashboardUrl, _connectsUrl, _mitbUrl, _f2fUrl, _profileUrl];
-    if (index >= 0 && index < urls.length) {
-      _controller.loadRequest(Uri.parse(urls[index]));
-    }
   }
 
   Future<void> _handlePopScope(bool didPop, dynamic result) async {
@@ -210,7 +163,8 @@ class _PortalScreenState extends State<PortalScreen> {
         child: Scaffold(
           backgroundColor: const Color(0xFF101B35),
           body: SafeArea(
-            bottom: !_isMemberPortal,
+            top: true,
+            bottom: true,
             child: Column(
               children: [
                 // Top progress indicator
@@ -238,63 +192,7 @@ class _PortalScreenState extends State<PortalScreen> {
               ],
             ),
           ),
-
-          // Native Bottom Navigation Bar (active only when logged in on member pages)
-          bottomNavigationBar: _isMemberPortal ? _buildBottomNavBar() : null,
         ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNavBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF101B35),
-        border: Border(
-          top: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: const Offset(0, -3),
-          ),
-        ],
-      ),
-      child: NavigationBar(
-        selectedIndex: _currentTabIndex,
-        onDestinationSelected: _onTabTapped,
-        backgroundColor: const Color(0xFF101B35),
-        indicatorColor: const Color(0xFFC6A667).withValues(alpha: 0.2),
-        elevation: 0,
-        height: 64,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined, color: Colors.white70),
-            selectedIcon: Icon(Icons.dashboard_rounded, color: Color(0xFFC6A667)),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.handshake_outlined, color: Colors.white70),
-            selectedIcon: Icon(Icons.handshake_rounded, color: Color(0xFFC6A667)),
-            label: 'Connects',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.currency_rupee_outlined, color: Colors.white70),
-            selectedIcon: Icon(Icons.currency_rupee_rounded, color: Color(0xFFC6A667)),
-            label: 'MITB',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.people_alt_outlined, color: Colors.white70),
-            selectedIcon: Icon(Icons.people_alt_rounded, color: Color(0xFFC6A667)),
-            label: 'F2F',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline_rounded, color: Colors.white70),
-            selectedIcon: Icon(Icons.person_rounded, color: Color(0xFFC6A667)),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
@@ -367,4 +265,3 @@ class _PortalScreenState extends State<PortalScreen> {
     );
   }
 }
-
