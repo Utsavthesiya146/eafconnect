@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers4\Api;
+namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
@@ -74,10 +74,10 @@ class Auth extends BaseController
         $chapterRole = null;
         $chapterName = null;
 
-        if ($user->role === 'member') {
+        if (strtolower(trim((string)$user->role)) === 'member') {
             // Check active chapter membership
             $chapterMember = $db->table('chapter_members')
-                ->where('user_code', $user->user_code)
+                ->where('user_code', (string) $user->user_code)
                 ->where('members_status', '1')
                 ->get()
                 ->getRow();

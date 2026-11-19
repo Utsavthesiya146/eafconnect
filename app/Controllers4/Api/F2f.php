@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers4\Api;
+namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
@@ -16,35 +16,52 @@ class F2f extends BaseController
     public function index()
     {
         $authUser  = $this->request->getGlobal('auth_user');
-        $user_code = $authUser->user_code;
+        $user_code = (string) $authUser->user_code;
         $db        = \Config\Database::connect();
         $baseUrl   = rtrim(base_url(), '/');
 
-        $records = $db->query("
+        $qrySent = "
             SELECT o.*,
                    fu.name AS from_name, fu.email AS from_email,
-                   CASE WHEN fu.profile_photo != 'empty.png' AND fu.profile_photo != ''
+                   CASE WHEN fu.profile_photo != 'empty.png' AND fu.profile_photo != '' AND fu.profile_photo IS NOT NULL
                         THEN CONCAT(?, '/uploads/profile/', fu.profile_photo)
                         ELSE CONCAT(?, '/assets/img/empty.png') END AS from_photo,
                    tu.name AS to_name, tu.email AS to_email,
-                   CASE WHEN tu.profile_photo != 'empty.png' AND tu.profile_photo != ''
+                   CASE WHEN tu.profile_photo != 'empty.png' AND tu.profile_photo != '' AND tu.profile_photo IS NOT NULL
                         THEN CONCAT(?, '/uploads/profile/', tu.profile_photo)
                         ELSE CONCAT(?, '/assets/img/empty.png') END AS to_photo
             FROM one_to_ones o
             LEFT JOIN users fu ON fu.user_code = o.from_user
             LEFT JOIN users tu ON tu.user_code = o.to_user
-            WHERE o.from_user = ? OR o.to_user = ?
+            WHERE o.from_user = ?
             ORDER BY o.created_at DESC
-        ", [$baseUrl, $baseUrl, $baseUrl, $baseUrl, $user_code, $user_code])->getResultArray();
+        ";
 
-        $sent     = array_values(array_filter($records, fn($r) => $r['from_user'] === $user_code));
-        $received = array_values(array_filter($records, fn($r) => $r['to_user'] === $user_code));
+        $qryReceived = "
+            SELECT o.*,
+                   fu.name AS from_name, fu.email AS from_email,
+                   CASE WHEN fu.profile_photo != 'empty.png' AND fu.profile_photo != '' AND fu.profile_photo IS NOT NULL
+                        THEN CONCAT(?, '/uploads/profile/', fu.profile_photo)
+                        ELSE CONCAT(?, '/assets/img/empty.png') END AS from_photo,
+                   tu.name AS to_name, tu.email AS to_email,
+                   CASE WHEN tu.profile_photo != 'empty.png' AND tu.profile_photo != '' AND tu.profile_photo IS NOT NULL
+                        THEN CONCAT(?, '/uploads/profile/', tu.profile_photo)
+                        ELSE CONCAT(?, '/assets/img/empty.png') END AS to_photo
+            FROM one_to_ones o
+            LEFT JOIN users fu ON fu.user_code = o.from_user
+            LEFT JOIN users tu ON tu.user_code = o.to_user
+            WHERE o.to_user = ?
+            ORDER BY o.created_at DESC
+        ";
+
+        $sent     = $db->query($qrySent,     [$baseUrl, $baseUrl, $baseUrl, $baseUrl, $user_code])->getResultArray();
+        $received = $db->query($qryReceived, [$baseUrl, $baseUrl, $baseUrl, $baseUrl, $user_code])->getResultArray();
 
         return $this->response->setJSON([
             'status' => 'success',
             'data'   => [
-                'sent'           => $sent,
-                'received'       => $received,
+                'sent'           => array_values($sent),
+                'received'       => array_values($received),
                 'sent_count'     => count($sent),
                 'received_count' => count($received),
             ],
@@ -54,39 +71,39 @@ class F2f extends BaseController
     public function add()
     {
         $authUser  = $this->request->getGlobal('auth_user');
-        $user_code = $authUser->user_code;
+        $user_code = (string) $authUser->user_code;
 
-        $to_user    = trim((string) $this->request->getPost('to_user'));
+        $to_user      = trim((string) $this->request->getPost('to_user'));
         $meeting_date = trim((string) ($this->request->getPost('meeting_date') ?? ''));
-        $agenda     = trim((string) ($this->request->getPost('agenda') ?? ''));
-        $location   = trim((string) ($this->request->getPost('location') ?? ''));
-        $notes      = trim((string) ($this->request->getPost('notes') ?? ''));
+        $location     = trim((string) ($this->request->getPost('location') ?? ''));
+        $topics       = trim((string) ($this->request->getPost('topics') ?? ''));
 
-        if (empty($to_user)) {
+        if (empty($to_user) || empty($meeting_date)) {
             return $this->response->setStatusCode(422)->setJSON([
                 'status'  => 'error',
-                'message' => 'Recipient is required.',
+                'message' => 'Meeting partner and date are required.',
             ]);
         }
 
         $commonModel = new CommonModel();
         $f2f_code    = $commonModel->generateSerial('one_to_ones', 'f2f_code', 'F2F');
 
-        $result = $commonModel->insert_data('one_to_ones', [
+        $insert = [
             'f2f_code'     => $f2f_code,
             'from_user'    => $user_code,
             'to_user'      => $to_user,
             'meeting_date' => $meeting_date,
-            'agenda'       => $agenda,
             'location'     => $location,
-            'notes'        => $notes,
-            'status'       => '1',
+            'topics'       => $topics,
+            'status'       => 'scheduled',
             'created_at'   => date('Y-m-d H:i:s'),
-        ]);
+        ];
+
+        $result = $commonModel->insert_data('one_to_ones', $insert);
 
         return $this->response->setJSON([
             'status'  => $result ? 'success' : 'error',
-            'message' => $result ? 'F2F meeting recorded.' : 'Failed to record meeting.',
+            'message' => $result ? 'F2F meeting scheduled successfully.' : 'Failed to schedule F2F.',
         ]);
     }
 }

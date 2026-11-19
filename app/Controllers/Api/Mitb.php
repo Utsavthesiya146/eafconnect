@@ -16,30 +16,47 @@ class Mitb extends BaseController
     public function index()
     {
         $authUser  = $this->request->getGlobal('auth_user');
-        $user_code = $authUser->user_code;
+        $user_code = (string) $authUser->user_code;
         $db        = \Config\Database::connect();
 
         $baseUrl = rtrim(base_url(), '/');
 
-        $records = $db->query("
+        $qryGiven = "
             SELECT t.*,
                    fu.name AS from_name, fu.email AS from_email,
-                   CASE WHEN fu.profile_photo != 'empty.png' AND fu.profile_photo != ''
+                   CASE WHEN fu.profile_photo != 'empty.png' AND fu.profile_photo != '' AND fu.profile_photo IS NOT NULL
                         THEN CONCAT(?, '/uploads/profile/', fu.profile_photo)
                         ELSE CONCAT(?, '/assets/img/empty.png') END AS from_photo,
                    tu.name AS to_name, tu.email AS to_email,
-                   CASE WHEN tu.profile_photo != 'empty.png' AND tu.profile_photo != ''
+                   CASE WHEN tu.profile_photo != 'empty.png' AND tu.profile_photo != '' AND tu.profile_photo IS NOT NULL
                         THEN CONCAT(?, '/uploads/profile/', tu.profile_photo)
                         ELSE CONCAT(?, '/assets/img/empty.png') END AS to_photo
             FROM tyfcb t
             LEFT JOIN users fu ON fu.user_code = t.from_user
             LEFT JOIN users tu ON tu.user_code = t.to_user
-            WHERE t.from_user = ? OR t.to_user = ?
+            WHERE t.from_user = ?
             ORDER BY t.created_at DESC
-        ", [$baseUrl, $baseUrl, $baseUrl, $baseUrl, $user_code, $user_code])->getResultArray();
+        ";
 
-        $given    = array_filter($records, fn($r) => $r['from_user'] === $user_code);
-        $received = array_filter($records, fn($r) => $r['to_user'] === $user_code);
+        $qryReceived = "
+            SELECT t.*,
+                   fu.name AS from_name, fu.email AS from_email,
+                   CASE WHEN fu.profile_photo != 'empty.png' AND fu.profile_photo != '' AND fu.profile_photo IS NOT NULL
+                        THEN CONCAT(?, '/uploads/profile/', fu.profile_photo)
+                        ELSE CONCAT(?, '/assets/img/empty.png') END AS from_photo,
+                   tu.name AS to_name, tu.email AS to_email,
+                   CASE WHEN tu.profile_photo != 'empty.png' AND tu.profile_photo != '' AND tu.profile_photo IS NOT NULL
+                        THEN CONCAT(?, '/uploads/profile/', tu.profile_photo)
+                        ELSE CONCAT(?, '/assets/img/empty.png') END AS to_photo
+            FROM tyfcb t
+            LEFT JOIN users fu ON fu.user_code = t.from_user
+            LEFT JOIN users tu ON tu.user_code = t.to_user
+            WHERE t.to_user = ?
+            ORDER BY t.created_at DESC
+        ";
+
+        $given    = $db->query($qryGiven,    [$baseUrl, $baseUrl, $baseUrl, $baseUrl, $user_code])->getResultArray();
+        $received = $db->query($qryReceived, [$baseUrl, $baseUrl, $baseUrl, $baseUrl, $user_code])->getResultArray();
 
         $totalGiven    = array_sum(array_column(array_values($given), 'amount'));
         $totalReceived = array_sum(array_column(array_values($received), 'amount'));
@@ -58,12 +75,13 @@ class Mitb extends BaseController
     public function add()
     {
         $authUser  = $this->request->getGlobal('auth_user');
-        $user_code = $authUser->user_code;
+        $user_code = (string) $authUser->user_code;
 
         $to_user       = trim((string) $this->request->getPost('to_user'));
         $amount        = (float) ($this->request->getPost('amount') ?? 0);
         $business_type = trim((string) ($this->request->getPost('business_type') ?? ''));
-        $description   = trim((string) ($this->request->getPost('description') ?? ''));
+        $category      = trim((string) ($this->request->getPost('category') ?? ''));
+        $comments      = trim((string) ($this->request->getPost('comments') ?? $this->request->getPost('description') ?? ''));
 
         if (empty($to_user) || $amount <= 0) {
             return $this->response->setStatusCode(422)->setJSON([
@@ -73,22 +91,24 @@ class Mitb extends BaseController
         }
 
         $commonModel = new CommonModel();
-        $mitb_code   = $commonModel->generateSerial('tyfcb', 'mitb_code', 'MITB');
+        $mitb_code   = $commonModel->generateSerial('tyfcb', 'mitb_code', 'MB');
 
-        $result = $commonModel->insert_data('tyfcb', [
+        $insert = [
             'mitb_code'     => $mitb_code,
             'from_user'     => $user_code,
             'to_user'       => $to_user,
             'amount'        => $amount,
             'business_type' => $business_type,
-            'description'   => $description,
-            'status'        => '1',
+            'category'      => $category,
+            'comments'      => $comments,
             'created_at'    => date('Y-m-d H:i:s'),
-        ]);
+        ];
+
+        $result = $commonModel->insert_data('tyfcb', $insert);
 
         return $this->response->setJSON([
             'status'  => $result ? 'success' : 'error',
-            'message' => $result ? 'MITB record added.' : 'Failed to add MITB record.',
+            'message' => $result ? 'MITB record added successfully.' : 'Failed to add MITB record.',
         ]);
     }
 }

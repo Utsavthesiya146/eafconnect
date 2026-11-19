@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers4\Api;
+namespace App\Controllers\Api;
 
 use App\Controllers\BaseController;
 
@@ -28,7 +28,7 @@ class Notifications extends BaseController
             LIMIT 100
         ", [$user_code])->getResultArray();
 
-        $unread = count(array_filter($notifications, fn($n) => ($n['status'] ?? '1') === '1'));
+        $unread = count(array_filter($notifications, fn($n) => in_array(strtolower(trim((string)($n['status'] ?? ''))), ['unread', '1', ''])));
 
         return $this->response->setJSON([
             'status' => 'success',

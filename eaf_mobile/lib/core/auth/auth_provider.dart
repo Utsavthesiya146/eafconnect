@@ -65,9 +65,11 @@ class AuthProvider extends ChangeNotifier {
         _status = AuthStatus.authenticated;
         apiClient.setCachedToken(token);
 
-        final isDemo = prefs.getBool('eaf_is_demo_mode') ?? false;
-        if (isDemo || token.startsWith('demo_') || token.contains('mock')) {
+        if (token.startsWith('demo_') || token.contains('mock')) {
           apiClient.setDemoMode(true);
+        } else {
+          apiClient.setDemoMode(false);
+          await prefs.setBool('eaf_is_demo_mode', false);
         }
       } else {
         _status = AuthStatus.unauthenticated;
