@@ -39,9 +39,21 @@ jobs:
         working-directory: eaf_mobile
         run: flutter build apk --release
 
+      - name: 📦 Build Android App Bundle (Release AAB)
+        working-directory: eaf_mobile
+        run: flutter build appbundle --release
+
       - name: 💾 Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EAF_Connect_Android_APK
           path: eaf_mobile/build/app/outputs/flutter-apk/*.apk
           retention-days: 14
+
+      - name: 💾 Upload AAB Artifact (Google Play Bundle)
+        uses: actions/upload-artifact@v4
+        with:
+          name: EAF_Connect_Android_AAB
+          path: eaf_mobile/build/app/outputs/bundle/release/*.aab
+          retention-days: 14
+
