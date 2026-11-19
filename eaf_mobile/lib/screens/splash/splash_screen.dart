@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import '../../core/auth/auth_provider.dart';
 import '../../core/theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,14 +27,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _navigate() async {
-    await Future.delayed(const Duration(milliseconds: 2200));
+    await Future.delayed(const Duration(milliseconds: 2000));
     if (!mounted) return;
-    final auth = context.read<AuthProvider>();
-    if (auth.isLoggedIn) {
-      context.go('/dashboard');
-    } else {
-      context.go('/login');
-    }
+    context.go('/portal');
   }
 
   @override
