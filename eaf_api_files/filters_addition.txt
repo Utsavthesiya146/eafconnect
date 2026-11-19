@@ -1,2 +1,0 @@
-    // ✅ API token auth (for mobile app)
-    'apiAuth' => \App\Filters\ApiAuth::class,
